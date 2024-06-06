@@ -1,19 +1,26 @@
 <template>
   <div>
-    <div class="home-logo">
-      <h1 style="font-size: 13.5rem;">LOGO</h1>
-    </div>
-    <div class="dis-center dis-contentimg">
-      <div>
-        <img class="pad-img" src="~/assets/image/home1.png" />
-      </div>
-      <div>
-        <img class="pad-img" src="~/assets/image/home3.png" />
-      </div>
-      <div>
-        <img class="pad-img" src="~/assets/image/home2.png" />
-      </div>
-    </div>
+    <b-carousel
+      id="carousel-1"
+      style="width: 100%; height: 300px;"
+      controls
+      indicators
+      background="#ababab"
+    >
+      <b-carousel-slide
+        v-for="(slide, index) in slides"
+        :key="index"
+        :caption="slide.caption"
+        :text="slide.text"
+      >
+        <img
+          :src="slide.src"
+          class="d-block w-100"
+          alt="Slide image"
+          style="height: 300px; object-fit: cover;"
+        />
+      </b-carousel-slide>
+    </b-carousel>
   </div>
 </template>
 
@@ -21,21 +28,41 @@
 export default {
   data() {
     return {
-      data: null,
-    };
-  },
-  mounted() {
-    // this.fetchData();
-  },
-  methods: {
-    // async fetchData() {
-    //   try {
-    //     const response = await this.$axios.get('https://jsonplaceholder.typicode.com/posts/1');
-    //     this.data = response.data;
-    //   } catch (error) {
-    //     console.error('Error fetching data:', error);
-    //   }
-    // }
-  },
-};
+      slides: [
+        {
+          src: 'home1.png',
+          caption: 'First Slide',
+          text: 'This is the first slide'
+        },
+        {
+          src: 'home1.png',
+          caption: 'Second Slide',
+          text: 'This is the second slide'
+        },
+        {
+          src: 'home1.png',
+          caption: 'Third Slide',
+          text: 'This is the third slide'
+        }
+      ]
+    }
+  }
+}
 </script>
+
+<style>
+.carousel-indicators {
+  bottom: 10px;
+}
+
+.carousel-indicators li {
+  background-color: #fff;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.carousel-indicators .active {
+  background-color: #000;
+}
+</style>

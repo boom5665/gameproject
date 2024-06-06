@@ -1,12 +1,13 @@
-<!-- Please remove this file from your project -->
 <template>
-  <div class="box-sem" >
-    <div class="col-12 M-pading-none" ><Commarket /></div>
+  <div>
+    <div class="box-cotent">
+      <div class="W-default dis-col-center">
+        <Commarket />
+      </div>
+    </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "Commarket",
-};
-</script>
+
+
+

@@ -133,4 +133,37 @@
     /* ป้องกันไม่ให้ไอคอนถูกคลิก */
   }
 
+
+
+  .button {
+    display: inline-block;
+    // padding: 10px 20px;
+    // background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none; /* ลบขีดเส้นใต้ของลิงก์ */
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative; /* เพิ่มคุณสมบัติ position */
+}
+
+/* เมื่อโฮเวอร์ที่ปุ่ม */
+.button:hover {
+    // background-color: #0056b3;
+    text-decoration: none; /* ลบขีดเส้นใต้ของลิงก์ */
+}
+
+/* เมื่อโฮเวอร์ที่ปุ่ม (มีขีดเส้นใต้) */
+.button:hover::after {
+    content: "";
+    display: block;
+    width: 100%; /* ทำให้เส้นใต้มีความยาวเท่ากับข้อความ */
+    height: 2px;
+    background-color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 1.5s ease; /* เพิ่ม transition เพื่อทำให้การเข้ารหัสมีความช้า ๆ */
+}
 }
