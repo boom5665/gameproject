@@ -1,0 +1,136 @@
+.navbar-main {
+  padding: 16px 40px 24px 40px;
+  padding: var(--Spacing-space-16, 16px) var(--Spacing-space-40, 40px) var(--Spacing-space-24, 24px) var(--Spacing-space-40, 40px);
+  border-radius: 0px 0px 16px 16px;
+  background: linear-gradient(180deg, #130048 0%, #5823E5 100%);
+  background: var(--Linear, linear-gradient(180deg, #130048 0%, #5823E5 100%));
+  width: 80%;
+
+  .navbar {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .nav-left.nav-right {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 30px;
+    margin-bottom: 10px;
+    padding: 0px 15px;
+  }
+
+  .display-f {
+    display: flex;
+  }
+
+  .img-safe {
+    padding-right: 8px;
+  }
+
+
+  .nav-top {
+    display: flex;
+  }
+
+  .bottom-top {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin-right: 10px;
+    padding: 10px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .icon {
+    display: flex;
+    padding: 8px 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: #FFF;
+    margin: 0px 6px;
+    cursor: pointer;
+  }
+
+  .icon-cart {
+    display: flex;
+    padding: 8px 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8;
+    background: #3A179A;
+    margin: 0px 6px;
+    cursor: pointer;
+  }
+
+  .bottom-w {
+    display: flex;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: #FFF;
+    color: #5C25F2;
+
+  }
+
+  .bottom-y {
+    display: flex;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #5C25F2;
+    background: #FFEB3B;
+    color: #5C25F2;
+  }
+
+  .b-top-cy {
+    border-radius: var(--Border-radius-8, 8px);
+    background: var(--Color-Secondary-500, #FFEB3B);
+    box-shadow: 0px 4px 10px 0px rgba(255, 235, 59, 0.30);
+    color: #5C25F2;
+  }
+
+
+
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 3px 10px;
+    margin: 0px 6px;
+  }
+
+  .search-input {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    outline: none;
+    width: 250px;
+    padding-right: 40px;
+    /* เพิ่มพื้นที่สำหรับไอคอน */
+    height: 0px;
+
+  }
+
+  .search-icon {
+    // position: absolute;
+    right: 20px;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    /* ป้องกันไม่ให้ไอคอนถูกคลิก */
+  }
+
+}
