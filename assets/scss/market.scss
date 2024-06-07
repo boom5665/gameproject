@@ -1,0 +1,11 @@
+.card-box {
+  display: flex;
+  width: 100%;
+  padding: var(--Spacing-space-24, 24px) var(--Spacing-space-0, 0px);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--Spacing-space-48, 48px);
+  border-radius: var(--Border-radius-8, 8px);
+  background: var(--Color-Primary-700, #3a179a);
+  margin-top: 60px;
+}
