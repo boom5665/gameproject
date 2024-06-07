@@ -4,8 +4,8 @@
       <CorousalBanner />
     </div>
 
-    <div class="card-box">
-      <CorousalRecom />
+    <div class="" style="    margin-top: 60px;">
+      <CardSlider />
     </div>
   </div>
 </template>
@@ -13,9 +13,11 @@
 
 <script>
 export default {
+  components: {},
   data() {
     return {};
   },
+
   computed: {},
   methods: {},
 };
