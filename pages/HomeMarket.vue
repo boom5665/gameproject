@@ -2,7 +2,7 @@
   <div>
     <div class="box-cotent">
       <div class="W-default ">
-        <Commarket />
+        <Homemarket />
       </div>
     </div>
   </div>
