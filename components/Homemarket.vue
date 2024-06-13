@@ -6,7 +6,7 @@
 
     <div class="card-box" style="margin-top: 60px">
 
-      <HomeCardSlider />
+      <HomepageHomeCardSlider />
       <HomeCardSlidertred />
       <HomeCardSlidersale />
       <HomeCardSlidergame />

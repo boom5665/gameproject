@@ -263,9 +263,6 @@ export default {
   margin-right: 20px; /* เพิ่มช่องว่างระหว่างการ์ด */
 }
 
-.buttonshop {
-  /* สไตล์ของคุณที่นี่ */
-}
 
 #arrow-left,
 #arrow-right {

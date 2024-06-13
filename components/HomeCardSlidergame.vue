@@ -15,12 +15,12 @@
         <div class="content-game-under">{{ item.subtitle }}</div>
       </div>
     </div>
-
   </div>
 </template>
 
-
 <script>
+import $ from 'jquery';
+
 export default {
   data() {
     return {
@@ -76,50 +76,31 @@ export default {
           subtitle: "Dragon Art",
         },
       ],
-
     };
   },
-  computed: {
-
-  },
   mounted() {
-
-  },
-  methods: {
-    // เพิ่ม method ใหม่
-    goToSlide(index) {
-      this.activeDot = index;
-      const slider = this.$refs.slider;
-      slider.style.left = `-${index * this.interval * 2}px`;
-    },
-    // แก้ไข slide() เพื่อรองรับการเปลี่ยน activeDot
-    slide(direction) {
-      const slider = this.$refs.slider;
-      const currentLeft = parseInt(getComputedStyle(slider).left) || 0;
-      let newLeft;
-
-      if (direction === "right") {
-        if (
-          Math.abs(currentLeft) + this.interval + slider.clientWidth >=
-          slider.scrollWidth
-        ) {
-          newLeft = -(slider.scrollWidth - slider.clientWidth);
-        } else {
-          newLeft = currentLeft - this.interval;
-        }
-      } else if (direction === "left") {
-        newLeft = currentLeft + this.interval;
-        if (newLeft > 0) {
-          newLeft = 0;
-        }
-      }
-
-      this.activeDot = Math.abs(newLeft) / (this.interval * 2);
-      slider.style.left = `${newLeft}px`;
-    },
+    $(this.$refs.slider).slick({
+      // dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow:7,
+      adaptiveHeight: true,
+      autoplay: true,
+      autoplaySpeed: 5000
+    });
   },
 };
 </script>
+
+<style>
+.slider-container {
+  width: 80%;
+  margin: 20px auto;
+}
+.slick-slide img {
+  width: 100%;
+}
+</style>
 
 <style scoped>
 .slider-container {

@@ -2,7 +2,7 @@
   <div class="slider-container">
     <div class="dis-play-recom">
       <div>
-        <img src="~/assets/image/Shop.png" class="img-recom" />TopShop
+        <img src="~/assets/image/Shop.png" class="img-recom" />Games
       </div>
       <div>
         See all &nbsp;
@@ -18,8 +18,9 @@
   </div>
 </template>
 
-
 <script>
+import $ from 'jquery';
+
 export default {
   data() {
     return {
@@ -75,18 +76,31 @@ export default {
           subtitle: "Dragon Art",
         },
       ],
-
     };
   },
-  computed: {
-  },
   mounted() {
-  },
-  methods: {
-
+    $(this.$refs.slider).slick({
+      // dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow:7,
+      adaptiveHeight: true,
+      autoplay: true,
+      autoplaySpeed: 5000
+    });
   },
 };
 </script>
+
+<style>
+.slider-container {
+  width: 80%;
+  margin: 20px auto;
+}
+.slick-slide img {
+  width: 100%;
+}
+</style>
 
 <style scoped>
 .slider-container {
