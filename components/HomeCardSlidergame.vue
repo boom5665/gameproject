@@ -1,9 +1,7 @@
 <template>
   <div class="slider-container">
     <div class="dis-play-recom">
-      <div>
-        <img src="~/assets/image/game.png" class="img-recom" />Games
-      </div>
+      <div><img src="~/assets/image/game.png" class="img-recom" />Games</div>
       <div>
         See all &nbsp;
         <img src="~/assets/image/all.png" class="img-recom" />
@@ -19,7 +17,7 @@
 </template>
 
 <script>
-import $ from 'jquery';
+import $ from "jquery";
 
 export default {
   data() {
@@ -83,10 +81,10 @@ export default {
       // dots: true,
       infinite: true,
       speed: 500,
-      slidesToShow:7,
+      slidesToShow: 7,
       adaptiveHeight: true,
       autoplay: true,
-      autoplaySpeed: 5000
+      autoplaySpeed: 5000,
     });
   },
 };
@@ -123,6 +121,9 @@ export default {
 .tpn_game {
   flex: 0 0 50px; /* กำหนดความกว้างของแต่ละการ์ด */
   margin-right: 20px; /* เพิ่มช่องว่างระหว่างการ์ด */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center!important;
 }
 
 .dis-play-recom {

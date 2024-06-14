@@ -12,7 +12,7 @@
       <div>
         <div class="nav-top">
           <Nuxt-link class="text-nav " to="/HomeMarket" target="_self"><div class="bottom-top button"> หน้าแรก</div></Nuxt-link>
-          <Nuxt-link class="text-nav" to="/HomeMarket" target="_self"><div class="bottom-top button">ตลาดซื้อขาย</div></Nuxt-link>
+          <Nuxt-link class="text-nav" to="/Market" target="_self"><div class="bottom-top button">ตลาดซื้อขาย</div></Nuxt-link>
           <Nuxt-link class="text-nav" to="/" target="_self"><div class="bottom-top button">การแข่งขันอีสปรอ์ต</div></Nuxt-link>
           <Nuxt-link class="text-nav" to="/" target="_self"><div class="bottom-top button">ข่าว</div></Nuxt-link>
           <Nuxt-link class="text-nav" to="/" target="_self"><div class="bottom-top button">ช่วยเหลือ</div></Nuxt-link>

@@ -114,25 +114,25 @@ export default {
 }
 #arrow-left,
 #arrow-right {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  position: relative;
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
   background: none;
   border: none;
-  cursor: pointer;
+  /* cursor: pointer; */
   font-size: 2rem;
   color: #fff;
 }
 
 #arrow-left {
-  left: 45%;
-  top: 80%;
+  /* left: 45%; */
+  /* top: 80%; */
   z-index: 0;
 }
 
 #arrow-right {
-  right: 45%;
-   top: 80%;
+  /* right: 45%; */
+   /* top: 80%; */
   z-index: 0;
 }
 </style>
