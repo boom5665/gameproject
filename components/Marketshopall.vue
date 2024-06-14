@@ -15,19 +15,59 @@
     </div>
 
     <div id="Hot" class="content active">
-      <Marketitem />
+      <Marketitem :items="hotItems" />
     </div>
     <div id="Sale" class="content">
-      <Marketitem />
+      <Marketitem :items="saleItems" />
     </div>
     <div id="All" class="content">
-      <Marketitem />
+      <Marketitem :items="allItems" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
+// import Marketitem from "~/components/Marketitem.vue";
+
+const hotItems = ref([
+  {
+    id: 1,
+    logoSrc: require("@/assets/image/ROV.png"),
+    title: "HP.SHOP. TH Official",
+    loveSrc: require("@/assets/image/love2.png"),
+    loveCount: 100,
+    imageSrc: require("@/assets/image/cardgold.png"),
+    subtitle: "Hot",
+    description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
+    price: "1,999",
+    cartSrc: require("@/assets/image/addcart.png"),
+  },
+  // เพิ่มการ์ดอื่นๆ ตามต้องการ
+]);
+
+const saleItems = ref([
+  {
+    id: 1,
+    logoSrc: require("@/assets/image/ROV.png"),
+    title: "HP.SHOP. TH Official",
+    loveSrc: require("@/assets/image/love2.png"),
+    loveCount: 100,
+    imageSrc: require("@/assets/image/cardgold.png"),
+    subtitle: "Sale",
+    description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
+    price: "1,999",
+    cartSrc: require("@/assets/image/addcart.png"),
+  },
+  // เพิ่มการ์ดอื่นๆ ตามต้องการ
+]);
+
+const allItems = ref([
+  ...hotItems.value,
+  ...saleItems.value,
+  // เพิ่มการ์ดอื่นๆ ตามต้องการ
+]);
+
 const tabs = ref([]);
 const contents = ref([]);
 const underline = ref(null);
@@ -66,7 +106,6 @@ onMounted(() => {
 <style scoped>
 .navtabs {
   display: flex;
-  /* justify-content: space-around; */
   margin-top: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
