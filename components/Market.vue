@@ -1,9 +1,9 @@
 <template>
   <div>
     <div>
-      <HomeCorousalBanner />
+      <HomeCorousalBanner :items="itemsbanner" />
     </div>
-      <Marketprofile />
+    <Marketprofile />
     <div class="card-shop" style="margin-top: 60px">
       <Marketshopall />
     </div>
@@ -11,10 +11,21 @@
 </template>
 
 <script>
+import HomeCorousalBanner from "./HomeCorousalBanner.vue";
 export default {
+  components: {
+    HomeCorousalBanner,
+  },
   components: {},
   data() {
-    return {};
+    return {
+      itemsbanner: [
+        { imageSrc: require("~/assets/image/AD.png") },
+        { imageSrc: require("~/assets/image/AD.png") },
+        { imageSrc: require("~/assets/image/AD.png") },
+        { imageSrc: require("~/assets/image/AD.png") },
+      ],
+    };
   },
 
   computed: {},
@@ -23,7 +34,7 @@ export default {
 </script>
 
 <style>
-.card-shop{
-  background: var(--Color-Primary-700, #3A179A);
+.card-shop {
+  background: var(--Color-Primary-700, #3a179a);
 }
 </style>
