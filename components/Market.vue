@@ -33,8 +33,4 @@ export default {
 };
 </script>
 
-<style>
-.card-shop {
-  background: var(--Color-Primary-700, #3a179a);
-}
-</style>
+
