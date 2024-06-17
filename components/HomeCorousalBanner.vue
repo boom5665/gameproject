@@ -3,58 +3,74 @@
     <div>
       <b-carousel id="carousel1" v-model="slide" :interval="0" controls>
         <b-carousel-slide
-          v-for="(img, index) in images"
+          v-for="(img, index) in items"
           :key="index"
-          :img-src="img"
+          :img-src="img.imageSrc"
         ></b-carousel-slide>
       </b-carousel>
+
       <!-- จุดไข่ปลา-->
       <div class="custom-indicators">
-        <button id="arrow-left" >
-          <img src="~/assets/image/arrow-left.png" alt="" />
+        <button id="arrow-left" @click="prevSlide">
+          <img src="~/assets/image/arrow-left.png" alt="left arrow" />
         </button>
+        <div class="dotposition">
+          <span
+            v-for="(n, index) in items.length"
+            :key="index"
+            @click="goToSlide(index)"
+            :class="{ active: index === currentSlide }"
+          ></span>
+        </div>
 
-        <span
-          v-for="(n, index) in images.length"
-          :key="index"
-          @click="goToSlide(index)"
-          :class="{ active: index === currentSlide }"
-        ></span>
-        <button id="arrow-right" >
-          <img src="~/assets/image/arrow-right.png" alt="" />
+        <button id="arrow-right" @click="nextSlide">
+          <img src="~/assets/image/arrow-right.png" alt="right arrow" />
         </button>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
+  props: {
+    items: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       slide: 0,
-      images: [
-        require("~/assets/image/AD.png"),
-        require("~/assets/image/AD.png"),
-        require("~/assets/image/AD.png"),
-        require("~/assets/image/AD.png"),
-      ],
     };
   },
   computed: {
     currentSlide() {
-      return this.slide % this.images.length;
-    },
-    currentImage() {
-      return this.images[this.currentSlide];
+      return this.slide % this.items.length;
     },
   },
   methods: {
     goToSlide(index) {
       this.slide = index;
     },
+    prevSlide() {
+      if (this.slide === 0) {
+        this.slide = this.items.length - 1;
+      } else {
+        this.slide--;
+      }
+    },
+    nextSlide() {
+      if (this.slide === this.items.length - 1) {
+        this.slide = 0;
+      } else {
+        this.slide++;
+      }
+    },
   },
 };
 </script>
+
 <style scoped>
 .card-box {
   display: flex;
@@ -70,7 +86,9 @@ export default {
 
 /* ปรับแต่งสไตล์ของจุดไข่ปลา */
 .custom-indicators {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 10px;
 }
 
@@ -112,27 +130,24 @@ export default {
 .carousel-indicators li {
   display: none !important;
 }
+
 #arrow-left,
 #arrow-right {
-  position: relative;
-  /* top: 50%; */
-  /* transform: translateY(-50%); */
   background: none;
   border: none;
-  /* cursor: pointer; */
   font-size: 2rem;
   color: #fff;
 }
 
 #arrow-left {
-  /* left: 45%; */
-  /* top: 80%; */
   z-index: 0;
 }
 
 #arrow-right {
-  /* right: 45%; */
-   /* top: 80%; */
   z-index: 0;
+}
+.dotposition{
+    position: relative;
+    top: 7px;
 }
 </style>
