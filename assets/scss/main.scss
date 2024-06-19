@@ -37,6 +37,10 @@ body {
 .W-default{
   width: 100%;
   padding: 30px 120px;
+  // max-width: 1700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .home-logo {
   display: flex;
