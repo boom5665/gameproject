@@ -14,7 +14,11 @@
             <div class="loveimg">
               <img
                 :src="item.loveSrc"
-                style="width: 18px; height: 18px; padding: 2.386px 1.5px 2.386px 1.501px"
+                style="
+                  width: 18px;
+                  height: 18px;
+                  padding: 2.386px 1.5px 2.386px 1.501px;
+                "
               />
             </div>
             <div>{{ item.loveCount }}</div>
@@ -41,9 +45,9 @@
 defineProps({
   items: {
     type: Array,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <style scoped>

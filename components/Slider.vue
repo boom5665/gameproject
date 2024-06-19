@@ -85,8 +85,7 @@ export default {
     },
   },
 };
+
 </script>
 
-<style scoped>
-/* สไตล์ scoped ที่มีอยู่ในส่วนนี้ */
-</style>
+

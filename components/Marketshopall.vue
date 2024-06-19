@@ -3,13 +3,22 @@
   <div class="tabs">
     <div class="navtabs">
       <div class="navtab active" data-target="Hot" @click="selectTab('Hot')">
-        Hot items
+        <span class="span-img"
+          ><img src="~/assets/image/flame.png" class="img-recom"
+        /></span>
+        Hot items <span class="span-num">300</span>
       </div>
       <div class="navtab" data-target="Sale" @click="selectTab('Sale')">
-        Sale items
+        <span class="span-img"
+          ><img src="~/assets/image/sale.png" class="img-recom"
+        /></span>
+        Sale items <span class="span-num">300</span>
       </div>
       <div class="navtab" data-target="All" @click="selectTab('All')">
-        All items
+        <span class="span-img"
+          ><img src="~/assets/image/Allitem.png" class="img-recom"
+        /></span>
+        All items <span class="span-num">300</span>
       </div>
       <div class="underline"></div>
     </div>
@@ -43,12 +52,72 @@ const hotItems = ref([
     price: "1,999",
     cartSrc: require("@/assets/image/addcart.png"),
   },
+  {
+    id: 2,
+    logoSrc: require("@/assets/image/ROV.png"),
+    title: "HP.SHOP. TH Official",
+    loveSrc: require("@/assets/image/love2.png"),
+    loveCount: 100,
+    imageSrc: require("@/assets/image/cardgold.png"),
+    subtitle: "Hot",
+    description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
+    price: "1,999",
+    cartSrc: require("@/assets/image/addcart.png"),
+  },
+  {
+    id: 3,
+    logoSrc: require("@/assets/image/ROV.png"),
+    title: "HP.SHOP. TH Official",
+    loveSrc: require("@/assets/image/love2.png"),
+    loveCount: 100,
+    imageSrc: require("@/assets/image/cardgold.png"),
+    subtitle: "Hot",
+    description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
+    price: "1,999",
+    cartSrc: require("@/assets/image/addcart.png"),
+  },
   // เพิ่มการ์ดอื่นๆ ตามต้องการ
 ]);
 
 const saleItems = ref([
   {
     id: 1,
+    logoSrc: require("@/assets/image/ROV.png"),
+    title: "HP.SHOP. TH Official",
+    loveSrc: require("@/assets/image/love2.png"),
+    loveCount: 100,
+    imageSrc: require("@/assets/image/cardgold.png"),
+    subtitle: "Sale",
+    description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
+    price: "1,999",
+    cartSrc: require("@/assets/image/addcart.png"),
+  },
+  {
+    id: 2,
+    logoSrc: require("@/assets/image/ROV.png"),
+    title: "HP.SHOP. TH Official",
+    loveSrc: require("@/assets/image/love2.png"),
+    loveCount: 100,
+    imageSrc: require("@/assets/image/cardgold.png"),
+    subtitle: "Sale",
+    description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
+    price: "1,999",
+    cartSrc: require("@/assets/image/addcart.png"),
+  },
+  {
+    id: 3,
+    logoSrc: require("@/assets/image/ROV.png"),
+    title: "HP.SHOP. TH Official",
+    loveSrc: require("@/assets/image/love2.png"),
+    loveCount: 100,
+    imageSrc: require("@/assets/image/cardgold.png"),
+    subtitle: "Sale",
+    description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
+    price: "1,999",
+    cartSrc: require("@/assets/image/addcart.png"),
+  },
+  {
+    id: 4,
     logoSrc: require("@/assets/image/ROV.png"),
     title: "HP.SHOP. TH Official",
     loveSrc: require("@/assets/image/love2.png"),
@@ -102,4 +171,6 @@ onMounted(() => {
   window.addEventListener("resize", updateUnderline);
 });
 </script>
+
+
 

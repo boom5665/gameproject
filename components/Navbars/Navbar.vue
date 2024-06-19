@@ -60,7 +60,7 @@
       </div>
       <div class="nav-right">
         <div>
-          <div class="bottom-top b-top-cy"><img class="" src="~/assets/image/home.png" style="padding-right: 5px;"/>สร้างร้านค้า</div>
+          <Nuxt-link class="text-nav " to="/MarketCreateShop" target="_self"><div class="bottom-top b-top-cy"><img class="" src="~/assets/image/home.png" style="padding-right: 5px;"/>สร้างร้านค้า</div></Nuxt-link>
         </div>
       </div>
     </div>

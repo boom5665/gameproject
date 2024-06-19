@@ -55,7 +55,7 @@
       <div class="slider-container">
         <div class="dis-play-recom">
           <div>
-            <img src="~/assets/image/game.png" class="img-recom" />Top shop
+            <img src="~/assets/image/Shop.png" class="img-recom" />Top shop
           </div>
           <div>
             See all &nbsp;

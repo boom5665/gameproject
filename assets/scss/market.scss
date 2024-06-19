@@ -164,69 +164,150 @@
     padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
     justify-content: center;
     align-items: center;
-    gap: var(--Spacing-space-8, 8px);
+    gap: 8px;
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2);
     background: var(--Color-Secondary-500, #ffeb3b);
     color: var(--Color-Primary-Pueple-500, #5c25f2);
+    margin-left: 20px;
   }
 
   .shop-like {
     padding: 25px 30px 0px 0px
   }
+
+  .imgshop-left {
+    margin-right: 10px;
+  }
+
+  .shoplike-font {
+    color: #bababa;
+  }
+
+  .shoppro-dis {
+    display: flex;
+    align-items: center;
+  }
+
+  .shoppro-img {
+    margin-left: 10px;
+  }
+
+  .iconshop-link {
+    width: 32px;
+    width: 32px;
+    margin-right: 10px;
+  }
+
 }
 
-.tabs{
+.tabs {
   .navtabs {
-  display: flex;
-  margin-top: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
-  position: relative;
-  border-radius: var(--Border-radius-8, 8px) var(--Border-radius-8, 8px)
-    var(--Border-radius-0, 0px) var(--Border-radius-0, 0px);
-  background: var(
-    --Linear,
-    linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%)
-  );
-  color: var(--White, #fff);
-  font-size: 24px;
-  width: 100%;
-}
-.navtab {
-  margin: 0 10px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: color 0.3s;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.navtab:hover {
-  color: #fff;
-}
-.navtab.active {
-  color: #fff;
-  font-weight: 600;
-}
-.underline {
-  position: absolute;
-  bottom: 0px;
-  height: 22px;
-  border-radius: 0px;
-  border-radius: var(--Border-radius-0, 0px);
-  border-bottom: 2px solid #ffeb3b;
-  border-bottom: 5px solid var(--Color-Secondary-500, #ffeb3b);
-  transition: left 0.3s ease, width 0.3s ease;
-}
-.content {
-  display: none;
-  padding: 0px 20px 20px;
-  max-width: 100%;
-  text-align: center;
-}
-.content.active {
-  display: block;
-}
+    display: flex;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    position: relative;
+    border-radius: var(--Border-radius-8, 8px) var(--Border-radius-8, 8px) var(--Border-radius-0, 0px) var(--Border-radius-0, 0px);
+    background: var(--Linear,
+        linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%));
+    color: var(--White, #fff);
+    font-size: 24px;
+    width: 100%;
+  }
+
+  .navtab {
+    margin: 0 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navtab:hover {
+    color: #fff;
+  }
+
+  .navtab.active {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .underline {
+    position: absolute;
+    bottom: 0px;
+    height: 22px;
+    border-radius: 0px;
+    border-radius: var(--Border-radius-0, 0px);
+    border-bottom: 2px solid #ffeb3b;
+    border-bottom: 3px solid var(--Color-Secondary-500, #ffeb3b);
+    transition: left 0.3s ease, width 0.3s ease;
+  }
+
+  .content {
+    display: none;
+    padding: 0px 20px 20px;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .content.active {
+    display: block;
+  }
+
+  .span-img {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+  }
+
+  .span-num {
+    display: flex;
+    padding: 0px 10px;
+    gap: 10px;
+    border-radius: 20px;
+    background: var(--Color-Midnight-400, #3C3B4B);
+    margin-left: 15px;
+  }
+
+
 }
 
+
+.M-Create-Backgroud {
+  .navtabs {
+    display: flex;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    position: relative;
+    border-radius: var(--Border-radius-16, 16px);
+    background: var(--Linear, linear-gradient(180deg, #130048 0%, #5823E5 100%));
+    color: var(--White, #fff);
+    // font-size: 24px;
+    width: 100%;
+    display: flex;
+    padding: var(--Spacing-space-48, 48px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .form-create {
+    display: flex;
+    padding: var(--Spacing-space-16, 16px) var(--Spacing-space-32, 32px);
+    flex-direction: column;
+    align-items: flex-start;
+    align-self: stretch;
+    border-radius: var(--Border-radius-6, 6px);
+    background: var(--color-black-white-900, #fff);
+    color: black;
+  }
+
+
+
+}
