@@ -1,6 +1,6 @@
 <template>
   <div class="M-Create-Backgroud">
-    <div class="box-alert">
+    <div class="box-alert" style="justify-content: flex-start;">
       <div>
         <img
           class=""
@@ -28,37 +28,37 @@
           <div class="font-card-top" style="font-size: 24px">Intro</div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likeintro.png"
             />สิทธิพิเศษจากการบริการจาก Brand
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likeintro.png"
             />ได้รับส่วนลดจากร้านค้าเพิ่ม สูงสุด 5 - 50 %
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likeintro.png"
             />มีระบบแจ้งเตือน SMS เมื่อ ทำการถอนเงินสำเร็จ
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likeintro.png"
             />ได้รับสัญลักษณ์ว่าเป็นร้านค้า "Brand"
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likeintro.png"
             />เพิ่มรูปภาพสินค้าได้มากกว่าเดิม ถึง 2 เท่า
           </div>
           <div style="width: 100%">
@@ -75,9 +75,9 @@
           <div class="font-right-other" style="font-size: 24px">Base</div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />
             <div>
               สิทธิพิเศษจากการบริการจาก
@@ -86,23 +86,23 @@
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />ได้รับส่วนลดจากร้านค้าเพิ่ม สูงสุด 5 - 50 %
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />มีระบบแจ้งเตือน SMS เมื่อ ทำการถอนเงินสำเร็จ
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />
             <div>
               ได้รับสัญลักษณ์ว่าเป็นร้านค้า
@@ -111,9 +111,9 @@
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />เพิ่มรูปภาพสินค้าได้มากกว่าเดิม ถึง 2 เท่า
           </div>
           <div style="width: 100%">
@@ -130,9 +130,9 @@
           <div class="font-right-other" style="font-size: 24px">Pro</div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />
             <div>
               สิทธิพิเศษจากการบริการจาก
@@ -141,23 +141,23 @@
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />ได้รับส่วนลดจากร้านค้าเพิ่ม สูงสุด 5 - 50 %
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />มีระบบแจ้งเตือน SMS เมื่อ ทำการถอนเงินสำเร็จ
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />
             <div>
               ได้รับสัญลักษณ์ว่าเป็นร้านค้า
@@ -166,9 +166,9 @@
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />เพิ่มรูปภาพสินค้าได้มากกว่าเดิม ถึง 2 เท่า
           </div>
           <div style="width: 100%">
@@ -185,9 +185,9 @@
           <div class="font-right-other" style="font-size: 24px">Enterprise</div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />
             <div>
               สิทธิพิเศษจากการบริการจาก
@@ -196,23 +196,23 @@
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />ได้รับส่วนลดจากร้านค้าเพิ่ม สูงสุด 5 - 50 %
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />มีระบบแจ้งเตือน SMS เมื่อ ทำการถอนเงินสำเร็จ
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+
+              src="~/assets/image/likebase.png"
             />
             <div>
               ได้รับสัญลักษณ์ว่าเป็นร้านค้า
@@ -221,9 +221,8 @@
           </div>
           <div class="font-card">
             <img
-              class=""
-              style="margin: 0px 10px 0px 0px"
-              src="~/assets/image/tred.png"
+              class="img-likeintro"
+              src="~/assets/image/likebase.png"
             />เพิ่มรูปภาพสินค้าได้มากกว่าเดิม ถึง 2 เท่า
           </div>
           <div style="width: 100%">
@@ -462,119 +461,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.card-into {
-  border-radius: var(--Border-radius-8, 8px);
-  border: 2px dashed var(--Color-Secondary-500, #ffeb3b);
-  background: var(
-    --Linear,
-    linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%)
-  );
-  display: flex;
-  width: 253px;
-  padding: var(--Spacing-space-16, 16px) var(--Spacing-space-24, 24px);
-  flex-direction: column;
-  gap: var(--Spacing-space-16, 12px);
-  align-items: flex-start;
-  margin-right: 16px;
-  height: 470px;
-}
-.card-other {
-  display: flex;
-  width: 253px;
-  padding: var(--Spacing-space-16, 16px) var(--Spacing-space-24, 24px);
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--Spacing-space-16, 12px);
-  border-radius: var(--Border-radius-8, 8px);
-  background: var(--color-black-white-900, #fff);
-  color: #000;
-  margin-right: 16px;
-}
-.poppular {
-  padding: var(--Spacing-space-4, 4px) var(--Spacing-space-8, 8px);
-  border-radius: var(--Border-radius-Full, 9999px);
-  background: var(--Color-Primary-400, #8153ff);
-  color: #ffeb3b;
-  left: 100px;
-  font-size: 14px;
-  position: relative;
-}
-.dis-flex-end {
-  display: flex;
-  justify-content: center;
-  flex-wrap: nowrap;
-  height: 500px;
-  align-items: flex-end;
-}
-.font-card {
-  display: flex;
-  flex-direction: row;
-  font-size: 14px;
-}
 
-.font-card-top {
-  color: var(--Color-Secondary-500, #ffeb3b);
-  font-size: 48px;
-}
-.font-card-top-other {
-  color: var(--Color-Secondary-500, #5c25f2);
-  font-size: 48px;
-}
-.font-right-other {
-  color: #5c25f2;
-}
-.button-but {
-  display: flex;
-  height: 36px;
-  padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
-  justify-content: center;
-  align-items: center;
-  gap: var(--Spacing-space-8, 8px);
-  align-self: stretch;
-  border-radius: var(--Border-radius-8, 8px);
-  border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2);
-  background: var(--Color-Secondary-500, #ffeb3b);
-  color: var(--Color-Primary-Pueple-500, #5c25f2);
-  width: 100%;
-  cursor: pointer;
-}
-.font-form-pak {
-  font-size: 48px;
-  color: #5c25f2;
-}
-.font-form-buy {
-  color: #bababa;
-  font-size: 32px;
-}
-.img-ganaral {
-  margin: 10px 10px 10px 0px;
-  display: flex;
-  padding: var(--Spacing-space-16, 16px);
-  align-items: flex-start;
-  border-radius: var(--Border-radius-20, 20px);
-  background: rgba(92, 37, 242, 0.2);
-}
-.content-pakg {
-  display: flex;
-  padding: 0px;
-  padding: var(--Spacing-space-0, 0px);
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 16px;
-  gap: var(--Spacing-space-16, 16px);
-  width: 100%;
-  flex-wrap: wrap;
-}
-.wid-content {
-  width: 30%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-.button-dot {
-  margin-right: 10px;
-  margin-bottom: 5px;
-}
-</style>
