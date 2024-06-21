@@ -72,37 +72,4 @@ export default {
 };
 </script>
 
-<style>
-.img-add {
-  display: flex;
-  padding: 16px;
-  justify-content: center;
-  align-items: center;
-  gap: 0px;
-  border-radius: 6px;
-  border: 2px dashed #5c25f2;
-  background: #f8f8f8;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-.img-contentadd {
-  display: flex;
-  margin: 10px 20px;
-}
-.font-form-myshop {
-  font-size: 16px;
-  color: #5c25f2;
-}
-.font-form-myshop-under {
-  font-size: 16px;
-  color: #bababa;
-  margin-bottom: 10px;
-}
-.font-top-myshop {
-  color: var(--color-black-white-900, #fff);
-  font-size: 24px;
-  text-align: left;
-  width: 100%;
-}
-</style>
 
