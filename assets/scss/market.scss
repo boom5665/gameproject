@@ -626,4 +626,21 @@
     text-align: left;
     width: 100%;
   }
+  .line-table {
+    width: 100%;
+    border-radius: 6px 0px 0px 0px;
+    border: 1px solid #bababa;
+    background: #fff;
+    display: flex;
+    padding: 0px 16px;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    padding: 10px;
+  }
+   .font-form-add {
+      color: #5c25f2;
+      font-size: 20px;
+      margin-bottom: 16px;
+  }
 }

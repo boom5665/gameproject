@@ -52,11 +52,20 @@
           </div>
           <div style="width: 100%">
             <label for="otherContact">คำอธิบาย</label>
-            <input style="height: 200px;" type="text" id="otherContact" />
+            <input style="height: 200px" type="text" id="otherContact" />
           </div>
           <div>
             <div class="font-form-add">รูปหลัก *</div>
-            <div class="">
+            <div class="preview">
+              <img :src="imageUrl" class="profile-img" v-show="showImage" />
+            </div>
+
+            <div
+              class=""
+              v-show="!showImage"
+              @click="openNav"
+              ref="sidebarOpener"
+            >
               <img
                 class=""
                 style="margin: 15px 5px"
@@ -157,6 +166,58 @@
             </div>
             <div>Submit</div>
           </button>
+
+          <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" @click="closeNav"
+              >&times;</a
+            >
+            <div>
+              <div style="width: 100%">
+                <label for="phone">ชื่อสินค้า *</label>
+                <input type="text" id="phone" />
+              </div>
+              <div>ขนาดรูปที่แนะนำ 960 x 540</div>
+              <div>
+                *รองรับไฟล์ gif, jpg, jpeg เท่านั้น และ ไฟล์มีขนาดไม่เกิน 10 MB
+              </div>
+              <div>
+                <label
+                  for="image_uploads"
+                  class="img-upload-btn"
+                  v-show="!imageUrl"
+                >
+                  <div class="">
+                    <img
+                      class=""
+                      style="margin: 15px 5px; width: 100%"
+                      src="~/assets/image/img-main-nav.png"
+                    /></div
+                ></label>
+                <input
+                  type="file"
+                  id="image_uploads"
+                  name="image_uploads"
+                  accept=".jpg, .jpeg, .png"
+                  style="opacity: 0"
+                  @change="handleFileChange"
+                />
+                <div class="preview">
+                  <!-- <p class="no-pic" v-show="!imageUploaded">No Pic uploaded</p> -->
+                  <img :src="imageUrl" class="profile-img-main" v-show="imageUrl" />
+                </div>
+              </div>
+              <div style="width: 100%">
+                <label for="phone"
+                  >คำบรรยายภาพ เพื่อทำให้สินค้าของคุณถูกค้นหาได้ง่ายขึ้น
+                  *</label
+                >
+                <input type="text" id="phone" />
+              </div>
+            </div>
+            <div class="buttons">
+              <button @click="submitImage">Submit Image</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -166,29 +227,143 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      // ตัวแปรหรือข้อมูลที่คุณต้องการนำเข้าไปใช้ใน component นี้
+      imageData: null,
+      imageUrl: false,
+      showImage: false,
+    };
   },
-  methods: {},
+  methods: {
+    openNav() {
+      // เปิดเมนูด้านข้าง
+      document.getElementById("mySidenav").style.width = "350px";
+      document.getElementById("mySidenav").style.right = "0px";
+    },
+    closeNav() {
+      // ปิดเมนูด้านข้าง
+      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("mySidenav").style.right = "-50px";
+    },
+    handleFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.imageData = file;
+        this.imageUrl = URL.createObjectURL(file);
+      } else {
+        this.imageData = null;
+        this.imageUrl = "";
+      }
+    },
+    submitImage() {
+      // ส่วนนี้คือการส่งข้อมูลไปยัง API หรือทำการบันทึกข้อมูลตามที่ต้องการ
+      console.log("Submitted:", this.imageData);
+
+      // เมื่อส่งเสร็จแล้วแสดงภาพที่อัพโหลด
+      this.showImage = true;
+       alert("เพิ่มภาพเรียบร้อย");
+    },
+    submitData() {
+      // ส่วนนี้คือการส่งข้อมูลไปยัง API หรือทำการบันทึกข้อมูลตามที่ต้องการ
+      console.log("Submitted:", this.imageData);
+
+      // เมื่อส่งเสร็จแล้วสามารถทำการ reset หรือแสดงผลอื่น ๆ ตามที่ต้องการได้
+      alert("Data submitted successfully!");
+    },
+    clearImage() {
+      this.imageData = null;
+      this.imageUrl = "";
+      const input = document.getElementById("image_uploads");
+      input.value = ""; // ล้างค่าของ input file
+    },
+  },
 };
 </script>
 
+
+
 <style>
-.line-table {
-  width: 100%;
-  border-radius: 6px 0px 0px 0px;
-  border: 1px solid #bababa;
-  background: #fff;
-  display: flex;
-  padding: 0px 16px;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
-  padding: 10px;
+/* The side navigation menu */
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  border-radius: 0px;
+  background: #3c3b4b;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 100px 16px 0px 16px;
 }
- .font-form-add {
-    color: #5c25f2;
-    font-size: 20px;
-    margin-bottom: 16px;
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover,
+.offcanvas a:focus {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left 0.5s;
+  padding: 20px;
+}
+.sidenav {
+  right: 0px;
+}
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+.sidenav {
+  right: -50px;
+}
+
+.profile-img {
+  width: 100px;
+  height: 80px;
+  margin: 15px 5px;
+  border-radius: var(--Border-radius-6, 6px);
+  border: 1px solid var(--color-black-white-700, #bababa);
+}
+.profile-img-main {
+    border-radius: var(--Border-radius-6, 6px);
+    border: 1px dashed var(--dd-0000, #D00);
+    background: var(--Color-Midnight-600, #31303F);
+    display: flex;
+    height: max-content;
+    padding: var(--Spacing-space-64, 64px) 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    width: 100%;
+}
+.img-wrapper {
+  padding: 20px;
 }
 </style>
-
