@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <b-carousel id="carousel1" v-model="slide" :interval="0" controls>
+      <b-carousel id="carousel1" v-model="slide" :interval="8000" controls>
         <b-carousel-slide
           v-for="(img, index) in items"
           :key="index"

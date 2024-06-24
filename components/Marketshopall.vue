@@ -1,6 +1,7 @@
 <!-- src/components/Tabs.vue -->
 <template>
   <div class="tabs">
+
     <div class="navtabs">
       <div class="navtab active" data-target="Hot" @click="selectTab('Hot')">
         <span class="span-img"
@@ -14,6 +15,7 @@
         /></span>
         Sale items <span class="span-num">300</span>
       </div>
+
       <div class="navtab" data-target="All" @click="selectTab('All')">
         <span class="span-img"
           ><img src="~/assets/image/Allitem.png" class="img-recom"
@@ -32,6 +34,8 @@
     <div id="All" class="content">
       <Marketitem :items="allItems" />
     </div>
+
+
   </div>
 </template>
 
@@ -171,6 +175,5 @@ onMounted(() => {
   window.addEventListener("resize", updateUnderline);
 });
 </script>
-
 
 
