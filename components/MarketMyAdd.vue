@@ -236,60 +236,64 @@
           <div id="mySidenav" class="sidenav">
             <div>
               <a href="javascript:void(0)" class="closebtn" @click="closeNav"
-                >&times;</a
-              >
-
-              <div style="width: 100%">
-                <label for="phone" class="font-form-myshop-under"
-                  >ประเภทของสื่อ
-                  <span id="dotstyle"><span id="dotstyle">*</span></span></label
-                >
-                <input type="text" id="phone" />
-              </div>
-              <div>ขนาดรูปที่แนะนำ 960 x 540</div>
-              <div class="font-form-myshop-under">
-                <span id="dotstyle">*</span>รองรับไฟล์ gif, jpg, jpeg เท่านั้น
-                และ ไฟล์มีขนาดไม่เกิน 10 MB
-              </div>
-              <div>
-                <label
-                  for="image_uploads"
-                  class="img-upload-btn"
-                  v-show="!imageUrl"
-                >
-                  <div class="">
-                    <img
-                      class=""
-                      style="margin: 15px 5px; width: 100%"
-                      src="~/assets/image/img-main-nav.png"
-                    /></div
-                ></label>
-                <input
-                  type="file"
-                  id="image_uploads"
-                  name="image_uploads"
-                  accept=".jpg, .jpeg, .png"
-                  style="opacity: 0"
-                  @change="handleFileChange"
-                />
-                <div class="preview">
-                  <!-- <p class="no-pic" v-show="!imageUploaded">No Pic uploaded</p> -->
-                  <img
-                    :src="imageUrl"
-                    class="profile-img-main"
-                    v-show="imageUrl"
+                ><div class="font-top-close">เพิ่มสื่อในคลังรูปภาพ</div>
+                <div>&times;</div>
+              </a>
+              <div class="pad-right">
+                <div style="width: 100%">
+                  <label for="phone" class="font-form-myshop-under"
+                    >ประเภทของสื่อ
+                    <span id="dotstyle"
+                      ><span id="dotstyle">*</span></span
+                    ></label
+                  >
+                  <input type="text" id="phone" />
+                </div>
+                <div>ขนาดรูปที่แนะนำ 960 x 540</div>
+                <div class="font-form-myshop-under">
+                  <span id="dotstyle">*</span>รองรับไฟล์ gif, jpg, jpeg เท่านั้น
+                  และ ไฟล์มีขนาดไม่เกิน 10 MB
+                </div>
+                <div>
+                  <label
+                    for="image_uploads"
+                    class="img-upload-btn"
+                    v-show="!imageUrl"
+                  >
+                    <div class="">
+                      <img
+                        class=""
+                        style="margin: 15px 5px; width: 100%"
+                        src="~/assets/image/img-main-nav.png"
+                      /></div
+                  ></label>
+                  <input
+                    type="file"
+                    id="image_uploads"
+                    name="image_uploads"
+                    accept=".jpg, .jpeg, .png"
+                    style="opacity: 0"
+                    @change="handleFileChange"
                   />
+                  <div class="preview">
+                    <!-- <p class="no-pic" v-show="!imageUploaded">No Pic uploaded</p> -->
+                    <img
+                      :src="imageUrl"
+                      class="profile-img-main"
+                      v-show="imageUrl"
+                    />
+                  </div>
+                </div>
+                <div style="width: 100%">
+                  <label for="phone" class="font-form-myshop-under"
+                    >คำบรรยายภาพ เพื่อทำให้สินค้าของคุณถูกค้นหาได้ง่ายขึ้น
+                    <span id="dotstyle">*</span></label
+                  >
+                  <input type="text" id="phone" />
                 </div>
               </div>
-              <div style="width: 100%">
-                <label for="phone" class="font-form-myshop-under"
-                  >คำบรรยายภาพ เพื่อทำให้สินค้าของคุณถูกค้นหาได้ง่ายขึ้น
-                  <span id="dotstyle">*</span></label
-                >
-                <input type="text" id="phone" />
-              </div>
             </div>
-            <div>
+            <div class="pad-right">
               <div class="submit" @click="submitImage">Send</div>
             </div>
           </div>
@@ -297,63 +301,66 @@
           <div id="mySidenav2" class="sidenav">
             <div>
               <a href="javascript:void(0)" class="closebtn" @click="closeNav2"
-                >&times;</a
-              >
-              <div style="width: 100%">
-                <label for="media_type2" class="font-form-myshop-under"
-                  >ประเภทของสื่อ
-                  <span id="dotstyle"><span id="dotstyle">*</span></span>
-                </label>
-                <input type="text" id="media_type2" />
-              </div>
-              <div>ขนาดรูปที่แนะนำ 960 x 540</div>
-              <div class="font-form-myshop-under">
-                <span id="dotstyle">*</span> รองรับไฟล์ gif, jpg, jpeg เท่านั้น
-                และ ไฟล์มีขนาดไม่เกิน 10 MB
-              </div>
-              <div>
-                <label for="image_uploads2" class="img-upload-btn">
-                  <div>
-                    <img
-                      class=""
-                      style="margin: 15px 5px; width: 100%"
-                      src="~/assets/image/img-main-nav.png"
-                    />
-                  </div>
-                </label>
-                <input
-                  type="file"
-                  id="image_uploads2"
-                  name="image_uploads2"
-                  accept=".jpg, .jpeg, .png"
-                  style="opacity: 0"
-                  @change="handleFileChange2"
-                  multiple
-                />
-                <div class="preview">
-                  <div v-if="!imageUrls2.length">No Pic uploaded</div>
-                  <div v-else>
-                    <div
-                      v-for="(url, index) in imageUrls2"
-                      :key="index"
-                      class="image-container"
-                    >
-                      <img :src="url" class="profile-img-main" />
-                      <button @click="removeImage2(index)">Delete</button>
+                ><div class="font-top-close">เพิ่มสื่อในคลังรูปภาพ</div>
+                <div>&times;</div>
+              </a>
+              <div class="pad-right">
+                <div style="width: 100%">
+                  <label for="media_type2" class="font-form-myshop-under"
+                    >ประเภทของสื่อ
+                    <span id="dotstyle"><span id="dotstyle">*</span></span>
+                  </label>
+                  <input type="text" id="media_type2" />
+                </div>
+                <div>ขนาดรูปที่แนะนำ 960 x 540</div>
+                <div class="font-form-myshop-under">
+                  <span id="dotstyle">*</span> รองรับไฟล์ gif, jpg, jpeg
+                  เท่านั้น และ ไฟล์มีขนาดไม่เกิน 10 MB
+                </div>
+                <div>
+                  <label for="image_uploads2" class="img-upload-btn">
+                    <div>
+                      <img
+                        class=""
+                        style="margin: 15px 5px; width: 100%"
+                        src="~/assets/image/img-main-nav.png"
+                      />
+                    </div>
+                  </label>
+                  <input
+                    type="file"
+                    id="image_uploads2"
+                    name="image_uploads2"
+                    accept=".jpg, .jpeg, .png"
+                    style="opacity: 0"
+                    @change="handleFileChange2"
+                    multiple
+                  />
+                  <div>คลังรูปภาพ (1/10)</div>
+                  <div class="preview">
+                    <div v-if="!imageUrls2.length"></div>
+                    <div v-else>
+                      <div
+                        v-for="(url, index) in imageUrls2"
+                        :key="index"
+                        class="image-container image-container-main"
+                      >
+                        <img :src="url" class="profile-img-main" />
+                        <div @click="removeImage2(index)">
+                          <img
+                            class=""
+                            style="margin: 15px 5px; width: 70%"
+                            src="~/assets/image/Delete.png"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div style="width: 100%">
-                <label for="description2" class="font-form-myshop-under"
-                  >คำบรรยายภาพ เพื่อทำให้สินค้าของคุณถูกค้นหาได้ง่ายขึ้น
-                  <span id="dotstyle">*</span>
-                </label>
-                <input type="text" id="description2" />
-              </div>
             </div>
-            <div>
-              <div class="submit" @click="submitImage2">Send</div>
+            <div class="pad-right">
+              <div class="submit" @click="submitImage">Send</div>
             </div>
           </div>
         </div>
@@ -461,117 +468,3 @@ export default {
 
 
 
-<style>
-/* The side navigation menu */
-.sidenav {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  border-radius: 0px;
-  background: #3c3b4b;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding: 10px 16px 20px 16px;
-  color: white;
-}
-
-/* The navigation menu links */
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover,
-.offcanvas a:focus {
-  color: #f1f1f1;
-}
-
-/* Position and style the close button (top right corner) */
-.sidenav .closebtn {
-  position: relative;
-  top: 0;
-  font-size: 36px;
-  width: 100%;
-  text-align: right;
-}
-
-/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-#main {
-  transition: margin-left 0.5s;
-  padding: 20px;
-}
-.sidenav {
-  right: 0px;
-}
-/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
-  .sidenav a {
-    font-size: 18px;
-  }
-}
-.sidenav {
-  right: -50px;
-}
-
-.profile-img {
-  border-radius: 6px;
-  border: 1px dashed #d00;
-  background: #31303f;
-  display: flex;
-  height: 70px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 110px;
-  margin: 15px 5px;
-}
-.profile-img-main {
-  border-radius: 6px;
-  border: 1px dashed #d00;
-  background: #31303f;
-  display: flex;
-  height: 70px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 110px;
-  margin: 15px 5px;
-}
-.img-wrapper {
-  padding: 20px;
-}
-.font-form-myshop-under {
-  font-size: 16px;
-  color: #bababa;
-  margin-bottom: 10px;
-}
-
-#mySidenav2 .preview img {
-  margin: 5px;
-  width: 100%;
-  height: max-content;
-  object-fit: cover;
-}
-.saved-images {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-</style>

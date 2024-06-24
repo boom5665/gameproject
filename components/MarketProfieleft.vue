@@ -26,7 +26,7 @@
           <div class="button-but">ถอนเงิน</div>
         </div>
         <div class="dis-mgin">
-          <div class="button-but">ดูร้านค้า</div>
+          <Nuxt-link to="/Market" target="_self"><div class="button-but">ดูร้านค้า</div></Nuxt-link>
         </div>
         <div class="dis-mgin">
           <div class="but-folow">Total items</div>
@@ -42,7 +42,7 @@
           เลือกซื้อแพคเกจที่ต้องการ แล้วเริ่มประสบการณ์พลัสของคุณได้ทันที
         </div>
         <div class="dis-mgin">
-          <div class="button-but">เลือกแพคเกจ</div>
+          <Nuxt-link to="/MarketPackage" target="_self"><div class="button-but">เลือกแพคเกจ</div></Nuxt-link>
         </div>
       </div>
       <div class="content-brand">

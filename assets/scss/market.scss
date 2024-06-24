@@ -306,7 +306,8 @@
     border-radius: 6px;
     background: #fff;
     color: black;
-    margin-top: 20px; gap: var(--Spacing-space-16, 12px)
+    margin-top: 20px;
+    gap: var(--Spacing-space-16, 12px)
   }
 
   .dis-input {
@@ -314,6 +315,7 @@
     align-items: center;
     justify-content: space-between;
   }
+
   .font-top {
     color: var(--Color-Primary-Pueple-500, #5c25f2);
     text-align: center;
@@ -341,9 +343,11 @@
     color: white;
     cursor: pointer;
   }
+
   button:hover {
     background-color: #0056b3;
   }
+
   .font-head {
     color: #5c25f2;
     font-size: 18px;
@@ -352,10 +356,12 @@
     align-items: flex-end;
     margin-bottom: 10px;
   }
+
   .comment-font {
     color: #8153ff;
     margin-bottom: 10px;
   }
+
   .box-rule {
     display: flex;
     padding: var(--Spacing-space-16, 16px);
@@ -379,6 +385,7 @@
     justify-content: center;
     align-items: center;
   }
+
   /* Hide the default checkbox */
   .container input {
     position: absolute;
@@ -412,7 +419,7 @@
   }
 
   /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
+  .container input:checked~.checkmark {
     background-color: var(--clr);
     border-radius: 0.5rem;
     animation: pulse 500ms ease-in-out;
@@ -426,7 +433,7 @@
   }
 
   /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
+  .container input:checked~.checkmark:after {
     display: block;
   }
 
@@ -460,9 +467,11 @@
       rotate: 0;
     }
   }
+
   .checkbox-label {
     font-size: 17px;
   }
+
   .submit {
     width: 100%;
     padding: 8px 12px;
@@ -480,10 +489,8 @@
   .card-into {
     border-radius: var(--Border-radius-8, 8px);
     border: 2px dashed var(--Color-Secondary-500, #ffeb3b);
-    background: var(
-      --Linear,
-      linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%)
-    );
+    background: var(--Linear,
+        linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%));
     display: flex;
     width: 253px;
     padding: var(--Spacing-space-16, 16px) var(--Spacing-space-24, 24px);
@@ -493,6 +500,7 @@
     margin-right: 16px;
     height: 470px;
   }
+
   .card-other {
     display: flex;
     width: 253px;
@@ -505,6 +513,7 @@
     color: #000;
     margin-right: 16px;
   }
+
   .poppular {
     padding: var(--Spacing-space-4, 4px) var(--Spacing-space-8, 8px);
     border-radius: var(--Border-radius-Full, 9999px);
@@ -514,6 +523,7 @@
     font-size: 14px;
     position: relative;
   }
+
   .dis-flex-end {
     display: flex;
     justify-content: center;
@@ -521,6 +531,7 @@
     height: 500px;
     align-items: flex-end;
   }
+
   .font-card {
     display: flex;
     flex-direction: row;
@@ -531,13 +542,16 @@
     color: var(--Color-Secondary-500, #ffeb3b);
     font-size: 48px;
   }
+
   .font-card-top-other {
     color: var(--Color-Secondary-500, #5c25f2);
     font-size: 48px;
   }
+
   .font-right-other {
     color: #5c25f2;
   }
+
   .button-but {
     display: flex;
     height: 36px;
@@ -553,14 +567,17 @@
     width: 100%;
     cursor: pointer;
   }
+
   .font-form-pak {
     font-size: 48px;
     color: #5c25f2;
   }
+
   .font-form-buy {
     color: #bababa;
     font-size: 32px;
   }
+
   .img-ganaral {
     margin: 10px 10px 10px 0px;
     display: flex;
@@ -569,6 +586,7 @@
     border-radius: var(--Border-radius-20, 20px);
     background: rgba(92, 37, 242, 0.2);
   }
+
   .content-pakg {
     display: flex;
     padding: 0px;
@@ -581,21 +599,25 @@
     width: 100%;
     flex-wrap: wrap;
   }
+
   .wid-content {
     width: 30%;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
   }
+
   .button-dot {
     margin-right: 10px;
     margin-bottom: 5px;
   }
-  .img-likeintro{
-      margin: 3px 10px 0px 0px;
-      width: 20px;
-      height: 20px;
+
+  .img-likeintro {
+    margin: 3px 10px 0px 0px;
+    width: 20px;
+    height: 20px;
   }
+
   .img-add {
     display: flex;
     padding: 16px;
@@ -608,25 +630,30 @@
     cursor: pointer;
     margin-bottom: 10px;
   }
+
   .img-contentadd {
     display: flex;
     margin: 10px 20px;
   }
+
   .font-form-myshop {
     font-size: 16px;
     color: #5c25f2;
   }
+
   .font-form-myshop-under {
     font-size: 16px;
     color: #bababa;
     margin-bottom: 10px;
   }
+
   .font-top-myshop {
     color: var(--color-black-white-900, #fff);
     font-size: 24px;
     text-align: left;
     width: 100%;
   }
+
   .line-table {
     width: 100%;
     border-radius: 6px 0px 0px 0px;
@@ -639,9 +666,152 @@
     justify-content: center;
     padding: 10px;
   }
-   .font-form-add {
-      color: #5c25f2;
-      font-size: 20px;
-      margin-bottom: 16px;
+
+  .font-form-add {
+    color: #5c25f2;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  /* The side navigation menu */
+  .sidenav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    border-radius: 0px;
+    background: #3c3b4b;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 0px 0px 20px 0px;
+    color: white;
+  }
+
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover,
+  .offcanvas a:focus {
+    color: #f1f1f1;
+  }
+
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+    position: relative;
+    top: 0;
+    font-size: 36px;
+    width: 100%;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    background: var(--Linear,
+        linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%));
+    color: #fff;
+  }
+
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    transition: margin-left 0.5s;
+    padding: 20px;
+  }
+
+  .sidenav {
+    right: 0px;
+  }
+
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
+
+  .sidenav {
+    right: -50px;
+  }
+
+  .profile-img {
+    border-radius: 6px;
+    border: 1px dashed #d00;
+    background: #31303f;
+    display: flex;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 110px;
+    margin: 15px 5px;
+  }
+
+  .profile-img-main {
+    border-radius: 6px;
+    border: 1px dashed #d00;
+    background: #31303f;
+    display: flex;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 110px;
+    margin: 15px 5px;
+  }
+
+  .img-wrapper {
+    padding: 20px;
+  }
+
+  .font-form-myshop-under {
+    font-size: 16px;
+    color: #bababa;
+    margin-bottom: 10px;
+  }
+
+  #mySidenav2 .preview img {
+    margin: 5px;
+    width: 40%;
+    height: max-content;
+    object-fit: cover;
+  }
+
+  .saved-images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .image-container {
+    display: flex;
+    justify-content: space-between;
+    width: max-content;
+    align-items: center;
+    border-bottom: 2px solid white;
+    margin-bottom: 10px;
+  }
+
+  .image-container-main {
+    width: 100%;
   }
 }
