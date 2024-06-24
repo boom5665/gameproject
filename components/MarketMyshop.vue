@@ -50,7 +50,7 @@
         <div style="width: 100%">
           <div class="font-form-myshop">การแจ้งเตือน</div>
           <div class="font-form-myshop-under">ตั้งค่าการแจ้งเตือน</div>
-          <Nuxt-link to="/MarketMyAdd" target="_self">
+          <Nuxt-link to="/MarketMyMessege" target="_self">
             <div class="img-add">
               <div class="font-form-myshop">
                 <div class="img-contentadd">

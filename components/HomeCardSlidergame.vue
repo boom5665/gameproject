@@ -45,7 +45,7 @@ export default {
 <style>
 .slider-container {
   width: 80%;
-  margin: 20px auto;
+  margin: 0px auto;
 }
 .slick-slide img {
   width: 100%;
@@ -53,11 +53,7 @@ export default {
 </style>
 
 <style scoped>
-.slider-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-}
+
 
 .slider {
   display: flex;
