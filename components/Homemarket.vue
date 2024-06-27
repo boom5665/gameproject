@@ -1,23 +1,19 @@
 <template>
-  <div style="width: 100%;">
-    <div>
-      <HomeCorousalBanner :items="itemsbanner" />
-    </div>
-
+  <div style="width: 100%">
+    <div><HomeCorousalBanner :items="itemsbanner" /></div>
     <div class="card-box" style="margin-top: 60px">
       <div class="slider-container">
         <div class="dis-play-recom">
           <div>
-            <img src="~/assets/image/recom.png" class="img-recom" />Recommended
+            <img src="~/assets/image/recom.png" class="img-recom" /> แนะนำ
           </div>
           <div>
             See all &nbsp;
             <img src="~/assets/image/all.png" class="img-recom" />
           </div>
         </div>
-        <Slider :items="items" :interval="240" />
+        <Slider :items="recommended" :interval="240" />
       </div>
-
       <div class="slider-container">
         <div class="dis-play-recom">
           <div>
@@ -28,7 +24,7 @@
             <img src="~/assets/image/all.png" class="img-recom" />
           </div>
         </div>
-        <Slider :items="itemstrending" :interval="240" />
+        <Slider :items="trending" :interval="240" />
       </div>
       <div class="slider-container">
         <div class="dis-play-recom">
@@ -50,7 +46,7 @@
             <img src="~/assets/image/all.png" class="img-recom" />
           </div>
         </div>
-        <HomeCardSlidergame :items="itemsgame" />
+        <HomeCardSlidergame :items="game" />
       </div>
       <div class="slider-container">
         <div class="dis-play-recom">
@@ -62,502 +58,24 @@
             <img src="~/assets/image/all.png" class="img-recom" />
           </div>
         </div>
-        <HomeCardSlidergame :items="itemsshop" />
+        <HomeCardSlidergame :items="topshop" />
       </div>
     </div>
   </div>
 </template>
-
-
-<script>
+ <script>
 import Slider from "./Slider.vue";
 import HomeCardSlidergame from "./HomeCardSlidergame.vue";
 import HomeCorousalBanner from "./HomeCorousalBanner.vue";
 export default {
-  components: {
-    Slider,
-    HomeCardSlidergame,
-    HomeCorousalBanner,
-  },
+  components: { Slider, HomeCardSlidergame, HomeCorousalBanner },
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 2,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 3,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 4,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 5,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 6,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 7,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 8,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 9,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 10,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "RECOMMENDED",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-      ],
-      itemstrending: [
-        {
-          id: 1,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 2,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 3,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 4,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 5,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 6,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 7,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 8,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 9,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 10,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemstrending",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-      ],
-      itemssale: [
-        {
-          id: 1,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 2,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 3,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 4,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 5,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 6,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 7,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 8,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 9,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-        {
-          id: 10,
-          logoSrc: require("@/assets/image/ROV.png"),
-          title: "HP.SHOP. TH Official",
-          loveSrc: require("@/assets/image/love2.png"),
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "itemssale",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/addcart.png"),
-        },
-      ],
-      itemsgame: [
-        {
-          id: 1,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 3,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 4,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 5,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 6,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 7,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 8,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 9,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 10,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 11,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        {
-          id: 12,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Dragon Art",
-        },
-        // เพิ่มเติม item ที่เหลือ
-      ],
-      itemsshop: [
-        {
-          id: 1,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        {
-          id: 3,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        {
-          id: 4,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        {
-          id: 5,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        {
-          id: 6,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        {
-          id: 7,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        {
-          id: 8,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        {
-          id: 9,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        {
-          id: 10,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        {
-          id: 11,
-          imageSrc: require("@/assets/image/genshin.png"),
-          subtitle: "Shop",
-        },
-        // เพิ่มเติม item ที่เหลือ
-      ],
+      trending: [],
+      recommended: [],
+      itemssale: [],
+      game: [],
+      topshop: [],
       itemsbanner: [
         { imageSrc: require("~/assets/image/AD.png") },
         { imageSrc: require("~/assets/image/AD.png") },
@@ -566,12 +84,75 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      try {
+        const response = await this.$axios.$get(
+          "https://dev-api-gamiqo.pirate168.com/api/v1/list/marketplace/home"
+        );
+        console.log(response);
+        if (response.code === 200) {
+          const { recommended, sale, trending } = response.data.Itemlist;
+          const { topshop, game } = response.data.Product;
+          this.recommended = recommended.map((item) => ({
+            id: item.id,
+            logoSrc: item.item_img_main,
+            title: item.market_name,
+            loveSrc: require("@/assets/image/love2.png"),
+            loveCount: item.like,
+            imageSrc: item.item_img_main,
+            subtitle: item.sold,
+            description: item.item_name,
+            price: item.price,
+            cartSrc: require("@/assets/image/addcart.png"),
+          })); // อัปเดตข้อมูลใน itemssale
+          this.itemssale = sale.map((item) => ({
+            id: item.id,
+            logoSrc: item.item_img_main,
+            title: item.market_name,
+            loveSrc: require("@/assets/image/love2.png"),
+            loveCount: item.like,
+            imageSrc: item.item_img_main,
+            subtitle: item.sold,
+            description: item.item_name,
+            price: item.price,
+            cartSrc: require("@/assets/image/addcart.png"),
+          })); // อัปเดตข้อมูลใน trending
+          this.trending = trending.map((item) => ({
+            id: item.id,
+            logoSrc: item.item_img_main,
+            title: item.market_name,
+            loveSrc: require("@/assets/image/love2.png"),
+            loveCount: item.like,
+            imageSrc: item.item_img_main,
+            subtitle: item.sold,
+            description: item.item_name,
+            price: item.price,
+            cartSrc: require("@/assets/image/addcart.png"),
+          })); // สามารถอัปเดตคุณสมบัติอื่น ๆ เช่น hotitem, trending, เป็นต้นได้เช่นกัน
 
-  computed: {},
-  methods: {},
+          // อัปเดตค่าใน itemsshop ให้เป็นข้อมูลจาก Productlist
+          this.topshop = topshop.map((item) => ({
+            id: item.id_product,
+            imageSrc: item.product_img,
+            subtitle: item.product_name,
+          }));
+
+          this.game = game.map((item) => ({
+            id: item.id_product,
+            imageSrc: item.product_img,
+            subtitle: item.product_name,
+          }));
+        } else {
+          console.error("Failed to fetch data:", response.msg);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
+  },
 };
 </script>
-
-
-<style>
-</style>

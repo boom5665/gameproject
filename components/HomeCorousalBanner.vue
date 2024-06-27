@@ -1,32 +1,30 @@
 <template>
   <div>
-    <div>
-      <b-carousel id="carousel1" v-model="slide" :interval="8000" controls>
-        <b-carousel-slide
-          v-for="(img, index) in items"
+    <b-carousel id="carousel1" v-model="slide" :interval="8000" controls>
+      <b-carousel-slide
+        v-for="(img, index) in items"
+        :key="index"
+        :img-src="img.imageSrc"
+      ></b-carousel-slide>
+    </b-carousel>
+
+    <!-- จุดไข่ปลา-->
+    <div class="custom-indicators">
+      <button id="arrow-left" @click="prevSlide">
+        <img src="~/assets/image/arrow-left.png" alt="left arrow" />
+      </button>
+      <div class="dotposition">
+        <span
+          v-for="(n, index) in items.length"
           :key="index"
-          :img-src="img.imageSrc"
-        ></b-carousel-slide>
-      </b-carousel>
-
-      <!-- จุดไข่ปลา-->
-      <div class="custom-indicators">
-        <button id="arrow-left" @click="prevSlide">
-          <img src="~/assets/image/arrow-left.png" alt="left arrow" />
-        </button>
-        <div class="dotposition">
-          <span
-            v-for="(n, index) in items.length"
-            :key="index"
-            @click="goToSlide(index)"
-            :class="{ active: index === currentSlide }"
-          ></span>
-        </div>
-
-        <button id="arrow-right" @click="nextSlide">
-          <img src="~/assets/image/arrow-right.png" alt="right arrow" />
-        </button>
+          @click="goToSlide(index)"
+          :class="{ active: index === currentSlide }"
+        ></span>
       </div>
+
+      <button id="arrow-right" @click="nextSlide">
+        <img src="~/assets/image/arrow-right.png" alt="right arrow" />
+      </button>
     </div>
   </div>
 </template>
@@ -72,19 +70,6 @@ export default {
 </script>
 
 <style scoped>
-.card-box {
-  display: flex;
-  width: 100%;
-  padding: var(--Spacing-space-24, 24px) var(--Spacing-space-0, 0px);
-  flex-direction: column;
-  align-items: center;
-  gap: var(--Spacing-space-48, 48px);
-  border-radius: var(--Border-radius-8, 8px);
-  background: var(--Color-Primary-700, #3a179a);
-  margin-top: 60px;
-}
-
-/* ปรับแต่งสไตล์ของจุดไข่ปลา */
 .custom-indicators {
   display: flex;
   justify-content: center;
@@ -106,7 +91,6 @@ export default {
   background-color: #ffeb3b; /* สีของจุดไข่ปลาเมื่อเป็นสไลด์ปัจจุบัน */
 }
 
-/* เอาขีดออกจากภาพ */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   width: 30px;
@@ -146,8 +130,9 @@ export default {
 #arrow-right {
   z-index: 0;
 }
-.dotposition{
-    position: relative;
-    top: 7px;
+
+.dotposition {
+  position: relative;
+  top: 7px;
 }
 </style>

@@ -109,7 +109,7 @@ export default {
   display: flex;
   position: relative;
   align-items: flex-start;
-  top: 6px;
+  top: 2px;
   padding-right: 3px;
 }
 .font {

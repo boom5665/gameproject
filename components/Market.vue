@@ -1,9 +1,9 @@
 <template>
   <div style="width: 100%">
     <div>
-      <HomeCorousalBanner :items="itemsbanner" />
+      <HomeCorousalBanner :items="itemsbanners" />
     </div>
-    <div style="display: flex; justify-content: center;margin-top: 20px;">
+    <div style="display: flex; justify-content: center; margin-top: 20px">
       <div>
         <div class="font-form-add"></div>
         <div class="preview" style="width: max-content" @click="openNav">
@@ -24,7 +24,9 @@
         </div>
       </div>
     </div>
-    <Marketprofile />
+    <div>
+      <Marketprofile />
+    </div>
     <div style="display: flex; justify-content: center">
       <div>
         <div class="font-form-add"></div>
@@ -65,8 +67,9 @@
                   class=""
                   style="margin: 15px 5px; width: 100%"
                   src="~/assets/image/img-main-nav.png"
-                /></div
-            ></label>
+                />
+              </div>
+            </label>
             <input
               type="file"
               id="image_uploads"
@@ -98,37 +101,29 @@ export default {
   components: {
     HomeCorousalBanner,
   },
-
-  components: {},
   data() {
     return {
-      itemsbanner: [
+      itemsbanners: [
         { imageSrc: require("~/assets/image/AD.png") },
         { imageSrc: require("~/assets/image/AD.png") },
         { imageSrc: require("~/assets/image/AD.png") },
         { imageSrc: require("~/assets/image/AD.png") },
       ],
-      // ตัวแปรหรือข้อมูลที่คุณต้องการนำเข้าไปใช้ใน component นี้
       imageData: null,
       imageUrl: false,
       showImage: false,
       submitted: false,
     };
   },
-
-  computed: {},
   methods: {
     openNav() {
-      // เปิดเมนูด้านข้าง
       document.getElementById("mySidenav").style.width = "350px";
       document.getElementById("mySidenav").style.right = "0px";
     },
     closeNav() {
-      // ปิดเมนูด้านข้าง
       document.getElementById("mySidenav").style.width = "0";
       document.getElementById("mySidenav").style.right = "-50px";
     },
-
     handleFileChange(event) {
       const file = event.target.files[0];
       if (file) {
@@ -139,20 +134,14 @@ export default {
         this.imageUrl = "";
       }
     },
-
     submitImage() {
-      // ส่วนนี้คือการส่งข้อมูลไปยัง API หรือทำการบันทึกข้อมูลตามที่ต้องการ
       console.log("Submitted:", this.imageData);
-
-      // เมื่อส่งเสร็จแล้วแสดงภาพที่อัพโหลด
       this.showImage = true;
       alert("เพิ่มภาพเรียบร้อย");
     },
   },
 };
 </script>
-
-
 
 <style>
 .img-edit {
@@ -161,7 +150,6 @@ export default {
   border: 2px dashed var(--Color-Secondary-500, #ffeb3b) !important;
   width: 100% !important;
   height: 400px !important;
-  /* margin: 15px 5px; */
 }
 .profile-img-main {
   height: 130px;

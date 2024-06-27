@@ -39,11 +39,19 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
   plugins: [
     { src: '~/plugins/slick-carousel.js', mode: 'client' }
   ],
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+  proxy: {
+    '/api/': {
+        target: 'https://dev-api-gamiqo.pirate168.com/',
+        changeOrigin: true,
+        pathRewrite: { '^/api/': '' }
+    }
+}
 }

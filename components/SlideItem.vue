@@ -1,8 +1,8 @@
 <!-- SlideItem.vue -->
 <template>
-  <div class="tpn_card" >
-    <div style="display: flex">
-      <div >
+  <div class="tpn_card">
+    <div style="display: flex; justify-content: space-between">
+      <div>
         <img
           :src="item.logoSrc"
           style="width: 26px; height: 26px; margin-right: 5px"
