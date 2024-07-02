@@ -86,7 +86,7 @@
           <div class="icon">
             <img class="" src="~/assets/image/comment.png" />
           </div>
-          <div class="icon-cart">
+          <div class="icon-cart" @click="openNav">
             <img class="" src="~/assets/image/Cart.png" />
           </div>
         </div>
@@ -127,13 +127,198 @@
           >
         </div>
       </div>
+
+      <div id="mySidenavtop" class="sidenav">
+        <div class="" style="height: 100%">
+          <a href="javascript:void(0)" class="closebtn" @click="closeNav">
+            <div class="font-top-close">ตระกร้า</div>
+            <div>&times;</div>
+          </a>
+          <div class="d-colum-space">
+            <div class="" style="margin: 20px">
+              <div v-for="product in products" :key="product.id">
+                <div class="top-head">{{ product.name }}</div>
+                <div class="shop-item">
+                  <div class="d-flex">
+                    <div style="margin-right: 20px">
+                      <img
+                        class="img-shop-nav"
+                        :src="product.imageUrl"
+                        alt="Product Image"
+                      />
+                    </div>
+                    <div>
+                      <div>{{ product.description }}</div>
+                      <div style="display: flex; align-items: flex-end">
+                        <div style="margin-right: 10px">
+                          <img
+                            class=""
+                            src="~/assets/image/----.png"
+                            @click="decreaseQuantity(product)"
+                          />
+                        </div>
+                        <div>{{ product.quantity }}</div>
+                        <div style="margin-left: 10px">
+                          <img
+                            class=""
+                            style="
+                              top: -1px;
+                              margin-left: 2px;
+                              position: relative;
+                            "
+                            src="~/assets/image/++++.png"
+                            @click="increaseQuantity(product)"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-colum">
+                    <div>
+                      <img
+                        class=""
+                        src="~/assets/image/trash.png"
+                        @click="removeProduct(product)"
+                      />
+                    </div>
+                    <div>฿{{ product.price.toLocaleString() }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="padding: 20px">
+              <div class="box-total">
+                <div class="dis-btween">
+                  <div>ประหยัดเงินไป</div>
+                  <div>- ฿0</div>
+                </div>
+                <div class="dis-btween">
+                  <div>รวม</div>
+                  <div>฿{{ totalAmount.toLocaleString() }}</div>
+                </div>
+              </div>
+              <div class="submit">ไปชำระเงิน</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Navbar",
+  data() {
+    return {
+      products: [
+        {
+          id: 1,
+          name: "Razer Gold",
+          imageUrl: require("@/assets/image/cardgold.png"),
+          description: "Top up Razer Gold",
+          category: "Digital",
+          quantity: 1,
+          price: 9999,
+        },
+        {
+          id: 2,
+          name: "Steam Wallet",
+          imageUrl: require("@/assets/image/cardgold.png"),
+          description: "Top up Steam Wallet",
+          category: "Digital",
+          quantity: 1,
+          price: 3000,
+        },
+        {
+          id: 3,
+          name: "Valorant Points",
+          imageUrl: require("@/assets/image/cardgold.png"),
+          description: "Buy Valorant Points",
+          category: "In-Game Currency",
+          quantity: 1,
+          price: 5000,
+        },
+      ],
+    };
+  },
+  computed: {
+    totalAmount() {
+      return this.products.reduce((total, product) => {
+        return total + product.price * product.quantity;
+      }, 0);
+    }
+  },
+  methods: {
+    openNav() {
+      // เปิดเมนูด้านข้าง
+      document.getElementById("mySidenavtop").style.width = "400px";
+      document.getElementById("mySidenavtop").style.right = "0px";
+    },
+    closeNav() {
+      // ปิดเมนูด้านข้าง
+      document.getElementById("mySidenavtop").style.width = "0";
+      document.getElementById("mySidenavtop").style.right = "-50px";
+    },
+    increaseQuantity(product) {
+      product.quantity += 1;
+    },
+    decreaseQuantity(product) {
+      if (product.quantity > 1) {
+        product.quantity -= 1;
+      }
+    },
+    removeProduct(product) {
+      this.products = this.products.filter((p) => p.id !== product.id);
+    },
+  },
 };
 </script>
 
+<style>
+.d-colum-space {
+  height: 95%;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: space-between;
+}
+.d-flex {
+  display: flex;
+}
+
+.d-colum {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.img-safe {
+  /* padding-right: 8px; */
+  top: 1px;
+  position: relative;
+}
+.img-shop-nav {
+  width: 50px;
+  border-radius: 10px;
+  height: 50px;
+}
+.box-total {
+  display: flex;
+  padding: var(--Spacing-space-16, 16px);
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: var(--Border-radius-8, 8px);
+  background: var(--Color-Primary-Pueple-500, #5c25f2);
+}
+.submit {
+  width: 100%;
+}
+
+.dis-btween {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+</style>

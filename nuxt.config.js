@@ -18,7 +18,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/assets/scss/main.scss', '~/assets/scss/navbar.scss', '~/assets/scss/market.scss',
+    '~/assets/scss/main.scss', '~/assets/scss/navbar.scss', '~/assets/scss/market.scss','~/assets/scss/Shop.scss',
     'slick-carousel/slick/slick.css',
     'slick-carousel/slick/slick-theme.css'
   ],
