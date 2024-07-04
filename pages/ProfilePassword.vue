@@ -1,0 +1,29 @@
+<template>
+  <div>
+    <div class="box-cotent" style="display: flex; justify-content: center">
+      <div class="contentleft">
+        <MarketProfieleft />
+      </div>
+      <div class="contentright">
+        <ProfilePassword />
+      </div>
+    </div>
+  </div>
+</template>
+
+<style>
+.M-Create-Backgroud .font-top-myshop {
+  font-size: 18px;
+  color: var(--color-black-white-700, #bababa);
+}
+.contentleft {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+}
+.contentright {
+  width: 65%;
+}
+</style>
+
+

@@ -143,7 +143,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .img-edit {
   border-radius: var(--Border-radius-8, 8px) !important;
   border: 4px solid #ffeb3b !important;

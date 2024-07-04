@@ -275,3 +275,45 @@
   border-radius: var(--Border-radius-Full, 9999px);
   height: 50px;
 }
+
+
+.Profile{
+  .M-Create-Backgroud .font-top-myshop {
+    font-size: 18px;
+    color: var(--color-black-white-700, #bababa);
+  }
+  .font-proL-top {
+    color: #ffeb3b;
+    font-size: 24px !important;
+  }
+  .M-Create-Backgroud .form-create {
+    align-items: flex-start;
+  }
+
+  .font-top {
+    color: #5c25f2;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+  .font-top-pro {
+    color: #bababa;
+    font-size: 16px;
+  }
+  .wid-cen {
+    width: 50%;
+  }
+  .font-content-pro {
+    color: #5c25f2;
+  }
+
+  .img-safe {
+    top: -3px;
+    margin-right: 5px;
+  }
+  .font-content-ver {
+    color: #38b899;
+  }
+  .font-content-Unver {
+    color: #BABABA;
+  }
+}

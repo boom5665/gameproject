@@ -1,9 +1,10 @@
 <template>
-  <div class="M-Create-Backgroud">
+  <div class="M-Create-Backgroud Point">
     <div class="navtabs">
       <div class="font-top-myshop">
-        Rewards &nbsp; | &nbsp; <span class="">Rank</span> &nbsp;| &nbsp;
-        <span class="">All coupon</span>
+        Rewards &nbsp; | &nbsp; <span class="p-font-top">Rank</span> &nbsp;|
+        &nbsp;
+        <span class="p-font-top">All coupon</span>
       </div>
       <div
         class="form-create"
@@ -202,8 +203,10 @@ export default {
 };
 </script>
 
-<style >
-
+<style lang="scss" scoped>
+.p-font-top {
+  color: var(--color-black-white-300, #3f3f3f);
+}
 .bg-style-point {
   border-radius: var(--Border-radius-6, 6px);
   background: url("~/assets/image/bgpoint.png");
