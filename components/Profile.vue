@@ -2,15 +2,13 @@
   <div class="M-Create-Backgroud Profile">
     <div class="navtabs">
       <div class="font-top-myshop">
-        <span class="font-proL-top">Profile</span> &nbsp; | &nbsp;
-        <span class="">Edit profile</span>
-        &nbsp; | &nbsp;<span class="">Email</span> &nbsp; | &nbsp;<span class=""
-          >Phone number</span
-        >
-        &nbsp; | &nbsp;<span class="">Address</span> &nbsp; | &nbsp;<span
-          class=""
-          >Password</span
-        >
+        <Nuxt-link class="text-profile" to="/Profile" target="_self">
+        <span class="font-proL-top">Profile</span></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfileEdit" target="_self">&nbsp; | &nbsp;<span class="">Edit profile</span></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfileEditEmail" target="_self">&nbsp; | &nbsp;<span class="">Email</span></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfileEditPhone" target="_self">&nbsp; | &nbsp;<span class="">Phone number</span ></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfileAddress" target="_self">&nbsp; | &nbsp;<span class="">Address</span></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfilePassword" target="_self">&nbsp; | &nbsp;<span class="">Password</span></Nuxt-link>
       </div>
       <div
         class="form-create"
@@ -35,19 +33,24 @@
                   </div>
                 </div>
                 <div class="font-content-pro">
+                  <div class="but-shop font-content-ver">
+                    <div v-if="userInfo.personalDetails === 'Verified'">
+                      <img class="img-safe" src="~/assets/image/Verified.png" />
+                      {{ userInfo.personalDetails }}
+                    </div>
 
-                <div class="but-shop font-content-ver">
-                  <div v-if="userInfo.personalDetails === 'Verified'">
-                    <img class="img-safe" src="~/assets/image/Verified.png" />
-                    {{ userInfo.personalDetails }}
+                    <!-- โชว์ถ้าเป็น Unverified -->
+                    <div
+                      v-else-if="userInfo.personalDetails === 'Unverified'"
+                      class="font-content-Unver"
+                    >
+                      <img
+                        class="img-safe"
+                        src="~/assets/image/Unverified.png"
+                      />
+                      {{ userInfo.personalDetails }}
+                    </div>
                   </div>
-
-                  <!-- โชว์ถ้าเป็น Unverified -->
-                  <div v-else-if="userInfo.personalDetails === 'Unverified'" class="font-content-Unver">
-                    <img class="img-safe" src="~/assets/image/Unverified.png" />
-                    {{ userInfo.personalDetails }}
-                  </div>
-                </div>
                 </div>
               </div>
 
@@ -94,7 +97,10 @@
                   </div>
 
                   <!-- โชว์ถ้าเป็น Unverified -->
-                  <div v-else-if="userInfo.contact === 'Unverified'" class="font-content-Unver">
+                  <div
+                    v-else-if="userInfo.contact === 'Unverified'"
+                    class="font-content-Unver"
+                  >
                     <img class="img-safe" src="~/assets/image/Unverified.png" />
                     {{ userInfo.contact }}
                   </div>

@@ -2,15 +2,13 @@
   <div class="M-Create-Backgroud">
     <div class="navtabs">
       <div class="font-top-myshop">
-        <span class="font-proL-top">Profile</span> &nbsp; | &nbsp;
-        <span class="">Edit profile</span>
-        &nbsp; | &nbsp;<span class="">Email</span> &nbsp; | &nbsp;<span class=""
-          >Phone number</span
-        >
-        &nbsp; | &nbsp;<span class="">Address</span> &nbsp; | &nbsp;<span
-          class=""
-          >Password</span
-        >
+        <Nuxt-link class="text-profile" to="/Profile" target="_self">
+        <span class="">Profile</span></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfileEdit" target="_self">&nbsp; | &nbsp;<span class="">Edit profile</span></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfileEditEmail" target="_self">&nbsp; | &nbsp;<span class="">Email</span></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfileEditPhone" target="_self">&nbsp; | &nbsp;<span class="">Phone number</span ></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfileAddress" target="_self">&nbsp; | &nbsp;<span class="font-proL-top">Address</span></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ProfilePassword" target="_self">&nbsp; | &nbsp;<span class="">Password</span></Nuxt-link>
       </div>
       <div
         class="form-create"
