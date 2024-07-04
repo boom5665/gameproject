@@ -1,0 +1,416 @@
+<template>
+  <div style="width: 100%">
+    <div class="card-box" style="margin-bottom: 60px">
+      <div>
+        <div class="font-head-content">ข่าวที่น่าสนใจ</div>
+      </div>
+      <div style="display: flex; width: 100%">
+        <div class="wid-one">
+          <div><HomeCorousalNew :items="itemsbannerNew" /></div>
+        </div>
+        <div class="wid-tree">
+          <div
+            class="margin-b-two"
+            v-for="(item, index) in Topright"
+            :key="index"
+          >
+            <div>
+              <div style="width: 100%">
+                <img class="box-new-right" :src="item.imgSrc" />
+              </div>
+              <div>
+                <div class="content-new-right">
+                  {{ item.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="margin-b-two font-head-content">ข่าวล่าสุด</div>
+        <div style="width: 100%; display: flex">
+          <div
+            class="margin-bottom"
+            v-for="(item, index) in TopsNews"
+            :key="index"
+          >
+            <div>
+              <div style="width: 100%">
+                <img class="box-new-bottom" :src="item.imgSrc" />
+              </div>
+              <div>
+
+              </div>
+              <div class="content-new-bottom">
+                <div class="font-newtop">{{ item.title }}</div>
+                {{ item.description }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-box" style="margin-bottom: 60px">
+      <div class="head-text-top">
+        <div
+          @click="currentPage = 'marketplace'"
+          :class="{ active: currentPage === 'marketplace' }"
+        >
+          Marketplace
+        </div>
+        <div
+          @click="currentPage = 'esports'"
+          :class="{ active: currentPage === 'esports' }"
+        >
+          Esports
+        </div>
+        <div
+          @click="currentPage = 'jobBoard'"
+          :class="{ active: currentPage === 'jobBoard' }"
+        >
+          Job board
+        </div>
+      </div>
+
+      <div style="width: 100%">
+        <div style="width: 100%">
+          <img class="box-new-bottom" src="~/assets/image/AD.png" />
+        </div>
+      </div>
+
+      <!-- Marketplace Page -->
+      <div v-if="currentPage === 'marketplace'">
+        <div class="margin-b-two">ข่าวล่าสุด - Marketplace</div>
+        <div class="flex-warp">
+          <div
+            class="margin-bottom"
+            v-for="(item, index) in marketplaceNews"
+            :key="index"
+          >
+            <div>
+              <div style="width: 100%">
+                <img class="box-new-bottom" :src="item.imgSrc" />
+              </div>
+              <div class="content-new-bottom">
+                <div class="font-newtop">{{ item.title }}</div>
+                {{ item.description }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Esports Page -->
+      <div v-if="currentPage === 'esports'">
+        <div class="margin-b-two">ข่าวล่าสุด - Esports</div>
+        <div style="width: 100%; display: flex">
+          <div
+            class="margin-bottom"
+            v-for="(item, index) in esportsNews"
+            :key="index"
+          >
+            <div>
+              <div style="width: 100%">
+                <img class="box-new-bottom" :src="item.imgSrc" />
+              </div>
+              <div class="content-new-bottom">
+                <div class="font-newtop">{{ item.title }}</div>
+                {{ item.description }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job Board Page -->
+      <div v-if="currentPage === 'jobBoard'">
+        <div class="margin-b-two">ข่าวล่าสุด - Job Board</div>
+        <div style="width: 100%; display: flex">
+          <div
+            class="margin-bottom"
+            v-for="(item, index) in jobBoardNews"
+            :key="index"
+          >
+            <div>
+              <div style="width: 100%">
+                <img class="box-new-bottom" :src="item.imgSrc" />
+              </div>
+              <div class="content-new-bottom">
+                <div class="font-newtop">{{ item.title }}</div>
+                {{ item.description }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div><HomeCorousalBanner :items="itemsbanner" /></div>
+    <div class="card-box" style="margin-bottom: 60px">
+      <div>
+        <div class="font-head-content">ข่าวทั่วไป</div>
+      </div>
+      <div>
+        <div style="width: 100%; display: flex">
+          <div
+            class="margin-bottom"
+            v-for="(item, index) in AllNews"
+            :key="index"
+          >
+            <div>
+              <div style="width: 100%">
+                <img class="box-new-bottom" :src="item.imgSrc" />
+              </div>
+              <div class="content-new-bottom">
+                <div class="font-newtop">{{ item.title }}</div>
+                {{ item.description }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+ <script>
+import HomeCorousalBanner from "./HomeCorousalBanner.vue";
+import HomeCorousalNew from "./HomeCorousalNew.vue";
+export default {
+  components: { HomeCorousalBanner, HomeCorousalNew },
+  data() {
+    return {
+      itemsbannerNew: [
+        {
+          imageSrc: require("@/assets/image/BannerNew.png"),
+          title: "คู่มือการเล่น Teamfight Tactics ฉบับมือใหม่! อ่านจบ...",
+          subtitle:
+            "ถ้าพูดถึงเกมออนไลน์ที่เป็นที่นิยมในประเทศไทยและทั่วโลก หลายคนคงนึกถึง League of Legends หรือ LoL อย่างแน่นอน ซึ่งนอกจากเกมแล้ว แฟรนไชส์นี้ยังออกเกม Spin-off อย่าง Teamfight Tactics ที่เป็นเกมแนว auto-chess ซึ่งแม้ตัวเกมจะเป็นที่นิยมในหมู่แฟนเกม",
+        },
+      ],
+      itemsbanner: [
+        { imageSrc: require("~/assets/image/AD.png") },
+        { imageSrc: require("~/assets/image/AD.png") },
+        { imageSrc: require("~/assets/image/AD.png") },
+        { imageSrc: require("~/assets/image/AD.png") },
+      ],
+      currentPage: "marketplace",
+      TopsNews: [
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Esports News 1",
+          description: "Description for Esports news 1",
+        },
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Esports News 1",
+          description: "Description for Esports news 1",
+        },
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Esports News 1",
+          description: "Description for Esports news 1",
+        },
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Esports News 1",
+          description: "Description for Esports news 1",
+        },
+        // Add more items as needed
+      ],
+
+      Topright: [
+        {
+          imgSrc: require("@/assets/image/AD.png"),
+          title: "Esports News 1",
+          description:
+            "คู่มือการเล่น Teamfight Tactics ฉบับมือใหม่!อ่านจบเล่นเป็นแน่นอน",
+        },
+        {
+          imgSrc: require("@/assets/image/AD.png"),
+          title: "Esports News 1",
+          description:
+            "คู่มือการเล่น Teamfight Tactics ฉบับมือใหม่!อ่านจบเล่นเป็นแน่นอน",
+        },
+
+        // Add more items as needed
+      ],
+      marketplaceNews: [
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "มาแล้ว ตัวอย่างใหม่ Monster...",
+          description:
+            "คู่มือการเล่น Teamfight Tactics ฉบับมือใหม่! อ่านจบเล่นเป็นแน่นอน",
+        },
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "มาแล้ว ตัวอย่างใหม่ Monster...",
+          description:
+            "คู่มือการเล่น Teamfight Tactics ฉบับมือใหม่! อ่านจบเล่นเป็นแน่นอน",
+        },
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "มาแล้ว ตัวอย่างใหม่ Monster...",
+          description:
+            "คู่มือการเล่น Teamfight Tactics ฉบับมือใหม่! อ่านจบเล่นเป็นแน่นอน",
+        },
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "มาแล้ว ตัวอย่างใหม่ Monster...",
+          description:
+            "คู่มือการเล่น Teamfight Tactics ฉบับมือใหม่! อ่านจบเล่นเป็นแน่นอน",
+        },
+
+        // Add more items as needed
+      ],
+      esportsNews: [
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Esports News 1",
+          description: "Description for Esports news 1",
+        },
+
+        // Add more items as needed
+      ],
+      jobBoardNews: [
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Job Board News 1",
+          description: "Description for Job Board news 1",
+        },
+
+        // Add more items as needed
+      ],
+      AllNews: [
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Esports News 1",
+          description: "Description for Esports news 1",
+        },
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Esports News 1",
+          description: "Description for Esports news 1",
+        },
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Esports News 1",
+          description: "Description for Esports news 1",
+        },
+        {
+          imgSrc: require("@/assets/image/monthunt.png"),
+          title: "Esports News 1",
+          description: "Description for Esports news 1",
+        },
+        // Add more items as needed
+      ],
+    };
+  },
+  mounted() {
+    // this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      try {
+        const response = await this.$axios.$get(
+          "https://dev-api-gamiqo.pirate168.com/api/v1/list/marketplace/home"
+        );
+        console.log(response);
+        if (response.code === 200) {
+        } else {
+          console.error("Failed to fetch data:", response.msg);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+.wid-one {
+  width: 65%;
+  margin-right: 5px;
+}
+.wid-tree {
+  width: 35%;
+}
+.font-head-content {
+  font-size: 24px;
+}
+.flex-warp {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.head-text-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 30px;
+  cursor: pointer;
+}
+.active {
+  font-weight: bold;
+  text-decoration: underline;
+  color: var(--Color-Secondary-500, #ffeb3b);
+}
+.card-box {
+  align-items: flex-start;
+}
+.card-box #arrow-left {
+  left: 45%;
+  top: 77% !important;
+  z-index: 500 !important;
+}
+
+.box-new-right {
+  margin-right: 5px;
+  width: 100%;
+  height: 150px;
+}
+
+.box-new-bottom {
+  margin-right: 5px;
+  width: 100%;
+  height: 300px;
+}
+.content-new-right {
+  position: absolute;
+  width: 20%;
+  transform: translate(10%, -50px);
+  text-shadow: 0 0 0.2em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0),
+    0 0 0.2em rgb(0, 0, 0);
+}
+.font-newtop {
+  color: var(--Color-Secondary-500, #ffeb3b);
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+.content-new-bottom {
+  position: absolute;
+  width: 216px;
+  transform: translate(0%, -150px);
+  height: 150px;
+  padding: 40px 15px 0px 15px;
+  text-shadow: 0 0 0.2em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0),
+    0 0 0.2em rgb(0, 0, 0);
+  font-size: 12px;
+  background: linear-gradient(
+    rgba(4, 23, 36, 0) 5.67%,
+    rgba(4, 23, 36, 0.725) 39.61%,
+    rgb(4, 23, 36) 100%
+  );
+}
+
+.margin-b-two {
+  margin-bottom: 10px;
+}
+.margin-bottom {
+  margin-bottom: 10px;
+  width: 23.9%;
+  margin-right: 9px;
+}
+</style>

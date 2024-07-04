@@ -20,7 +20,7 @@
           <Nuxt-link class="text-nav" to="/Market" target="_self"
             ><div class="bottom-top button">การแข่งขันอีสปรอ์ต</div></Nuxt-link
           >
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          <Nuxt-link class="text-nav" to="/New" target="_self"
             ><div class="bottom-top button">ข่าว</div></Nuxt-link
           >
           <Nuxt-link class="text-nav" to="/" target="_self"

@@ -1,3 +1,5 @@
+
+
 .carousel-control-next {
   right: 39.6% !important;
   top: 105% !important;
@@ -19,7 +21,7 @@
   position: relative;
   width: 70px;
   height: 60px;
-  left: -30px;
+  left: -50px;
   top: 15px;
 }
 
@@ -27,10 +29,11 @@
   // background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e);
   background: no-repeat;
   position: relative;
-  width: 70px;
+  width: 50px;
   height: 60px;
-  left: 30px;
+  left: 40px;
   top: 15px;
+
 }
 
 .card-box {
@@ -65,33 +68,7 @@
     /* เพิ่มช่องว่างระหว่างการ์ด */
   }
 
-  .buttonshop {
-    /* สไตล์ของคุณที่นี่ */
-  }
 
-  #arrow-left,
-  #arrow-right {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 2rem;
-    color: #fff;
-  }
-
-  #arrow-left {
-    left: 45%;
-    top: 95%;
-    z-index: 500;
-  }
-
-  #arrow-right {
-    right: 45%;
-    top: 95%;
-    z-index: 500;
-  }
 
   .dots {
     position: relative;
