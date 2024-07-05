@@ -19,8 +19,8 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~/assets/scss/main.scss', '~/assets/scss/navbar.scss', '~/assets/scss/market.scss','~/assets/scss/Shop.scss',
-    // 'slick-carousel/slick/slick.css',
-    // 'slick-carousel/slick/slick-theme.css'
+    'slick-carousel/slick/slick.css',
+    'slick-carousel/slick/slick-theme.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -42,7 +42,7 @@ export default {
     '@nuxtjs/proxy'
   ],
   plugins: [
-    // { src: '~/plugins/slick-carousel.js', mode: 'client' }
+    { src: '~/plugins/slick-carousel.js', mode: 'client' }
   ],
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

@@ -6,12 +6,15 @@
       <slide-item v-for="item in items" :key="item.id" :item="item" />
     </div>
     <!-- ปุ่มนำทาง -->
-    <button id="arrow-left" @click="slide('left')">
-      <img src="~/assets/image/arrow-left.png" alt="" />
-    </button>
-    <button id="arrow-right" @click="slide('right')">
-      <img src="~/assets/image/arrow-right.png" alt="" />
-    </button>
+    <div class="center-flex">
+      <button class="left" id="arrow-left" @click="slide('left')">
+        <img src="~/assets/image/arrow-left.png" alt="" />
+      </button>
+      <button class="right" id="arrow-right" @click="slide('right')">
+        <img src="~/assets/image/arrow-right.png" alt="" />
+      </button>
+    </div>
+
     <!-- จุดสำหรับนำทาง -->
     <div class="dots">
       <span
@@ -26,7 +29,7 @@
 </template>
 
 <script>
-import SlideItem from './SlideItem.vue';
+import SlideItem from "./SlideItem.vue";
 
 export default {
   components: {
@@ -41,7 +44,7 @@ export default {
       activeDot: 0,
     };
   },
-   computed: {
+  computed: {
     numberOfDots() {
       return Math.ceil(this.items.length / 4); // แบ่งจำนวน items ด้วย 3 เพราะว่าแสดง 3 items ต่อ slide
     },
@@ -85,7 +88,24 @@ export default {
     },
   },
 };
-
 </script>
 
 
+<style>
+.center-flex {
+  display: flex;
+  justify-content: center;
+}
+.right{
+      position: relative;
+    right: -45px;
+    top: 20px;
+    z-index: 100;
+}
+.left{
+      position: relative;
+    left: -45px;
+    top: 20px;
+    z-index: 100;
+}
+</style>

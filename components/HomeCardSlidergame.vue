@@ -11,6 +11,9 @@
 
 <script>
 import $ from "jquery";
+import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel";
 
 export default {
   props: {
@@ -19,24 +22,42 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {};
-  },
   mounted() {
-     const $slider = $(this.$refs.slider);
-    $(this.$refs.slider).slick({
+    const $slider = $(this.$refs.slider);
+    $slider.slick({
       infinite: true,
       speed: 300,
-      slidesToShow: 1,
+      slidesToShow: 4, // Default number of slides to show
       adaptiveHeight: true,
       autoplay: true,
       autoplaySpeed: 5000,
       touchMove: true, // Enable touch movement
       draggable: true, // Enable draggable
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 3,
+          },
+        },
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 2,
+          },
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+          },
+        },
+      ],
     });
-     $slider.on('afterChange', function(event, slick, currentSlide){
+
+    $slider.on("afterChange", function (event, slick, currentSlide) {
       // Restart autoplay after user interaction
-      $slider.slick('slickPlay');
+      $slider.slick("slickPlay");
     });
   },
 };
@@ -45,15 +66,12 @@ export default {
 <style>
 .slider-container {
   width: 80%;
-  margin: 0px auto;
+  margin: 0 auto;
 }
+
 .slick-slide img {
   width: 100%;
 }
-</style>
-
-<style scoped>
-
 
 .slider {
   display: flex;
@@ -61,11 +79,13 @@ export default {
   position: relative;
   left: 0;
 }
+
 .tpn_cardimg {
   width: 164px;
   height: 164px;
   border-radius: 164px;
 }
+
 .tpn_game {
   flex: 0 0 50px; /* กำหนดความกว้างของแต่ละการ์ด */
   margin-right: 20px; /* เพิ่มช่องว่างระหว่างการ์ด */
@@ -74,19 +94,6 @@ export default {
   align-items: center !important;
 }
 
-.dis-play-recom {
-  display: flex;
-  justify-content: space-between;
-  padding: 25px;
-}
-
-.img-recom {
-  width: 26px;
-  height: 26px;
-  margin-right: 5px;
-  top: -5px;
-  position: relative;
-}
 .content-game-under {
   color: var(--color-black-white-900, #fff);
   font-size: 18px;
