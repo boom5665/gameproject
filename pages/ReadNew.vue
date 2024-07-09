@@ -2,7 +2,7 @@
   <div>
     <div class="box-cotent">
       <div class="W-default ">
-        <New />
+        <ReadNew />
       </div>
     </div>
   </div>
