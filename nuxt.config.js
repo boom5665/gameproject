@@ -18,7 +18,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/assets/scss/main.scss', '~/assets/scss/navbar.scss', '~/assets/scss/market.scss','~/assets/scss/Shop.scss',
+    '~/assets/scss/main.scss', '~/assets/scss/navbar.scss', '~/assets/scss/market.scss', '~/assets/scss/Shop.scss',
     'slick-carousel/slick/slick.css',
     'slick-carousel/slick/slick-theme.css'
   ],
@@ -46,12 +46,15 @@ export default {
   ],
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  },
-  proxy: {
-    '/api/': {
-        target: 'https://dev-api-gamiqo.pirate168.com/',
-        changeOrigin: true,
-        pathRewrite: { '^/api/': '' }
+    extend(config, { isDev, isClient }) {
+      if (!isDev && isClient) {
+        config.output.hashFunction = 'sha256';
+      }
     }
-}
+  },
+  bootstrapVue: {
+    bootstrapCSS: false, // ถ้าคุณใช้การติดตั้งแยกต่างหากของ Bootstrap CSS
+    bootstrapVueCSS: false // ถ้าคุณใช้การติดตั้งแยกต่างหากของ BootstrapVue CSS
+  }
+
 }
