@@ -12,7 +12,7 @@
                 style="width: 26px; height: 26px; margin-right: 5px"
               />
             </div>
-            <div style="font-size: 14px;">HP.SHOP. ;TH Official</div>
+            <div style="font-size: 14px;">HP.SHOP. ;TH Officiali</div>
             <div style="display: flex">
               <div class="loveimg">
                 <img
