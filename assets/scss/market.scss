@@ -311,7 +311,17 @@
     color: #5c25f2;
     margin-bottom: 15px;
   }
-
+  input[type="password"] {
+    height: 40px;
+    padding: 11px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: var(--Border-radius-6, 6px);
+    border: 1px solid var(--color-black-white-700, #bababa);
+    background: var(--color-black-white-900, #fff);
+    color: #5c25f2;
+    margin-bottom: 15px;
+  }
   button {
     padding: 0.5em 1em;
     border: none;

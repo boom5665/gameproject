@@ -32,6 +32,10 @@ a:hover {
   text-decoration: none;
 }
 
+.error {
+  color: red;
+  font-size: 0.8em;
+}
 .dis-play-evenly {
   display: flex;
   justify-content: space-evenly;
