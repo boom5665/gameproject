@@ -6,7 +6,7 @@
         <div style="width: 100%">
           <div class="font-form-pak">Register</div>
           <div>
-            <label for="name">Nickname *</label>
+            <label for="name">Nickname <span id="dotstyle">*</span></label>
             <input
               type="text"
               id="name"
@@ -17,7 +17,7 @@
 
           <div class="dis-input">
             <div style="width: 49%">
-              <label for="username">Username *</label>
+              <label for="username">Username <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="username"
@@ -26,7 +26,7 @@
               />
             </div>
             <div style="width: 49%">
-              <label for="password">password *</label>
+              <label for="password">password <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="password"
@@ -38,7 +38,7 @@
 
           <div class="dis-input">
             <div style="width: 49%">
-              <label for="firstname">Firstname *</label>
+              <label for="firstname">Firstname <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="firstname"
@@ -47,7 +47,7 @@
               />
             </div>
             <div style="width: 49%">
-              <label for="lastname">Lastname *</label>
+              <label for="lastname">Lastname <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="lastname"
@@ -59,7 +59,7 @@
 
           <div class="dis-input">
             <div style="width: 49%">
-              <label for="phone">Phone *</label>
+              <label for="phone">Phone <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="phone"
@@ -68,7 +68,7 @@
               />
             </div>
             <div style="width: 49%">
-              <label for="birthday">Birthday *</label>
+              <label for="birthday">Birthday <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="birthday"
@@ -80,7 +80,7 @@
 
           <div class="dis-input">
             <div style="width: 49%">
-              <label for="gender">Gender *</label>
+              <label for="gender">Gender <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="gender"
@@ -89,7 +89,7 @@
               />
             </div>
             <div style="width: 49%">
-              <label for="email">Email *</label>
+              <label for="email">Email <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="email"
@@ -101,7 +101,7 @@
 
           <div class="dis-input">
             <div style="width: 49%">
-              <label for="IDcardnumber">ID card number * *</label>
+              <label for="IDcardnumber">ID card number <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="IDcardnumber"
@@ -110,7 +110,7 @@
               />
             </div>
             <div style="width: 49%">
-              <label for="idCardBack">ID card number back *</label>
+              <label for="idCardBack">ID card number back <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="idCardBack"
@@ -217,7 +217,7 @@ export default {
   font-size: 24px !important;
 }
 .img-safe {
-  /* padding-right: 8px; */
+
   top: -4px;
   position: relative;
 }
