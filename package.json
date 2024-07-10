@@ -27,5 +27,8 @@
   "devDependencies": {
     "@nuxtjs/proxy": "^2.1.0",
     "cross-env": "^7.0.3"
-  }
+  },
+  "engines": {
+  "node": "20.14.0"
+}
 }
