@@ -52,9 +52,5 @@ export default {
       }
     }
   },
-  bootstrapVue: {
-    bootstrapCSS: false, // ถ้าคุณใช้การติดตั้งแยกต่างหากของ Bootstrap CSS
-    bootstrapVueCSS: false // ถ้าคุณใช้การติดตั้งแยกต่างหากของ BootstrapVue CSS
-  }
 
 }
