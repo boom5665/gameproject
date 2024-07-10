@@ -17,8 +17,8 @@
           <div class="dis-input">
             <div style="width: 100%">
               <input
-                type="password"
-                id="password"
+                type="text"
+                id="Password"
                 v-model="Password"
                 placeholder="Password"
               />

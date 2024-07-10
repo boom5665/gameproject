@@ -26,10 +26,10 @@
           <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">ช่วยเหลือ</div></Nuxt-link
           >
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          <Nuxt-link class="text-nav" to="/LogRegister" target="_self"
             ><div class="bottom-top bottom-w">Register</div></Nuxt-link
           >
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          <Nuxt-link class="text-nav" to="/Login" target="_self"
             ><div class="bottom-top bottom-y">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
