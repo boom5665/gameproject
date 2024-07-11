@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-container">
+  <div class="slider-container Marketitem">
     <div class="slider" ref="slider">
       <div class="tpn_card" v-for="item in items" :key="item.id">
         <div style="display: flex">
@@ -50,24 +50,3 @@ defineProps({
 });
 </script>
 
-<style scoped>
-.slider-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-}
-
-.slider {
-  display: flex;
-  transition: left 0.3s ease;
-  position: relative;
-  left: 0;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.tpn_card {
-  flex: 0 0 220px;
-  margin-right: 20px;
-}
-</style>

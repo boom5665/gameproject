@@ -1,3 +1,5 @@
+@import 'variables';
+
 .navbar-main {
   padding: 16px 40px 24px 40px;
   padding: var(--Spacing-space-16, 16px) var(--Spacing-space-40, 40px) var(--Spacing-space-24, 24px) var(--Spacing-space-40, 40px);
@@ -54,7 +56,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    background: #FFF;
+    background: $white-color;
     margin: 0px 6px;
     cursor: pointer;
   }
@@ -65,7 +67,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 8;
-    background: #3A179A;
+    background: $purple-color;
     margin: 0px 6px;
     cursor: pointer;
   }
@@ -76,8 +78,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    background: #FFF;
-    color: #5C25F2;
+    background: $white-color;
+    color: $Primary-Pueple-500;
 
   }
 
@@ -87,16 +89,16 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    border: 1px solid #5C25F2;
+    border: 1px solid $Primary-Pueple-500;
     background: #FFEB3B;
-    color: #5C25F2;
+    color: $Primary-Pueple-500;
   }
 
   .b-top-cy {
     border-radius: var(--Border-radius-8, 8px);
     background: var(--Color-Secondary-500, #FFEB3B);
     box-shadow: 0px 4px 10px 0px rgba(255, 235, 59, 0.30);
-    color: #5C25F2;
+    color: $Primary-Pueple-500;
   }
 
 
@@ -139,7 +141,7 @@
     display: inline-block;
     // padding: 10px 20px;
     // background-color: #007bff;
-    color: #ffffff;
+    color: $white-color;
     text-decoration: none; /* ลบขีดเส้นใต้ของลิงก์ */
     border: none;
     border-radius: 5px;
@@ -160,7 +162,7 @@
     display: block;
     width: 100%; /* ทำให้เส้นใต้มีความยาวเท่ากับข้อความ */
     height: 2px;
-    background-color: #ffffff;
+    background-color: $white-color;
     position: absolute;
     bottom: 0;
     left: 0;

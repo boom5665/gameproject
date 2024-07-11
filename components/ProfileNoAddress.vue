@@ -1,5 +1,5 @@
 <template>
-  <div class="M-Create-Backgroud">
+  <div class="M-Create-Backgroud profile-noadd Profile">
     <div class="navtabs">
       <div class="font-top-myshop">
         <Nuxt-link class="text-profile" to="/Profile" target="_self">
@@ -71,22 +71,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.nodata {
-  font-size: 16px;
-  margin: 25px 30px;
-}
-.but-address {
-  display: flex;
-  height: 36px;
-  padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
-  justify-content: center;
-  align-items: center;
-  gap: var(--Spacing-space-8, 8px);
-  border-radius: var(--Border-radius-8, 8px);
-  border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2);
-  background: var(--Color-Secondary-500, #ffeb3b);
-  color: #5c25f2;
-}
 
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="M-Create-Backgroud">
+  <div class="M-Create-Backgroud market-mass">
     <div class="navtabs">
       <div class="font-top-myshop">
         ร้านค้าของฉัน  &nbsp;> &nbsp; <span class="font-proL-top">แก้ไขร้านค้า</span>
@@ -71,27 +71,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.button-fece {
-  display: flex;
-  padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
-  justify-content: center;
-  align-items: center;
-  gap: var(--Spacing-space-8, 8px);
-  align-self: stretch;
-  border-radius: var(--medium, 6px);
-  background: #1977f5;
-  color: white;
-  margin-top: 20px;
-}
-.navtabs {
-  padding: 50px 100px;
-}
-.box-alert {
-  padding: 20px 10px;
-}
-.font-form-myshop {
-  font-size: 24px;
-  color: #5c25f2;
-}
-</style>
+

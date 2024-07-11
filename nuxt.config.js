@@ -10,6 +10,7 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
+
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -18,7 +19,11 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    '~/assets/scss/main.scss', '~/assets/scss/navbar.scss', '~/assets/scss/market.scss', '~/assets/scss/Shop.scss',
+    '~/assets/scss/main.scss',
+    '~/assets/scss/navbar.scss',
+    '~/assets/scss/market.scss',
+    '~/assets/scss/Shop.scss',
+    '~/assets/scss/login.scss',
     'slick-carousel/slick/slick.css',
     'slick-carousel/slick/slick-theme.css'
   ],
@@ -42,8 +47,17 @@ export default {
     '@nuxtjs/proxy'
   ],
   plugins: [
-    { src: '~/plugins/slick-carousel.js', mode: 'client' }
+    { src: '~/plugins/slick-carousel.js', mode: 'client' },
+    { src: '~/plugins/validation.js' },
+    { src: '~/plugins/token.js' },
+    { src: '~/plugins/setColor.js', mode: 'client' }, // เพิ่ม plugin สำหรับ *
+    { src: '~/plugins/errorHandler.js' }, // เพิ่ม plugin สำหรับ error handling
+
+
   ],
+  axios: {
+    baseURL: 'https://dev-api-gamiqo.pirate168.com/api/v1',
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },

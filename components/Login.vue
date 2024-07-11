@@ -1,30 +1,39 @@
 <template>
-  <div class="M-Create-Backgroud Profile">
-    <div class="navtabs">
+  <div class="M-Create-Backgroud">
+    <div class=" custom-login">
+          <div class="navtabs">
       <div class="form-create">
         <div class="font-form-pak">Login</div>
-        <div style="display: flex; flex-direction: column; align-items: center">
+        <div class="dis-input-box">
           <div class="dis-input">
             <div style="width: 100%">
               <input
                 type="text"
-                id="phone"
+                id="Emailphone"
                 v-model="Emailphone"
                 placeholder="Email or phone number"
               />
+              <span v-if="errors.Emailphone" class="error">
+                {{ errors.Emailphone }}
+              </span>
             </div>
           </div>
           <div class="dis-input">
             <div style="width: 100%">
               <input
-                type="text"
+                :type="showPassword ? 'text' : 'password'"
                 id="Password"
                 v-model="Password"
                 placeholder="Password"
               />
+              <button @click="togglePasswordVisibility" type="button">
+                {{ showPassword ? "Hide" : "Show" }}
+              </button>
+              <span v-if="errors.Password" class="error">
+                {{ errors.Password }}
+              </span>
             </div>
           </div>
-
           <button
             type="submit"
             class="submit button-pro-edit"
@@ -32,7 +41,6 @@
           >
             บันทึก
           </button>
-
           <div>
             <a href="#">Forgot password?</a>
           </div>
@@ -42,6 +50,8 @@
         </div>
       </div>
     </div>
+    </div>
+
   </div>
 </template>
 
@@ -53,62 +63,78 @@ export default {
     return {
       Emailphone: "", // เก็บค่า Email หรือเบอร์โทรศัพท์
       Password: "", // เก็บค่า Password
+      errors: {},
+      showPassword: false, // ตัวแปรที่ใช้ในการแสดง/ซ่อนรหัสผ่าน
     };
   },
 
   methods: {
-    submitData() {
+    validateForm() {
+      this.errors = {};
+
+      if (!this.Emailphone) {
+        this.errors.Emailphone = "Email or phone number is required.";
+      }
+      if (!this.Password) {
+        this.errors.Password = "Password is required.";
+      }
+
+      return Object.keys(this.errors).length === 0;
+    },
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+    },
+    async submitData() {
+      if (!this.validateForm()) {
+        return;
+      }
+
       const formData = {
-        email: this.Emailphone,
-        password: this.Password,
+        um_username: this.Emailphone,
+        um_password: this.Password,
       };
 
-      axios
-        .post("https://example.com/api/login", formData) // เปลี่ยน URL นี้เป็น URL จริงของ API ที่ใช้
-        .then((response) => {
-          console.log("Response:", response.data);
-          alert("Login successful!");
-          // เพิ่มการนำไปยังหน้าต่อไปหรือทำตามที่ต้องการหลังจาก Login สำเร็จ
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("Failed to login.");
-        });
+      try {
+        const response = await axios.post(
+          "https://dev-api-gamiqo.pirate168.com/api/v1/users/login",
+          formData
+        );
+        console.log("Response:", response.data);
+        const token = response.data.token; // สมมติว่า token อยู่ใน response.data.token
+        localStorage.setItem("authToken", token); // เก็บ token ใน localStorage
+        alert("เข้าระบบสำเร็จ");
+
+        // ดึง token จาก localStorage และแสดงใน console
+        const storedToken = localStorage.getItem("authToken");
+        console.log("Stored Token:", storedToken);
+
+        // เพิ่มการนำไปยังหน้าต่อไปหรือทำตามที่ต้องการหลังจาก Login สำเร็จ
+      } catch (error) {
+        console.error(
+          "Error:",
+          error.response ? error.response.data : error.message
+        );
+        if (error.response && error.response.data) {
+          const errorData = error.response.data;
+          this.errors = {}; // Clear previous errors
+
+          if (errorData.code === 1005) {
+            this.errors.general = "ไม่พบข้อมูล ล็อกอิน";
+          } else {
+            this.errors.general = errorData.msg.th || "ไม่พบข้อมูล ล็อกอิน";
+          }
+        } else {
+          this.errors.general =
+            "Failed to login. Please check your input and try again.";
+        }
+        alert(this.errors.general);
+      }
     },
   },
 };
 </script>
 
-<style scoped>
-/* สไตล์ CSS ของคอมโพเนนต์ที่คุณใช้ */
-</style>
 
 <style lang="scss" scoped>
-.button-pro-edit {
-  border-radius: var(--Border-radius-8, 8px);
-  border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2) !important;
-  background: var(--Color-Secondary-500, #ffeb3b) !important;
-  color: var(--Color-Primary-Pueple-500, #5c25f2) !important;
-}
-.M-Create-Backgroud .font-top-myshop {
-  font-size: 18px;
-  color: var(--color-black-white-700, #bababa);
-  width: 1000px;
-}
-.M-Create-Backgroud .form-create {
-  width: 1000px;
-  align-items: center;
-}
-.font-proL-top {
-  color: #ffeb3b;
-  font-size: 24px !important;
-}
-.img-safe {
-  /* padding-right: 8px; */
-  top: -4px;
-  position: relative;
-}
-.button-pro-edit {
-  width: 100%;
-}
+
 </style>

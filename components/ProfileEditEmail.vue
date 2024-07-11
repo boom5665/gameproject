@@ -1,5 +1,5 @@
 <template>
-  <div class="M-Create-Backgroud Profile">
+  <div class="M-Create-Backgroud Profile Profile-edit-email">
     <div class="navtabs">
       <div class="font-top-myshop">
         <Nuxt-link class="text-profile" to="/Profile" target="_self">
@@ -117,32 +117,8 @@ export default {
       alert("Data submitted successfully!");
     },
   },
-  mounted() {
-    const spans = document.querySelectorAll("span#dotstyle");
-    spans.forEach((span) => {
-      span.style.color = "red"; // ตั้งสีเป็นแดง
-    });
-  },
+
 };
 </script>
 
-<style lang="scss" scoped>
-.button-pro-edit {
-  border-radius: var(--Border-radius-8, 8px);
-  border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2) !important;
-  background: var(--Color-Secondary-500, #ffeb3b) !important;
-  color: var(--Color-Primary-Pueple-500, #5c25f2) !important;
-}
-.M-Create-Backgroud .font-top-myshop {
-  font-size: 18px;
-  color: var(--color-black-white-700, #bababa);
-}
-.font-proL-top {
-  color: #ffeb3b;
-  font-size: 24px !important;
-}
-.img-safe {
-  top: -4px;
-  position: relative;
-}
-</style>
+

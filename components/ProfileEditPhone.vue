@@ -117,12 +117,7 @@ export default {
       alert("Data submitted successfully!");
     },
   },
-  mounted() {
-    const spans = document.querySelectorAll("span#dotstyle");
-    spans.forEach((span) => {
-      span.style.color = "red"; // ตั้งสีเป็นแดง
-    });
-  },
+
 };
 </script>
 

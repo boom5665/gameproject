@@ -1,6 +1,6 @@
 <!-- Slider.vue -->
 <template>
-  <div class="slider-container">
+  <div class="slider-container slider">
     <!-- Slider -->
     <div class="slider" ref="slider">
       <slide-item v-for="item in items" :key="item.id" :item="item" />
@@ -90,22 +90,3 @@ export default {
 };
 </script>
 
-
-<style>
-.center-flex {
-  display: flex;
-  justify-content: center;
-}
-.right{
-      position: relative;
-    right: -45px;
-    top: 20px;
-    z-index: 100;
-}
-.left{
-      position: relative;
-    left: -45px;
-    top: 20px;
-    z-index: 100;
-}
-</style>

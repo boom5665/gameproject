@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-container">
+  <div class="slider-container slider-game">
     <div class="slider" ref="slider">
       <div class="tpn_game" v-for="item in items" :key="item.id">
         <img :src="item.imageSrc" class="tpn_cardimg" />
@@ -64,44 +64,5 @@ export default {
 </script>
 
 <style>
-.slider-container {
-  width: 80%;
-  margin: 0 auto;
-}
 
-.slick-slide img {
-  width: 100%;
-}
-
-.slider {
-  display: flex;
-  transition: left 0.3s ease;
-  position: relative;
-  left: 0;
-}
-
-.tpn_cardimg {
-  width: 164px;
-  height: 164px;
-  border-radius: 164px;
-}
-
-.tpn_game {
-  flex: 0 0 50px; /* กำหนดความกว้างของแต่ละการ์ด */
-  margin-right: 20px; /* เพิ่มช่องว่างระหว่างการ์ด */
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-}
-
-.content-game-under {
-  color: var(--color-black-white-900, #fff);
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
 </style>

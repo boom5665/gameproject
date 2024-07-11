@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%">
+  <div  class="market-home">
     <div>
       <HomeCorousalBanner :items="itemsbanners" />
     </div>
@@ -143,17 +143,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.img-edit {
-  border-radius: var(--Border-radius-8, 8px) !important;
-  border: 4px solid #ffeb3b !important;
-  border: 2px dashed var(--Color-Secondary-500, #ffeb3b) !important;
-  width: 100% !important;
-  height: 400px !important;
-}
-.profile-img-main {
-  height: 130px;
-  gap: 10px;
-  width: 100%;
-}
-</style>
+

@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%">
+  <div class="new">
     <div class="card-box" style="margin-bottom: 60px">
       <div>
         <div class="font-head-content">
@@ -381,92 +381,5 @@ export default {
 </script>
 
 <style scoped>
-.img-safe {
-  top: -3px;
-  position: relative;
-  margin-right: 10px;
-}
-.wid-one {
-  width: 65%;
-  margin-right: 5px;
-}
-.wid-tree {
-  width: 35%;
-}
-.font-head-content {
-  font-size: 24px;
-}
-.flex-warp {
-  width: 104%;
-  display: flex;
-  flex-wrap: wrap;
-}
-.head-text-top {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 30px;
-  cursor: pointer;
-}
-.active {
-  font-weight: bold;
-  text-decoration: underline;
-  color: var(--Color-Secondary-500, #ffeb3b);
-}
-.card-box {
-  align-items: flex-start;
-}
-.card-box #arrow-left {
-  left: 45%;
-  top: 77% !important;
-  z-index: 500 !important;
-}
 
-.box-new-right {
-  margin-right: 5px;
-  width: 100%;
-  height: 150px;
-}
-
-.box-new-bottom {
-  margin-right: 5px;
-  width: 100%;
-  height: 300px;
-}
-.content-new-right {
-  position: absolute;
-  width: 20%;
-  transform: translate(10%, -50px);
-  text-shadow: 0 0 0.2em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0),
-    0 0 0.2em rgb(0, 0, 0);
-}
-.font-newtop {
-  color: var(--Color-Secondary-500, #ffeb3b);
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-.content-new-bottom {
-  position: absolute;
-  width: 216px;
-  transform: translate(0%, -150px);
-  height: 150px;
-  padding: 40px 15px 0px 15px;
-  text-shadow: 0 0 0.2em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0),
-    0 0 0.2em rgb(0, 0, 0);
-  font-size: 12px;
-  background: linear-gradient(
-    rgba(4, 23, 36, 0) 5.67%,
-    rgba(4, 23, 36, 0.725) 39.61%,
-    rgb(4, 23, 36) 100%
-  );
-}
-
-.margin-b-two {
-  margin-bottom: 10px;
-}
-.margin-bottom {
-  margin-bottom: 10px;
-  width: 216px;
-  margin-right: 9px;
-}
 </style>

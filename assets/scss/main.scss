@@ -1,8 +1,10 @@
+@import 'variables'; 
+
 body {
-  background: #140D29 !important;
+  background: $purpleblack-color !important;
   margin: 0px 0px;
   font-family: "Pentor Corporate" !important;
-  color: #fff;
+  color: $white-color;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -36,6 +38,7 @@ a:hover {
   color: red;
   font-size: 0.8em;
 }
+
 .dis-play-evenly {
   display: flex;
   justify-content: space-evenly;
@@ -92,7 +95,7 @@ a:hover {
   padding: var(--Spacing-space-24, 24px) var(--Spacing-space-0, 0px);
   align-items: center;
   border-radius: var(--Border-radius-8, 8px);
-  background: var(--Color-Primary-700, #3A179A);
+  background: $purple-color;
   width: max-content;
 
 }
@@ -102,7 +105,7 @@ a:hover {
   display: flex;
   padding: var(--Spacing-space-0, 0px);
   flex-direction: column;
-  background: var(--Color-Primary-700, #3A179A);
+  background: var(--Color-Primary-700, $purple-color);
   padding: 40px;
   margin-top: 40px;
 }
@@ -113,7 +116,7 @@ a:hover {
   display: flex;
   padding: var(--Spacing-space-0, 0px);
   flex-direction: column;
-  background: var(--Color-Background, #140D29);
+  background: var(--Color-Background, $purpleblack-color);
   padding: 20px 40px;
 
   // margin-top: 40px;
@@ -161,7 +164,7 @@ a:hover {
   position: absolute;
   bottom: 0;
   // background: rgba(0, 0, 0, 0.5);
-  color: white;
+  color: $white-color;
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
@@ -174,7 +177,7 @@ a:hover {
 }
 
 .text-card {
-  color: var(--color-black-white-700, #BABABA);
+  color:  $gray-color;
 }
 
 
@@ -204,14 +207,14 @@ a:hover {
   box-shadow: 1px 7px 13px var(--shadow);
   height: 150px;
   width: 100%;
-  border-radius: var(--Border-radius-8, 8px) var(--Border-radius-8, 8px)
-    var(--Spacing-space-0, 0px) var(--Spacing-space-0, 0px);
+  border-radius: var(--Border-radius-8, 8px) var(--Border-radius-8, 8px) var(--Spacing-space-0, 0px) var(--Spacing-space-0, 0px);
 }
 
 .tpn_card .tpn_btn:hover {
   background: var(--bg-darker);
   box-shadow: none;
 }
+
 .content-under {
   display: flex;
   height: 30px;
@@ -221,7 +224,7 @@ a:hover {
   gap: 10px;
   align-self: stretch;
   border-radius: 0px 0px 8px 8px;
-  background: var(--Color-Primary-Pueple-500, #5c25f2);
+  background: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
   font-size: 14px;
 }
 
@@ -232,21 +235,24 @@ a:hover {
   top: 2px;
   padding-right: 3px;
 }
+
 .font {
-  color: var(--color-black-white-700, #bababa);
+  color:  $gray-color;
   font-variant-numeric: stacked-fractions;
-  font-feature-settings: "hlig" on, "dlig" on;
+  font-feature-settings: "hlig"on, "dlig"on;
   font-family: "Pentor Corporate";
   font-size: 12px;
 }
+
 .buttonshop {
   display: flex;
   padding: 3px 5px;
   justify-content: center;
   align-items: center;
   border-radius: var(--Border-radius-8, 8px);
-  background: var(--Color-Primary-Pueple-500, #5c25f2);
+  background: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
 }
+
 .display {
   display: flex;
   justify-content: space-between;

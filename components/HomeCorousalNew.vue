@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="co-new">
     <b-carousel id="carousel1" v-model="slide" :interval="8000" controls>
       <b-carousel-slide
         v-for="(img, index) in items"
@@ -76,54 +76,4 @@ export default {
 };
 </script>
 
-<style >
 
-.carousel-caption {
-  position: absolute;
-    bottom: 0px !important;
- left: 0% !important;
-  width: 100%;
-  height: auto;
-  color: white;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 20px;
-  box-sizing: border-box;
-  text-align: left;
-      width: 100% !important;
-}
-.caption-content {
-  max-width: 100%;
-}
-.caption-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-.caption-subtitle {
-  font-size: 16px;
-}
-.custom-indicators {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-}
-#arrow-left,
-#arrow-right {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-.dotposition span {
-  height: 10px;
-  width: 10px;
-  margin: 0 5px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-}
-.dotposition .active {
-  background-color: #FFEB3B;
-}
-</style>

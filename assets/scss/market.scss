@@ -1,4 +1,4 @@
-
+@import 'variables';
 
 .carousel-control-next {
   right: 39.6% !important;
@@ -44,7 +44,7 @@
   align-items: center;
   gap: var(--Spacing-space-48, 48px);
   border-radius: var(--Border-radius-8, 8px);
-  background: var(--Color-Primary-700, #3a179a);
+  background: var(--Color-Primary-700, $purple-color);
   margin-top: 60px;
 
 
@@ -52,6 +52,8 @@
     position: relative;
     overflow: hidden;
     width: 100%;
+
+
   }
 
   .slider {
@@ -112,7 +114,7 @@
 
 
 .card-shop {
-  background: var(--Color-Primary-700, #3a179a);
+  background: var(--Color-Primary-700, $purple-color);
 }
 
 .markettop-toppage {
@@ -131,7 +133,7 @@
     width: 100px;
     height: 100px;
     border-radius: 100px;
-    border: 4px solid var(--Color-Primary-Pueple-500, #5c25f2);
+    border: 4px solid var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
   }
 
   .but-shop {
@@ -143,9 +145,9 @@
     align-items: center;
     gap: 8px;
     border-radius: var(--Border-radius-8, 8px);
-    border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2);
+    border: 1px solid var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     background: var(--Color-Secondary-500, #ffeb3b);
-    color: var(--Color-Primary-Pueple-500, #5c25f2);
+    color: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     margin-left: 20px;
   }
 
@@ -158,7 +160,7 @@
   }
 
   .shoplike-font {
-    color: #bababa;
+    color: gray-color;
   }
 
   .shoppro-dis {
@@ -188,7 +190,7 @@
     border-radius: var(--Border-radius-8, 8px) var(--Border-radius-8, 8px) var(--Border-radius-0, 0px) var(--Border-radius-0, 0px);
     background: var(--Linear,
         linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%));
-    color: var(--White, #fff);
+    color: var(--White, $white-color);
     font-size: 24px;
     width: 100%;
   }
@@ -205,11 +207,11 @@
   }
 
   .navtab:hover {
-    color: #fff;
+    color: $white-color;
   }
 
   .navtab.active {
-    color: #fff;
+    color: $white-color;
     font-weight: 600;
   }
 
@@ -263,7 +265,7 @@
     position: relative;
     border-radius: var(--Border-radius-16, 16px);
     background: var(--Linear, linear-gradient(180deg, #130048 0%, #5823E5 100%));
-    color: var(--White, #fff);
+    color: var(--White, $white-color);
     // font-size: 24px;
     width: 100%;
     display: flex;
@@ -281,7 +283,7 @@
     align-items: flex-start;
     align-self: stretch;
     border-radius: 6px;
-    background: #fff;
+    background: $white-color;
     color: black;
     margin-top: 20px;
     gap: var(--Spacing-space-16, 12px)
@@ -291,10 +293,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 10px;
   }
 
   .font-top {
-    color: var(--Color-Primary-Pueple-500, #5c25f2);
+    color: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     text-align: center;
     font-size: 20px;
     width: 100%;
@@ -306,22 +309,24 @@
     width: 100%;
     box-sizing: border-box;
     border-radius: var(--Border-radius-6, 6px);
-    border: 1px solid var(--color-black-white-700, #bababa);
-    background: var(--color-black-white-900, #fff);
-    color: #5c25f2;
-    margin-bottom: 15px;
+    border: 1px solid gray-color;
+    background: var(--color-black-white-900, $white-color);
+    color: $Primary-Pueple-500;
+    //   margin-top: 15px;
   }
+
   input[type="password"] {
     height: 40px;
     padding: 11px 16px;
     width: 100%;
     box-sizing: border-box;
     border-radius: var(--Border-radius-6, 6px);
-    border: 1px solid var(--color-black-white-700, #bababa);
-    background: var(--color-black-white-900, #fff);
-    color: #5c25f2;
-    margin-bottom: 15px;
+    border: 1px solid gray-color;
+    background: var(--color-black-white-900, $white-color);
+    color: $Primary-Pueple-500;
+    // margin-top: 15px;
   }
+
   button {
     padding: 0.5em 1em;
     border: none;
@@ -336,7 +341,7 @@
   }
 
   .font-head {
-    color: #5c25f2;
+    color: $Primary-Pueple-500;
     font-size: 18px;
     width: 100%;
     display: flex;
@@ -356,8 +361,8 @@
     gap: var(--Spacing-space-16, 16px);
     align-self: stretch;
     border-radius: var(--Border-radius-6, 6px);
-    border: 1px solid var(--color-black-white-700, #bababa);
-    background: var(--color-black-white-900, #fff);
+    border: 1px solid gray-color;
+    background: var(--color-black-white-900, $white-color);
     margin-bottom: 15px;
   }
 
@@ -365,7 +370,7 @@
     padding: 16px 130px;
     flex-direction: row;
     border-radius: 6px;
-    background: #5c25f2;
+    background: $Primary-Pueple-500;
     color: white;
     margin: 10px 0px;
     display: flex;
@@ -402,7 +407,7 @@
     transition: 300ms;
     border-radius: var(--Border-radius-6, 6px);
     margin-right: 10px;
-    border: 2px solid var(--Color-Primary-Pueple-500, #5c25f2);
+    border: 2px solid var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
   }
 
   /* When the checkbox is checked, add a blue background */
@@ -430,7 +435,7 @@
     top: 0.25em;
     width: 0.25em;
     height: 0.5em;
-    border: solid #5c25f2;
+    border: solid $Primary-Pueple-500;
     border-width: 0 0.15em 0.15em 0;
     transform: rotate(45deg);
   }
@@ -484,7 +489,7 @@
     align-items: flex-start;
     gap: var(--Spacing-space-16, 12px);
     border-radius: var(--Border-radius-8, 8px);
-    background: var(--color-black-white-900, #fff);
+    background: var(--color-black-white-900, $white-color);
     color: #000;
     margin-right: 16px;
   }
@@ -519,12 +524,12 @@
   }
 
   .font-card-top-other {
-    color: var(--Color-Secondary-500, #5c25f2);
+    color: var(--Color-Secondary-500, $Primary-Pueple-500);
     font-size: 48px;
   }
 
   .font-right-other {
-    color: #5c25f2;
+    color: $Primary-Pueple-500;
   }
 
   .button-but {
@@ -536,20 +541,20 @@
     gap: var(--Spacing-space-8, 8px);
     align-self: stretch;
     border-radius: var(--Border-radius-8, 8px);
-    border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2);
+    border: 1px solid var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     background: var(--Color-Secondary-500, #ffeb3b);
-    color: var(--Color-Primary-Pueple-500, #5c25f2);
+    color: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     width: 100%;
     cursor: pointer;
   }
 
   .font-form-pak {
     font-size: 48px;
-    color: #5c25f2;
+    color: $Primary-Pueple-500;
   }
 
   .font-form-buy {
-    color: #bababa;
+    color: gray-color;
     font-size: 32px;
   }
 
@@ -600,7 +605,7 @@
     align-items: center;
     gap: 0px;
     border-radius: 6px;
-    border: 2px dashed #5c25f2;
+    border: 2px dashed $Primary-Pueple-500;
     background: #f8f8f8;
     cursor: pointer;
     margin-bottom: 10px;
@@ -613,17 +618,17 @@
 
   .font-form-myshop {
     font-size: 16px;
-    color: #5c25f2;
+    color: $Primary-Pueple-500;
   }
 
   .font-form-myshop-under {
     font-size: 16px;
-    color: #bababa;
+    color: gray-color;
     margin-bottom: 10px;
   }
 
   .font-top-myshop {
-    color: var(--color-black-white-900, #fff);
+    color: var(--color-black-white-900, $white-color);
     font-size: 24px;
     text-align: left;
     width: 100%;
@@ -632,8 +637,8 @@
   .line-table {
     width: 100%;
     border-radius: 6px 0px 0px 0px;
-    border: 1px solid #bababa;
-    background: #fff;
+    border: 1px solid gray-color;
+    background: $white-color;
     display: flex;
     padding: 0px 16px;
     align-items: center;
@@ -643,7 +648,7 @@
   }
 
   .font-form-add {
-    color: #5c25f2;
+    color: $Primary-Pueple-500;
     font-size: 20px;
     margin-bottom: 16px;
   }
@@ -654,9 +659,9 @@
   width: 100%;
   padding: 8px 12px;
   border-radius: 8px;
-  border: 1px solid #5c25f2;
+  border: 1px solid $Primary-Pueple-500;
   background: #ffeb3b;
-  color: #5c25f2;
+  color: $Primary-Pueple-500;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -712,7 +717,7 @@
   justify-content: space-between;
   background: var(--Linear,
       linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%));
-  color: #fff;
+  color: $white-color;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
@@ -776,7 +781,7 @@
 
 .font-form-myshop-under {
   font-size: 16px;
-  color: #bababa;
+  color: gray-color;
   margin-bottom: 10px;
 }
 
@@ -811,34 +816,39 @@
   color: #ffeb3b;
   font-size: 32px !important;
 }
+
 .more-img {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
 }
+
 .navtabs-left {
   margin-top: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
   border-radius: 16px;
   background: linear-gradient(180deg, #130048 0%, #5823e5 100%);
-  color: #fff;
+  color: $white-color;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 12px;
 }
+
 .crad-img {
   background-image: url("~/assets/image/Card.png");
   background-repeat: round;
 }
+
 .dis-mgin {
   display: flex;
   width: 100%;
   margin: 5px;
 }
+
 .button-but {
   display: flex;
   height: 36px;
@@ -848,12 +858,13 @@
   gap: 8px;
   align-self: stretch;
   border-radius: 8px;
-  border: 1px solid #5c25f2;
+  border: 1px solid $Primary-Pueple-500;
   background: #ffeb3b;
-  color: #5c25f2;
+  color: $Primary-Pueple-500;
   width: 100%;
   cursor: pointer;
 }
+
 .but-folow {
   display: flex;
   padding: 8px;
@@ -875,10 +886,11 @@
   gap: 8px;
   border-radius: 16px;
   border: 1px dashed #ffeb3b;
-  background: #5c25f2;
+  background: $Primary-Pueple-500;
   width: 256px;
   margin: 10px 0px;
 }
+
 .monney {
   display: flex;
   padding: var(--Spacing-space-6, 6px) var(--Spacing-space-16, 16px);
@@ -889,3 +901,274 @@
   color: #ffeb3b;
   margin-top: 5px;
 }
+
+
+.slider-game {
+  .slider-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .slick-slide img {
+    width: 100%;
+  }
+
+  .slider {
+    display: flex;
+    transition: left 0.3s ease;
+    position: relative;
+    left: 0;
+  }
+
+  .tpn_cardimg {
+    width: 164px;
+    height: 164px;
+    border-radius: 164px;
+  }
+
+  .tpn_game {
+    flex: 0 0 50px;
+    /* กำหนดความกว้างของแต่ละการ์ด */
+    margin-right: 20px;
+    /* เพิ่มช่องว่างระหว่างการ์ด */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .content-game-under {
+    color: var(--color-black-white-900, #fff);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+.custom-co-banner {
+
+  .custom-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .custom-indicators span {
+    display: inline-block;
+    width: 10px;
+    /* ปรับขนาดของจุดไข่ปลาตามต้องการ */
+    height: 10px;
+    /* ปรับขนาดของจุดไข่ปลาตามต้องการ */
+    border-radius: 50%;
+    /* ทำให้เป็นรูปวงกลม */
+    background-color: #ccc;
+    /* สีของจุดไข่ปลา */
+    margin: 0 5px;
+    /* ระยะห่างระหว่างจุดไข่ปลา */
+    cursor: pointer;
+  }
+
+  .custom-indicators span.active {
+    background-color: #ffeb3b;
+    /* สีของจุดไข่ปลาเมื่อเป็นสไลด์ปัจจุบัน */
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  .custom-prev,
+  .custom-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+  }
+
+  .carousel-inner {
+    border: none;
+    /* เอาเส้นขอบออก */
+  }
+
+  .carousel-indicators li {
+    display: none !important;
+  }
+
+  #arrow-left,
+  #arrow-right {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #fff;
+  }
+
+  #arrow-left {
+    z-index: 0;
+  }
+
+  #arrow-right {
+    z-index: 0;
+  }
+
+  .dotposition {
+    position: relative;
+    top: 7px;
+  }
+}
+
+.co-new {
+
+  .carousel-caption {
+    position: absolute;
+    bottom: 0px !important;
+    left: 0% !important;
+    width: 100%;
+    height: auto;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: left;
+    width: 100% !important;
+  }
+
+  .caption-content {
+    max-width: 100%;
+  }
+
+  .caption-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .caption-subtitle {
+    font-size: 16px;
+  }
+
+  .custom-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  #arrow-left,
+  #arrow-right {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dotposition span {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .dotposition .active {
+    background-color: #FFEB3B;
+  }
+}
+
+
+.market-home{
+  width: 100%;
+  .img-edit {
+    border-radius: var(--Border-radius-8, 8px) !important;
+    border: 4px solid #ffeb3b !important;
+    border: 2px dashed var(--Color-Secondary-500, #ffeb3b) !important;
+    width: 100% !important;
+    height: 400px !important;
+  }
+  .profile-img-main {
+    height: 130px;
+    gap: 10px;
+    width: 100%;
+  }
+}
+
+
+.Marketitem{
+  .slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .slider {
+    display: flex;
+    transition: left 0.3s ease;
+    position: relative;
+    left: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .tpn_card {
+    flex: 0 0 220px;
+    margin-right: 20px;
+  }
+}
+
+
+.market-mass
+{
+  .button-fece {
+    display: flex;
+    padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
+    justify-content: center;
+    align-items: center;
+    gap: var(--Spacing-space-8, 8px);
+    align-self: stretch;
+    border-radius: var(--medium, 6px);
+    background: #1977f5;
+    color: white;
+    margin-top: 20px;
+  }
+  .navtabs {
+    padding: 50px 100px;
+  }
+  .box-alert {
+    padding: 20px 10px;
+  }
+  .font-form-myshop {
+    font-size: 24px;
+    color: #5c25f2;
+  }
+}
+
+
+.slider{
+
+  .center-flex {
+    display: flex;
+    justify-content: center;
+  }
+  .right{
+        position: relative;
+      right: -45px;
+      top: 20px;
+      z-index: 100;
+  }
+  .left{
+        position: relative;
+      left: -45px;
+      top: 20px;
+      z-index: 100;
+  }
+}
+
+
