@@ -142,6 +142,7 @@ export default {
         const response = await this.$axios.post("/users/register", formData);
         console.log("Response:", response.data);
         alert("การลงทะเบียนสำเร็จ!");
+        this.$router.push("/login"); // รีไดเรคไปยังหน้า login
       } catch (error) {
         if (error.response && error.response.data) {
           this.$handleError(error);

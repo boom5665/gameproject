@@ -1,16 +1,14 @@
 <template>
   <div class="M-Create-Backgroud">
     <div class="custom-login">
-      <div class="navtabs">
+      <div class="navtabs forget">
         <div class="font-top-myshop">
           <Nuxt-link class="text-profile" to="/Login" target="_self">
-            <span class="font-top-myshop"
-              >Login &nbsp; / &nbsp;</span
-            ></Nuxt-link
-          >
-          <Nuxt-link class="text-profile" to="/LogForget" target="_self"
-            ><span class="font-proL-top">Forgot password</span></Nuxt-link
-          >
+            <span class="font-top-myshop">Login &nbsp; / &nbsp;</span>
+          </Nuxt-link>
+          <Nuxt-link class="text-profile" to="/LogForget" target="_self">
+            <span class="font-proL-top">Forgot password</span>
+          </Nuxt-link>
         </div>
         <div class="form-create">
           <div>
@@ -22,12 +20,12 @@
               <div style="width: 100%">
                 <input
                   type="text"
-                  id="Emailphone"
-                  v-model="Emailphone"
-                  placeholder="Email or phone number"
+                  id="email"
+                  v-model="email"
+                  placeholder="กรุณรากรอกยืนยันอีเมล"
                 />
-                <span v-if="errors.Emailphone" class="error">
-                  {{ errors.Emailphone }}
+                <span v-if="errors.email" class="error">
+                  {{ errors.email }}
                 </span>
               </div>
             </div>
@@ -52,10 +50,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      Emailphone: "", // เก็บค่า Email หรือเบอร์โทรศัพท์
-      Password: "", // เก็บค่า Password
-      errors: {},
-      showPassword: false, // ตัวแปรที่ใช้ในการแสดง/ซ่อนรหัสผ่าน
+      email: "", // เก็บค่า Email หรือเบอร์โทรศัพท์
+      errors: {}, // เก็บข้อผิดพลาด
     };
   },
 
@@ -63,52 +59,51 @@ export default {
     validateForm() {
       this.errors = {};
 
-      if (!this.Emailphone) {
-        this.errors.Emailphone = "Email or phone number is required.";
+      if (!this.$validate.email(this.email)) {
+        this.errors.email = "กรุณากรอกอีเมลใหม่";
       }
 
       return Object.keys(this.errors).length === 0;
     },
-    togglePasswordVisibility() {
-      this.showPassword = !this.showPassword;
-    },
+
     async submitData() {
       if (!this.validateForm()) {
         return;
       }
+
       const formData = {
-        um_username: this.Emailphone,
+        email: this.email,
       };
 
       try {
-        const response = await axios.post("/users/login", formData);
+        const response = await this.$axios.post(
+          "/users/forgot-password",
+          formData
+        );
         console.log("Response:", response.data);
-        const token = response.data.token; // สมมติว่า token อยู่ใน response.data.token
-        localStorage.setItem("authToken", token); // เก็บ token ใน localStorage
-        alert("เข้าระบบสำเร็จ");
 
-        // ดึง token จาก localStorage และแสดงใน console
-        const storedToken = localStorage.getItem("authToken");
-        console.log("Stored Token:", storedToken);
-
-        // เพิ่มการนำไปยังหน้าต่อไปหรือทำตามที่ต้องการหลังจาก Login สำเร็จ
+        if (response.data) {
+          alert("ส่งยืนยันอีเมลสำเร็จ");
+          this.$router.push("/LogCheng"); // รีไดเรคไปยังหน้า index
+        } else {
+          alert("ไม่พบข้อมูล token");
+        }
       } catch (error) {
         console.error(
           "Error:",
           error.response ? error.response.data : error.message
         );
+        this.errors = {};
+
         if (error.response && error.response.data) {
           const errorData = error.response.data;
-          this.errors = {}; // Clear previous errors
-
-          if (errorData.code === 1005) {
-            this.errors.general = "ไม่พบข้อมูล ล็อกอิน";
-          } else {
-            this.errors.general = errorData.msg.th || "ไม่พบข้อมูล ล็อกอิน";
-          }
+          this.errors.general =
+            errorData.code === 1005
+              ? "ส่งยืนยันอีเมลไม่สำเร็จ"
+              : errorData.msg.th || "ส่งยืนยันอีเมลไม่สำเร็จ";
         } else {
           this.errors.general =
-            "Failed to login. Please check your input and try again.";
+            "ส่งยืนยันอีเมลไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
         }
         alert(this.errors.general);
       }
@@ -117,20 +112,6 @@ export default {
 };
 </script>
 
-
 <style lang="scss" scoped>
-.font-top-myshop {
-  font-size: 18px;
-  color: #bababa !important;
-}
-.form-create {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding: 0px 0px 0px 0px;
-}
- .dis-input-box {
-    position: relative;
-    transform: translate(120px, 5px);
-}
+/* ใส่สไตล์ที่ต้องการที่นี่ */
 </style>

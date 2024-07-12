@@ -115,6 +115,24 @@
   }
 }
 
+.forget{
+  .font-top-myshop {
+    font-size: 18px;
+    color: #bababa !important;
+    text-decoration-line: none;
+  }
+  .form-create {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0px 0px 0px 0px;
+  }
+  .dis-input-box {
+    position: relative;
+    padding: 10px 80px;
+    width: 450px;
+  }
+}
 
 .Profile {
   .text-profile {

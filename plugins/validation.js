@@ -19,7 +19,8 @@ export default ({ app }, inject) => {
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    const thaiRegex = /[ก-ฮ]/; // ตรวจสอบว่ามีตัวอักษรภาษาไทยหรือไม่
+    return regex.test(email) && !thaiRegex.test(email);
   };
 
   inject('validate', {
