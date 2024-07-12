@@ -1,10 +1,23 @@
 @import 'variables';
+
 .custom-login {
+  .font-re {
+    color: $Primary-Pueple-500;
+
+  }
+
+  .font-top-myshop {
+    font-size: 18px;
+    color: $black-color;
+    text-decoration-line: underline;
+    margin-bottom: 5px;
+  }
+
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid $Primary-Pueple-500;
     background: var(--Color-Secondary-500, #ffeb3b) !important;
-    color:  $Primary-Pueple-500 !important;
+    color: $Primary-Pueple-500 !important;
   }
 
   .dis-input-box {
@@ -28,11 +41,6 @@
     align-items: center;
   }
 
-  .font-top-myshop {
-    font-size: 18px;
-    color: var(--color-black-white-700, #bababa);
-    width: 1000px;
-  }
 
   .font-proL-top {
     color: $Yellow-color;
@@ -51,6 +59,18 @@
 }
 
 .custom-regis {
+  .toggle-password-btn {
+    position: absolute;
+    right: 70px;
+    z-index: 1000;
+    cursor: pointer;
+  }
+
+  .font-re {
+    color: $Primary-Pueple-500;
+    ;
+  }
+
   .password-container {
     display: flex;
     align-items: center;
@@ -66,7 +86,8 @@
 
   .font-form-pak {
     font-size: 48px;
-    color: $Primary-Pueple-500;;
+    color: $Primary-Pueple-500;
+    ;
     text-align: center;
     margin-bottom: 10px;
   }
@@ -169,9 +190,11 @@
     padding: 8px 12px;
     justify-content: center;
     border-radius: 8px;
-    border: 1px solid $Primary-Pueple-500;;
+    border: 1px solid $Primary-Pueple-500;
+    ;
     background: $Yellow-color;
-    color: $Primary-Pueple-500;;
+    color: $Primary-Pueple-500;
+    ;
   }
 
   .expstyle {
@@ -190,9 +213,11 @@
     height: 40px;
     width: 400px;
     border-radius: 6px;
-    border: 1px solid $Primary-Pueple-500;;
+    border: 1px solid $Primary-Pueple-500;
+    ;
     background: #bababa;
-    color: $Primary-Pueple-500;;
+    color: $Primary-Pueple-500;
+    ;
     margin-bottom: 0px;
     max-width: 400px;
   }
@@ -245,7 +270,8 @@
     padding: 4px 8px;
     justify-content: center;
     align-items: center;
-    color: $Primary-Pueple-500;;
+    color: $Primary-Pueple-500;
+    ;
     margin: 10px 10px;
   }
 
@@ -339,11 +365,12 @@
 
 
 
-.profile-noadd{
+.profile-noadd {
   .nodata {
     font-size: 16px;
     margin: 25px 30px;
   }
+
   .but-address {
     display: flex;
     height: 36px;

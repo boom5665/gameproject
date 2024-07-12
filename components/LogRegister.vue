@@ -30,8 +30,20 @@
                   v-model="password"
                   placeholder="Enter your password"
                 />
-                <button @click="togglePasswordVisibility" type="button">
-                  {{ showPassword ? "Hide" : "Show" }}
+
+                <button
+                  @click="togglePasswordVisibility"
+                  type="button"
+                  class="toggle-password-btn"
+                >
+                  <img
+                    :src="
+                      showPassword
+                        ? require('~/assets/image/eye.png')
+                        : require('~/assets/image/eyeclose.png')
+                    "
+                    alt="Toggle Password Visibility"
+                  />
                 </button>
               </div>
               <span v-if="errors.password" class="error">{{
@@ -68,8 +80,11 @@
           >
             บันทึก
           </button>
-          <div style="text-align: center; margin-top: 10px">
-            <a href="#">เป็นสมาชิกแล้ว? เข้าสู่ระบบ</a>
+          <div style="text-align: center; margin-top: 10px; font-size: 18px">
+            เป็นสมาชิกแล้ว?
+            <Nuxt-link class="" to="/LogRegister" target="_self">
+              <span class="font-re"> เข้าสู่ระบบ </span></Nuxt-link
+            >
           </div>
         </div>
       </div>
