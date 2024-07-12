@@ -90,13 +90,13 @@
     align-items: center;
     border-radius: 8px;
     border: 1px solid $Primary-Pueple-500;
-    background: #FFEB3B;
+    background: $Yellow-color;
     color: $Primary-Pueple-500;
   }
 
   .b-top-cy {
     border-radius: var(--Border-radius-8, 8px);
-    background: var(--Color-Secondary-500, #FFEB3B);
+    background: $Yellow-color;
     box-shadow: 0px 4px 10px 0px rgba(255, 235, 59, 0.30);
     color: $Primary-Pueple-500;
   }

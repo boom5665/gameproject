@@ -12,8 +12,8 @@
     align-items: flex-start;
     margin: 10px 0px;
     justify-content: space-between;
-    border-top: 1px solid var(--Color-Secondary-500, #ffeb3b);
-    border-bottom: 1px solid var(--Color-Secondary-500, #ffeb3b);
+    border-top: 1px solid  $Yellow-color;
+    border-bottom: 1px solid $Yellow-color;
     padding: 10px 0px;
   }
 
@@ -28,7 +28,7 @@
   }
 
   .font-head-bottom {
-    color: var(--Color-Secondary-500, #ffeb3b);
+    color: $Yellow-color;
     font-size: 20px;
   }
 
@@ -74,7 +74,7 @@
     padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
-    background: var(--Color-Secondary-500, #ffeb3b);
+    background: $Yellow-color;
     color: $Primary-Pueple-500;
     display: flex;
     justify-content: center;
@@ -86,7 +86,7 @@
     height: 40px;
     padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
     border-radius: var(--Border-radius-8, 8px);
-    border: 1px dashed var(--Color-Secondary-500, #FFEB3B);
+    border: 1px dashed $Yellow-color;
     background: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     color: $white-color;
     display: flex;
@@ -148,7 +148,7 @@
     margin-right: 10px;
     width: 100px;
     height: 60px;
-    border: 1px solid var(--Color-Secondary-500, #FFEB3B);
+    border: 1px solid $Yellow-color;
     border-radius: var(--Border-radius-6, 6px);
   }
 
@@ -179,13 +179,13 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #ffeb3b;
+  background: $Yellow-color;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #ffeb3b;
+  background: $Yellow-color;
 }
 
 .font-head-bottom {
@@ -242,7 +242,7 @@
   align-items: flex-start;
   gap: var(--Spacing-space-16, 16px);
   margin: 10px;
-  color: black;
+  color: $black-color;
 }
 
 .box-pay-right {
@@ -343,7 +343,7 @@
   .active {
     font-weight: bold;
     text-decoration: underline;
-    color: var(--Color-Secondary-500, #ffeb3b);
+    color: $Yellow-color;
   }
 
   .card-box {
@@ -377,7 +377,7 @@
   }
 
   .font-newtop {
-    color: var(--Color-Secondary-500, #ffeb3b);
+    color: $Yellow-color;
     margin-bottom: 5px;
     font-size: 14px;
   }
@@ -444,7 +444,7 @@
   .active {
     font-weight: bold;
     text-decoration: underline;
-    color: var(--Color-Secondary-500, #ffeb3b);
+    color:  $Yellow-color;
   }
 
   .card-box {
@@ -478,7 +478,7 @@
   }
 
   .font-newtop {
-    color: var(--Color-Secondary-500, #ffeb3b);
+    color: $Yellow-color;
     margin-bottom: 5px;
     font-size: 14px;
   }

@@ -1,4 +1,4 @@
-@import 'variables'; 
+@import 'variables';
 
 body {
   background: $purpleblack-color !important;
@@ -21,7 +21,7 @@ body {
 
 
 a {
-  color: #000;
+  color: $black-color;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: none;
@@ -29,7 +29,7 @@ a {
 }
 
 a:hover {
-  color: #000;
+  color: $black-color;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
@@ -170,7 +170,7 @@ a:hover {
   box-sizing: border-box;
   text-align: center;
   background: linear-gradient(0deg, rgb(4, 23, 36) 9.67%, rgba(4, 23, 36, 0) 68.19%);
-  color: var(--Color-Secondary-500, #FFEB3B);
+  color: $Yellow-color;
   font-variant-numeric: stacked-fractions;
   font-feature-settings: 'hlig'on, 'dlig'on;
   text-shadow: 0px 0px 8px rgba(255, 235, 59, 0.50);

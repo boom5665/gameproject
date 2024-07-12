@@ -2,9 +2,9 @@
 .custom-login {
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
-    border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    border: 1px solid $Primary-Pueple-500;
     background: var(--Color-Secondary-500, #ffeb3b) !important;
-    color: var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    color:  $Primary-Pueple-500 !important;
   }
 
   .dis-input-box {
@@ -35,7 +35,7 @@
   }
 
   .font-proL-top {
-    color: #ffeb3b;
+    color: $Yellow-color;
     font-size: 24px !important;
   }
 
@@ -66,16 +66,16 @@
 
   .font-form-pak {
     font-size: 48px;
-    color: #5c25f2;
+    color: $Primary-Pueple-500;;
     text-align: center;
     margin-bottom: 10px;
   }
 
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
-    border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    border: 1px solid $Primary-Pueple-500;
     background: var(--Color-Secondary-500, #ffeb3b) !important;
-    color: var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    color: $Primary-Pueple-500;
   }
 
   .M-Create-Backgroud .font-top-myshop {
@@ -84,7 +84,7 @@
   }
 
   .font-proL-top {
-    color: #ffeb3b;
+    color: $Yellow-color;
     font-size: 24px !important;
   }
 
@@ -102,7 +102,7 @@
   }
 
   .font-proL-top {
-    color: #ffeb3b;
+    color: $Yellow-color;
     font-size: 24px !important;
   }
 
@@ -169,9 +169,9 @@
     padding: 8px 12px;
     justify-content: center;
     border-radius: 8px;
-    border: 1px solid #5c25f2;
-    background: #ffeb3b;
-    color: #5c25f2;
+    border: 1px solid $Primary-Pueple-500;;
+    background: $Yellow-color;
+    color: $Primary-Pueple-500;;
   }
 
   .expstyle {
@@ -190,9 +190,9 @@
     height: 40px;
     width: 400px;
     border-radius: 6px;
-    border: 1px solid #5c25f2;
+    border: 1px solid $Primary-Pueple-500;;
     background: #bababa;
-    color: #5c25f2;
+    color: $Primary-Pueple-500;;
     margin-bottom: 0px;
     max-width: 400px;
   }
@@ -228,7 +228,7 @@
 
   .point-title {
     font-size: 16px;
-    color: var(--Color-Secondary-500, #ffeb3b);
+    color: $Yellow-color;
     margin-bottom: 5px;
   }
 
@@ -245,7 +245,7 @@
     padding: 4px 8px;
     justify-content: center;
     align-items: center;
-    color: #5c25f2;
+    color: $Primary-Pueple-500;;
     margin: 10px 10px;
   }
 
@@ -266,9 +266,9 @@
 .Profile-address {
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
-    border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    border: 1px solid $Primary-Pueple-500;
     background: var(--Color-Secondary-500, #ffeb3b) !important;
-    color: var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    color: $Primary-Pueple-500;
   }
 
   .M-Create-Backgroud .font-top-myshop {
@@ -277,7 +277,7 @@
   }
 
   .font-proL-top {
-    color: #ffeb3b;
+    color: $Yellow-color;
     font-size: 24px !important;
   }
 
@@ -290,9 +290,9 @@
 .Profitle-edit {
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
-    border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    border: 1px solid $Primary-Pueple-500;
     background: var(--Color-Secondary-500, #ffeb3b) !important;
-    color: var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    color: $Primary-Pueple-500;
   }
 
   .M-Create-Backgroud .font-top-myshop {
@@ -301,7 +301,7 @@
   }
 
   .font-proL-top {
-    color: #ffeb3b;
+    color: $Yellow-color;
     font-size: 24px !important;
   }
 
@@ -316,9 +316,9 @@
 .Profile-edit-email {
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
-    border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    border: 1px solid $Primary-Pueple-500;
     background: var(--Color-Secondary-500, #ffeb3b) !important;
-    color: var(--Color-Primary-Pueple-500, #5c25f2) !important;
+    color: $Primary-Pueple-500;
   }
 
   .M-Create-Backgroud .font-top-myshop {
@@ -327,7 +327,7 @@
   }
 
   .font-proL-top {
-    color: #ffeb3b;
+    color: $Yellow-color;
     font-size: 24px !important;
   }
 
@@ -352,8 +352,8 @@
     align-items: center;
     gap: var(--Spacing-space-8, 8px);
     border-radius: var(--Border-radius-8, 8px);
-    border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2);
-    background: var(--Color-Secondary-500, #ffeb3b);
-    color: #5c25f2;
+    border: 1px solid $Primary-Pueple-500;
+    background: $Yellow-color;
+    color: $Primary-Pueple-500;
   }
 }

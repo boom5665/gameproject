@@ -91,7 +91,7 @@
   }
 
   .dot.active {
-    background-color: #ffeb3b;
+    background-color: $Yellow-color;
   }
 
   .dis-play-recom {
@@ -146,7 +146,7 @@
     gap: 8px;
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
-    background: var(--Color-Secondary-500, #ffeb3b);
+    background: $Yellow-color;
     color: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     margin-left: 20px;
   }
@@ -221,8 +221,8 @@
     height: 22px;
     border-radius: 0px;
     border-radius: var(--Border-radius-0, 0px);
-    border-bottom: 2px solid #ffeb3b;
-    border-bottom: 3px solid var(--Color-Secondary-500, #ffeb3b);
+    border-bottom: 2px solid $Yellow-color;
+    border-bottom: 3px solid $Yellow-color;
     transition: left 0.3s ease, width 0.3s ease;
   }
 
@@ -284,7 +284,7 @@
     align-self: stretch;
     border-radius: 6px;
     background: $white-color;
-    color: black;
+    color: $black-color;
     margin-top: 20px;
     gap: var(--Spacing-space-16, 12px)
   }
@@ -468,7 +468,7 @@
 
   .card-into {
     border-radius: var(--Border-radius-8, 8px);
-    border: 2px dashed var(--Color-Secondary-500, #ffeb3b);
+    border: 2px dashed $Yellow-color;
     background: var(--Linear,
         linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%));
     display: flex;
@@ -490,7 +490,7 @@
     gap: var(--Spacing-space-16, 12px);
     border-radius: var(--Border-radius-8, 8px);
     background: var(--color-black-white-900, $white-color);
-    color: #000;
+    color: $black-color;
     margin-right: 16px;
   }
 
@@ -498,7 +498,7 @@
     padding: var(--Spacing-space-4, 4px) var(--Spacing-space-8, 8px);
     border-radius: var(--Border-radius-Full, 9999px);
     background: var(--Color-Primary-400, #8153ff);
-    color: #ffeb3b;
+    color: $Yellow-color;
     left: 100px;
     font-size: 14px;
     position: relative;
@@ -519,7 +519,7 @@
   }
 
   .font-card-top {
-    color: var(--Color-Secondary-500, #ffeb3b);
+    color: $Yellow-color;
     font-size: 48px;
   }
 
@@ -542,7 +542,7 @@
     align-self: stretch;
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
-    background: var(--Color-Secondary-500, #ffeb3b);
+    background: $Yellow-color;
     color: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     width: 100%;
     cursor: pointer;
@@ -660,7 +660,7 @@
   padding: 8px 12px;
   border-radius: 8px;
   border: 1px solid $Primary-Pueple-500;
-  background: #ffeb3b;
+  background: $Yellow-color;
   color: $Primary-Pueple-500;
   display: flex;
   justify-content: center;
@@ -813,7 +813,7 @@
 
 
 .font-proL-top {
-  color: #ffeb3b;
+  color: $Yellow-color;
   font-size: 32px !important;
 }
 
@@ -859,7 +859,7 @@
   align-self: stretch;
   border-radius: 8px;
   border: 1px solid $Primary-Pueple-500;
-  background: #ffeb3b;
+  background: $Yellow-color;
   color: $Primary-Pueple-500;
   width: 100%;
   cursor: pointer;
@@ -885,7 +885,7 @@
   align-items: flex-start;
   gap: 8px;
   border-radius: 16px;
-  border: 1px dashed #ffeb3b;
+  border: 1px dashed $Yellow-color;
   background: $Primary-Pueple-500;
   width: 256px;
   margin: 10px 0px;
@@ -898,7 +898,7 @@
   gap: 10px;
   border-radius: var(--Border-radius-8, 8px);
   background: var(--Color-Midnight-500, #363545);
-  color: #ffeb3b;
+  color: $Yellow-color;
   margin-top: 5px;
 }
 
@@ -973,7 +973,7 @@
   }
 
   .custom-indicators span.active {
-    background-color: #ffeb3b;
+    background-color: $Yellow-color;
     /* สีของจุดไข่ปลาเมื่อเป็นสไลด์ปัจจุบัน */
   }
 
@@ -1079,7 +1079,7 @@
   }
 
   .dotposition .active {
-    background-color: #FFEB3B;
+    background-color: $Yellow-color;
   }
 }
 
