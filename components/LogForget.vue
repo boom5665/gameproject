@@ -22,13 +22,23 @@
                   type="text"
                   id="email"
                   v-model="email"
-                  placeholder="กรุณรากรอกยืนยันอีเมล"
+                  placeholder="กรุณากรอกอีเมล"
                 />
                 <span v-if="errors.email" class="error">
                   {{ errors.email }}
                 </span>
               </div>
             </div>
+            <!-- <button @click="openModal">เปิด Modal</button> -->
+            <Modal :isVisible="isModalVisible" @close="closeModal">
+              <div class="font-form-myshop">ส่งอีเมลเรียบร้อย</div>
+              <div class="padding-contentmodal">
+                กรุณาเข้าไปเช็คที่อีเมลของท่าน เพื่อรีเซ็ตรหัสผ่าน
+              </div>
+              <button class="button-pro-edit" @click="closeModal">ตกลง</button>
+            </Modal>
+
+            <Loader :isLoading="isLoading" />
 
             <button
               type="submit"
@@ -46,16 +56,32 @@
 
 <script>
 import axios from "axios";
-
+import Modal from "~/components/Modal.vue";
 export default {
+  components: {
+    Modal,
+  },
   data() {
     return {
       email: "", // เก็บค่า Email หรือเบอร์โทรศัพท์
       errors: {}, // เก็บข้อผิดพลาด
+      isModalVisible: false,
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
     };
   },
 
   methods: {
+    // openModal() {
+    //   this.isModalVisible = true;
+    // },
+    closeModal() {
+      this.isModalVisible = false;
+      this.$router.push("/login");
+    },
+    // goToNextPage() {
+    //   this.isModalVisible = false;
+    //   this.$router.push("/login"); // เปลี่ยนเป็นเส้นทางที่ต้องการ
+    // },
     validateForm() {
       this.errors = {};
 
@@ -70,7 +96,7 @@ export default {
       if (!this.validateForm()) {
         return;
       }
-
+      this.isLoading = true; // แสดง loader
       const formData = {
         email: this.email,
       };
@@ -83,8 +109,8 @@ export default {
         console.log("Response:", response.data);
 
         if (response.data) {
-          alert("ส่งยืนยันอีเมลสำเร็จ");
-          this.$router.push("/LogCheng"); // รีไดเรคไปยังหน้า index
+          this.isModalVisible = true;
+          this.isLoading = false; // ซ่อน loader
         } else {
           alert("ไม่พบข้อมูล token");
         }
@@ -106,6 +132,7 @@ export default {
             "ส่งยืนยันอีเมลไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
         }
         alert(this.errors.general);
+        this.isLoading = false; // ซ่อน loader
       }
     },
   },
@@ -117,5 +144,14 @@ export default {
 .w-input {
   width: 100%;
   height: 80px;
+}
+.M-Create-Backgroud .font-form-myshop {
+  font-size: 16px;
+  color: #5c25f2;
+  text-align: left;
+  width: 100%;
+}
+.padding-contentmodal {
+  padding: 20px 0px;
 }
 </style>

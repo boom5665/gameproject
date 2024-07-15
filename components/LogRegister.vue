@@ -13,7 +13,7 @@
                 type="text"
                 id="username"
                 v-model="username"
-                placeholder="กรอก ชื่อผู้ใช้"
+                placeholder="กรุณากรอกชื่อผู้ใช้"
               />
               <span v-if="errors.username" class="error">{{
                 errors.username
@@ -28,9 +28,9 @@
                   :type="showPassword ? 'text' : 'password'"
                   id="password"
                   v-model="password"
-                  placeholder="กรอกรหัสผ่าน"
+                  placeholder="กรุณากรอกรหัสผ่าน"
                 />
-                <button
+                <div
                   @click="togglePasswordVisibility"
                   type="button"
                   class="toggle-password-btn"
@@ -43,7 +43,7 @@
                     "
                     alt="Toggle Password Visibility"
                   />
-                </button>
+                </div>
               </div>
               <span v-if="errors.password" class="error">{{
                 errors.password
@@ -53,23 +53,23 @@
           <div class="dis-input">
             <div class="w-input">
               <label for="phone">
-                เบอร์โทรสัพ <span id="dotstyle">*</span>
+                เบอร์โทรศัพท์ <span id="dotstyle">*</span>
               </label>
               <input
                 type="text"
                 id="phone"
                 v-model="phone"
-                placeholder="กรุณากรอกเบอร์โทรสัพ"
+                placeholder="กรุณากรอกเบอร์โทรศัพท์"
               />
               <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
             </div>
             <div class="w-input">
-              <label for="email"> อีเมล์ <span id="dotstyle">*</span> </label>
+              <label for="email"> อีเมล <span id="dotstyle">*</span> </label>
               <input
                 type="text"
                 id="email"
                 v-model="email"
-                placeholder="กรุณากรอกอีเมล์"
+                placeholder="กรุณากรอกอีเมล"
               />
               <span v-if="errors.email" class="error">{{ errors.email }}</span>
             </div>
@@ -79,7 +79,7 @@
             class="submit button-pro-edit"
             @click.prevent="submitData"
           >
-            บันทึก
+            สมัครสมาชิก
           </button>
 
           <!-- loader -->
@@ -166,9 +166,9 @@ export default {
       } catch (error) {
         if (error.response && error.response.data) {
           this.$handleError(error);
-          setTimeout(() => {
+
             this.isLoading = false; // ซ่อน loader
-          }, 5000); // 1000 มิลลิวินาที = 1 วินาที
+
         }
       }
     },

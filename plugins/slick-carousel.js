@@ -3,6 +3,4 @@ import Slick from 'slick-carousel';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-if (process.client) {
-  window.Slick = Slick;
-}
+Vue.prototype.$slick = Slick;

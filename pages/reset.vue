@@ -2,7 +2,7 @@
   <div>
     <div class="box-cotent">
       <div class="W-default ">
-        <LogCheng />
+        <LogResetpassword />
       </div>
     </div>
   </div>

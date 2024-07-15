@@ -40,7 +40,7 @@
               class="submit button-pro-edit"
               @click.prevent="submitData"
             >
-              บันทึก
+              เข้าสู่ระบบ
             </button>
             <div style="margin: 10px">
               <Nuxt-link class="text-profile" to="/LogForget" target="_self">
@@ -134,9 +134,8 @@ export default {
             "ลงทะเบียนไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
         }
         alert(this.errors.general);
-        setTimeout(() => {
-          this.isLoading = false; // ซ่อน loader
-        }, 5000); // 1000 มิลลิวินาที = 1 วินาที
+
+        this.isLoading = false; // ซ่อน loader
       }
     },
   },

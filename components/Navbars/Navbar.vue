@@ -86,9 +86,9 @@
           <div class="icon">
             <img class="" src="~/assets/image/comment.png" />
           </div>
-          <div class="icon-cart" @click="openNav">
+          <!-- <div class="icon-cart" @click="openNav">
             <img class="" src="~/assets/image/Cart.png" />
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -199,6 +199,7 @@
               </div>
               <div class="submit">ไปชำระเงิน</div>
             </div>
+
           </div>
         </div>
       </div>
@@ -207,9 +208,11 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
+
       products: [
         {
           id: 1,
@@ -246,7 +249,7 @@ export default {
       return this.products.reduce((total, product) => {
         return total + product.price * product.quantity;
       }, 0);
-    }
+    },
   },
   methods: {
     openNav() {
@@ -271,6 +274,7 @@ export default {
       this.products = this.products.filter((p) => p.id !== product.id);
     },
   },
+
 };
 </script>
 
