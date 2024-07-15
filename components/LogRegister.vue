@@ -3,34 +3,33 @@
     <div class="navtabs">
       <div class="form-create">
         <div style="width: 100%">
-          <div class="font-form-pak">Register</div>
+          <div class="font-form-pak">สมัครสมาชิก</div>
           <div class="dis-input">
-            <div style="width: 49%">
+            <div class="w-input">
               <label for="username">
-                Username <span id="dotstyle">*</span>
+                ชื่อผู้ใช้ <span id="dotstyle">*</span>
               </label>
               <input
                 type="text"
                 id="username"
                 v-model="username"
-                placeholder="Enter your username"
+                placeholder="กรอก ชื่อผู้ใช้"
               />
               <span v-if="errors.username" class="error">{{
                 errors.username
               }}</span>
             </div>
-            <div style="width: 49%">
-              <label for="password"
-                >Password <span id="dotstyle">*</span></label
-              >
+            <div class="w-input">
+              <label for="password">
+                รหัสผ่าน <span id="dotstyle">*</span>
+              </label>
               <div class="password-container">
                 <input
                   :type="showPassword ? 'text' : 'password'"
                   id="password"
                   v-model="password"
-                  placeholder="Enter your password"
+                  placeholder="กรอกรหัสผ่าน"
                 />
-
                 <button
                   @click="togglePasswordVisibility"
                   type="button"
@@ -52,23 +51,25 @@
             </div>
           </div>
           <div class="dis-input">
-            <div style="width: 49%">
-              <label for="phone"> Phone <span id="dotstyle">*</span> </label>
+            <div class="w-input">
+              <label for="phone">
+                เบอร์โทรสัพ <span id="dotstyle">*</span>
+              </label>
               <input
                 type="text"
                 id="phone"
                 v-model="phone"
-                placeholder="Enter your phone number"
+                placeholder="กรุณากรอกเบอร์โทรสัพ"
               />
               <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
             </div>
-            <div style="width: 49%">
-              <label for="email"> Email <span id="dotstyle">*</span> </label>
+            <div class="w-input">
+              <label for="email"> อีเมล์ <span id="dotstyle">*</span> </label>
               <input
                 type="text"
                 id="email"
                 v-model="email"
-                placeholder="Enter your email"
+                placeholder="กรุณากรอกอีเมล์"
               />
               <span v-if="errors.email" class="error">{{ errors.email }}</span>
             </div>
@@ -80,11 +81,15 @@
           >
             บันทึก
           </button>
+
+          <!-- loader -->
+          <Loader :isLoading="isLoading" />
+
           <div style="text-align: center; margin-top: 10px; font-size: 18px">
             เป็นสมาชิกแล้ว?
-            <Nuxt-link class="" to="/LogRegister" target="_self">
-              <span class="font-re"> เข้าสู่ระบบ </span></Nuxt-link
-            >
+            <Nuxt-link class="" to="/Login" target="_self">
+              <span class="font-re"> เข้าสู่ระบบ </span>
+            </Nuxt-link>
           </div>
         </div>
       </div>
@@ -92,8 +97,14 @@
   </div>
 </template>
 
+
+
 <script>
+import Loader from "~/components/Loader.vue";
 export default {
+  components: {
+    Loader,
+  },
   data() {
     return {
       username: "",
@@ -103,6 +114,7 @@ export default {
       errors: {},
       showPassword: false, // ตัวแปรที่ใช้ในการแสดง/ซ่อนรหัสผ่าน
       originalPassword: "", // ตัวแปรที่ใช้เก็บรหัสผ่านเดิม
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
     };
   },
   methods: {
@@ -111,17 +123,17 @@ export default {
 
       if (!this.$validate.username(this.username)) {
         this.errors.username =
-          "Username must be alphanumeric, 8-30 characters.";
+          "ชื่อผู้ใช้ต้องเป็นตัวอักษรและตัวเลข 8-30 ตัวอักษร";
       }
       if (!this.$validate.password(this.password)) {
         this.errors.password =
-          "Password must be alphanumeric, 8-30 characters.";
+          "รหัสผ่านต้องเป็นตัวอักษรและตัวเลข 8-30 ตัวอักษร";
       }
       if (!this.$validate.phone(this.phone)) {
-        this.errors.phone = "Invalid phone number.";
+        this.errors.phone = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
       }
       if (!this.$validate.email(this.email)) {
-        this.errors.email = "Invalid email address.";
+        this.errors.email = "ที่อยู่อีเมลที่ไม่ถูกต้อง.";
       }
 
       return Object.keys(this.errors).length === 0;
@@ -130,6 +142,8 @@ export default {
       if (!this.validateForm()) {
         return;
       }
+
+      this.isLoading = true; // แสดง loader
 
       const formData = {
         username: this.username,
@@ -141,11 +155,20 @@ export default {
       try {
         const response = await this.$axios.post("/users/register", formData);
         console.log("Response:", response.data);
-        alert("การลงทะเบียนสำเร็จ!");
-        this.$router.push("/login"); // รีไดเรคไปยังหน้า login
+        const responseDATA = response.data;
+        if (responseDATA) {
+          alert("การลงทะเบียนสำเร็จ");
+        } else {
+          alert("ไม่พบข้อมูล การลงทะเบียนสำเร็จ");
+        }
+        this.$router.push("/login"); // รีไดเรคไปยังหน้า login หลังจาก 1 วินาที
+        this.isLoading = false; // ซ่อน loader
       } catch (error) {
         if (error.response && error.response.data) {
           this.$handleError(error);
+          setTimeout(() => {
+            this.isLoading = false; // ซ่อน loader
+          }, 5000); // 1000 มิลลิวินาที = 1 วินาที
         }
       }
     },
@@ -159,3 +182,13 @@ export default {
 
 
 
+<style lang="scss" scoped>
+.w-input {
+  width: 49%;
+  height: 80px;
+}
+
+.M-Create-Backgroud .form-create {
+  width: 1000px;
+}
+</style>

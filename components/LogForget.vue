@@ -17,7 +17,7 @@
 
           <div class="dis-input-box">
             <div class="dis-input">
-              <div style="width: 100%">
+              <div class="w-input">
                 <input
                   type="text"
                   id="email"
@@ -114,4 +114,8 @@ export default {
 
 <style lang="scss" scoped>
 /* ใส่สไตล์ที่ต้องการที่นี่ */
+.w-input {
+  width: 100%;
+  height: 80px;
+}
 </style>

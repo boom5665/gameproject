@@ -3,15 +3,15 @@
     <div class="custom-login">
       <div class="navtabs">
         <div class="form-create">
-          <div class="font-form-pak">Login</div>
+          <div class="font-form-pak">เข้าสู่ระบบ</div>
           <div class="dis-input-box">
             <div class="dis-input">
-              <div style="width: 100%">
+              <div class="w-input">
                 <input
                   type="text"
                   id="Emailphone"
                   v-model="Emailphone"
-                  placeholder="Email or phone number"
+                  placeholder="ชื่อผู้ใช้"
                 />
                 <span v-if="errors.Emailphone" class="error">
                   {{ errors.Emailphone }}
@@ -19,12 +19,12 @@
               </div>
             </div>
             <div class="dis-input">
-              <div style="width: 100%">
+              <div class="w-input">
                 <input
                   :type="showPassword ? 'text' : 'password'"
                   id="Password"
                   v-model="Password"
-                  placeholder="Password"
+                  placeholder="รหัสผ่าน"
                 />
                 <!-- <button @click="togglePasswordVisibility" type="button">
                   {{ showPassword ? "Hide" : "Show" }}
@@ -34,6 +34,7 @@
                 </span>
               </div>
             </div>
+            <Loader :isLoading="isLoading" />
             <button
               type="submit"
               class="submit button-pro-edit"
@@ -43,12 +44,10 @@
             </button>
             <div style="margin: 10px">
               <Nuxt-link class="text-profile" to="/LogForget" target="_self">
-                <span class="font-top-myshop"
-                  >Forgot password ?
-                </span></Nuxt-link
+                <span class="font-top-myshop">ลืมรหัสผ่าน ? </span></Nuxt-link
               >
             </div>
-            <div style="font-size:18px">
+            <div style="font-size: 18px">
               ยังไม่ได้เป็นสมาชิกใช่ไหม?
               <Nuxt-link class="text-profile" to="/LogRegister" target="_self">
                 <span class="font-re"> สมัครที่นี่ </span></Nuxt-link
@@ -62,7 +61,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -70,6 +68,7 @@ export default {
       Password: "",
       errors: {},
       showPassword: false,
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
     };
   },
 
@@ -78,10 +77,10 @@ export default {
       this.errors = {};
 
       if (!this.Emailphone) {
-        this.errors.Emailphone = "Email or phone number is required.";
+        this.errors.Emailphone = "กรุณากรอกชื่อผู้ใช้";
       }
       if (!this.Password) {
-        this.errors.Password = "Password is required.";
+        this.errors.Password = "กรุณากรอกรหัสผ่าน.";
       }
 
       return Object.keys(this.errors).length === 0;
@@ -95,7 +94,7 @@ export default {
       if (!this.validateForm()) {
         return;
       }
-
+      this.isLoading = true; // แสดง loader
       localStorage.clear(); // ลบข้อมูลทั้งหมดใน localStorage
 
       const formData = {
@@ -113,6 +112,7 @@ export default {
           console.log("Stored Token:", token);
           alert("เข้าระบบสำเร็จ");
           this.$router.push("/"); // รีไดเรคไปยังหน้า index
+          this.isLoading = false; // ซ่อน loader
         } else {
           alert("ไม่พบข้อมูล token");
         }
@@ -134,6 +134,9 @@ export default {
             "ลงทะเบียนไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
         }
         alert(this.errors.general);
+        setTimeout(() => {
+          this.isLoading = false; // ซ่อน loader
+        }, 5000); // 1000 มิลลิวินาที = 1 วินาที
       }
     },
   },
@@ -143,5 +146,12 @@ export default {
 
 
 <style lang="scss" scoped>
+.w-input {
+  width: 100%;
+  height: 50px;
+}
 
+.submit {
+  margin-top: 5px;
+}
 </style>
