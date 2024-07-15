@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="box-cotent">
-      <div class="W-default ">
+      <div class="W-default">
         <Homemarket />
       </div>
     </div>
@@ -10,4 +10,9 @@
 
 
 
+<script>
+export default {
 
+}
+
+</script>

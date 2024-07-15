@@ -31,7 +31,7 @@ export default {
     { src: '~/plugins/token.js' },
     { src: '~/plugins/setColor.js' },
     { src: '~/plugins/errorHandler.js' },
-    { src: '~/plugins/jwtDecode.js' },
+    { src: '~/plugins/jsonwebtoken.js' },
   ],
 
   components: true,

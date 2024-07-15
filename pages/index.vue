@@ -3,7 +3,7 @@
 
     <div class="box-cotent">
       <div class="W-default dis-col-center">
-        <Home />
+        <Homemarket />
       </div>
     </div>
 

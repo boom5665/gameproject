@@ -28,19 +28,18 @@
           </div>
         </div>
       </div>
-            <div class="card-container">
+      <div class="card-container">
         <div class="card">
           <img
             src="~/assets/image/home2.png"
             alt="Card Image"
             class="card-image"
           />
-          <div class="card-content text-card" >
-            <h2 >COMING SOON</h2>
+          <div class="card-content text-card">
+            <h2>COMING SOON</h2>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -52,9 +51,7 @@ export default {
       data: null,
     };
   },
-  mounted() {
-    // this.fetchData();
-  },
+
   methods: {
     // async fetchData() {
     //   try {

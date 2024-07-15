@@ -251,6 +251,7 @@ export default {
       }, 0);
     },
   },
+
   methods: {
     openNav() {
       // เปิดเมนูด้านข้าง

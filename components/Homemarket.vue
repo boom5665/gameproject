@@ -85,13 +85,25 @@ export default {
     };
   },
   mounted() {
-    // this.fetchData();
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      const decoded = this.$jwt.decode(token);
+      console.log(decoded);
+
+      // สมมุติว่า decoded คือ userInfo
+      const { authen_code, id, permission } = decoded; // ใช้ decoded แทน userInfo
+      if (decoded) {
+        console.log("authen", authen_code, "id", id, "สิทธิ", permission);
+      }
+    } else {
+      console.log("ไม่มี token");
+    }
   },
   methods: {
     async fetchData() {
       try {
         const response = await this.$axios.$get(
-          "https://dev-api-gamiqo.pirate168.com/api/v1/list/marketplace/home"
+          "/list/marketplace/home"
         );
         console.log(response);
         if (response.code === 200) {
