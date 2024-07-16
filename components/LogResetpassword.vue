@@ -107,7 +107,7 @@ export default {
       if (!this.validateForm()) {
         return;
       }
-      // const rpsCode = this.$route.query.rps_code; // ดึงค่า rps_code จาก URL
+      const rpsCode = this.$route.query.rps_code; // ดึงค่า rps_code จาก URL
       console.log("RPS Code:", this.rpsCode);
 
       const formData = {
