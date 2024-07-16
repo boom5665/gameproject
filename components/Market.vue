@@ -3,7 +3,7 @@
     <div>
       <HomeCorousalBanner :items="itemsbanners" />
     </div>
-    <div style="display: flex; justify-content: center; margin-top: 20px">
+    <!-- <div style="display: flex; justify-content: center; margin-top: 20px">
       <div>
         <div class="font-form-add"></div>
         <div class="preview" style="width: max-content" @click="openNav">
@@ -23,11 +23,11 @@
           />
         </div>
       </div>
-    </div>
+    </div> -->
     <div>
       <Marketprofile />
     </div>
-    <div style="display: flex; justify-content: center">
+    <!-- <div style="display: flex; justify-content: center">
       <div>
         <div class="font-form-add"></div>
         <div class="preview" style="width: max-content">
@@ -47,7 +47,7 @@
           />
         </div>
       </div>
-    </div>
+    </div> -->
     <div id="mySidenav" class="sidenav">
       <div class="">
         <a href="javascript:void(0)" class="closebtn" @click="closeNav"
