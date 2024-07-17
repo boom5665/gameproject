@@ -42,9 +42,15 @@
             </div>
           </div>
           <div style="text-align: center">
-            <span v-if="errors.imageUrl2" class="error-message">{{
-              errors.imageUrl2
-            }}</span>
+            <span
+              v-if="errors.imagePreviewUrl"
+              :class="{
+                valid: imagePreviewStatus === 'valid',
+                invalid: imagePreviewStatus === 'invalid',
+              }"
+              class="error-message"
+              >{{ errors.imagePreviewUrl }}</span
+            >
           </div>
 
           <div class="font-head">
@@ -257,7 +263,7 @@
                 </div>
               </div>
               <div class="dis-input">
-                <div>
+                <div class="dis-left">
                   <div>
                     <label for="imageUrl"
                       >ภาพหน้าบัตรประชาชน <span id="dotstyle">*</span></label
@@ -289,12 +295,18 @@
                         @change="previewImage('front')"
                       />
                     </div>
-                    <span v-if="errors.imageUrl" class="error-message">{{
-                      errors.imageUrl
-                    }}</span>
+                    <span
+                      v-if="errors.imageUrl"
+                      :class="{
+                        valid: imageStatus === 'valid',
+                        invalid: imageStatus === 'invalid',
+                      }"
+                      class="error-message"
+                      >{{ errors.imageUrl }}</span
+                    >
                   </div>
                 </div>
-                <div>
+                <div class="dis-left">
                   <div>
                     <label for="imageUrl2"
                       >ภาพหลังบัตรประชาชน <span id="dotstyle">*</span></label
@@ -326,9 +338,12 @@
                         @change="previewImage('back')"
                       />
                     </div>
-                    <span v-if="errors.imageUrl2" class="error-message">{{
-                      errors.imageUrl2
-                    }}</span>
+                    <span
+                      v-if="errors.imageUrl2"
+                      :class="imageStatus2"
+                      class="error-message"
+                      >{{ errors.imageUrl2 }}</span
+                    >
                   </div>
                 </div>
               </div>
@@ -388,7 +403,19 @@ export default {
       isLoading: false,
       imagePreviewUrl: "",
       isImageVisible: false,
+      imageStatus: "",
+      imageStatus2: "",
+      imagePreviewStatus: "",
     };
+  },
+  watch: {
+    idCardBack(newVal) {
+      // ฟอร์แมตหมายเลขให้มีขีด
+      this.idCardBack = newVal.replace(
+        /(\w{2})(\d{4})(\d{4})(\d{2})/,
+        "$1-$2-$3-$4"
+      );
+    },
   },
   methods: {
     triggerFileInput(refName) {
@@ -398,18 +425,36 @@ export default {
       const fileInput =
         side === "front" ? this.$refs.fileInputFront : this.$refs.fileInputBack;
       const file = fileInput.files[0];
+      const maxFileSizeMB = 8; // 8MB
+
       if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
+        if (this.$validate.file(file, maxFileSizeMB)) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            if (side === "front") {
+              this.imageUrl = e.target.result;
+              this.showImage = true;
+              this.imageStatus = "valid"; // สถานะรูปภาพ
+            } else {
+              this.imageUrl2 = e.target.result;
+              this.showImage2 = true;
+              this.imageStatus2 = "valid"; // สถานะรูปภาพ
+            }
+            this.errors[side === "front" ? "imageUrl" : "imageUrl2"] =
+              "รูปภาพนี้ใช้งานได้";
+          };
+          reader.readAsDataURL(file);
+        } else {
+          this.errors[side === "front" ? "imageUrl" : "imageUrl2"] =
+            "ขนาดไฟล์ไม่เกิน 8MB";
           if (side === "front") {
-            this.imageUrl = e.target.result;
-            this.showImage = true;
+            this.showImage = false;
+            this.imageStatus = "invalid"; // สถานะรูปภาพ
           } else {
-            this.imageUrl2 = e.target.result;
-            this.showImage2 = true;
+            this.showImage2 = false;
+            this.imageStatus2 = "invalid"; // สถานะรูปภาพ
           }
-        };
-        reader.readAsDataURL(file);
+        }
       }
     },
     openImageSelector() {
@@ -417,13 +462,23 @@ export default {
     },
     showSelectedImage() {
       const file = this.$refs.imageFileInput.files[0];
+      const maxFileSizeMB = 8; // 8MB
+
       if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imagePreviewUrl = e.target.result;
-          this.isImageVisible = true;
-        };
-        reader.readAsDataURL(file);
+        if (this.$validate.file(file, maxFileSizeMB)) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.imagePreviewUrl = e.target.result;
+            this.isImageVisible = true;
+            this.errors.imagePreviewUrl = "รูปภาพนี้ใช้งานได้";
+            this.imagePreviewStatus = "valid"; // สถานะรูปภาพ
+          };
+          reader.readAsDataURL(file);
+        } else {
+          this.errors.imagePreviewUrl = "ขนาดไฟล์ไม่เกิน 8MB";
+          this.isImageVisible = false;
+          this.imagePreviewStatus = "invalid"; // สถานะรูปภาพ
+        }
       }
     },
     validateForm() {
@@ -453,15 +508,19 @@ export default {
       if (!this.$validate.otherContact(this.otherContact)) {
         this.errors.otherContact = "ข้อมูลติดต่ออื่นไม่ถูกต้อง";
       }
+
       if (!this.$validate.idCard(this.idCard)) {
         this.errors.idCard = "หมายเลขบัตรประชาชนไม่ถูกต้อง";
       }
       if (!this.address) {
         this.errors.address = "ที่อยู่ร้านค้าไม่ถูกต้อง";
       }
+
       if (!this.$validate.idCardBack(this.idCardBack)) {
         this.errors.idCardBack = "หมายเลขหลังบัตรประชาชนไม่ถูกต้อง";
       }
+
+     
       if (!this.imageUrl) {
         this.errors.imageUrl = "กรุณาอัปโหลดภาพหน้าบัตรประชาชน";
       }
@@ -476,9 +535,10 @@ export default {
     },
 
     async handleSubmit() {
-      // if (!this.validateForm()) {
-      //   return;
-      // }
+      if (!this.validateForm()) {
+        return;
+      }
+
       this.isLoading = true; // เริ่มโหลด
       const formData = {
         imagePreviewUrl: this.imagePreviewUrl,
@@ -488,7 +548,7 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         idCard: this.idCard,
-        idCardBack: this.idCardBack,
+        idCardBack: this.idCardBack.replace(/-/g, ""),
         imageUrl: this.imageUrl,
         imageUrl2: this.imageUrl2,
         consent: this.consent,
@@ -518,7 +578,14 @@ export default {
 .input-error {
   border-color: red;
 }
+.valid {
+  color: green !important;
+  font-size: 12px;
+}
 
+.invalid {
+  color: red;
+}
 .error-message {
   color: red;
   font-size: 12px;
@@ -575,6 +642,14 @@ img {
   display: flex;
   justify-content: center;
 }
+
+.dis-left {
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  width: 49%;
+}
 </style>
+
 
 

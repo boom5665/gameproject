@@ -1,12 +1,10 @@
-// plugins/validation.js
-
 export default ({ app }, inject) => {
   // Validation functions
   const validateUsername = (username) => {
     const regex = /^[a-zA-Z0-9]{8,30}$/;
     return regex.test(username);
   };
-  const validateshopname = (shopname) => {
+  const validateShopname = (shopname) => { // แก้ไขชื่อฟังก์ชันเป็น CamelCase
     const regex = /^[a-zA-Z0-9]{8,30}$/;
     return regex.test(shopname);
   };
@@ -14,27 +12,24 @@ export default ({ app }, inject) => {
     const regex = /^[a-zA-Z0-9]{8,30}$/;
     return regex.test(password);
   };
-
   const validatePhone = (phone) => {
     const regex = /^0[0-9]{9}$/;
     return regex.test(phone);
   };
-
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const thaiRegex = /[ก-ฮ]/; // ตรวจสอบว่ามีตัวอักษรภาษาไทยหรือไม่
     return regex.test(email) && !thaiRegex.test(email);
   };
-
   const validateName = (name) => {
     const regex = /^[a-zA-Z\s]{2,50}$/;
     return regex.test(name);
   };
-  const validatefirstName = (firstName) => {
+  const validateFirstName = (firstName) => { // แก้ไขชื่อฟังก์ชันเป็น CamelCase
     const regex = /^[a-zA-Z\s]{2,50}$/;
     return regex.test(firstName);
   };
-  const validatelastName = (lastName) => {
+  const validateLastName = (lastName) => { // แก้ไขชื่อฟังก์ชันเป็น CamelCase
     const regex = /^[a-zA-Z\s]{2,50}$/;
     return regex.test(lastName);
   };
@@ -42,32 +37,36 @@ export default ({ app }, inject) => {
     // Add your validation logic here
     return otherContact.length > 0; // Example validation
   };
-
   const validateIdCard = (idCard) => {
     const regex = /^[0-9]{13}$/;
     return regex.test(idCard);
   };
-  const validateidCardBack = (idCardBack) => {
-    const regex = /^[a-zA-Z0-9-]+$/; // ตรวจสอบให้มีตัวอักษรภาษาอังกฤษ ตัวเลข และเครื่องหมาย
+  const validateIdCardBack = (idCardBack) => { // แก้ไขชื่อฟังก์ชันเป็น CamelCase
+    const regex = /^[A-Z]{2}-?[0-9]{4}-?[0-9]{4}-?[0-9]{2}$/; // ตรวจสอบรูปแบบพร้อมขีด
     return regex.test(idCardBack);
   };
+
   const validateImageUrl = (imageUrl) => {
     const regex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/i;
     return regex.test(imageUrl);
   };
-
+  const validateFileSize = (file, maxSizeMB) => {
+    const maxSize = maxSizeMB * 1024 * 1024; // แปลง MB เป็น bytes
+    return file.size <= maxSize;
+  };
   inject('validate', {
     username: validateUsername,
     password: validatePassword,
-    shopname: validateshopname,
+    shopname: validateShopname,
     phone: validatePhone,
     email: validateEmail,
     name: validateName,
-    firstName: validatefirstName,
-    lastName: validatelastName,
+    firstName: validateFirstName,
+    lastName: validateLastName,
     otherContact: validateOtherContact,
     idCard: validateIdCard,
-    idCardBack: validateidCardBack,
+    idCardBack: validateIdCardBack,
     imageUrl: validateImageUrl,
+    file: validateFileSize,
   });
 };

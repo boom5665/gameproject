@@ -77,81 +77,160 @@ import axios from "axios";
 export default {
   data() {
     return {
-      Password: "", // เก็บค่ารหัสผ่าน
-      Passwordconfirm: "", // เก็บค่ารหัสผ่านยืนยัน
+      logo: "",
+      name: "",
+      phone: "",
+      otherContact: "",
+      firstName: "", // แก้ชื่อจาก firstName เป็น firstName
+      lastName: "",
+      idCard: "",
+      idCardBack: "",
+      imageUrl: "",
+      imageUrl2: "",
+      email: "",
+      address: "",
+      consent: false,
+      showImage: false,
+      showImage2: false,
       errors: {},
-      showPassword: false, // ตัวแปรที่ใช้ในการแสดง/ซ่อนรหัสผ่าน
-      rpsCode: "ABC", // เก็บค่ารหัสผ่าน
+      isLoading: false,
+      imagePreviewUrl: "",
+      isImageVisible: false,
     };
   },
-
   methods: {
+    triggerFileInput(refName) {
+      this.$refs[refName].click();
+    },
+    previewImage(side) {
+      const fileInput = side === "front" ? this.$refs.fileInputFront : this.$refs.fileInputBack;
+      const file = fileInput.files[0];
+      const maxFileSizeMB = 8; // 8MB
+
+      if (file && this.$validate.file(file, maxFileSizeMB)) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (side === "front") {
+            this.imageUrl = e.target.result;
+            this.showImage = true;
+          } else {
+            this.imageUrl2 = e.target.result;
+            this.showImage2 = true;
+          }
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.errors[side === "front" ? "imageUrl" : "imageUrl2"] = "ขนาดไฟล์ไม่เกิน 8MB";
+        if (side === "front") {
+          this.showImage = false;
+        } else {
+          this.showImage2 = false;
+        }
+      }
+    },
+    openImageSelector() {
+      this.$refs.imageFileInput.click();
+    },
+    showSelectedImage() {
+      const file = this.$refs.imageFileInput.files[0];
+      const maxFileSizeMB = 8; // 8MB
+
+      if (file && this.$validate.file(file, maxFileSizeMB)) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreviewUrl = e.target.result;
+          this.isImageVisible = true;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.errors.imagePreviewUrl = "ขนาดไฟล์ไม่เกิน 8MB";
+        this.isImageVisible = false;
+      }
+    },
     validateForm() {
       this.errors = {};
-      if (!this.Password) {
-        this.errors.Password = "กรุณาใส่รหัสผ่านใหม่";
+
+      if (!this.imagePreviewUrl) {
+        this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
       }
-      if (!this.Passwordconfirm) {
-        this.errors.Passwordconfirm = "กรุณาใส่รหัสผ่านยืนยัน";
+      if (!this.$validate.username(this.name)) {
+        this.errors.name = "ชื่อผู้ใช้ต้องเป็นตัวอักษรและตัวเลข 8-30 ตัวอักษร";
       }
-      if (this.Password !== this.Passwordconfirm) {
-        this.errors.Passwordconfirm = "รหัสผ่านไม่ตรงกัน";
+      if (!this.$validate.password(this.password)) {
+        this.errors.password = "รหัสผ่านต้องเป็นตัวอักษรและตัวเลข 8-30 ตัวอักษร";
+      }
+      if (!this.$validate.phone(this.phone)) {
+        this.errors.phone = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
+      }
+      if (!this.$validate.email(this.email)) {
+        this.errors.email = "ที่อยู่อีเมลไม่ถูกต้อง";
+      }
+      if (!this.$validate.firstName(this.firstName)) {
+        this.errors.firstName = "ชื่อไม่ถูกต้อง";
+      }
+      if (!this.$validate.lastName(this.lastName)) {
+        this.errors.lastName = "นามสกุลไม่ถูกต้อง";
+      }
+      if (!this.$validate.otherContact(this.otherContact)) {
+        this.errors.otherContact = "ข้อมูลติดต่ออื่นไม่ถูกต้อง";
+      }
+      if (!this.$validate.idCard(this.idCard)) {
+        this.errors.idCard = "หมายเลขบัตรประชาชนไม่ถูกต้อง";
+      }
+      if (!this.address) {
+        this.errors.address = "ที่อยู่ร้านค้าไม่ถูกต้อง";
+      }
+      if (!this.$validate.idCardBack(this.idCardBack)) {
+        this.errors.idCardBack = "หมายเลขหลังบัตรประชาชนไม่ถูกต้อง";
+      }
+      if (!this.imageUrl) {
+        this.errors.imageUrl = "กรุณาอัปโหลดภาพหน้าบัตรประชาชน";
+      }
+      if (!this.imageUrl2) {
+        this.errors.imageUrl2 = "กรุณาอัปโหลดภาพหลังบัตรประชาชน";
+      }
+      if (!this.consent) {
+        this.errors.consent = "กรุณายินยอมข้อกำหนดและเงื่อนไข";
       }
 
       return Object.keys(this.errors).length === 0;
     },
-    togglePasswordVisibility() {
-      this.showPassword = !this.showPassword;
-    },
-    async submitData() {
+    async handleSubmit() {
+      this.isLoading = true; // เริ่มโหลด
       if (!this.validateForm()) {
+
         return;
       }
-      const rpsCode = this.$route.query.rps_code; // ดึงค่า rps_code จาก URL
-      console.log("RPS Code:", this.rpsCode);
-
       const formData = {
-        new_password: this.Password,
-        rps_verify_code: this.rpsCode,
+        imagePreviewUrl: this.imagePreviewUrl,
+        name: this.name,
+        phone: this.phone,
+        otherContact: this.otherContact,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        idCard: this.idCard,
+        idCardBack: this.idCardBack,
+        imageUrl: this.imageUrl,
+        imageUrl2: this.imageUrl2,
+        consent: this.consent,
       };
 
       try {
-        const response = await this.$axios.post(
-          "/users/forgot-password/reset",
-          formData
-        );
-        console.log("Response:", response.data);
-        alert("เปลี่ยนรหัสผ่านสำเร็จ");
-
-        if (this.rpsCode) {
-          this.$router.push("/"); // รีไดเรคไปยังหน้า index
-          this.isLoading = false; // ซ่อน loader
-        } else {
-          alert("เปลี่ยนรหัสผ่านไม่สำเร็จ");
-        }
-
-        // นำไปยังหน้าต่อไปหรือทำตามที่ต้องการหลังจากเปลี่ยนรหัสผ่านสำเร็จ
+        const response = await this.$axios.post("/vendor/register/create", formData);
+        localStorage.setItem("vendor_id", response.data.vendor_id);
+        console.log("เก็บ vendor_id:", response.data.vendor_id); // log แสดง vendor_id
+        alert("สร้างสินค้าได้สำเร็จ");
       } catch (error) {
-        console.error(
-          "Error:",
-          error.response ? error.response.data : error.message
-        );
-        if (error.response && error.response.data) {
-          const errorData = error.response.data;
-          this.errors = {}; // Clear previous errors
-
-          this.errors.general = errorData.msg || "เกิดข้อผิดพลาด";
-        } else {
-          this.errors.general =
-            "การเปลี่ยนรหัสผ่านไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
-        }
-        alert(this.errors.general);
-
-        this.isLoading = false; // ซ่อน loader
+        console.error("There was an error submitting the form", error);
+        alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+      } finally {
+        this.isLoading = false; // ซ่อน loader ทั้งในกรณีสำเร็จและข้อผิดพลาด
       }
     },
   },
 };
+
+
 </script>
 
 <style lang="scss" scoped>
