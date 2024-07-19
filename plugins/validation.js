@@ -16,6 +16,10 @@ export default ({ app }, inject) => {
     const regex = /^0[0-9]{9}$/;
     return regex.test(phone);
   };
+  const validatePROMPTPAYNumber = (PROMPTPAYNumber) => {
+    const regex = /^(0[0-9]{9}|[0-9]{13})$/;
+    return regex.test(PROMPTPAYNumber);
+  };
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const thaiRegex = /[ก-ฮ]/; // ตรวจสอบว่ามีตัวอักษรภาษาไทยหรือไม่
@@ -58,6 +62,7 @@ export default ({ app }, inject) => {
     username: validateUsername,
     password: validatePassword,
     shopname: validateShopname,
+    PROMPTPAYNumber: validatePROMPTPAYNumber,
     phone: validatePhone,
     email: validateEmail,
     name: validateName,

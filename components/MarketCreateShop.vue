@@ -78,7 +78,7 @@
           <div style="margin-top: 10px">
             <div class="form-group">
               <div for="paymentMethod">
-                ช่องทางรับเงิน<span id="dotstyle">*</span>
+                ช่องทางรับเงิน <span id="dotstyle">*</span>
               </div>
               <select
                 v-model="paymentMethod"
@@ -86,8 +86,8 @@
                 id="paymentMethod"
               >
                 <!-- <option value="bank">บัญชีธนาคาร</option> -->
-                <option value="promptPay">พร้อมเพย์</option>
-                <option value="qrPromptPay">QR Code</option>
+                <option value="PROMPTPAY">พร้อมเพย์/QR Code</option>
+                <!-- <option value="qrPROMPTPAY">QR Code</option> -->
               </select>
             </div>
             <!-- ธนาคาร -->
@@ -133,33 +133,33 @@
               </div>
             </div> -->
 
-            <div v-if="paymentMethod === 'promptPay'" class="promptpay">
+            <div v-if="paymentMethod === 'PROMPTPAY'" class="PROMPTPAY">
               <div class="form-group">
-                <label for="promptPayNumber"
-                  >หมายเลขพร้อมเพย์<span id="dotstyle">*</span></label
+                <label for="PROMPTPAYNumber"
+                  >หมายเลขพร้อมเพย์ <span id="dotstyle">*</span></label
                 >
                 <input
                   type="text"
-                  v-model="promptPayNumber"
+                  v-model="PROMPTPAYNumber"
                   class="form-control"
-                  id="promptPayNumber"
-                  placeholder="กรอกหมายเลขพร้อมเพย์"
+                  id="PROMPTPAYNumber"
+                  placeholder="กรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชน"
                 />
               </div>
             </div>
 
-            <div v-if="paymentMethod === 'qrPromptPay'" class="qr-promptpay">
+            <!-- <div v-if="paymentMethod === 'qrPROMPTPAY'" class="qr-PROMPTPAY">
               <div class="form-group">
-                <label for="qrPromptPayNumber">หมายเลข QR พร้อมเพย์</label>
+                <label for="qrPROMPTPAYNumber">หมายเลข QR พร้อมเพย์</label>
                 <input
                   type="text"
-                  v-model="qrPromptPayNumber"
+                  v-model="qrPROMPTPAYNumber"
                   class="form-control"
-                  id="qrPromptPayNumber"
+                  id="qrPROMPTPAYNumber"
                   placeholder="กรอกหมายเลข QR พร้อมเพย์"
                 />
               </div>
-            </div>
+            </div> -->
             <span v-if="errors.consentcash" class="error-message">{{
               errors.consentcash
             }}</span>
@@ -173,9 +173,7 @@
           <div></div>
           <div class="dis-input height-req">
             <div style="width: 49%">
-              <label for="phone"
-                >หมายเลขโทรศัพท์<span id="dotstyle">*</span></label
-              >
+              <label for="phone">หมายเลขโทรศัพท์ <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="phone"
@@ -217,13 +215,13 @@
           </div>
 
           <div for="otherContact">
-            คำอธิบายร้านค้า<span id="dotstyle">*</span>
+            คำอธิบายร้านค้า <span id="dotstyle">*</span>
           </div>
           <div class="dis-input">
             <div class="box-other">
               <div style="display: flex; margin: 20px">
                 <label for="otherContact" class="box-other-content"
-                  >หัวข้อ<span id="dotstyle">*</span></label
+                  >หัวข้อ <span id="dotstyle">*</span></label
                 >
                 <div style="width: 100%">
                   <input
@@ -240,7 +238,7 @@
 
               <div style="display: flex; margin: 20px">
                 <label for="otherContact" class="box-other-content"
-                  >ข้อความ<span id="dotstyle">*</span></label
+                  >ข้อความ <span id="dotstyle">*</span></label
                 >
                 <div style="width: 100%">
                   <quill-editor-component
@@ -532,15 +530,15 @@ export default {
       imageStatus2: "",
       imagePreviewStatus: "",
       editorContent: "",
-      paymentMethod: "promptPay", // ค่าเริ่มต้นเป็นพร้อมเพย์
+      paymentMethod: "PROMPTPAY", // ค่าเริ่มต้นเป็นพร้อมเพย์
       bankDetails: {
         accountName: "",
         accountNumber: "",
         bank: "",
       },
-      qrPromptPayNumber: "",
-      qrPromptPayQR: null,
-      promptPayNumber: null,
+      qrPROMPTPAYNumber: "",
+      qrPROMPTPAYQR: null,
+      PROMPTPAYNumber: null,
     };
   },
   watch: {
@@ -666,29 +664,31 @@ export default {
       if (!this.consent) {
         this.errors.consent = "กรุณายินยอมข้อกำหนดและเงื่อนไข";
       }
-      if (this.paymentMethod === "bank") {
-        if (
-          !this.bankDetails.accountName ||
-          !this.bankDetails.accountNumber ||
-          !this.bankDetails.bank
-        ) {
+      // if (this.paymentMethod === "bank") {
+      //   if (
+      //     !this.bankDetails.accountName ||
+      //     !this.bankDetails.accountNumber ||
+      //     !this.bankDetails.bank
+      //   ) {
+      //     this.errors.consentcash =
+      //       "กรุณายินยอมข้อกำหนดและกรอกข้อมูลช่องทางรับเงิน สำหรับช่องทางรับเงินแบบบัญชีธนาคาร";
+      //     return;
+      //   }
+      // }else
+      if (this.paymentMethod === "PROMPTPAY") {
+        if (!this.$validate.PROMPTPAYNumber(this.PROMPTPAYNumber)) {
           this.errors.consentcash =
-            "กรุณายินยอมข้อกำหนดและกรอกข้อมูลช่องทางรับเงิน สำหรับช่องทางรับเงินแบบบัญชีธนาคาร";
-          return;
-        }
-      } else if (this.paymentMethod === "promptPay") {
-        if (!this.promptPayNumber) {
-          this.errors.consentcash =
-            "กรุณายินยอมข้อกำหนดและกรอกหมายเลขพร้อมเพย์";
-          return;
-        }
-      } else if (this.paymentMethod === "qrPromptPay") {
-        if (!this.qrPromptPayNumber) {
-          this.errors.consentcash =
-            "กรุณายินยอมข้อกำหนดและกรอกหมายเลข QR พร้อมเพย์";
+            "กรุณากรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชนเท่านั้น";
           return;
         }
       }
+      // else if (this.paymentMethod === "qrPROMPTPAY") {
+      //   if (!this.qrPROMPTPAYNumber) {
+      //     this.errors.consentcash =
+      //       "กรุณายินยอมข้อกำหนดและกรอกหมายเลข QR พร้อมเพย์";
+      //     return;
+      //   }
+      // }
 
       return Object.keys(this.errors).length === 0;
     },
@@ -700,21 +700,23 @@ export default {
 
       this.isLoading = true; // เริ่มโหลด
       const formData = {
-        imagePreviewUrl: this.imagePreviewUrl,
+        logo_img: this.imagePreviewUrl,
         name: this.name,
         phone: this.phone,
         email: this.email,
         address: this.address,
-        otherContact: this.otherContact,
+        title_description: this.otherContact,
         editorContent: this.editorContent,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        idCard: this.idCard,
-        idCardBack: this.idCardBack.replace(/-/g, ""),
-        imageUrl: this.imageUrl,
-        imageUrl2: this.imageUrl2,
+        first_name: this.firstName,
+        last_name: this.lastName,
+        id_card_number_front: this.idCard,
+        id_card_number_back: this.idCardBack.replace(/-/g, ""),
+        id_card_number_front_img: this.imageUrl,
+        id_card_number_back_img: this.imageUrl2,
+        pay_method_id: 1,
+        pay_slug: this.paymentMethod,
         consent: this.consent,
-        paymentMethod: this.paymentMethod, // เพิ่มช่องทางรับเงิน
+        pay_ref_1: this.paymentMethod, // เพิ่มช่องทางรับเงิน
       };
 
       // if (this.paymentMethod === "bank") {
@@ -724,11 +726,12 @@ export default {
       //     bank: this.bankDetails.bank,
       //   };
       // } else
-      if (this.paymentMethod === "promptPay") {
-        formData.promptPayNumber = this.promptPayNumber;
-      } else if (this.paymentMethod === "qrPromptPay") {
-        formData.qrPromptPayNumber = this.qrPromptPayNumber;
+      if (this.paymentMethod === "PROMPTPAY") {
+        formData.PROMPTPAYNumber = this.PROMPTPAYNumber;
       }
+      //  else if (this.paymentMethod === "qrPROMPTPAY") {
+      //   formData.qrPROMPTPAYNumber = this.qrPROMPTPAYNumber;
+      // }
       console.log(formData); // log แสดง vendor_id
       try {
         const response = await this.$axios.post(
