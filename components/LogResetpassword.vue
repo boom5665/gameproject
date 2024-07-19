@@ -40,9 +40,7 @@
                     />
                   </div>
                 </div>
-                <span v-if="errors.Password" class="error">{{
-                  errors.Password
-                }}</span>
+                <span v-if="errors.Password" class="error">{{ errors.Password }}</span>
               </div>
               <div class="w-input">
                 <input
@@ -51,9 +49,7 @@
                   v-model="Passwordconfirm"
                   placeholder="ยืนยันรหัสผ่าน"
                 />
-                <span v-if="errors.Passwordconfirm" class="error">
-                  {{ errors.Passwordconfirm }}
-                </span>
+                <span v-if="errors.Passwordconfirm" class="error">{{ errors.Passwordconfirm }}</span>
               </div>
             </div>
 
@@ -64,6 +60,9 @@
             >
               ส่ง
             </button>
+
+           
+
           </div>
         </div>
       </div>
@@ -81,8 +80,15 @@ export default {
       Passwordconfirm: "", // เก็บค่ารหัสผ่านยืนยัน
       errors: {},
       showPassword: false, // ตัวแปรที่ใช้ในการแสดง/ซ่อนรหัสผ่าน
-      rpsCode: "ABC", // เก็บค่ารหัสผ่าน
+      rpsCode: "", // เก็บค่ารหัสผ่าน
+      generalError: "", // เก็บข้อความ error ทั่วไป
     };
+  },
+
+  mounted() {
+    // ดึง rps_code จาก URL query parameters
+    this.rpsCode = this.$route.query.rps_code;
+    console.log("RPS Code:", this.rpsCode);
   },
 
   methods: {
@@ -107,8 +113,6 @@ export default {
       if (!this.validateForm()) {
         return;
       }
-      const rpsCode = this.$route.query.rps_code; // ดึงค่า rps_code จาก URL
-      console.log("RPS Code:", this.rpsCode);
 
       const formData = {
         new_password: this.Password,
@@ -116,38 +120,32 @@ export default {
       };
 
       try {
-        const response = await this.$axios.post(
-          "/users/forgot-password/reset",
-          formData
-        );
+        const response = await this.$axios.post("/users/forgot-password/reset", formData);
         console.log("Response:", response.data);
         alert("เปลี่ยนรหัสผ่านสำเร็จ");
 
         if (this.rpsCode) {
           this.$router.push("/login"); // รีไดเรคไปยังหน้า index
-          this.isLoading = false; // ซ่อน loader
         } else {
           alert("เปลี่ยนรหัสผ่านไม่สำเร็จ");
         }
 
-        // นำไปยังหน้าต่อไปหรือทำตามที่ต้องการหลังจากเปลี่ยนรหัสผ่านสำเร็จ
       } catch (error) {
-        console.error(
-          "Error:",
-          error.response ? error.response.data : error.message
-        );
+        console.error("Error:", error.response ? error.response.data : error.message);
         if (error.response && error.response.data) {
           const errorData = error.response.data;
           this.errors = {}; // Clear previous errors
 
-          this.errors.general = errorData.msg || "เกิดข้อผิดพลาด";
+          // แสดงข้อความ error ตาม code
+          if (errorData.code === 60004) {
+            this.generalError = errorData.msg.th || "ไม่มียูสเซอร์จากอาร์พีเอสไอดีนี้";
+          } else {
+            this.generalError = errorData.msg || "เกิดข้อผิดพลาด";
+          }
         } else {
-          this.errors.general =
-            "การเปลี่ยนรหัสผ่านไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
+          this.generalError = "การเปลี่ยนรหัสผ่านไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
         }
-        alert(this.errors.general);
-
-        this.isLoading = false; // ซ่อน loader
+        alert(this.generalError);
       }
     },
   },
