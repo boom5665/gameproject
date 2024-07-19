@@ -14,7 +14,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-      { src: 'https://cdn.tiny.cloud/1/rfbpgwi492bmnqbe0lgqemewvfyxuhkmoaxkb7ap4ut1ziuo/tinymce/6/tinymce.min.js', referrerpolicy: 'origin' }
+    
     ],
   },
 

@@ -8,15 +8,15 @@
       ></b-carousel-slide>
     </b-carousel>
 
-    <!-- จุดไข่ปลา-->
+    <!-- จุดไข่ปลา -->
     <div class="custom-indicators">
       <button id="arrow-left" @click="prevSlide">
         <img src="~/assets/image/arrow-left.png" alt="left arrow" />
       </button>
       <div class="dotposition">
         <span
-          v-for="(n, index) in items.length"
-          :key="index"
+          v-for="(n, index) in items"
+          :key="'dot-' + index"
           @click="goToSlide(index)"
           :class="{ active: index === currentSlide }"
         ></span>
@@ -52,20 +52,40 @@ export default {
       this.slide = index;
     },
     prevSlide() {
-      if (this.slide === 0) {
-        this.slide = this.items.length - 1;
-      } else {
-        this.slide--;
-      }
+      this.slide = this.slide === 0 ? this.items.length - 1 : this.slide - 1;
     },
     nextSlide() {
-      if (this.slide === this.items.length - 1) {
-        this.slide = 0;
-      } else {
-        this.slide++;
-      }
+      this.slide = this.slide === this.items.length - 1 ? 0 : this.slide + 1;
     },
   },
 };
 </script>
 
+<style scoped>
+.custom-co-banner {
+  position: relative;
+}
+.custom-indicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+}
+.dotposition {
+  display: flex;
+  gap: 5px;
+}
+.dotposition span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: gray;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.dotposition span.active {
+  background-color: white;
+}
+</style>

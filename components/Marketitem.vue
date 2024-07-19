@@ -1,7 +1,7 @@
 <template>
   <div class="slider-container Marketitem">
     <div class="slider" ref="slider">
-      <div class="tpn_card" v-for="item in items" :key="item.id">
+      <div class="tpn_card" v-for="(item, index) in items" :key="item.id || index">
         <div style="display: flex">
           <div>
             <img
@@ -17,7 +17,7 @@
                 style="
                   width: 18px;
                   height: 18px;
-                  padding: 2.386px 1.5px 2.386px 1.501px;
+                  padding: 2px 1.5px;
                 "
               />
             </div>
@@ -49,4 +49,3 @@ defineProps({
   },
 });
 </script>
-

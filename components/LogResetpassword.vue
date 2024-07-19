@@ -61,8 +61,10 @@
               ส่ง
             </button>
 
-           
-
+            <!-- แสดงข้อความ error -->
+            <!-- <div v-if="generalError" class="error-message">
+              {{ generalError }}
+            </div> -->
           </div>
         </div>
       </div>
