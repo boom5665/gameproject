@@ -52,38 +52,130 @@
               >{{ errors.imagePreviewUrl }}</span
             >
           </div>
-
-          <div class="font-head">
-            <div>
-              <img
-                class=""
-                style="margin: 0px 10px; width: 20px"
-                src="~/assets/image/User.png"
-              />
+          <div class="height-req">
+            <div class="font-head">
+              <div>
+                <img
+                  class=""
+                  style="margin: 0px 10px; width: 20px"
+                  src="~/assets/image/User.png"
+                />
+              </div>
+              ร้านค้า
             </div>
-            ร้านค้า
+            <div>
+              <input
+                type="text"
+                id="name"
+                v-model="name"
+                :class="{ 'input-error': errors.name }"
+              />
+              <span v-if="errors.name" class="error-message">{{
+                errors.name
+              }}</span>
+            </div>
           </div>
-          <div>
-            <input
-              type="text"
-              id="name"
-              v-model="name"
-              :class="{ 'input-error': errors.name }"
-            />
-            <span v-if="errors.name" class="error-message">{{
-              errors.name
+          <div style="margin-top: 10px">
+            <div class="form-group">
+              <div for="paymentMethod">
+                ช่องทางรับเงิน<span id="dotstyle">*</span>
+              </div>
+              <select
+                v-model="paymentMethod"
+                class="form-control"
+                id="paymentMethod"
+              >
+                <!-- <option value="bank">บัญชีธนาคาร</option> -->
+                <option value="promptPay">พร้อมเพย์</option>
+                <option value="qrPromptPay">QR Code</option>
+              </select>
+            </div>
+            <!-- ธนาคาร -->
+            <!-- <div v-if="paymentMethod === 'bank'" class="bank-details">
+              <div class="form-row">
+                <div class="col">
+                  <label for="accountName">ชื่อบัญชี</label>
+                  <input
+                    type="text"
+                    v-model="bankDetails.accountName"
+                    class="form-control"
+                    id="accountName"
+                    placeholder="กรอกชื่อบัญชี"
+                  />
+                </div>
+                <div class="col">
+                  <label for="accountNumber">เลขบัญชี</label>
+                  <input
+                    type="text"
+                    v-model="bankDetails.accountNumber"
+                    class="form-control"
+                    id="accountNumber"
+                    placeholder="กรอกเลขบัญชี"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="bank">ธนาคาร</label>
+                <select
+                  v-model="bankDetails.bank"
+                  class="form-control"
+                  id="bank"
+                >
+                  <option value="">เลือกธนาคาร</option>
+                  <option value="bbl">กรุงเทพ</option>
+                  <option value="scb">ไทยพาณิชย์</option>
+                  <option value="ktb">กรุงไทย</option>
+                  <option value="BAY">กรุงศรี</option>
+                  <option value="kbank">กสิกรไทย</option>
+                  <option value="GSB">ออมสิน</option>
+
+                </select>
+              </div>
+            </div> -->
+
+            <div v-if="paymentMethod === 'promptPay'" class="promptpay">
+              <div class="form-group">
+                <label for="promptPayNumber"
+                  >หมายเลขพร้อมเพย์<span id="dotstyle">*</span></label
+                >
+                <input
+                  type="text"
+                  v-model="promptPayNumber"
+                  class="form-control"
+                  id="promptPayNumber"
+                  placeholder="กรอกหมายเลขพร้อมเพย์"
+                />
+              </div>
+            </div>
+
+            <div v-if="paymentMethod === 'qrPromptPay'" class="qr-promptpay">
+              <div class="form-group">
+                <label for="qrPromptPayNumber">หมายเลข QR พร้อมเพย์</label>
+                <input
+                  type="text"
+                  v-model="qrPromptPayNumber"
+                  class="form-control"
+                  id="qrPromptPayNumber"
+                  placeholder="กรอกหมายเลข QR พร้อมเพย์"
+                />
+              </div>
+            </div>
+            <span v-if="errors.consentcash" class="error-message">{{
+              errors.consentcash
             }}</span>
           </div>
-          <div>
+          <div style="margin-top: 10px">
             <div>ช่องทางการติดต่อร้านค้า</div>
             <div class="comment-font">
               (ข้อมูลนี้จะถูกแสดงให้กับผู้ซื้อในรายการสินค้า)
             </div>
           </div>
           <div></div>
-          <div class="dis-input">
+          <div class="dis-input height-req">
             <div style="width: 49%">
-              <label for="phone">หมายเลขโทรศัพท์</label>
+              <label for="phone"
+                >หมายเลขโทรศัพท์<span id="dotstyle">*</span></label
+              >
               <input
                 type="text"
                 id="phone"
@@ -95,16 +187,71 @@
               }}</span>
             </div>
             <div style="width: 49%">
-              <label for="otherContact">คำอธิบายร้านค้า</label>
+              <label for="email">อีเมล <span id="dotstyle">*</span></label>
               <input
                 type="text"
-                id="otherContact"
-                v-model="otherContact"
-                :class="{ 'input-error': errors.otherContact }"
+                id="email"
+                v-model="email"
+                :class="{ 'input-error': errors.email }"
               />
-              <span v-if="errors.otherContact" class="error-message">{{
-                errors.otherContact
+              <span v-if="errors.email" class="error-message">{{
+                errors.email
               }}</span>
+            </div>
+          </div>
+          <div class="dis-input height-req">
+            <div style="width: 100%">
+              <label for="address"
+                >ที่อยู่ร้านค้า <span id="dotstyle">*</span></label
+              >
+              <input
+                type="text"
+                id="address"
+                v-model="address"
+                :class="{ 'input-error': errors.address }"
+              />
+              <span v-if="errors.address" class="error-message">{{
+                errors.address
+              }}</span>
+            </div>
+          </div>
+
+          <div for="otherContact">
+            คำอธิบายร้านค้า<span id="dotstyle">*</span>
+          </div>
+          <div class="dis-input">
+            <div class="box-other">
+              <div style="display: flex; margin: 20px">
+                <label for="otherContact" class="box-other-content"
+                  >หัวข้อ<span id="dotstyle">*</span></label
+                >
+                <div style="width: 100%">
+                  <input
+                    type="text"
+                    id="otherContact"
+                    v-model="otherContact"
+                    :class="{ 'input-error': errors.otherContact }"
+                  />
+                  <span v-if="errors.otherContact" class="error-message">{{
+                    errors.otherContact
+                  }}</span>
+                </div>
+              </div>
+
+              <div style="display: flex; margin: 20px">
+                <label for="otherContact" class="box-other-content"
+                  >ข้อความ<span id="dotstyle">*</span></label
+                >
+                <div style="width: 100%">
+                  <quill-editor-component
+                    style="height: max-content; width: 100%"
+                    v-model="editorContent"
+                  ></quill-editor-component>
+                  <span v-if="errors.editorContent" class="error-message">{{
+                    errors.editorContent
+                  }}</span>
+                </div>
+              </div>
             </div>
           </div>
           <div>
@@ -173,7 +320,7 @@
                   และจะไม่สามารถเปลี่ยนแปลงหมายเลขบัตรได้
                 </div>
               </div>
-              <div class="dis-input">
+              <div class="dis-input height-req">
                 <div style="width: 49%">
                   <label for="firstName"
                     >ชื่อ <span id="dotstyle">*</span></label
@@ -203,35 +350,8 @@
                   }}</span>
                 </div>
               </div>
-              <div class="dis-input">
-                <div style="width: 49%">
-                  <label for="email">อีเมล <span id="dotstyle">*</span></label>
-                  <input
-                    type="text"
-                    id="email"
-                    v-model="email"
-                    :class="{ 'input-error': errors.email }"
-                  />
-                  <span v-if="errors.email" class="error-message">{{
-                    errors.email
-                  }}</span>
-                </div>
-                <div style="width: 49%">
-                  <label for="address"
-                    >ที่อยู่ร้านค้า <span id="dotstyle">*</span></label
-                  >
-                  <input
-                    type="text"
-                    id="address"
-                    v-model="address"
-                    :class="{ 'input-error': errors.address }"
-                  />
-                  <span v-if="errors.address" class="error-message">{{
-                    errors.address
-                  }}</span>
-                </div>
-              </div>
-              <div class="dis-input">
+
+              <div class="dis-input height-req">
                 <div style="width: 49%">
                   <label for="idCard"
                     >หมายเลขบัตรประชาชน (13 หลัก)
@@ -348,7 +468,7 @@
                 </div>
               </div>
 
-              <div>
+              <div style="margin-top: 20px">
                 <label class="container">
                   <input type="checkbox" v-model="consent" />
                   <div class="checkmark"></div>
@@ -381,7 +501,12 @@
   </div>
 </template>
 <script>
+import QuillEditorComponent from "~/components/QuillEditorComponent.vue";
+
 export default {
+  components: {
+    QuillEditorComponent,
+  },
   data() {
     return {
       logo: "",
@@ -406,6 +531,16 @@ export default {
       imageStatus: "",
       imageStatus2: "",
       imagePreviewStatus: "",
+      editorContent: "",
+      paymentMethod: "promptPay", // ค่าเริ่มต้นเป็นพร้อมเพย์
+      bankDetails: {
+        accountName: "",
+        accountNumber: "",
+        bank: "",
+      },
+      qrPromptPayNumber: "",
+      qrPromptPayQR: null,
+      promptPayNumber: null,
     };
   },
   watch: {
@@ -506,9 +641,11 @@ export default {
         this.errors.lastName = "นามสกุลไม่ถูกต้อง";
       }
       if (!this.$validate.otherContact(this.otherContact)) {
-        this.errors.otherContact = "ข้อมูลติดต่ออื่นไม่ถูกต้อง";
+        this.errors.otherContact = "ข้อมูลหัวข้อไม่ถูกต้อง";
       }
-
+      if (!this.editorContent) {
+        this.errors.editorContent = "ข้อมูลข้อความไม่ถูกต้อง";
+      }
       if (!this.$validate.idCard(this.idCard)) {
         this.errors.idCard = "หมายเลขบัตรประชาชนไม่ถูกต้อง";
       }
@@ -520,7 +657,6 @@ export default {
         this.errors.idCardBack = "หมายเลขหลังบัตรประชาชนไม่ถูกต้อง";
       }
 
-     
       if (!this.imageUrl) {
         this.errors.imageUrl = "กรุณาอัปโหลดภาพหน้าบัตรประชาชน";
       }
@@ -529,6 +665,29 @@ export default {
       }
       if (!this.consent) {
         this.errors.consent = "กรุณายินยอมข้อกำหนดและเงื่อนไข";
+      }
+      if (this.paymentMethod === "bank") {
+        if (
+          !this.bankDetails.accountName ||
+          !this.bankDetails.accountNumber ||
+          !this.bankDetails.bank
+        ) {
+          this.errors.consentcash =
+            "กรุณายินยอมข้อกำหนดและกรอกข้อมูลช่องทางรับเงิน สำหรับช่องทางรับเงินแบบบัญชีธนาคาร";
+          return;
+        }
+      } else if (this.paymentMethod === "promptPay") {
+        if (!this.promptPayNumber) {
+          this.errors.consentcash =
+            "กรุณายินยอมข้อกำหนดและกรอกหมายเลขพร้อมเพย์";
+          return;
+        }
+      } else if (this.paymentMethod === "qrPromptPay") {
+        if (!this.qrPromptPayNumber) {
+          this.errors.consentcash =
+            "กรุณายินยอมข้อกำหนดและกรอกหมายเลข QR พร้อมเพย์";
+          return;
+        }
       }
 
       return Object.keys(this.errors).length === 0;
@@ -544,7 +703,10 @@ export default {
         imagePreviewUrl: this.imagePreviewUrl,
         name: this.name,
         phone: this.phone,
+        email: this.email,
+        address: this.address,
         otherContact: this.otherContact,
+        editorContent: this.editorContent,
         firstName: this.firstName,
         lastName: this.lastName,
         idCard: this.idCard,
@@ -552,8 +714,22 @@ export default {
         imageUrl: this.imageUrl,
         imageUrl2: this.imageUrl2,
         consent: this.consent,
+        paymentMethod: this.paymentMethod, // เพิ่มช่องทางรับเงิน
       };
 
+      // if (this.paymentMethod === "bank") {
+      //   formData.bankDetails = {
+      //     accountName: this.bankDetails.accountName,
+      //     accountNumber: this.bankDetails.accountNumber,
+      //     bank: this.bankDetails.bank,
+      //   };
+      // } else
+      if (this.paymentMethod === "promptPay") {
+        formData.promptPayNumber = this.promptPayNumber;
+      } else if (this.paymentMethod === "qrPromptPay") {
+        formData.qrPromptPayNumber = this.qrPromptPayNumber;
+      }
+      console.log(formData); // log แสดง vendor_id
       try {
         const response = await this.$axios.post(
           "/vendor/register/create",
@@ -575,6 +751,18 @@ export default {
 </script>
 
 <style scoped>
+.box-other {
+  width: 100%;
+  border: 1px solid #bababa;
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin: 10px 0px;
+}
+.box-other-content {
+  width: 10%;
+  text-align: right;
+  margin-right: 20px;
+}
 .input-error {
   border-color: red;
 }
@@ -616,7 +804,7 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 .preview {
   width: 100%;

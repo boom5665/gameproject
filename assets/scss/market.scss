@@ -257,6 +257,7 @@
 
 
 .M-Create-Backgroud {
+  max-width: 1092px;
   .navtabs {
     display: flex;
     margin-top: 20px;
@@ -295,7 +296,9 @@
     justify-content: space-between;
     margin-bottom: 10px;
   }
-
+  .height-req{
+      height: 90px;
+  };
   .font-top {
     color: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     text-align: center;

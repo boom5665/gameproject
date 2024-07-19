@@ -12,7 +12,10 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    ],
+    script: [
+      { src: 'https://cdn.tiny.cloud/1/rfbpgwi492bmnqbe0lgqemewvfyxuhkmoaxkb7ap4ut1ziuo/tinymce/6/tinymce.min.js', referrerpolicy: 'origin' }
+    ],
   },
 
   css: [
@@ -22,7 +25,10 @@ export default {
     '~/assets/scss/Shop.scss',
     '~/assets/scss/login.scss',
     'slick-carousel/slick/slick.css',
-    'slick-carousel/slick/slick-theme.css'
+    'slick-carousel/slick/slick-theme.css',
+    'quill/dist/quill.core.css',
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css'
   ],
 
   plugins: [
