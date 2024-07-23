@@ -63,10 +63,12 @@
     </div>
   </div>
 </template>
- <script>
+
+<script>
 import Slider from "./Slider.vue";
 import HomeCardSlidergame from "./HomeCardSlidergame.vue";
 import HomeCorousalBanner from "./HomeCorousalBanner.vue";
+
 export default {
   components: { Slider, HomeCardSlidergame, HomeCorousalBanner },
   data() {
@@ -86,14 +88,24 @@ export default {
   },
   mounted() {
     const token = localStorage.getItem("authToken");
-    if (token) {
-      const decoded = this.$jwt.decode(token);
-      console.log(decoded);
+    const hasRefreshed = localStorage.getItem("hasRefreshed");
 
-      // สมมุติว่า decoded คือ userInfo
-      const { authen_code, id, permission } = decoded; // ใช้ decoded แทน userInfo
-      if (decoded) {
-        console.log("authen", authen_code, "id", id, "สิทธิ", permission);
+    if (token) {
+      if (!hasRefreshed) {
+        const decoded = this.$jwt.decode(token);
+        console.log(decoded);
+
+        // สมมุติว่า decoded คือ userInfo
+        const { authen_code, id, permission } = decoded; // ใช้ decoded แทน userInfo
+        if (decoded) {
+          console.log("authen", authen_code, "id", id, "สิทธิ", permission);
+
+          // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
+          localStorage.setItem("hasRefreshed", "true");
+
+          // รีเฟรชหน้าใหม่ทั้งหมด
+          window.location.reload();
+        }
       }
     } else {
       console.log("ไม่มี token");
@@ -102,9 +114,7 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const response = await this.$axios.$get(
-          "/list/marketplace/home"
-        );
+        const response = await this.$axios.$get("/list/marketplace/home");
         console.log(response);
         if (response.code === 200) {
           const { recommended, sale, trending } = response.data.Itemlist;
@@ -120,7 +130,7 @@ export default {
             description: item.item_name,
             price: item.price,
             cartSrc: require("@/assets/image/addcart.png"),
-          })); // อัปเดตข้อมูลใน itemssale
+          }));
           this.itemssale = sale.map((item) => ({
             id: item.id,
             logoSrc: item.item_img_main,
@@ -132,7 +142,7 @@ export default {
             description: item.item_name,
             price: item.price,
             cartSrc: require("@/assets/image/addcart.png"),
-          })); // อัปเดตข้อมูลใน trending
+          }));
           this.trending = trending.map((item) => ({
             id: item.id,
             logoSrc: item.item_img_main,
@@ -144,15 +154,12 @@ export default {
             description: item.item_name,
             price: item.price,
             cartSrc: require("@/assets/image/addcart.png"),
-          })); // สามารถอัปเดตคุณสมบัติอื่น ๆ เช่น hotitem, trending, เป็นต้นได้เช่นกัน
-
-          // อัปเดตค่าใน itemsshop ให้เป็นข้อมูลจาก Productlist
+          }));
           this.topshop = topshop.map((item) => ({
             id: item.id_product,
             imageSrc: item.product_img,
             subtitle: item.product_name,
           }));
-
           this.game = game.map((item) => ({
             id: item.id_product,
             imageSrc: item.product_img,

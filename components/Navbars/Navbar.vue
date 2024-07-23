@@ -26,42 +26,87 @@
           <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">ช่วยเหลือ</div></Nuxt-link
           >
-          <Nuxt-link class="text-nav" to="/LogRegister" target="_self"
-            ><div class="bottom-top bottom-w">Register</div></Nuxt-link
-          >
-          <Nuxt-link class="text-nav" to="/Login" target="_self"
-            ><div class="bottom-top bottom-y">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
-                  stroke="#5C25F2"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                /></svg
-              ><span style="padding: 0px 5px">Sign in</span
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-              >
-                <path
-                  d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
-                  stroke="#5C25F2"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg></div
-          ></Nuxt-link>
+
+          <div v-if="token" style="display: flex">
+            <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
+            <Nuxt-link class="text-nav" to="/" target="_self"
+              ><div class="bottom-top bottom-w">Welcome, User</div></Nuxt-link
+            >
+            <div class="text-nav" @click="logout" target="_self">
+              <div class="bottom-top bottom-y">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
+                    stroke="#5C25F2"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  /></svg
+                ><span style="padding: 0px 5px">Logout</span
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
+                    stroke="#5C25F2"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div v-else style="display: flex">
+            <!-- เมนูสำหรับผู้ใช้ที่ไม่ได้ล็อกอิน -->
+            <Nuxt-link class="text-nav" to="/LogRegister" target="_self"
+              ><div class="bottom-top bottom-w">Register</div></Nuxt-link
+            >
+
+            <Nuxt-link class="text-nav" to="/Login" target="_self"
+              ><div class="bottom-top bottom-y">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
+                    stroke="#5C25F2"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  /></svg
+                ><span style="padding: 0px 5px">Sign in</span
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                >
+                  <path
+                    d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
+                    stroke="#5C25F2"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg></div
+            ></Nuxt-link>
+          </div>
         </div>
       </div>
     </div>
@@ -114,17 +159,18 @@
           >
         </div>
       </div>
+
       <div class="nav-right">
         <div>
-          <Nuxt-link class="text-nav" to="/MarketCreateShop" target="_self"
-            ><div class="bottom-top b-top-cy">
+          <div class="text-nav" @click="handleNavigation" target="_self">
+            <div class="bottom-top b-top-cy">
               <img
                 class=""
                 src="~/assets/image/home.png"
                 style="padding-right: 5px"
               />สร้างร้านค้า
-            </div></Nuxt-link
-          >
+            </div>
+          </div>
         </div>
       </div>
 
@@ -199,7 +245,6 @@
               </div>
               <div class="submit">ไปชำระเงิน</div>
             </div>
-
           </div>
         </div>
       </div>
@@ -208,11 +253,9 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
-
       products: [
         {
           id: 1,
@@ -242,6 +285,7 @@ export default {
           price: 5000,
         },
       ],
+      token: null,
     };
   },
   computed: {
@@ -251,8 +295,26 @@ export default {
       }, 0);
     },
   },
-
+  mounted() {
+    this.token = localStorage.getItem("authToken");
+  },
   methods: {
+    handleNavigation() {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        // นำทางไปยังหน้า MarketCreateShop
+        this.$router.push("/MarketCreateShop");
+      } else {
+        // แสดง alert และนำทางไปยังหน้าเข้าสู่ระบบ
+        alert("กรุณาเข้าสู่ระบบก่อน");
+        this.$router.push("/login");
+      }
+    },
+    logout() {
+      localStorage.removeItem("authToken");
+      this.token = null;
+      this.$router.push("/login");
+    },
     openNav() {
       // เปิดเมนูด้านข้าง
       document.getElementById("mySidenavtop").style.width = "400px";
@@ -275,7 +337,6 @@ export default {
       this.products = this.products.filter((p) => p.id !== product.id);
     },
   },
-
 };
 </script>
 
