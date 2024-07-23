@@ -117,6 +117,7 @@ export default {
           alert("ไม่พบข้อมูล token");
         }
       } catch (error) {
+        this.$handleError(error);
         console.error(
           "Error:",
           error.response ? error.response.data : error.message

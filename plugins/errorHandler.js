@@ -1,11 +1,12 @@
-// plugins/errorHandler.js
-
 export default ({ app }, inject) => {
   inject('handleError', (error) => {
     if (error.response && error.response.data) {
       const errorData = error.response.data;
+      const statusCode = error.response.status;
 
-      if (errorData.code === 50001) {
+      if (statusCode === 404) {
+        alert("ไม่พบ URL ที่ร้องขอ");
+      } else if (errorData.code === 50001) {
         alert("กรุณากรอกยูสเซอร์เนมไม่ต่ำกว่า 4 ตัวอักษรและไม่เกิน 12 ตัวอักษร");
       } else if (errorData.code === 3001) {
         alert("พบข้อมูลผู้ใช้ซ้ำ กรุณาลองใหม่อีกครั้ง");
@@ -18,11 +19,14 @@ export default ({ app }, inject) => {
       } else if (errorData.code === 50002) {
         alert("กรุณากรอกเบอร์โทรให้ตรงตามรูปแบบ");
       } else {
-        alert("ลงทะเบียนไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง");
+        alert("โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง");
       }
+
+    } else if (error.response && error.response.status === 404) {
+      alert("ไม่พบ URL ที่ร้องขอ");
     } else {
       console.error("Error:", error.message);
-      alert("ลงทะเบียนไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง");
+      alert("โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง");
     }
   });
 };

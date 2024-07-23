@@ -252,7 +252,10 @@ a:hover {
   border-radius: var(--Border-radius-8, 8px);
   background: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
 }
-
+.error-message {
+  color: red;
+  font-size: 12px;
+}
 .display {
   display: flex;
   justify-content: space-between;

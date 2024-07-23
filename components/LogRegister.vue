@@ -167,8 +167,7 @@ export default {
         if (error.response && error.response.data) {
           this.$handleError(error);
 
-            this.isLoading = false; // ซ่อน loader
-
+          this.isLoading = false; // ซ่อน loader
         }
       }
     },

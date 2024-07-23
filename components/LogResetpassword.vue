@@ -133,6 +133,7 @@ export default {
         }
 
       } catch (error) {
+        this.$handleError(error);
         console.error("Error:", error.response ? error.response.data : error.message);
         if (error.response && error.response.data) {
           const errorData = error.response.data;

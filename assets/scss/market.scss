@@ -258,6 +258,7 @@
 
 .M-Create-Backgroud {
   max-width: 1092px;
+
   .navtabs {
     display: flex;
     margin-top: 20px;
@@ -292,13 +293,17 @@
 
   .dis-input {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 10px;
   }
-  .height-req{
-      height: 90px;
-  };
+
+  .height-req {
+    height: 90px;
+  }
+
+  ;
+
   .font-top {
     color: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
     text-align: center;
@@ -311,9 +316,9 @@
     padding: 11px 16px;
     width: 100%;
     box-sizing: border-box;
-    border-radius:  6px;
+    border-radius: 6px;
     border: 1px solid $gray-color;
-    background:  $white-color;
+    background: $white-color;
     color: $Primary-Pueple-500;
     //   margin-top: 15px;
   }
@@ -323,9 +328,9 @@
     padding: 11px 16px;
     width: 100%;
     box-sizing: border-box;
-    border-radius:  6px;
+    border-radius: 6px;
     border: 1px solid $gray-color;
-    background:  $white-color;
+    background: $white-color;
     color: $Primary-Pueple-500;
     // margin-top: 15px;
   }
@@ -1087,8 +1092,9 @@
 }
 
 
-.market-home{
+.market-home {
   width: 100%;
+
   .img-edit {
     border-radius: var(--Border-radius-8, 8px) !important;
     border: 4px solid #ffeb3b !important;
@@ -1096,6 +1102,7 @@
     width: 100% !important;
     height: 400px !important;
   }
+
   .profile-img-main {
     height: 130px;
     gap: 10px;
@@ -1104,7 +1111,7 @@
 }
 
 
-.Marketitem{
+.Marketitem {
   .slider-container {
     position: relative;
     overflow: hidden;
@@ -1127,8 +1134,7 @@
 }
 
 
-.market-mass
-{
+.market-mass {
   .button-fece {
     display: flex;
     padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
@@ -1141,12 +1147,15 @@
     color: white;
     margin-top: 20px;
   }
+
   .navtabs {
     padding: 50px 100px;
   }
+
   .box-alert {
     padding: 20px 10px;
   }
+
   .font-form-myshop {
     font-size: 24px;
     color: #5c25f2;
@@ -1154,24 +1163,24 @@
 }
 
 
-.slider{
+.slider {
 
   .center-flex {
     display: flex;
     justify-content: center;
   }
-  .right{
-        position: relative;
-      right: -45px;
-      top: 20px;
-      z-index: 100;
+
+  .right {
+    position: relative;
+    right: -45px;
+    top: 20px;
+    z-index: 100;
   }
-  .left{
-        position: relative;
-      left: -45px;
-      top: 20px;
-      z-index: 100;
+
+  .left {
+    position: relative;
+    left: -45px;
+    top: 20px;
+    z-index: 100;
   }
 }
-
-
