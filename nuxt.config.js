@@ -1,4 +1,7 @@
 export default {
+  server: {
+    port: 5008
+  },
   head: {
     title: 'gamiqo',
     htmlAttrs: {
