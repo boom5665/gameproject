@@ -116,9 +116,16 @@
               </button>
             </div>
           </div>
-          <div style="width: 80%">
+          <div style="margin-left: 25px; width: 80%">
             <!-- ใช้ dynamic component rendering -->
-            <component :is="currentView" :items="itemsData" />
+            <div class="component-wrapper">
+              <component
+                :is="currentView"
+                :items="itemsData"
+                :orderItems="orderItems"
+                :purchasedItems="purchasedItems"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -157,31 +164,28 @@ export default {
           price: "1,999",
           cartSrc: require("@/assets/image/Delete.png"),
         },
+      ],
+      orderItems: [
         {
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "แก้ไขข้อมูลสินค้า",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/Delete.png"),
+          id: 1,
+          image: require("@/assets/image/goldtap.png"),
+          name: "ROV 12 Coupon ROV",
+          status: "รอยืนยัน",
+          amount: "฿9,999",
+          date: "14:02 / 31-12-2024",
         },
+        // รายการเพิ่มเติม
+      ],
+      purchasedItems: [
         {
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "แก้ไขข้อมูลสินค้า",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/Delete.png"),
+          id: 1,
+          image: require("@/assets/image/goldtap.png"),
+          name: "ROV 12 Coupon ROV",
+          status: "รับสินค้าแล้ว",
+          amount: "฿9,999",
+          date: "14:02 / 31-12-2024",
         },
-        {
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "แก้ไขข้อมูลสินค้า",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/Delete.png"),
-        },
-        // ... เพิ่มข้อมูลอื่นๆ
+        // รายการเพิ่มเติม
       ],
     };
   },
@@ -189,6 +193,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.component-wrapper {
+  max-height: 600px; /* กำหนดความสูงสูงสุด */
+  overflow-y: auto; /* เพิ่มแถบเลื่อนแนวตั้งเมื่อเนื้อหาเกิน */
+  overflow-x: hidden; /* ซ่อนแถบเลื่อนแนวนอน */
+}
 .M-Create-Backgroud .navtabs {
   max-width: 1092px;
   width: 1092px;
