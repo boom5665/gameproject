@@ -161,14 +161,15 @@
       </div>
 
       <div class="nav-right">
-        <div>
-          <div class="text-nav" @click="handleNavigation" target="_self">
+        <div v-if="buttonText">
+          <div class="text-nav" @click="handleNavigation">
             <div class="bottom-top b-top-cy">
               <img
                 class=""
                 src="~/assets/image/home.png"
                 style="padding-right: 5px"
-              />สร้างร้านค้า
+              />
+              {{ buttonText }}
             </div>
           </div>
         </div>
@@ -286,6 +287,7 @@ export default {
         },
       ],
       token: null,
+      buttonText: "", // ค่าเริ่มต้นของปุ่มเป็นค่าว่าง
     };
   },
   computed: {
@@ -295,19 +297,48 @@ export default {
       }, 0);
     },
   },
-  mounted() {
+  async mounted() {
     this.token = localStorage.getItem("authToken");
+    await this.fetchProfileData();
   },
+
   methods: {
-    handleNavigation() {
-      const token = localStorage.getItem("authToken");
-      if (token) {
-        // นำทางไปยังหน้า MarketCreateShop
-        this.$router.push("/MarketCreateShop");
+    async fetchProfileData() {
+      if (this.token) {
+        try {
+          const response = await this.$axios.$post(
+            "https://9e356a96-af6f-4333-83c6-dfa228aeb5b7.mock.pstmn.io/api/v1/vendor/profile/me/read",
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${this.token}`,
+              },
+            }
+          );
+
+          if (response.id != null) {
+            // ตรวจสอบว่า response.id เท่ากับ null หรือ undefined
+            this.buttonText = "เพิ่มสินค้า";
+          } else {
+            this.buttonText = "สร้างร้านค้า"; // ทำให้ปุ่มหายไปเมื่อมีข้อมูล
+          }
+        } catch (error) {
+          console.error("Error fetching profile data:", error);
+        }
       } else {
-        // แสดง alert และนำทางไปยังหน้าเข้าสู่ระบบ
-        alert("กรุณาเข้าสู่ระบบก่อน");
-        this.$router.push("/login");
+        console.log("No token found");
+      }
+    },
+    handleNavigation() {
+      if (this.buttonText === "เพิ่มสินค้า") {
+        if (this.token) {
+          this.$router.push("/MarketMyAdd"); // นำทางไปยังหน้า MarketMyAdd
+        } else {
+          alert("กรุณาสร้างสินค้าก่อน"); // แสดงข้อความแจ้งเตือน
+          this.$router.push("/MarketCreateShop"); // นำทางไปยังหน้า MarketCreateShop
+        }
+      } else if (this.buttonText === "สร้างร้านค้า") {
+        this.$router.push("/MarketCreateShop"); // นำทางไปยังหน้า MarketCreateShop
       }
     },
     logout() {
