@@ -342,9 +342,16 @@ export default {
       }
     },
     logout() {
-      localStorage.removeItem("authToken");
-      this.token = null;
-      this.$router.push("/login");
+      localStorage.removeItem("authToken"); // ลบโทเคนออกจาก localStorage
+      this.token = null; // รีเซ็ตค่าของ token
+
+      this.$router
+        .push("/login") // นำทางไปยังหน้าเข้าสู่ระบบ
+        .then(() => {
+          setTimeout(() => {
+            window.location.reload(); // รีโหลดหน้าเว็บหลังจากการนำทางเสร็จสิ้น
+          }, 500); // ตั้งเวลาให้รีโหลดหลังจาก 500 มิลลิวินาที
+        });
     },
     openNav() {
       // เปิดเมนูด้านข้าง
