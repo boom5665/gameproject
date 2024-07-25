@@ -173,7 +173,9 @@
           <div></div>
           <div class="dis-input height-req">
             <div style="width: 49%">
-              <label for="phone">หมายเลขโทรศัพท์ <span id="dotstyle">*</span></label>
+              <label for="phone"
+                >หมายเลขโทรศัพท์ <span id="dotstyle">*</span></label
+              >
               <input
                 type="text"
                 id="phone"
@@ -312,7 +314,10 @@
                   />
                 </div>
                 <div>
-                 กรุณาใส่ข้อมูลให้ตรงกับบัตรประชาชน และกรอกชื่อ-นามสกุลด้วยภาษาไทยเท่านั้น หมายเลขบัตรประชาชนนี้จะไม่สามารถนำไปใช้กับบัญชีผู้ใช้อื่นได้อีก และจะไม่สามารถเปลี่ยนแปลงหมายเลขบัตรได้
+                  กรุณาใส่ข้อมูลให้ตรงกับบัตรประชาชน
+                  และกรอกชื่อ-นามสกุลด้วยภาษาไทยเท่านั้น
+                  หมายเลขบัตรประชาชนนี้จะไม่สามารถนำไปใช้กับบัญชีผู้ใช้อื่นได้อีก
+                  และจะไม่สามารถเปลี่ยนแปลงหมายเลขบัตรได้
                 </div>
               </div>
               <div class="dis-input height-req">
@@ -723,16 +728,23 @@ export default {
       //   };
       // } else
       if (this.paymentMethod === "PROMPTPAY") {
-        formData.PROMPTPAYNumber = this.PROMPTPAYNumber;
+        formData.pay_ref_1 = this.PROMPTPAYNumber;
       }
       //  else if (this.paymentMethod === "qrPROMPTPAY") {
       //   formData.qrPROMPTPAYNumber = this.qrPROMPTPAYNumber;
       // }
       console.log(formData); // log แสดง vendor_id
       try {
+        const token = localStorage.getItem("authToken");
+        console.log(token); // log แสดง vendor_id
         const response = await this.$axios.post(
           "/vendor/register/create",
-          formData
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
+            },
+          }
         );
         localStorage.setItem("vendor_id", response.data.vendor_id);
         console.log("เก็บ vendor_id:", response.data.vendor_id); // log แสดง vendor_id

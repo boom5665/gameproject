@@ -93,8 +93,6 @@ export default {
     if (token) {
       if (!hasRefreshed) {
         const decoded = this.$jwt.decode(token);
-        console.log(decoded);
-
         // สมมุติว่า decoded คือ userInfo
         const { authen_code, id, permission } = decoded; // ใช้ decoded แทน userInfo
         if (decoded) {
@@ -108,7 +106,7 @@ export default {
         }
       }
     } else {
-      console.log("ไม่มี token");
+      console.log("No token found");
     }
   },
   methods: {

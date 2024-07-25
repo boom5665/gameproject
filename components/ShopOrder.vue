@@ -1,5 +1,9 @@
 <template>
   <div class="order-list">
+    <!-- เพิ่ม input สำหรับการค้นหา -->
+    <div>
+      <input v-model="searchQuery" placeholder="ค้นหาสินค้า..." />
+    </div>
     <div>รายการคำสั่งซื้อ</div>
     <table class="order-table">
       <thead>
@@ -13,10 +17,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in orderItems" :key="item.id">
+        <tr v-for="item in filteredOrderItems" :key="item.id">
           <td><img :src="item.image" alt="Product Image" /></td>
           <td>{{ item.name }}</td>
-          <td><span class="status pending">{{ item.status }}</span></td>
+          <td>
+            <span class="status pending">{{ item.status }}</span>
+          </td>
           <td>
             <span class="color-am">{{ item.amount }}</span>
           </td>
@@ -53,6 +59,8 @@
 </template>
 
 <script setup>
+import { ref, computed } from "vue"; // นำเข้า ref และ computed จาก Vue
+
 const props = defineProps({
   orderItems: {
     type: Array,
@@ -63,10 +71,35 @@ const props = defineProps({
     required: true,
   },
 });
+
+// ใช้ ref เพื่อจัดการค่า searchQuery
+const searchQuery = ref("");
+
+// คำนวณการกรองรายการคำสั่งซื้อ
+const filteredOrderItems = computed(() => {
+  if (!searchQuery.value) return props.orderItems;
+
+  const query = searchQuery.value.toLowerCase();
+  return props.orderItems.filter((item) =>
+    item.name.toLowerCase().includes(query)
+  );
+});
 </script>
 
 
+
+
 <style scoped>
+.M-Create-Backgroud .container input {
+  position: relative;
+  opacity: 1;
+  cursor: pointer;
+  height: 30px;
+  width: 100%;
+  border-radius: 10px;
+  padding: 0px 20px;
+  font-size: 18px;
+}
 .thead-sale {
   background-color: #3f3f3f !important;
 }

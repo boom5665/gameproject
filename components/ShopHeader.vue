@@ -174,6 +174,14 @@ export default {
           amount: "฿9,999",
           date: "14:02 / 31-12-2024",
         },
+        {
+          id: 1,
+          image: require("@/assets/image/goldtap.png"),
+          name: "boooo 12 Coupon ROV",
+          status: "รอยืนยัน",
+          amount: "฿9,999",
+          date: "14:02 / 31-12-2024",
+        },
         // รายการเพิ่มเติม
       ],
       purchasedItems: [
@@ -194,7 +202,7 @@ export default {
 
 <style lang="scss" scoped>
 .component-wrapper {
-  max-height: 600px; /* กำหนดความสูงสูงสุด */
+  max-height: 500px; /* กำหนดความสูงสูงสุด */
   overflow-y: auto; /* เพิ่มแถบเลื่อนแนวตั้งเมื่อเนื้อหาเกิน */
   overflow-x: hidden; /* ซ่อนแถบเลื่อนแนวนอน */
 }
