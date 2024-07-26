@@ -1,6 +1,6 @@
 <template>
-  <div class="M-Create-Backgroud">
-    <div class="navtabs">
+  <div class="M-Create-Backgroud ">
+    <div class="navtabs maketcreateshop">
       <div class="form-create">
         <div class="font-top">สร้างร้านค้า</div>
         <form @submit.prevent="handleSubmit">
@@ -746,12 +746,14 @@ export default {
             },
           }
         );
-        localStorage.setItem("vendor_id", response.data.vendor_id);
-        console.log("เก็บ vendor_id:", response.data.vendor_id); // log แสดง vendor_id
+        // localStorage.setItem("vendor_id", response.data.vendor_id);
+        // console.log("เก็บ vendor_id:", response.data.vendor_id); // log แสดง vendor_id
 
         alert("สร้างสินค้าได้สำเร็จ");
+        this.$router.push("/"); // รีไดเรคไปยังหน้า login หลังจาก 1 วินาที
       } catch (error) {
         console.error("There was an error submitting the form", error);
+        this.$handleError(error);
         alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
       } finally {
         this.isLoading = false; // ซ่อน loader ทั้งในกรณีสำเร็จและข้อผิดพลาด
@@ -762,92 +764,7 @@ export default {
 </script>
 
 <style scoped>
-.box-other {
-  width: 100%;
-  border: 1px solid #bababa;
-  box-sizing: border-box;
-  border-radius: 6px;
-  margin: 10px 0px;
-}
-.box-other-content {
-  width: 10%;
-  text-align: right;
-  margin-right: 20px;
-}
-.input-error {
-  border-color: red;
-}
-.valid {
-  color: green !important;
-  font-size: 12px;
-}
 
-.invalid {
-  color: red;
-}
-.error-message {
-  color: red;
-  font-size: 12px;
-}
-.profile-img {
-  width: 100%;
-  height: auto;
-}
-.profile-img-main {
-  border-radius: 6px;
-  border: 1px dashed #d00;
-  background: #31303f;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 100%;
-  margin: 15px 5px;
-  height: 150px;
-}
-.profile-img {
-  width: 100%;
-  margin: 0px 0px 0px;
-}
-.dis-input {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 0px;
-}
-.preview {
-  width: 100%;
-}
-.img-edit {
-  width: 100px;
-  height: 100px;
-  margin: 0px 0px;
-  cursor: pointer;
-}
-.edit-icon {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-}
-img {
-  cursor: pointer;
-}
-.pro-img {
-  display: flex;
-  justify-content: center;
-}
-
-.dis-left {
-  text-align: left;
-  display: flex;
-  justify-content: flex-start;
-  width: 49%;
-}
 </style>
 
 
