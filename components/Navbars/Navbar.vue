@@ -307,7 +307,7 @@ export default {
       if (this.token) {
         try {
           const response = await this.$axios.$post(
-            "https://9e356a96-af6f-4333-83c6-dfa228aeb5b7.mock.pstmn.io/api/v1/vendor/profile/me/read",
+            "/vendor/profile/me/read",
             {},
             {
               headers: {
@@ -315,10 +315,10 @@ export default {
               },
             }
           );
-
-          if (response.id != null) {
+          console.log(response);
+          if (response != null) {
             // ตรวจสอบว่า response.id เท่ากับ null หรือ undefined
-            this.buttonText = "เพิ่มสินค้า";
+            this.buttonText = "ดูร้านค้า";
           } else {
             this.buttonText = "สร้างร้านค้า"; // ทำให้ปุ่มหายไปเมื่อมีข้อมูล
           }
@@ -330,9 +330,9 @@ export default {
       }
     },
     handleNavigation() {
-      if (this.buttonText === "เพิ่มสินค้า") {
+      if (this.buttonText === "ดูร้านค้า") {
         if (this.token) {
-          this.$router.push("/MarketMyAdd"); // นำทางไปยังหน้า MarketMyAdd
+          this.$router.push("/MarketMyshop"); // นำทางไปยังหน้า MarketMyAdd
         } else {
           alert("กรุณาสร้างสินค้าก่อน"); // แสดงข้อความแจ้งเตือน
           this.$router.push("/MarketCreateShop"); // นำทางไปยังหน้า MarketCreateShop
@@ -342,16 +342,17 @@ export default {
       }
     },
     logout() {
-      localStorage.removeItem("authToken"); // ลบโทเคนออกจาก localStorage
-      this.token = null; // รีเซ็ตค่าของ token
+      // ลบโทเคนออกจาก localStorage และรีเซ็ตค่า token
+      localStorage.removeItem("authToken");
+      this.token = null;
 
-      this.$router
-        .push("/login") // นำทางไปยังหน้าเข้าสู่ระบบ
-        .then(() => {
-          setTimeout(() => {
-            window.location.reload(); // รีโหลดหน้าเว็บหลังจากการนำทางเสร็จสิ้น
-          }, 500); // ตั้งเวลาให้รีโหลดหลังจาก 500 มิลลิวินาที
-        });
+      // รีโหลดหน้าเว็บ
+      window.location.reload();
+
+      // ตั้งเวลา 500 มิลลิวินาทีแล้วนำทางไปยังหน้า /login
+      setTimeout(() => {
+        this.$router.push("/login");
+      }, 500);
     },
     openNav() {
       // เปิดเมนูด้านข้าง
