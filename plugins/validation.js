@@ -26,15 +26,15 @@ export default ({ app }, inject) => {
     return regex.test(email) && !thaiRegex.test(email);
   };
   const validateName = (name) => {
-    const regex = /^[a-zA-Z\s]{2,50}$/;
+    const regex = /^[a-zA-Zก-ฮะ-์\s]{2,30}$/u;
     return regex.test(name);
   };
   const validateFirstName = (firstName) => { // แก้ไขชื่อฟังก์ชันเป็น CamelCase
-    const regex = /^[a-zA-Zก-ฮะ-์\s]{2,50}$/u;
+    const regex = /^[a-zA-Zก-ฮะ-์\s]{2,30}$/u;
     return regex.test(firstName);
   };
   const validateLastName = (lastName) => { // แก้ไขชื่อฟังก์ชันเป็น CamelCase
-    const regex = /^[a-zA-Zก-ฮะ-์\s]{2,50}$/u;
+    const regex = /^[a-zA-Zก-ฮะ-์\s]{2,30}$/u;
     return regex.test(lastName);
   };
   const validateOtherContact = (otherContact) => {

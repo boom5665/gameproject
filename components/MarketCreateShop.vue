@@ -1,5 +1,5 @@
 <template>
-  <div class="M-Create-Backgroud ">
+  <div class="M-Create-Backgroud">
     <div class="navtabs maketcreateshop">
       <div class="form-create">
         <div class="font-top">สร้างร้านค้า</div>
@@ -700,56 +700,50 @@ export default {
       }
 
       this.isLoading = true; // เริ่มโหลด
-      const formData = {
-        logo_img: this.imagePreviewUrl,
-        name: this.name,
-        phone: this.phone,
-        email: this.email,
-        address: this.address,
-        title_description: this.otherContact,
-        description: this.editorContent,
-        first_name: this.firstName,
-        last_name: this.lastName,
-        id_card_number_front: this.idCard,
-        id_card_number_back: this.idCardBack.replace(/-/g, ""),
-        id_card_number_front_img: this.imageUrl,
-        id_card_number_back_img: this.imageUrl2,
-        pay_method_id: 1,
-        pay_slug: this.paymentMethod,
-        pay_ref_1: this.paymentMethod, // เพิ่มช่องทางรับเงิน
-      };
+      const formData = new FormData();
 
-      // if (this.paymentMethod === "bank") {
-      //   formData.bankDetails = {
-      //     accountName: this.bankDetails.accountName,
-      //     accountNumber: this.bankDetails.accountNumber,
-      //     bank: this.bankDetails.bank,
-      //   };
-      // } else
+      // เพิ่มข้อมูลลงใน FormData
+      formData.append("logo_img", this.imagePreviewUrl); // ตรวจสอบว่าหากเป็น URL ต้องแปลงเป็นไฟล์
+      formData.append("name", this.name);
+      formData.append("phone", this.phone);
+      formData.append("email", this.email);
+      formData.append("address", this.address);
+      formData.append("title_description", this.otherContact);
+      formData.append("description", this.editorContent);
+      formData.append("first_name", this.firstName);
+      formData.append("last_name", this.lastName);
+      formData.append("id_card_number_front", this.idCard);
+      formData.append("id_card_number_back", this.idCardBack.replace(/-/g, ""));
+      formData.append("id_card_number_front_img", this.imageUrl); // ตรวจสอบว่ามีการแปลงเป็นไฟล์หากจำเป็น
+      formData.append("id_card_number_back_img", this.imageUrl2); // ตรวจสอบว่ามีการแปลงเป็นไฟล์หากจำเป็น
+      formData.append("pay_method_id", 1);
+      formData.append("pay_slug", this.paymentMethod);
+
       if (this.paymentMethod === "PROMPTPAY") {
-        formData.pay_ref_1 = this.PROMPTPAYNumber;
+        formData.append("pay_ref_1", this.PROMPTPAYNumber);
       }
-      //  else if (this.paymentMethod === "qrPROMPTPAY") {
-      //   formData.qrPROMPTPAYNumber = this.qrPROMPTPAYNumber;
-      // }
-      console.log(formData); // log แสดง vendor_id
+
+      function logFormData(formData) {
+        for (let pair of formData.entries()) {
+          console.log(`${pair[0]}: ${pair[1]}`);
+        }
+      }
+      logFormData(formData);
       try {
         const token = localStorage.getItem("authToken");
-        console.log(token); // log แสดง vendor_id
-        const response = await this.$axios.post(
-          "/vendor/register/create",
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
-            },
-          }
-        );
-        // localStorage.setItem("vendor_id", response.data.vendor_id);
-        // console.log("เก็บ vendor_id:", response.data.vendor_id); // log แสดง vendor_id
-
-        alert("สร้างสินค้าได้สำเร็จ");
-        this.$router.push("/"); // รีไดเรคไปยังหน้า login หลังจาก 1 วินาที
+        console.log(token); // log แสดง token
+        // const response = await this.$axios.post(
+        //   "/vendor/register/create",
+        //   formData,
+        //   {
+        //     headers: {
+        //       // "Content-Type": "multipart/form-data", // axios จะตั้งค่าให้เองเมื่อใช้ FormData
+        //       Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
+        //     },
+        //   }
+        // );
+        // alert("สร้างสินค้าได้สำเร็จ");
+        // this.$router.push("/"); // รีไดเรคไปยังหน้า login หลังจาก 1 วินาที
       } catch (error) {
         console.error("There was an error submitting the form", error);
         this.$handleError(error);
@@ -763,8 +757,22 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
 
+
+
+    //  // if (this.paymentMethod === "bank") {
+    //   //   formData.bankDetails = {
+    //   //     accountName: this.bankDetails.accountName,
+    //   //     accountNumber: this.bankDetails.accountNumber,
+    //   //     bank: this.bankDetails.bank,
+    //   //   };
+    //   // } else
+    //   if (this.paymentMethod === "PROMPTPAY") {
+    //     formData.pay_ref_1 = this.PROMPTPAYNumber;
+    //   }
+    //   //  else if (this.paymentMethod === "qrPROMPTPAY") {
+    //   //   formData.qrPROMPTPAYNumber = this.qrPROMPTPAYNumber;
+    //   // }
 
 
