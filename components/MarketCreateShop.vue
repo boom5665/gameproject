@@ -702,8 +702,34 @@ export default {
       this.isLoading = true; // เริ่มโหลด
       const formData = new FormData();
 
+      // ฟังก์ชันสำหรับแปลง Base64 เป็น File
+      const base64ToFile = (base64, filename) => {
+        return new Promise((resolve, reject) => {
+          const [header, data] = base64.split(",");
+          const mime = header.match(/:(.*?);/)[1];
+          const binary = atob(data);
+          const array = [];
+          for (let i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+          }
+          const blob = new Blob([new Uint8Array(array)], { type: mime });
+          const file = new File([blob], filename, { type: mime });
+          resolve(file);
+        });
+      };
+
+      // แปลง Base64 เป็น File หากจำเป็น
+      if (this.imagePreviewUrl.startsWith("data:")) {
+        const logoImgFile = await base64ToFile(
+          this.imagePreviewUrl,
+          "logo_img.png"
+        );
+        formData.append("logo_img", logoImgFile);
+      } else {
+        formData.append("logo_img", this.imagePreviewUrl);
+      }
+
       // เพิ่มข้อมูลลงใน FormData
-      formData.append("logo_img", this.imagePreviewUrl); // ตรวจสอบว่าหากเป็น URL ต้องแปลงเป็นไฟล์
       formData.append("name", this.name);
       formData.append("phone", this.phone);
       formData.append("email", this.email);
@@ -714,8 +740,27 @@ export default {
       formData.append("last_name", this.lastName);
       formData.append("id_card_number_front", this.idCard);
       formData.append("id_card_number_back", this.idCardBack.replace(/-/g, ""));
-      formData.append("id_card_number_front_img", this.imageUrl); // ตรวจสอบว่ามีการแปลงเป็นไฟล์หากจำเป็น
-      formData.append("id_card_number_back_img", this.imageUrl2); // ตรวจสอบว่ามีการแปลงเป็นไฟล์หากจำเป็น
+
+      if (this.imageUrl.startsWith("data:")) {
+        const idCardFrontImgFile = await base64ToFile(
+          this.imageUrl,
+          "id_card_number_front_img.png"
+        );
+        formData.append("id_card_number_front_img", idCardFrontImgFile);
+      } else {
+        formData.append("id_card_number_front_img", this.imageUrl);
+      }
+
+      if (this.imageUrl2.startsWith("data:")) {
+        const idCardBackImgFile = await base64ToFile(
+          this.imageUrl2,
+          "id_card_number_back_img.png"
+        );
+        formData.append("id_card_number_back_img", idCardBackImgFile);
+      } else {
+        formData.append("id_card_number_back_img", this.imageUrl2);
+      }
+
       formData.append("pay_method_id", 1);
       formData.append("pay_slug", this.paymentMethod);
 
@@ -723,27 +768,32 @@ export default {
         formData.append("pay_ref_1", this.PROMPTPAYNumber);
       }
 
+      // ฟังก์ชันสำหรับ log ข้อมูลใน FormData
       function logFormData(formData) {
         for (let pair of formData.entries()) {
           console.log(`${pair[0]}: ${pair[1]}`);
         }
       }
       logFormData(formData);
+
       try {
         const token = localStorage.getItem("authToken");
         console.log(token); // log แสดง token
-        // const response = await this.$axios.post(
-        //   "/vendor/register/create",
-        //   formData,
-        //   {
-        //     headers: {
-        //       // "Content-Type": "multipart/form-data", // axios จะตั้งค่าให้เองเมื่อใช้ FormData
-        //       Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
-        //     },
-        //   }
-        // );
-        // alert("สร้างสินค้าได้สำเร็จ");
-        // this.$router.push("/"); // รีไดเรคไปยังหน้า login หลังจาก 1 วินาที
+
+        // ส่งคำขอจริง
+        const response = await this.$axios.post(
+          "/vendor/register/create",
+          formData,
+          {
+            headers: {
+              // axios จะตั้งค่า "Content-Type" เป็น "multipart/form-data" ให้เอง
+              Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
+            },
+          }
+        );
+
+        alert("สร้างสินค้าได้สำเร็จ");
+        this.$router.push("/"); // รีไดเรคไปยังหน้า login
       } catch (error) {
         console.error("There was an error submitting the form", error);
         this.$handleError(error);
