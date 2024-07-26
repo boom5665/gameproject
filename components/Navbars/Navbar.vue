@@ -316,7 +316,7 @@ export default {
             }
           );
           console.log(response);
-          if (response != null) {
+          if (response.data != null) {
             // ตรวจสอบว่า response.id เท่ากับ null หรือ undefined
             this.buttonText = "ดูร้านค้า";
           } else {

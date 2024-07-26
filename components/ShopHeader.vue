@@ -175,7 +175,7 @@ export default {
           date: "14:02 / 31-12-2024",
         },
         {
-          id: 1,
+          id: 2,
           image: require("@/assets/image/goldtap.png"),
           name: "boooo 12 Coupon ROV",
           status: "รอยืนยัน",
