@@ -707,7 +707,7 @@ export default {
         email: this.email,
         address: this.address,
         title_description: this.otherContact,
-        editorContent: this.editorContent,
+        description: this.editorContent,
         first_name: this.firstName,
         last_name: this.lastName,
         id_card_number_front: this.idCard,
@@ -716,7 +716,6 @@ export default {
         id_card_number_back_img: this.imageUrl2,
         pay_method_id: 1,
         pay_slug: this.paymentMethod,
-        consent: this.consent,
         pay_ref_1: this.paymentMethod, // เพิ่มช่องทางรับเงิน
       };
 
