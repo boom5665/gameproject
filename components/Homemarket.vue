@@ -91,6 +91,19 @@ export default {
     const hasRefreshed = localStorage.getItem("hasRefreshed");
 
     if (token) {
+      if (process.client) {
+        if (this.$route.path === "/") {
+          const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
+
+          if (!hasRefreshed) {
+            // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
+            localStorage.setItem("hasRefreshedMarketMyshop", "true");
+
+            // รีเฟรชหน้าเว็บ
+            window.location.reload();
+          }
+        }
+      }
       // ถอดรหัสโทเคนเพื่อดึงข้อมูลผู้ใช้
       const decoded = this.$jwt.decode(token);
       // สมมุติว่า decoded คือ userInfo
