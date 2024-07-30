@@ -637,7 +637,7 @@ export default {
         if (!firstErrorField) firstErrorField = "imageFileInput";
       }
       if (!this.$validate.name(this.name)) {
-        this.errors.name = "ชื่อผู้ใช้ต้องเป็นตัวอักษรและตัวเลข 8-30 ตัวอักษร";
+        this.errors.name = "ชื่อผู้ใช้ต้องเป็นตัวอักษรไทยอังกฤษและตัวเลข 8-30 เว้นวรรคได้แต่ห้ามเว้นวรรคหน้าสุดหลังสุด";
         if (!firstErrorField) firstErrorField = "name";
       }
       if (!this.$validate.password(this.password)) {
@@ -714,7 +714,7 @@ export default {
           }
         });
       }
-      console.log(this.$refs[firstErrorField]);
+      // console.log(this.$refs[firstErrorField]);
       return Object.keys(this.errors).length === 0;
     },
 

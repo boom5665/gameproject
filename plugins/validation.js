@@ -26,7 +26,7 @@ export default ({ app }, inject) => {
     return regex.test(email) && !thaiRegex.test(email);
   };
   const validateName = (name) => {
-    const regex = /^[a-zA-Zก-ฮะ-์\s]{2,30}$/u;
+    const regex = /^(?!\s)(?!.*\s{2,})(?!.*\s$)[a-zA-Z0-9ก-ฮ\s]{2,30}$/u;
     return regex.test(name);
   };
   const validateFirstName = (firstName) => { // แก้ไขชื่อฟังก์ชันเป็น CamelCase
