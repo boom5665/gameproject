@@ -88,8 +88,6 @@ export default {
   },
   mounted() {
     const token = localStorage.getItem("authToken");
-    const hasRefreshed = localStorage.getItem("hasRefreshed");
-
     if (token) {
       if (process.client) {
         if (this.$route.path === "/") {

@@ -68,6 +68,7 @@
                 type="text"
                 id="name"
                 v-model="name"
+                ref="name"
                 :class="{ 'input-error': errors.name }"
               />
               <span v-if="errors.name" class="error-message">{{
@@ -144,6 +145,7 @@
                   class="form-control"
                   id="PROMPTPAYNumber"
                   placeholder="กรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชน"
+                  ref="PROMPTPAYNumber"
                 />
               </div>
             </div>
@@ -181,6 +183,7 @@
                 id="phone"
                 v-model="phone"
                 :class="{ 'input-error': errors.phone }"
+                ref="phone"
               />
               <span v-if="errors.phone" class="error-message">{{
                 errors.phone
@@ -193,6 +196,7 @@
                 id="email"
                 v-model="email"
                 :class="{ 'input-error': errors.email }"
+                ref="email"
               />
               <span v-if="errors.email" class="error-message">{{
                 errors.email
@@ -209,6 +213,7 @@
                 id="address"
                 v-model="address"
                 :class="{ 'input-error': errors.address }"
+                ref="address"
               />
               <span v-if="errors.address" class="error-message">{{
                 errors.address
@@ -231,6 +236,7 @@
                     id="otherContact"
                     v-model="otherContact"
                     :class="{ 'input-error': errors.otherContact }"
+                    ref="otherContact"
                   />
                   <span v-if="errors.otherContact" class="error-message">{{
                     errors.otherContact
@@ -330,6 +336,7 @@
                     id="firstName"
                     v-model="firstName"
                     :class="{ 'input-error': errors.firstName }"
+                    ref="firstName"
                   />
                   <span v-if="errors.firstName" class="error-message">{{
                     errors.firstName
@@ -344,7 +351,9 @@
                     id="lastName"
                     v-model="lastName"
                     :class="{ 'input-error': errors.lastName }"
+                    ref="lastName"
                   />
+
                   <span v-if="errors.lastName" class="error-message">{{
                     errors.lastName
                   }}</span>
@@ -362,6 +371,7 @@
                     id="idCard"
                     v-model="idCard"
                     :class="{ 'input-error': errors.idCard }"
+                    ref="idCard"
                   />
                   <span v-if="errors.idCard" class="error-message">{{
                     errors.idCard
@@ -376,6 +386,7 @@
                     id="idCardBack"
                     v-model="idCardBack"
                     :class="{ 'input-error': errors.idCardBack }"
+                    ref="idCard"
                   />
                   <span v-if="errors.idCardBack" class="error-message">{{
                     errors.idCardBack
@@ -541,6 +552,7 @@ export default {
       qrPROMPTPAYNumber: "",
       qrPROMPTPAYQR: null,
       PROMPTPAYNumber: null,
+      firstErrorField: null,
     };
   },
   watch: {
@@ -618,80 +630,91 @@ export default {
     },
     validateForm() {
       this.errors = {};
+      let firstErrorField = null;
+
       if (!this.imagePreviewUrl) {
         this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
+        if (!firstErrorField) firstErrorField = "imageFileInput";
       }
       if (!this.$validate.name(this.name)) {
         this.errors.name = "ชื่อผู้ใช้ต้องเป็นตัวอักษรและตัวเลข 8-30 ตัวอักษร";
+        if (!firstErrorField) firstErrorField = "name";
       }
       if (!this.$validate.password(this.password)) {
         this.errors.password =
           "รหัสผ่านต้องเป็นตัวอักษรและตัวเลข 8-30 ตัวอักษร";
+        if (!firstErrorField) firstErrorField = "password";
       }
       if (!this.$validate.phone(this.phone)) {
         this.errors.phone = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
+        if (!firstErrorField) firstErrorField = "phone";
       }
       if (!this.$validate.email(this.email)) {
         this.errors.email = "ที่อยู่อีเมลไม่ถูกต้อง";
+        if (!firstErrorField) firstErrorField = "email";
       }
       if (!this.$validate.firstName(this.firstName)) {
         this.errors.firstName = "ชื่อไม่ถูกต้อง";
+        if (!firstErrorField) firstErrorField = "firstName";
       }
       if (!this.$validate.lastName(this.lastName)) {
         this.errors.lastName = "นามสกุลไม่ถูกต้อง";
+        if (!firstErrorField) firstErrorField = "lastName";
       }
       if (!this.$validate.otherContact(this.otherContact)) {
         this.errors.otherContact = "ข้อมูลหัวข้อไม่ถูกต้อง";
+        if (!firstErrorField) firstErrorField = "otherContact";
       }
       if (!this.editorContent) {
         this.errors.editorContent = "ข้อมูลข้อความไม่ถูกต้อง";
+        if (!firstErrorField) firstErrorField = "editorContent";
       }
       if (!this.$validate.idCard(this.idCard)) {
         this.errors.idCard = "หมายเลขบัตรประชาชนไม่ถูกต้อง";
+        if (!firstErrorField) firstErrorField = "idCard";
       }
       if (!this.address) {
         this.errors.address = "ที่อยู่ร้านค้าไม่ถูกต้อง";
+        if (!firstErrorField) firstErrorField = "address";
       }
 
       if (!this.$validate.idCardBack(this.idCardBack)) {
         this.errors.idCardBack = "หมายเลขหลังบัตรประชาชนไม่ถูกต้อง";
+        if (!firstErrorField) firstErrorField = "idCardBack";
       }
 
       if (!this.imageUrl) {
         this.errors.imageUrl = "กรุณาอัปโหลดภาพหน้าบัตรประชาชน";
+        if (!firstErrorField) firstErrorField = "imageUrl";
       }
       if (!this.imageUrl2) {
         this.errors.imageUrl2 = "กรุณาอัปโหลดภาพหลังบัตรประชาชน";
+        if (!firstErrorField) firstErrorField = "imageUrl2";
       }
       if (!this.consent) {
         this.errors.consent = "กรุณายินยอมข้อกำหนดและเงื่อนไข";
+        if (!firstErrorField) firstErrorField = "consent";
       }
-      // if (this.paymentMethod === "bank") {
-      //   if (
-      //     !this.bankDetails.accountName ||
-      //     !this.bankDetails.accountNumber ||
-      //     !this.bankDetails.bank
-      //   ) {
-      //     this.errors.consentcash =
-      //       "กรุณายินยอมข้อกำหนดและกรอกข้อมูลช่องทางรับเงิน สำหรับช่องทางรับเงินแบบบัญชีธนาคาร";
-      //     return;
-      //   }
-      // }else
+
       if (this.paymentMethod === "PROMPTPAY") {
         if (!this.$validate.PROMPTPAYNumber(this.PROMPTPAYNumber)) {
           this.errors.consentcash =
             "กรุณากรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชนเท่านั้น";
-          return;
+          if (!firstErrorField) firstErrorField = "PROMPTPAYNumber";
         }
       }
-      // else if (this.paymentMethod === "qrPROMPTPAY") {
-      //   if (!this.qrPROMPTPAYNumber) {
-      //     this.errors.consentcash =
-      //       "กรุณายินยอมข้อกำหนดและกรอกหมายเลข QR พร้อมเพย์";
-      //     return;
-      //   }
-      // }
 
+      // ถ้ามีข้อผิดพลาด ให้นำฟิลด์แรกที่พบข้อผิดพลาดไปที่หน้าจอ
+      if (firstErrorField) {
+        this.$nextTick(() => {
+          const element = this.$refs[firstErrorField];
+          if (element) {
+            element.focus();
+            element.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        });
+      }
+      console.log(this.$refs[firstErrorField]);
       return Object.keys(this.errors).length === 0;
     },
 
@@ -803,7 +826,6 @@ export default {
           }
         );
         this.$router.push("/MarketMyshop");
-
       } catch (error) {
         console.error("There was an error submitting the form", error);
         this.$handleError(error);
@@ -847,3 +869,28 @@ export default {
     //   // }
 
 
+     // if (this.paymentMethod === "bank") {
+      //   if (
+      //     !this.bankDetails.accountName ||
+      //     !this.bankDetails.accountNumber ||
+      //     !this.bankDetails.bank
+      //   ) {
+      //     this.errors.consentcash =
+      //       "กรุณายินยอมข้อกำหนดและกรอกข้อมูลช่องทางรับเงิน สำหรับช่องทางรับเงินแบบบัญชีธนาคาร";
+      //     return;
+      //   }
+      // }else
+      if (this.paymentMethod === "PROMPTPAY") {
+        if (!this.$validate.PROMPTPAYNumber(this.PROMPTPAYNumber)) {
+          this.errors.consentcash =
+            "กรุณากรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชนเท่านั้น";
+          return;
+        }
+      }
+      // else if (this.paymentMethod === "qrPROMPTPAY") {
+      //   if (!this.qrPROMPTPAYNumber) {
+      //     this.errors.consentcash =
+      //       "กรุณายินยอมข้อกำหนดและกรอกหมายเลข QR พร้อมเพย์";
+      //     return;
+      //   }
+      // }
