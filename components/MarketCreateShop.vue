@@ -494,7 +494,7 @@
               </div>
             </div>
           </div>
-          <div type="submit" class="submit" @click.prevent="handleSubmit">
+          <button type="submit" class="submit" @click.prevent="handleSubmit">
             <div>
               <img
                 class=""
@@ -503,7 +503,7 @@
               />
             </div>
             <div>Submit</div>
-          </div>
+          </button>
         </form>
 
         <Loader :isLoading="isLoading" />
@@ -631,13 +631,26 @@ export default {
     validateForm() {
       this.errors = {};
       let firstErrorField = null;
+      this.name = (this.name || "").trim();
+      this.password = (this.password || "").trim();
+      this.phone = (this.phone || "").trim();
+      this.email = (this.email || "").trim();
+      this.firstName = (this.firstName || "").trim();
+      this.lastName = (this.lastName || "").trim();
+      this.otherContact = (this.otherContact || "").trim();
+      this.editorContent = (this.editorContent || "").trim();
+      this.idCard = (this.idCard || "").trim();
+      this.address = (this.address || "").trim();
+      this.idCardBack = (this.idCardBack || "").trim();
+      this.PROMPTPAYNumber = (this.PROMPTPAYNumber || "").trim();
 
       if (!this.imagePreviewUrl) {
         this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
         if (!firstErrorField) firstErrorField = "imageFileInput";
       }
       if (!this.$validate.name(this.name)) {
-        this.errors.name = "ชื่อผู้ใช้ต้องเป็นตัวอักษรไทยอังกฤษและตัวเลข 8-30 เว้นวรรคได้แต่ห้ามเว้นวรรคหน้าสุดหลังสุด";
+        this.errors.name =
+          "ชื่อร้านค้า ชื้อห้ามซ้ำกับร้านค้าอื่นๆและห้ามน้อยกว่า 8 หลักและไม่มากว่า 100  ";
         if (!firstErrorField) firstErrorField = "name";
       }
       if (!this.$validate.password(this.password)) {
