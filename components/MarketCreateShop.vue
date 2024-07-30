@@ -384,7 +384,7 @@
               </div>
               <div class="dis-input">
                 <div class="dis-left">
-                  <div>
+                  <div style="width: 100%">
                     <label for="imageUrl"
                       >ภาพหน้าบัตรประชาชน <span id="dotstyle">*</span></label
                     >
@@ -427,7 +427,7 @@
                   </div>
                 </div>
                 <div class="dis-left">
-                  <div>
+                  <div style="width: 100%">
                     <label for="imageUrl2"
                       >ภาพหลังบัตรประชาชน <span id="dotstyle">*</span></label
                     >
@@ -472,10 +472,10 @@
                 <label class="container">
                   <input type="checkbox" v-model="consent" />
                   <div class="checkmark"></div>
-                  <label for="consent" class="checkbox-label">
+                  <div for="consent" class="checkbox-label">
                     ฉันยินยอมให้เว็บไซต์ส่งข้อมูลเกี่ยวกับผลิตภัณฑ์และบริการ
                     ผ่านช่องทางการติดต่อของฉันตามข้อกำหนดและเงื่อนไข
-                  </label>
+                  </div>
                 </label>
                 <span v-if="errors.consent" class="error-message">{{
                   errors.consent
@@ -792,7 +792,8 @@ export default {
           }
         );
 
-        alert("สร้างสินค้าได้สำเร็จ");
+        alert("สร้างร้านค้าได้สำเร็จ");
+
         this.$router.push("/"); // รีไดเรคไปยังหน้า login
       } catch (error) {
         console.error("There was an error submitting the form", error);
@@ -807,6 +808,17 @@ export default {
 </script>
 
 <style scoped>
+.preview {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-img {
+  width: 25%;
+  margin: 0px 0px 0px;
+  height: 70px;
+}
 </style>
 
 

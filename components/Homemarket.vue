@@ -91,13 +91,15 @@ export default {
     const hasRefreshed = localStorage.getItem("hasRefreshed");
 
     if (token) {
+      // ตรวจสอบว่าเราได้รีเฟรชหน้าแล้วหรือไม่
+    
       if (!hasRefreshed) {
+        // ถอดรหัสโทเคนเพื่อดึงข้อมูลผู้ใช้
         const decoded = this.$jwt.decode(token);
         // สมมุติว่า decoded คือ userInfo
         const { authen_code, id, permission } = decoded; // ใช้ decoded แทน userInfo
+        console.log("authen", authen_code, "id", id, "สิทธิ", permission);
         if (decoded) {
-          console.log("authen", authen_code, "id", id, "สิทธิ", permission);
-
           // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
           localStorage.setItem("hasRefreshed", "true");
 
@@ -108,19 +110,22 @@ export default {
     } else {
       console.log("No token found");
     }
+
+    // ดึงข้อมูลหลังจากรีเฟรชหน้า
+    // this.fetchData();
   },
   methods: {
     async fetchData() {
       try {
-        const response = await this.$axios.$get("/list/marketplace/home");
+        const response = await this.$axios.$get("/product/home/list/read");
         console.log(response);
         if (response.code === 200) {
           const { recommended, sale, trending } = response.data.Itemlist;
           const { topshop, game } = response.data.Product;
           this.recommended = recommended.map((item) => ({
             id: item.id,
-            logoSrc: item.item_img_main,
-            title: item.market_name,
+            img: item.item_img_main,
+            name: item.market_name,
             loveSrc: require("@/assets/image/love2.png"),
             loveCount: item.like,
             imageSrc: item.item_img_main,
@@ -128,6 +133,12 @@ export default {
             description: item.item_name,
             price: item.price,
             cartSrc: require("@/assets/image/addcart.png"),
+            priority: 0,
+            is_public: true,
+            available_start_at: time,
+            available_end_at: time,
+            product_list: list,
+            total_count: total,
           }));
           this.itemssale = sale.map((item) => ({
             id: item.id,

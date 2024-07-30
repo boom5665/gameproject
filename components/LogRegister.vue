@@ -4,84 +4,89 @@
       <div class="form-create">
         <div style="width: 100%">
           <div class="font-form-pak">สมัครสมาชิก</div>
-          <div class="dis-input">
-            <div class="w-input">
-              <label for="username">
-                ชื่อผู้ใช้ <span id="dotstyle">*</span>
-              </label>
-              <input
-                type="text"
-                id="username"
-                v-model="username"
-                placeholder="กรุณากรอกชื่อผู้ใช้"
-              />
-              <span v-if="errors.username" class="error">{{
-                errors.username
-              }}</span>
-            </div>
-            <div class="w-input">
-              <label for="password">
-                รหัสผ่าน <span id="dotstyle">*</span>
-              </label>
-              <div class="password-container">
+          <form action="">
+            <div class="dis-input">
+              <div class="w-input">
+                <label for="username">
+                  ชื่อผู้ใช้ <span id="dotstyle">*</span>
+                </label>
                 <input
-                  :type="showPassword ? 'text' : 'password'"
-                  id="password"
-                  v-model="password"
-                  placeholder="กรุณากรอกรหัสผ่าน"
+                  type="text"
+                  id="username"
+                  v-model="username"
+                  placeholder="กรุณากรอกชื่อผู้ใช้"
                 />
-                <div
-                  @click="togglePasswordVisibility"
-                  type="button"
-                  class="toggle-password-btn"
-                >
-                  <img
-                    :src="
-                      showPassword
-                        ? require('~/assets/image/eye.png')
-                        : require('~/assets/image/eyeclose.png')
-                    "
-                    alt="Toggle Password Visibility"
-                  />
-                </div>
+                <span v-if="errors.username" class="error">{{
+                  errors.username
+                }}</span>
               </div>
-              <span v-if="errors.password" class="error">{{
-                errors.password
-              }}</span>
+              <div class="w-input">
+                <label for="password">
+                  รหัสผ่าน <span id="dotstyle">*</span>
+                </label>
+                <div class="password-container">
+                  <input
+                    :type="showPassword ? 'text' : 'password'"
+                    id="password"
+                    v-model="password"
+                    placeholder="กรุณากรอกรหัสผ่าน"
+                  />
+                  <div
+                    @click="togglePasswordVisibility"
+                    type="button"
+                    class="toggle-password-btn"
+                  >
+                    <img
+                      :src="
+                        showPassword
+                          ? require('~/assets/image/eye.png')
+                          : require('~/assets/image/eyeclose.png')
+                      "
+                      alt="Toggle Password Visibility"
+                    />
+                  </div>
+                </div>
+                <span v-if="errors.password" class="error">{{
+                  errors.password
+                }}</span>
+              </div>
             </div>
-          </div>
-          <div class="dis-input">
-            <div class="w-input">
-              <label for="phone">
-                เบอร์โทรศัพท์ <span id="dotstyle">*</span>
-              </label>
-              <input
-                type="text"
-                id="phone"
-                v-model="phone"
-                placeholder="กรุณากรอกเบอร์โทรศัพท์"
-              />
-              <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
+            <div class="dis-input">
+              <div class="w-input">
+                <label for="phone">
+                  เบอร์โทรศัพท์ <span id="dotstyle">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="phone"
+                  v-model="phone"
+                  placeholder="กรุณากรอกเบอร์โทรศัพท์"
+                />
+                <span v-if="errors.phone" class="error">{{
+                  errors.phone
+                }}</span>
+              </div>
+              <div class="w-input">
+                <label for="email"> อีเมล <span id="dotstyle">*</span> </label>
+                <input
+                  type="text"
+                  id="email"
+                  v-model="email"
+                  placeholder="กรุณากรอกอีเมล"
+                />
+                <span v-if="errors.email" class="error">{{
+                  errors.email
+                }}</span>
+              </div>
             </div>
-            <div class="w-input">
-              <label for="email"> อีเมล <span id="dotstyle">*</span> </label>
-              <input
-                type="text"
-                id="email"
-                v-model="email"
-                placeholder="กรุณากรอกอีเมล"
-              />
-              <span v-if="errors.email" class="error">{{ errors.email }}</span>
-            </div>
-          </div>
-          <button
-            type="submit"
-            class="submit button-pro-edit"
-            @click.prevent="submitData"
-          >
-            สมัครสมาชิก
-          </button>
-
+            <button
+              type="submit"
+              class="submit button-pro-edit"
+              @click.prevent="submitData"
+            >
+              สมัครสมาชิก
+            </button>
+          </form>
           <!-- loader -->
           <Loader :isLoading="isLoading" />
 

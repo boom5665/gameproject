@@ -175,7 +175,7 @@
         </div>
       </div>
 
-      <div id="mySidenavtop" class="sidenav">
+      <!-- <div id="mySidenavtop" class="sidenav">
         <div class="" style="height: 100%">
           <a href="javascript:void(0)" class="closebtn" @click="closeNav">
             <div class="font-top-close">ตระกร้า</div>
@@ -248,7 +248,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -257,123 +257,68 @@
 export default {
   data() {
     return {
-      products: [
-        {
-          id: 1,
-          name: "Razer Gold",
-          imageUrl: require("@/assets/image/cardgold.png"),
-          description: "Top up Razer Gold",
-          category: "Digital",
-          quantity: 1,
-          price: 9999,
-        },
-        {
-          id: 2,
-          name: "Steam Wallet",
-          imageUrl: require("@/assets/image/cardgold.png"),
-          description: "Top up Steam Wallet",
-          category: "Digital",
-          quantity: 1,
-          price: 3000,
-        },
-        {
-          id: 3,
-          name: "Valorant Points",
-          imageUrl: require("@/assets/image/cardgold.png"),
-          description: "Buy Valorant Points",
-          category: "In-Game Currency",
-          quantity: 1,
-          price: 5000,
-        },
-      ],
       token: null,
-      buttonText: "", // ค่าเริ่มต้นของปุ่มเป็นค่าว่าง
+      buttonText: "",
     };
   },
-  computed: {
-    totalAmount() {
-      return this.products.reduce((total, product) => {
-        return total + product.price * product.quantity;
-      }, 0);
-    },
-  },
+
   async mounted() {
     this.token = localStorage.getItem("authToken");
-    await this.fetchProfileData();
+    if (this.token) {
+      await this.fetchProfileData();
+    }
   },
 
   methods: {
     async fetchProfileData() {
-      if (this.token) {
-        try {
-          const response = await this.$axios.$post(
-            "/vendor/profile/me/read",
-            {},
-            {
-              headers: {
-                Authorization: `Bearer ${this.token}`,
-              },
-            }
-          );
-          console.log(response);
-          if (response.data != null) {
-            // ตรวจสอบว่า response.id เท่ากับ null หรือ undefined
-            this.buttonText = "ดูร้านค้า";
-          } else {
-            this.buttonText = "สร้างร้านค้า"; // ทำให้ปุ่มหายไปเมื่อมีข้อมูล
-          }
-        } catch (error) {
-          console.error("Error fetching profile data:", error);
-        }
-      } else {
+      if (!this.token) {
         console.log("No token found");
+        return;
+      }
+
+      try {
+        const response = await this.$axios.$post(
+          "/vendor/profile/me/read",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          }
+        );
+
+        console.log(response);
+        console.log(this.token);
+
+        if (response.data) {
+          this.buttonText = "ดูร้านค้า";
+        } else {
+          this.buttonText = "สร้างร้านค้า";
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
       }
     },
+
     handleNavigation() {
       if (this.buttonText === "ดูร้านค้า") {
         if (this.token) {
-          this.$router.push("/MarketMyshop"); // นำทางไปยังหน้า MarketMyAdd
+          this.$router.push("/MarketMyshop");
         } else {
-          alert("กรุณาสร้างสินค้าก่อน"); // แสดงข้อความแจ้งเตือน
-          this.$router.push("/MarketCreateShop"); // นำทางไปยังหน้า MarketCreateShop
+          alert("กรุณาสร้างสินค้าก่อน");
+          this.$router.push("/MarketCreateShop");
         }
       } else if (this.buttonText === "สร้างร้านค้า") {
-        this.$router.push("/MarketCreateShop"); // นำทางไปยังหน้า MarketCreateShop
+        this.$router.push("/MarketCreateShop");
       }
     },
+
     logout() {
       // ลบโทเคนออกจาก localStorage และรีเซ็ตค่า token
       localStorage.removeItem("authToken");
       this.token = null;
-
-      // รีโหลดหน้าเว็บ
-      window.location.reload();
-
-      // ตั้งเวลา 500 มิลลิวินาทีแล้วนำทางไปยังหน้า /login
-      setTimeout(() => {
-        this.$router.push("/login");
-      }, 500);
-    },
-    openNav() {
-      // เปิดเมนูด้านข้าง
-      document.getElementById("mySidenavtop").style.width = "400px";
-      document.getElementById("mySidenavtop").style.right = "0px";
-    },
-    closeNav() {
-      // ปิดเมนูด้านข้าง
-      document.getElementById("mySidenavtop").style.width = "0";
-      document.getElementById("mySidenavtop").style.right = "-50px";
-    },
-    increaseQuantity(product) {
-      product.quantity += 1;
-    },
-    decreaseQuantity(product) {
-      if (product.quantity > 1) {
-        product.quantity -= 1;
-      }
-    },
-    removeProduct(product) {
-      this.products = this.products.filter((p) => p.id !== product.id);
+      this.buttonText = ""; // รีเซ็ตข้อความปุ่ม
+      this.$router.push("/login");
     },
   },
 };
@@ -427,3 +372,51 @@ export default {
   justify-content: space-between;
 }
 </style>
+
+
+
+ data() {
+    return {
+      products: [
+        {
+          id: 1,
+          name: "Razer Gold",
+          imageUrl: require("@/assets/image/cardgold.png"),
+          description: "Top up Razer Gold",
+          category: "Digital",
+          quantity: 1,
+          price: 9999,
+        },
+      ],
+      token: null,
+      buttonText: "", // ค่าเริ่มต้นของปุ่มเป็นค่าว่าง
+    };
+  },
+  computed: {
+    // totalAmount() {
+    //   return this.products.reduce((total, product) => {
+    //     return total + product.price * product.quantity;
+    //   }, 0);
+    // },
+  },
+    // openNav() {
+    //   // เปิดเมนูด้านข้าง
+    //   document.getElementById("mySidenavtop").style.width = "400px";
+    //   document.getElementById("mySidenavtop").style.right = "0px";
+    // },
+    // closeNav() {
+    //   // ปิดเมนูด้านข้าง
+    //   document.getElementById("mySidenavtop").style.width = "0";
+    //   document.getElementById("mySidenavtop").style.right = "-50px";
+    // },
+    // increaseQuantity(product) {
+    //   product.quantity += 1;
+    // },
+    // decreaseQuantity(product) {
+    //   if (product.quantity > 1) {
+    //     product.quantity -= 1;
+    //   }
+    // },
+    // removeProduct(product) {
+    //   this.products = this.products.filter((p) => p.id !== product.id);
+    // },

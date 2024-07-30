@@ -5,43 +5,42 @@
         <div class="form-create">
           <div class="font-form-pak">เข้าสู่ระบบ</div>
           <div class="dis-input-box">
-            <div class="dis-input">
-              <div class="w-input">
-                <input
-                  type="text"
-                  id="Emailphone"
-                  v-model="Emailphone"
-                  placeholder="ชื่อผู้ใช้"
-                />
-                <span v-if="errors.Emailphone" class="error">
-                  {{ errors.Emailphone }}
-                </span>
+            <form >
+              <div class="dis-input">
+                <div class="w-input">
+                  <input
+                    type="text"
+                    id="Emailphone"
+                    v-model="Emailphone"
+                    placeholder="ชื่อผู้ใช้"
+                  />
+                  <span v-if="errors.Emailphone" class="error">
+                    {{ errors.Emailphone }}
+                  </span>
+                </div>
               </div>
-            </div>
-            <div class="dis-input">
-              <div class="w-input">
-                <input
-                  :type="showPassword ? 'text' : 'password'"
-                  id="Password"
-                  v-model="Password"
-                  placeholder="รหัสผ่าน"
-                />
-                <!-- <button @click="togglePasswordVisibility" type="button">
+              <div class="dis-input">
+                <div class="w-input">
+                  <input
+                    :type="showPassword ? 'text' : 'password'"
+                    id="Password"
+                    v-model="Password"
+                    placeholder="รหัสผ่าน"
+                  />
+                  <!-- <button @click="togglePasswordVisibility" type="button">
                   {{ showPassword ? "Hide" : "Show" }}
                 </button> -->
-                <span v-if="errors.Password" class="error">
-                  {{ errors.Password }}
-                </span>
+                  <span v-if="errors.Password" class="error">
+                    {{ errors.Password }}
+                  </span>
+                </div>
               </div>
-            </div>
+
+              <button type="submit" class="submit button-pro-edit"  @click.prevent="submitData">
+                เข้าสู่ระบบ
+              </button>
+            </form>
             <Loader :isLoading="isLoading" />
-            <button
-              type="submit"
-              class="submit button-pro-edit"
-              @click.prevent="submitData"
-            >
-              เข้าสู่ระบบ
-            </button>
             <div style="margin: 10px">
               <Nuxt-link class="text-profile" to="/LogForget" target="_self">
                 <span class="font-top-myshop">ลืมรหัสผ่าน ? </span></Nuxt-link

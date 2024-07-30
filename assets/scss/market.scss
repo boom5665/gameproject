@@ -410,8 +410,8 @@
     position: relative;
     top: 0;
     left: 0;
-    height: 1.3em;
-    width: 1.3em;
+    height: 1.5em;
+    width: 1.5em;
     transition: 300ms;
     border-radius: var(--Border-radius-6, 6px);
     margin-right: 10px;
@@ -421,7 +421,7 @@
   /* When the checkbox is checked, add a blue background */
   .container input:checked~.checkmark {
     background-color: var(--clr);
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
     animation: pulse 500ms ease-in-out;
   }
 
@@ -439,34 +439,35 @@
 
   /* Style the checkmark/indicator */
   .container .checkmark:after {
-    left: 0.54em;
-    top: 0.25em;
-    width: 0.25em;
-    height: 0.5em;
+    transform: rotate(45deg);
+    left: 0.5em;
+    top: 0.2em;
+    width: 0.4em;
+    height: 0.8em;
     border: solid $Primary-Pueple-500;
     border-width: 0 0.15em 0.15em 0;
     transform: rotate(45deg);
   }
 
-  @keyframes pulse {
-    0% {
-      box-shadow: 0 0 0 #815fe0;
-      rotate: 20deg;
-    }
+  // @keyframes pulse {
+  //   0% {
+  //     // box-shadow: 0 0 0 #815fe0;
+  //     // rotate: 20deg;
+  //   }
 
-    50% {
-      rotate: -20deg;
-    }
+  //   50% {
+  //     // rotate: -20deg;
+  //   }
 
-    75% {
-      box-shadow: 0 0 0 10px #bba7f1;
-    }
+  //   75% {
+  //     // box-shadow: 0 0 0 10px #bba7f1;
+  //   }
 
-    100% {
-      box-shadow: 0 0 0 13px #b198f7;
-      rotate: 0;
-    }
-  }
+  //   100% {
+  //     // box-shadow: 0 0 0 13px #b198f7;
+  //     // rotate: 0;
+  //   }
+  // }
 
   .checkbox-label {
     font-size: 17px;
@@ -1185,7 +1186,7 @@
   }
 }
 
-.maketcreateshop{
+.maketcreateshop {
   .box-other {
     width: 100%;
     border: 1px solid #bababa;
@@ -1193,14 +1194,17 @@
     border-radius: 6px;
     margin: 10px 0px;
   }
+
   .box-other-content {
     width: 10%;
     text-align: right;
     margin-right: 20px;
   }
+
   .input-error {
     border-color: red;
   }
+
   .valid {
     color: green !important;
     font-size: 12px;
@@ -1209,14 +1213,17 @@
   .invalid {
     color: red;
   }
+
   .error-message {
     color: red;
     font-size: 12px;
   }
+
   .profile-img {
     width: 100%;
     height: auto;
   }
+
   .profile-img-main {
     border-radius: 6px;
     border: 1px dashed #d00;
@@ -1231,25 +1238,31 @@
     margin: 15px 5px;
     height: 150px;
   }
+
   .profile-img {
     width: 100%;
     margin: 0px 0px 0px;
+    height: 170px;
   }
+
   .dis-input {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 0px;
   }
+
   .preview {
     width: 100%;
   }
+
   .img-edit {
     width: 100px;
     height: 100px;
     margin: 0px 0px;
     cursor: pointer;
   }
+
   .edit-icon {
     position: absolute;
     bottom: 0px;
@@ -1258,9 +1271,11 @@
     height: 30px;
     cursor: pointer;
   }
+
   img {
     cursor: pointer;
   }
+
   .pro-img {
     display: flex;
     justify-content: center;
