@@ -71,10 +71,22 @@
 
 <script>
 export default {
-  data() {
-    return {};
+  mounted() {
+    if (process.client) {
+      // ตรวจสอบว่า URL ปัจจุบันตรงกับ /MarketMyshop หรือไม่
+      if (this.$route.path === "/MarketMyshop") {
+        const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
+
+        if (!hasRefreshed) {
+          // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
+          localStorage.setItem("hasRefreshedMarketMyshop", "true");
+
+          // รีเฟรชหน้าเว็บ
+          window.location.reload();
+        }
+      }
+    }
   },
-  methods: {},
 };
 </script>
 

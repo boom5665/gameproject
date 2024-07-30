@@ -271,10 +271,10 @@ export default {
 
   methods: {
     async fetchProfileData() {
-      if (!this.token) {
-        console.log("No token found");
-        return;
-      }
+      // if (!this.token) {
+      //   console.log("No token found");
+      //   return;
+      // }
 
       try {
         const response = await this.$axios.$post(

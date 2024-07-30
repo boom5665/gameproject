@@ -3,7 +3,7 @@
     <div class="navtabs maketcreateshop">
       <div class="form-create">
         <div class="font-top">สร้างร้านค้า</div>
-        <form @submit.prevent="handleSubmit">
+        <form>
           <div class="pro-img">
             <div>
               <div class="font-form-add"></div>
@@ -493,8 +493,9 @@
             </div>
             <div>Submit</div>
           </div>
-          <Loader :isLoading="isLoading" />
         </form>
+
+        <Loader :isLoading="isLoading" />
       </div>
     </div>
   </div>
@@ -780,21 +781,29 @@ export default {
         const token = localStorage.getItem("authToken");
         console.log(token); // log แสดง token
 
-        // ส่งคำขอจริง
-        const response = await this.$axios.post(
-          "/vendor/register/create",
-          formData,
+        // ส่งคำขอสร้างร้านค้า
+        await this.$axios.post("/vendor/register/create", formData, {
+          headers: {
+            // axios จะตั้งค่า "Content-Type" เป็น "multipart/form-data" ให้เอง
+            Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
+          },
+        });
+
+        // แสดง alert หลังจากสร้างร้านค้าเสร็จ
+        alert("สร้างร้านค้าได้สำเร็จ");
+
+        // ดึงข้อมูลโปรไฟล์หลังจากแสดง alert
+        const profileResponse = await this.$axios.$post(
+          "/vendor/profile/me/read",
+          {},
           {
             headers: {
-              // axios จะตั้งค่า "Content-Type" เป็น "multipart/form-data" ให้เอง
-              Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
+              Authorization: `Bearer ${token}`,
             },
           }
         );
+        this.$router.push("/MarketMyshop");
 
-        alert("สร้างร้านค้าได้สำเร็จ");
-
-        this.$router.push("/"); // รีไดเรคไปยังหน้า login
       } catch (error) {
         console.error("There was an error submitting the form", error);
         this.$handleError(error);

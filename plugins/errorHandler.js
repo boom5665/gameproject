@@ -4,7 +4,7 @@ export default ({ app }, inject) => {
       const errorData = error.response.data;
       const statusCode = error.response.status;
 
-      if (statusCode === 404) {
+      if (statusCode === 404 || statusCode === 406) {
         alert("ไม่พบ URL ที่ร้องขอ");
       } else if (errorData.code === 50001) {
         alert("กรุณากรอกยูสเซอร์เนมไม่ต่ำกว่า 4 ตัวอักษรและไม่เกิน 12 ตัวอักษร");
@@ -18,7 +18,8 @@ export default ({ app }, inject) => {
         alert("เบอร์นี้มีผู้ใช้งานแล้ว");
       } else if (errorData.code === 3011) {
         alert("พบอีเมลซ้ำ ไม่สามารถอัพเดตได้กรุณาเปลี่ยนอีเมล");
-
+      } else if (errorData.code === 10008) {
+        alert("ชื่อร้านค้านี้มีผู้ใช้แล้ว");
       } else if (errorData.code === 50002) {
         alert("กรุณากรอกเบอร์โทรให้ตรงตามรูปแบบ");
       } else {
