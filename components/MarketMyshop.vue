@@ -77,6 +77,7 @@ export default {
       if (this.$route.path === "/MarketMyshop") {
         const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
 
+        console.log(hasRefreshed);
         if (!hasRefreshed) {
           // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
           localStorage.setItem("hasRefreshedMarketMyshop", "true");

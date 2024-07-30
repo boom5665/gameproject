@@ -287,8 +287,8 @@ export default {
           }
         );
 
-        console.log(response);
-        console.log(this.token);
+        // console.log(response);
+        // console.log(this.token);
 
         if (response.data) {
           this.buttonText = "ดูร้านค้า";

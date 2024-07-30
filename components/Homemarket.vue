@@ -91,22 +91,12 @@ export default {
     const hasRefreshed = localStorage.getItem("hasRefreshed");
 
     if (token) {
-      // ตรวจสอบว่าเราได้รีเฟรชหน้าแล้วหรือไม่
-    
-      if (!hasRefreshed) {
-        // ถอดรหัสโทเคนเพื่อดึงข้อมูลผู้ใช้
-        const decoded = this.$jwt.decode(token);
-        // สมมุติว่า decoded คือ userInfo
-        const { authen_code, id, permission } = decoded; // ใช้ decoded แทน userInfo
-        console.log("authen", authen_code, "id", id, "สิทธิ", permission);
-        if (decoded) {
-          // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
-          localStorage.setItem("hasRefreshed", "true");
+      // ถอดรหัสโทเคนเพื่อดึงข้อมูลผู้ใช้
+      const decoded = this.$jwt.decode(token);
+      // สมมุติว่า decoded คือ userInfo
 
-          // รีเฟรชหน้าใหม่ทั้งหมด
-          window.location.reload();
-        }
-      }
+      const { authen_code, id, permission } = decoded; // ใช้ decoded แทน userInfo
+      console.log("authen", authen_code, "id", id, "สิทธิ", permission);
     } else {
       console.log("No token found");
     }
