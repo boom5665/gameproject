@@ -16,7 +16,7 @@
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid $Primary-Pueple-500;
-    background: var(--Color-Secondary-500, #ffeb3b) !important;
+    background: $Yellow-color !important;
     color: $Primary-Pueple-500 !important;
   }
 
@@ -95,7 +95,7 @@
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid $Primary-Pueple-500;
-    background: var(--Color-Secondary-500, #ffeb3b) !important;
+    background: $Yellow-color !important;
     color: $Primary-Pueple-500;
   }
 
@@ -115,18 +115,20 @@
   }
 }
 
-.forget{
+.forget {
   .font-top-myshop {
     font-size: 18px;
     color: #bababa !important;
     text-decoration-line: none;
   }
+
   .form-create {
     display: flex;
     flex-direction: row;
     width: 100%;
     padding: 0px 0px 0px 0px;
   }
+
   .dis-input-box {
     position: relative;
     padding: 10px 80px;
@@ -213,6 +215,10 @@
     background: $Yellow-color;
     color: $Primary-Pueple-500;
     ;
+  }
+
+  .bottom-y:hover {
+    background-color: #d4ac0d;
   }
 
   .expstyle {
@@ -311,8 +317,12 @@
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid $Primary-Pueple-500;
-    background: var(--Color-Secondary-500, #ffeb3b) !important;
+    background: $Yellow-color !important;
     color: $Primary-Pueple-500;
+  }
+
+  .button-pro-edit:hover {
+    background-color: #d4ac0d;
   }
 
   .M-Create-Backgroud .font-top-myshop {
@@ -335,7 +345,7 @@
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid $Primary-Pueple-500;
-    background: var(--Color-Secondary-500, #ffeb3b) !important;
+    background: $Yellow-color !important;
     color: $Primary-Pueple-500;
   }
 
@@ -361,7 +371,7 @@
   .button-pro-edit {
     border-radius: var(--Border-radius-8, 8px);
     border: 1px solid $Primary-Pueple-500;
-    background: var(--Color-Secondary-500, #ffeb3b) !important;
+    background: $Yellow-color !important;
     color: $Primary-Pueple-500;
   }
 

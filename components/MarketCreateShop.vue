@@ -562,6 +562,40 @@ export default {
         /(\w{2})(\d{4})(\d{4})(\d{2})/,
         "$1-$2-$3-$4"
       );
+      this.idCardBack = newVal.trim();
+    },
+    name(newVal) {
+      this.name = newVal.trim();
+    },
+    password(newVal) {
+      this.password = newVal.trim();
+    },
+    phone(newVal) {
+      this.phone = newVal.trim();
+    },
+    email(newVal) {
+      this.email = newVal.trim();
+    },
+    firstName(newVal) {
+      this.firstName = newVal.trim();
+    },
+    lastName(newVal) {
+      this.lastName = newVal.trim();
+    },
+    otherContact(newVal) {
+      this.otherContact = newVal.trim();
+    },
+    editorContent(newVal) {
+      this.editorContent = newVal.trim();
+    },
+    idCard(newVal) {
+      this.idCard = newVal.trim();
+    },
+    address(newVal) {
+      this.address = newVal.trim();
+    },
+    PROMPTPAYNumber(newVal) {
+      this.PROMPTPAYNumber = newVal.trim();
     },
   },
   methods: {
@@ -631,19 +665,6 @@ export default {
     validateForm() {
       this.errors = {};
       let firstErrorField = null;
-      this.name = (this.name || "").trim();
-      this.password = (this.password || "").trim();
-      this.phone = (this.phone || "").trim();
-      this.email = (this.email || "").trim();
-      this.firstName = (this.firstName || "").trim();
-      this.lastName = (this.lastName || "").trim();
-      this.otherContact = (this.otherContact || "").trim();
-      this.editorContent = (this.editorContent || "").trim();
-      this.idCard = (this.idCard || "").trim();
-      this.address = (this.address || "").trim();
-      this.idCardBack = (this.idCardBack || "").trim();
-      this.PROMPTPAYNumber = (this.PROMPTPAYNumber || "").trim();
-
       if (!this.imagePreviewUrl) {
         this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
         if (!firstErrorField) firstErrorField = "imageFileInput";

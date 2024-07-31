@@ -1,60 +1,63 @@
 <template>
-  <div class="order-list">
-    <!-- เพิ่ม input สำหรับการค้นหา -->
+  <div>
     <div>
       <input v-model="searchQuery" placeholder="ค้นหาสินค้า..." />
     </div>
-    <div>รายการคำสั่งซื้อ</div>
-    <table class="order-table">
-      <thead>
-        <tr>
-          <th>ภาพสินค้า</th>
-          <th>ชื่อสินค้า</th>
-          <th>สถานะ</th>
-          <th>ยอด</th>
-          <th>เวลา/วันที่</th>
-          <th>ตรวจสอบรายการ</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in filteredOrderItems" :key="item.id">
-          <td><img :src="item.image" alt="Product Image" /></td>
-          <td>{{ item.name }}</td>
-          <td>
-            <span class="status pending">{{ item.status }}</span>
-          </td>
-          <td>
-            <span class="color-am">{{ item.amount }}</span>
-          </td>
-          <td>{{ item.date }}</td>
-          <td><button class="check-button">ตรวจสอบ</button></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="order-list">
+      <!-- เพิ่ม input สำหรับการค้นหา -->
 
-    <div>รายการที่ยืนยันแล้ว</div>
-    <table class="order-table">
-      <thead class="thead-sale">
-        <tr>
-          <th>ภาพสินค้า</th>
-          <th>ชื่อสินค้า</th>
-          <th>สถานะ</th>
-          <th>ยอด</th>
-          <th>เวลา/วันที่</th>
-        </tr>
-      </thead>
-      <tbody class="thead-saletb">
-        <tr v-for="purchasedItem in purchasedItems" :key="purchasedItem.id">
-          <td><img :src="purchasedItem.image" alt="Product Image" /></td>
-          <td>{{ purchasedItem.name }}</td>
-          <td>{{ purchasedItem.status }}</td>
-          <td>
-            {{ purchasedItem.amount }}
-          </td>
-          <td>{{ purchasedItem.date }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <div>รายการคำสั่งซื้อ</div>
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>ภาพสินค้า</th>
+            <th>ชื่อสินค้า</th>
+            <th>สถานะ</th>
+            <th>ยอด</th>
+            <th>เวลา/วันที่</th>
+            <th>ตรวจสอบรายการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in filteredOrderItems" :key="item.id">
+            <td><img :src="item.image" alt="Product Image" /></td>
+            <td>{{ item.name }}</td>
+            <td>
+              <span class="status pending">{{ item.status }}</span>
+            </td>
+            <td>
+              <span class="color-am">{{ item.amount }}</span>
+            </td>
+            <td>{{ item.date }}</td>
+            <td><button class="check-button">ตรวจสอบ</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div>รายการที่ยืนยันแล้ว</div>
+      <table class="order-table">
+        <thead class="thead-sale">
+          <tr>
+            <th>ภาพสินค้า</th>
+            <th>ชื่อสินค้า</th>
+            <th>สถานะ</th>
+            <th>ยอด</th>
+            <th>เวลา/วันที่</th>
+          </tr>
+        </thead>
+        <tbody class="thead-saletb">
+          <tr v-for="purchasedItem in purchasedItems" :key="purchasedItem.id">
+            <td><img :src="purchasedItem.image" alt="Product Image" /></td>
+            <td>{{ purchasedItem.name }}</td>
+            <td>{{ purchasedItem.status }}</td>
+            <td>
+              {{ purchasedItem.amount }}
+            </td>
+            <td>{{ purchasedItem.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
