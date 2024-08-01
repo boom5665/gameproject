@@ -1,16 +1,16 @@
 <!-- Slider.vue -->
 <template>
-  <div class="slider-container slider">
+  <div class="slider-container">
     <!-- Slider -->
     <div class="slider" ref="slider">
       <slide-item v-for="item in items" :key="item.id" :item="item" />
     </div>
     <!-- ปุ่มนำทาง -->
     <div class="center-flex">
-      <button class="left" id="arrow-left" @click="slide('left')">
+      <button class="botton left" id="arrow-left" @click="slide('left')">
         <img src="~/assets/image/arrow-left.png" alt="" />
       </button>
-      <button class="right" id="arrow-right" @click="slide('right')">
+      <button class="botton right" id="arrow-right" @click="slide('right')">
         <img src="~/assets/image/arrow-right.png" alt="" />
       </button>
     </div>
@@ -90,3 +90,28 @@ export default {
 };
 </script>
 
+
+<style>
+.center-flex {
+  display: flex;
+  justify-content: center;
+}
+.botton {
+  cursor: pointer;
+  color: black;
+  background: transparent;
+  border: none;
+}
+.right {
+  position: relative;
+  right: -45px;
+  top: 20px;
+  z-index: 100;
+}
+.left {
+  position: relative;
+  left: -45px;
+  top: 20px;
+  z-index: 100;
+}
+</style>

@@ -2,8 +2,8 @@
   <div class="slider-container slider-game">
     <div class="slider" ref="slider">
       <div class="tpn_game" v-for="item in items" :key="item.id">
-        <img :src="item.imageSrc" class="tpn_cardimg" />
-        <div class="content-game-under">{{ item.subtitle }}</div>
+        <img :src="item.img" class="tpn_cardimg" />
+        <div class="content-game-under">{{ item.name }}</div>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@ export default {
     $slider.slick({
       infinite: true,
       speed: 300,
-      slidesToShow: 4, // Default number of slides to show
+      slidesToShow: 1, // Default number of slides to show
       adaptiveHeight: true,
       autoplay: true,
       autoplaySpeed: 5000,
