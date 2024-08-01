@@ -842,7 +842,6 @@ export default {
       } catch (error) {
         console.error("There was an error submitting the form", error);
         this.$handleError(error);
-        alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
       } finally {
         this.isLoading = false; // ซ่อน loader ทั้งในกรณีสำเร็จและข้อผิดพลาด
       }
