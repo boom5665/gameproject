@@ -73,11 +73,79 @@ export default {
   components: { Slider, HomeCardSlidergame, HomeCorousalBanner },
   data() {
     return {
+      page: 0,
+      limit: 0,
+      page_count: 0,
+      data_count: 0,
+      data_list: [
+        {
+          types_product_list: [
+            {
+              id: 0,
+              name: "",
+              img: "",
+              description: "",
+              priority: 0,
+              is_public: false,
+              available_start_at: "",
+              available_end_at: "",
+              product_list: [
+                {
+                  id: 0,
+                  name: 0,
+                  img: "",
+                  img_list: [
+                    {
+                      id: 0,
+                      img: "",
+                      name: "",
+                      priority: 0,
+                      product_p_id: 0,
+                    },
+                  ],
+                  description: "",
+                  product_types_pt_id: "",
+                  product_promotions_pp_id: "",
+                  market_shops_id: "",
+                  market_shops: [
+                    {
+                      id: "M",
+                      name: "",
+                      description: "",
+                      logo_img: "",
+                      phone: "",
+                      first_name: "",
+                      last_name: "",
+                      email: "",
+                      address: "",
+                      is_verify: false,
+                      is_public: false,
+                      is_available: false,
+                      is_open: false,
+                      available_start_at: "",
+                      available_end_at: "",
+                      review_count: 0,
+                      product_types_pt_id: "",
+                      product_promotions_pp_id: "",
+                    },
+                  ],
+                  price: "",
+                  price_before_discount: "",
+                  amount: "",
+                },
+              ],
+              total_count: 0,
+            },
+          ],
+          promotion_product_list: [{}],
+        },
+      ],
       trending: [],
       recommended: [],
       itemssale: [],
       game: [],
       topshop: [],
+
       itemsbanner: [
         { imageSrc: require("~/assets/image/AD.png") },
         { imageSrc: require("~/assets/image/AD.png") },
@@ -113,7 +181,7 @@ export default {
     }
 
     // ดึงข้อมูลหลังจากรีเฟรชหน้า
-    // this.fetchData();
+    this.fetchData();
   },
   methods: {
     async fetchData() {
@@ -124,57 +192,85 @@ export default {
           const { recommended, sale, trending } = response.data.Itemlist;
           const { topshop, game } = response.data.Product;
           this.recommended = recommended.map((item) => ({
-            id: item.id,
-            img: item.item_img_main,
-            name: item.market_name,
-            loveSrc: require("@/assets/image/love2.png"),
-            loveCount: item.like,
-            imageSrc: item.item_img_main,
-            subtitle: item.sold,
-            description: item.item_name,
-            price: item.price,
-            cartSrc: require("@/assets/image/addcart.png"),
-            priority: 0,
-            is_public: true,
-            available_start_at: time,
-            available_end_at: time,
-            product_list: list,
-            total_count: total,
+            id: item.id || 0,
+            name: item.market_name || "",
+            img: item.item_img_main || "",
+            description: item.item_name || "",
+            logo_img: item.logo_img || "",
+            phone: item.phone || "",
+            first_name: item.first_name || "",
+            last_name: item.last_name || "",
+            email: item.email || "",
+            address: item.address || "",
+            is_verify: item.is_verify || false,
+            is_public: item.is_public || false,
+            is_available: item.is_available || false,
+            is_open: item.is_open || false,
+            available_start_at: item.available_start_at || "",
+            available_end_at: item.available_end_at || "",
+            review_count: item.review_count || 0,
+            product_types_pt_id: item.product_types_pt_id || "",
+            product_promotions_pp_id: item.product_promotions_pp_id || "",
+            total_count: item.total_count || 0,
+            product_list: item.product_list.map((product) => ({
+              id: product.id || 0,
+              name: product.name || "",
+              img: product.img || "",
+              img_list: product.img_list.map((img) => ({
+                id: img.id || 0,
+                img: img.img || "",
+                name: img.name || "",
+                priority: img.priority || 0,
+                product_p_id: img.product_p_id || 0,
+              })),
+              description: product.description || "",
+              product_types_pt_id: product.product_types_pt_id || "",
+              product_promotions_pp_id: product.product_promotions_pp_id || "",
+              market_shops_id: product.market_shops_id || "",
+              market_shops: product.market_shops.map((shop) => ({
+                id: shop.id || "M",
+                name: shop.name || "",
+                description: shop.description || "",
+                logo_img: shop.logo_img || "",
+                phone: shop.phone || "",
+                first_name: shop.first_name || "",
+                last_name: shop.last_name || "",
+                email: shop.email || "",
+                address: shop.address || "",
+                is_verify: shop.is_verify || false,
+                is_public: shop.is_public || false,
+                is_available: shop.is_available || false,
+                is_open: shop.is_open || false,
+                available_start_at: shop.available_start_at || "",
+                available_end_at: shop.available_end_at || "",
+                review_count: shop.review_count || 0,
+                product_types_pt_id: shop.product_types_pt_id || "",
+                product_promotions_pp_id: shop.product_promotions_pp_id || "",
+              })),
+              price: product.price || "",
+              price_before_discount: product.price_before_discount || "",
+              amount: product.amount || "",
+            })),
+            promotion_product_list: item.promotion_product_list.map(
+              (promotion) => ({
+                // ถ้ามีข้อมูลเฉพาะสำหรับโปรโมชั่น เพิ่มที่นี่
+              })
+            ),
           }));
+
+          // การแปลงข้อมูล sale
           this.itemssale = sale.map((item) => ({
-            id: item.id,
-            logoSrc: item.item_img_main,
-            title: item.market_name,
-            loveSrc: require("@/assets/image/love2.png"),
-            loveCount: item.like,
-            imageSrc: item.item_img_main,
-            subtitle: item.sold,
-            description: item.item_name,
-            price: item.price,
-            cartSrc: require("@/assets/image/addcart.png"),
+            // ปรับตามโครงสร้างข้อมูลที่ได้รับ
           }));
+
+          // การแปลงข้อมูล trending
           this.trending = trending.map((item) => ({
-            id: item.id,
-            logoSrc: item.item_img_main,
-            title: item.market_name,
-            loveSrc: require("@/assets/image/love2.png"),
-            loveCount: item.like,
-            imageSrc: item.item_img_main,
-            subtitle: item.sold,
-            description: item.item_name,
-            price: item.price,
-            cartSrc: require("@/assets/image/addcart.png"),
+            // ปรับตามโครงสร้างข้อมูลที่ได้รับ
           }));
-          this.topshop = topshop.map((item) => ({
-            id: item.id_product,
-            imageSrc: item.product_img,
-            subtitle: item.product_name,
-          }));
-          this.game = game.map((item) => ({
-            id: item.id_product,
-            imageSrc: item.product_img,
-            subtitle: item.product_name,
-          }));
+
+          // การตั้งค่า data ของ game และ topshop
+          this.game = game;
+          this.topshop = topshop;
         } else {
           console.error("Failed to fetch data:", response.msg);
         }

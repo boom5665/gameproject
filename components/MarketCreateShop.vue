@@ -564,39 +564,6 @@ export default {
       );
       this.idCardBack = newVal.trim();
     },
-    name(newVal) {
-      this.name = newVal.trim();
-    },
-    password(newVal) {
-      this.password = newVal.trim();
-    },
-    phone(newVal) {
-      this.phone = newVal.trim();
-    },
-    email(newVal) {
-      this.email = newVal.trim();
-    },
-    firstName(newVal) {
-      this.firstName = newVal.trim();
-    },
-    lastName(newVal) {
-      this.lastName = newVal.trim();
-    },
-    otherContact(newVal) {
-      this.otherContact = newVal.trim();
-    },
-    editorContent(newVal) {
-      this.editorContent = newVal.trim();
-    },
-    idCard(newVal) {
-      this.idCard = newVal.trim();
-    },
-    address(newVal) {
-      this.address = newVal.trim();
-    },
-    PROMPTPAYNumber(newVal) {
-      this.PROMPTPAYNumber = newVal.trim();
-    },
   },
   methods: {
     triggerFileInput(refName) {
@@ -665,6 +632,7 @@ export default {
     validateForm() {
       this.errors = {};
       let firstErrorField = null;
+
       if (!this.imagePreviewUrl) {
         this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
         if (!firstErrorField) firstErrorField = "imageFileInput";
@@ -748,12 +716,23 @@ export default {
           }
         });
       }
+
       // console.log(this.$refs[firstErrorField]);
       return Object.keys(this.errors).length === 0;
     },
 
     async handleSubmit() {
       if (!this.validateForm()) {
+        this.name = (this.name || "").trim();
+        this.phone = (this.phone || "").trim();
+        this.email = (this.email || "").trim();
+        this.address = (this.address || "").trim();
+        this.otherContact = (this.otherContact || "").trim();
+        this.editorContent = (this.editorContent || "").trim();
+        this.firstName = (this.firstName || "").trim();
+        this.lastName = (this.lastName || "").trim();
+        this.idCard = (this.idCard || "").trim();
+        this.idCardBack = (this.idCardBack || "").replace(/-/g, "").trim();
         return;
       }
 
