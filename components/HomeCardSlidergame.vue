@@ -24,45 +24,52 @@ export default {
   },
   mounted() {
     const $slider = $(this.$refs.slider);
+    const totalItems = this.items.length;
+
+    // Function to determine slidesToShow based on screen width
+    const getSlidesToShow = () => {
+      if (totalItems <= 6) {
+        return totalItems; // Show all items if less than or equal to 6
+      }
+      return (
+        {
+          1600: 7,
+          1500: 6,
+          1400: 5,
+          1300: 4,
+          1200: 3,
+          992: 2,
+          768: 1,
+        }[window.innerWidth] || 6.6
+      ); // Default to 6.6 if width is not in breakpoints
+    };
+
+    // Initialize Slick Carousel
     $slider.slick({
-      infinite: true,
-      speed: 300,
-      slidesToShow: 1, // Default number of slides to show
-      adaptiveHeight: true,
-      autoplay: true,
-      autoplaySpeed: 5000,
-      touchMove: true, // Enable touch movement
-      draggable: true, // Enable draggable
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 3,
-          },
-        },
-        {
-          breakpoint: 992,
-          settings: {
-            slidesToShow: 2,
-          },
-        },
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 1,
-          },
-        },
-      ],
+      speed: 1000,
+      slidesToShow: getSlidesToShow(), // Number of slides to show based on screen width
+      slidesToScroll: 1,
+      // adaptiveHeight: true,
+      // autoplay: true,
+      autoplaySpeed: 10000,
+      touchMove: true,
+      draggable: true,
+      pauseOnHover: true, // Pause on hover
+      pauseOnFocus: true, // Pause on focus
+      centerMode: false, // Center the active slide
+      centerPadding: "0px", // Padding for center mode // Pause on hover
+
     });
 
-    $slider.on("afterChange", function (event, slick, currentSlide) {
-      // Restart autoplay after user interaction
-      $slider.slick("slickPlay");
+    // Add event listeners for touchend and mouseup
+    $slider.on('touchend mouseup', function () {
+      $slider.slick('slickPause'); // Pause the slider
+    });
+
+    // Update slidesToShow on window resize
+    window.addEventListener("resize", () => {
+      $slider.slick("slickSetOption", "slidesToShow", getSlidesToShow(), true);
     });
   },
 };
 </script>
-
-<style>
-
-</style>

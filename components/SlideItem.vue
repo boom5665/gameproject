@@ -26,7 +26,7 @@
       </div>
     </div>
     <img :src="item.img" class="tpn_cardimg" />
-    <div class="content-under">{{ item.market_shops.review_count  }}</div>
+    <div class="content-under">{{ item.market_shops.review_count }}</div>
     <div class="font">{{ item.description }}</div>
     <div class="display">
       <div>฿ {{ item.price }}</div>
@@ -49,14 +49,10 @@ export default {
 </script>
 
 <style scoped>
-.tpn_card {
-  flex: 0 0 220px;
-  margin-right: 20px;
-}
 /* เพิ่มสไตล์ .tpn_card ที่มีอยู่ในส่วนที่แล้วที่นี่ */
-.dis-tpn{
+.dis-tpn {
   display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
+  justify-content: space-between;
+  margin-bottom: 5px;
 }
 </style>

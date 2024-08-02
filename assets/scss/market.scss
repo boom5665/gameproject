@@ -64,7 +64,7 @@
   .tpn_card {
     flex: 0 0 220px;
     /* กำหนดความกว้างของแต่ละการ์ด */
-    margin-right: 20px;
+    margin-right: 15px;
     /* เพิ่มช่องว่างระหว่างการ์ด */
   }
 
@@ -934,6 +934,7 @@
   }
 
   .tpn_game {
+    width: max-content !important;
     flex: 0 0 50px;
     /* กำหนดความกว้างของแต่ละการ์ด */
     margin-right: 20px;
@@ -1128,7 +1129,7 @@
 
   .tpn_card {
     flex: 0 0 220px;
-    margin-right: 20px;
+    margin-right: 15px;
   }
 }
 

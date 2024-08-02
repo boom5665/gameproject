@@ -2,7 +2,6 @@
   <div style="width: 100%">
     <div><HomeCorousalBanner :items="itemsbanner" /></div>
     <div class="card-box" style="margin-top: 60px">
-      <!-- Display Product Groups -->
       <div
         v-for="(group, index) in productGroups"
         :key="'product-' + index"
@@ -21,7 +20,6 @@
         <Slider :items="group.items || []" :interval="240" />
       </div>
 
-      <!-- Display Type Groups -->
       <div
         v-for="(group, index) in typeGroups"
         :key="'type-' + index"
@@ -59,6 +57,7 @@ export default {
         { imageSrc: require("~/assets/image/AD.png") },
       ],
       productGroups: [], // เริ่มต้นเป็น array ว่าง
+      producttwoGroups: [], // เริ่มต้นเป็น array ว่าง
       typeGroups: [], // เริ่มต้นเป็น array ว่าง
     };
   },
@@ -113,9 +112,9 @@ export default {
 
     // ฟังก์ชันสำหรับจัดระเบียบข้อมูลประเภทโปรโมชั่น
     mapProductGroups(productPromotions) {
-      return productPromotions.map((group) => ({
+      return [...productPromotions,...productPromotions].map((group) => ({
         title: group.name, // ชื่อกลุ่ม
-        items: group.product_list || [], // รายการสินค้าที่อยู่ในกลุ่ม
+        items: [...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
       }));
     },
 
@@ -123,9 +122,12 @@ export default {
     mapTypeGroups(typeProducts) {
       return typeProducts.map((group) => ({
         title: group.name, // ชื่อกลุ่ม
-        items: group.product_list || [], // รายการสินค้าที่อยู่ในกลุ่ม
+        items: [...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
       }));
     },
   },
 };
 </script>
+
+
+
