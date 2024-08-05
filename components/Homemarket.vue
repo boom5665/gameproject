@@ -62,24 +62,24 @@ export default {
     };
   },
   mounted() {
-    // const token = localStorage.getItem("authToken");
-    // if (token) {
-    //   if (process.client) {
-    //     if (this.$route.path === "/") {
-    //       const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      if (process.client) {
+        if (this.$route.path === "/") {
+          const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
 
-    //       if (!hasRefreshed) {
-    //         localStorage.setItem("hasRefreshedMarketMyshop", "true");
-    //         window.location.reload();
-    //       }
-    //     }
-    //   }
-    //   const decoded = this.$jwt.decode(token);
-    //   const { authen_code, id, permission } = decoded;
-    //   console.log("authen", authen_code, "id", id, "สิทธิ", permission);
-    // } else {
-    //   console.log("No token found");
-    // }
+          if (!hasRefreshed) {
+            localStorage.setItem("hasRefreshedMarketMyshop", "true");
+            window.location.reload();
+          }
+        }
+      }
+      const decoded = this.$jwt.decode(token);
+      const { authen_code, id, permission } = decoded;
+      console.log("authen", authen_code, "id", id, "สิทธิ", permission);
+    } else {
+      console.log("No token found");
+    }
 
     this.fetchData();
   },

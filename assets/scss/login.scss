@@ -233,18 +233,23 @@
     justify-content: space-evenly;
   }
 
-  .M-Create-Backgroud input[type="text"] {
-    height: 40px;
-    width: 400px;
-    border-radius: 6px;
-    border: 1px solid $Primary-Pueple-500;
-    ;
-    background: #bababa;
-    color: $Primary-Pueple-500;
-    ;
-    margin-bottom: 0px;
-    max-width: 400px;
+  .M-Create-Backgroud {
+    input[type="text"] {
+      height: 40px;
+      width: 400px;
+      border-radius: 6px;
+      border: 1px solid $Primary-Pueple-500; // ใช้ตัวแปร SCSS สำหรับสี border
+      background: #bababa; // สีพื้นหลัง
+      color: $Primary-Pueple-500; // ใช้ตัวแปร SCSS สำหรับสีตัวอักษร
+      margin-bottom: 0; // กำหนด margin ด้านล่างเป็น 0
+      max-width: 400px; // ความกว้างสูงสุด
+      box-sizing: border-box; // ทำให้ padding และ border ถูกรวมในการคำนวณความกว้าง
+      padding: 0 10px; // เพิ่ม padding ด้านซ้ายและขวา
+    }
+
   }
+
+
 
   .point-but {
     cursor: pointer;

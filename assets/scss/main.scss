@@ -38,9 +38,23 @@ a:hover {
   color: red;
   font-size: 0.8em;
 }
-form{
+
+form {
   width: 100%;
 }
+
+input {
+  height: 40px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #BABABA;
+  background: #fff;
+  color: #5c25f2;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
 .dis-play-evenly {
   display: flex;
   justify-content: space-evenly;
@@ -179,7 +193,7 @@ form{
 }
 
 .text-card {
-  color:  $gray-color;
+  color: $gray-color;
 }
 
 
@@ -239,7 +253,7 @@ form{
 }
 
 .font {
-  color:  $gray-color;
+  color: $gray-color;
   font-variant-numeric: stacked-fractions;
   font-feature-settings: "hlig"on, "dlig"on;
   font-family: "Pentor Corporate";
@@ -254,10 +268,12 @@ form{
   border-radius: var(--Border-radius-8, 8px);
   background: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
 }
+
 .error-message {
   color: red;
   font-size: 12px;
 }
+
 .display {
   display: flex;
   justify-content: space-between;
