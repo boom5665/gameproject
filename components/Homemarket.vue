@@ -112,9 +112,9 @@ export default {
 
     // ฟังก์ชันสำหรับจัดระเบียบข้อมูลประเภทโปรโมชั่น
     mapProductGroups(productPromotions) {
-      return [...productPromotions,...productPromotions].map((group) => ({
+      return [...productPromotions].map((group) => ({
         title: group.name, // ชื่อกลุ่ม
-        items: [...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
+        items: [...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
       }));
     },
 
@@ -122,7 +122,7 @@ export default {
     mapTypeGroups(typeProducts) {
       return typeProducts.map((group) => ({
         title: group.name, // ชื่อกลุ่ม
-        items: [...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list,...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
+        items: [...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
       }));
     },
   },

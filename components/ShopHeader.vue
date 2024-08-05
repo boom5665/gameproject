@@ -154,7 +154,7 @@ export default {
       productsCount: 50,
       followersCount: 1000,
       reviewsCount: 200,
-      currentView: "Shopmanage", // ค่าเริ่มต้นของ currentView
+      currentView: "ShopStore", // ค่าเริ่มต้นของ currentView
       itemsData: [
         {
           loveCount: 100,

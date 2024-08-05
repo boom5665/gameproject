@@ -175,7 +175,7 @@
             <!-- ส่วนของคลังรูปภาพ -->
             <div>
               <div class="font-form-add">
-                คลังรูปภาพ ({{ savedImageUrls.length }}/10)
+                คลังรูปภาพ ({{ savedImageUrls.length }}/6)
                 <span id="dotstyle">*</span>
               </div>
               <div class="preview" style="width: max-content">
@@ -257,6 +257,8 @@ export default {
       selectedPromotionType: 1, // ค่าเริ่มต้น
       // promotionDetails: "",
       // showPromotionDetails: true,
+      imageInfo: {},
+      savedImageInfo: [],
     };
   },
   methods: {
@@ -275,6 +277,7 @@ export default {
         this.$refs.galleryFileInput.click();
       }
     },
+
     onFileChange(event, type) {
       const files = event.target.files;
       if (files.length) {
@@ -283,17 +286,32 @@ export default {
           const reader = new FileReader();
           reader.onload = (e) => {
             this.imageUrl = e.target.result;
+            // this.imageInfo = {
+            //   name: file.name,
+            //   order: 1,
+            // };
             this.showImage = true;
+            // console.log("Main Image URL:", this.imageUrl);
+            // console.log("Main Image Info:", this.imageInfo);
           };
           reader.readAsDataURL(file);
         } else if (type === "gallery") {
-          Array.from(files).forEach((file) => {
+          Array.from(files).forEach((file, index) => {
             const reader = new FileReader();
             reader.onload = (e) => {
-              if (this.savedImageUrls.length < 10) {
+              if (this.savedImageUrls.length < 6) {
                 this.savedImageUrls.push(e.target.result);
+                this.savedImageInfo.push({
+                  name: file.name,
+                  order: this.savedImageUrls.length + 0,
+                });
+                console.log("Gallery Image URL:", e.target.result);
+                console.log("Gallery Image Info:", {
+                  name: file.name,
+                  order: this.savedImageUrls.length + 0,
+                });
               } else {
-                alert("สามารถเพิ่มได้สูงสุด 10 รูปภาพ");
+                alert("สามารถเพิ่มได้สูงสุด 6 รูปภาพ");
               }
             };
             reader.readAsDataURL(file);
@@ -301,8 +319,10 @@ export default {
         }
       }
     },
+
     removeSavedImage(index) {
       this.savedImageUrls.splice(index, 1);
+      this.savedImageInfo.splice(index, 1); // ลบข้อมูลที่เกี่ยวข้องด้วย
     },
 
     validateForm() {
@@ -328,6 +348,7 @@ export default {
 
       return Object.keys(this.errors).length === 0;
     },
+
     async convertBase64ToFile(base64, filename) {
       return new Promise((resolve, reject) => {
         const [header, data] = base64.split(",");
@@ -342,8 +363,11 @@ export default {
         resolve(file);
       });
     },
+
     async submitData() {
       if (!this.validateForm()) {
+        this.productName = (this.productName || "").trim();
+        this.inventory = (this.inventory || "").trim();
         return;
       }
       this.isLoading = true; // แสดง loader
@@ -355,19 +379,24 @@ export default {
           "main_image.png"
         );
         formData.append("img", mainImageFile);
-      } else {
-        formData.append("img", this.imageUrl);
+        // formData.append("img_name", this.imageInfo.name);
+        // formData.append("img_order", this.imageInfo.order);
       }
       for (let i = 0; i < this.savedImageUrls.length; i++) {
         const url = this.savedImageUrls[i];
+        const info = this.savedImageInfo[i];
         if (url.startsWith("data:")) {
           const galleryImageFile = await this.convertBase64ToFile(
             url,
             `gallery_image_${i}.png`
           );
-          formData.append("img_list", galleryImageFile);
+          formData.append(`img_list[${i}].img`, galleryImageFile);
+          formData.append(`img_list[${i}].name`, info.name);
+          formData.append(`img_list[${i}].priority`, info.order);
         } else {
-          formData.append("img_list", url);
+          formData.append(`img_list[${i}].img`, url);
+          formData.append(`img_list[${i}].name`, info.name);
+          formData.append(`img_list[${i}].priority`, info.order);
         }
       }
       formData.append("name", this.productName);
@@ -377,7 +406,7 @@ export default {
       formData.append("price_before_discount", this.price);
       formData.append("price", this.specialPrice);
       formData.append("amount", this.inventory);
-      formData.append("is_public", true);
+      formData.append("is_public", "true");
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}: ${pair[1]}`);
       }
@@ -478,5 +507,4 @@ export default {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
 </style>

@@ -40,7 +40,7 @@ export default {
           1200: 3,
           992: 2,
           768: 1,
-        }[window.innerWidth] || 6.6
+        }[window.innerWidth] || 6
       ); // Default to 6.6 if width is not in breakpoints
     };
 
