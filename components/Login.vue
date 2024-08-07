@@ -5,7 +5,7 @@
         <div class="form-create">
           <div class="font-form-pak">เข้าสู่ระบบ</div>
           <div class="dis-input-box">
-            <form >
+            <form>
               <div class="dis-input">
                 <div class="w-input">
                   <input
@@ -36,7 +36,11 @@
                 </div>
               </div>
 
-              <button type="submit" class="submit button-pro-edit"  @click.prevent="submitData">
+              <button
+                type="submit"
+                class="submit button-pro-edit"
+                @click.prevent="submitData"
+              >
                 เข้าสู่ระบบ
               </button>
             </form>
@@ -91,8 +95,9 @@ export default {
 
     async submitData() {
       if (!this.validateForm()) {
-        return;
+        return; // ถ้าฟอร์มไม่ถูกต้อง ให้หยุดการทำงาน
       }
+
       this.isLoading = true; // แสดง loader
       localStorage.clear(); // ลบข้อมูลทั้งหมดใน localStorage
 
@@ -109,33 +114,32 @@ export default {
         if (token) {
           localStorage.setItem("authToken", token); // เก็บ token ใน localStorage
           console.log("Stored Token:", token);
-          alert("เข้าระบบสำเร็จ");
-          this.$router.push("/"); // รีไดเรคไปยังหน้า index
-          this.isLoading = false; // ซ่อน loader
+
+          // ใช้ฟังก์ชัน handleResponse สำหรับข้อความสำเร็จ
+          const result = await this.$swal.fire({
+            title: "เข้าสู่ระบบสำเร็จ",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+
+          // รีไดเรคไปยังหน้า index หลังจากกด "OK"
+          if (result.isConfirmed) {
+            this.$router.push("/"); // รีไดเรคไปยังหน้า index
+          }
         } else {
-          alert("ไม่พบข้อมูล token");
+          this.$handleError({
+            response: {
+              data: {
+                msg: { th: "ไม่พบข้อมูล token" },
+              },
+              status: 400,
+            },
+          }); // ใช้ฟังก์ชัน handleError สำหรับข้อผิดพลาดที่ไม่มี token
         }
       } catch (error) {
-        this.$handleError(error);
-        console.error(
-          "Error:",
-          error.response ? error.response.data : error.message
-        );
-        this.errors = {};
-
-        if (error.response && error.response.data) {
-          const errorData = error.response.data;
-          this.errors.general =
-            errorData.code === 1005
-              ? "ไม่พบข้อมูล ล็อกอิน"
-              : errorData.msg.th || "ไม่พบข้อมูล ล็อกอิน";
-        } else {
-          this.errors.general =
-            "ลงทะเบียนไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
-        }
-        alert(this.errors.general);
-
-        this.isLoading = false; // ซ่อน loader
+        this.$handleError(error); // ใช้ฟังก์ชัน handleError สำหรับข้อผิดพลาดที่เกิดขึ้น
+      } finally {
+        this.isLoading = false; // ซ่อน loader เสมอหลังจากดำเนินการเสร็จสิ้น
       }
     },
   },

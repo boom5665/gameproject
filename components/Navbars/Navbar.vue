@@ -313,12 +313,21 @@ export default {
       }
     },
 
-    logout() {
+    async logout() {
       // ลบโทเคนออกจาก localStorage และรีเซ็ตค่า token
       localStorage.removeItem("authToken");
       this.token = null;
-      this.buttonText = ""; // รีเซ็ตข้อความปุ่ม
-      this.$router.push("/login");
+      // แสดงข้อความสำเร็จด้วย SweetAlert2
+      const result = await this.$swal.fire({
+        title: "ออกจากระบบสำเร็จ",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
+      // รีไดเรคไปยังหน้า login หลังจากกด "OK"
+      if (result.isConfirmed) {
+        this.$router.push("/login");
+      }
     },
   },
 };
