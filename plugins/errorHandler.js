@@ -1,21 +1,27 @@
-// plugins/sweetalert2.js
 import Swal from 'sweetalert2';
 
 export default ({ app }, inject) => {
-  inject('handleResponse', (response) => {
-    if (response.data === 200) {
-      Swal.fire({
-        title: "เข้าสู่ระบบสำเร็จ",
-        icon: 'success',
-        confirmButtonText: 'OK',
-      });
-    } else {
-      Swal.fire({
-        title: "เกิดข้อผิดพลาด",
-        text: "โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง",
-        icon: 'error',
-        confirmButtonText: 'OK',
-      });
+  inject('handleResponse', async (response) => {
+    console.log(response.data.code);
+    switch (response.data.code) {
+      case 200:
+        Swal.fire({
+          title: "เข้าสู่ระบบสำเร็จ",
+          icon: 'success',
+          timer: 1000, // หน่วงเวลา 1.5 วินาที
+          timerProgressBar: true,
+          showConfirmButton: false // ไม่แสดงปุ่ม OK
+        }).then(() => {
+          app.router.push("/"); // รีไดเรคไปยังหน้า index
+        });
+        break;
+      default:
+        Swal.fire({
+          title: "เกิดข้อผิดพลาด",
+          text: "โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง",
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
     }
   });
 

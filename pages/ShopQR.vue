@@ -4,7 +4,7 @@
       <div class="contentleft">
         <MarketProfieleft />
       </div>
-      <div class="contentright">
+      <div class="contentright" style="">
         <ShopQR />
       </div>
     </div>
@@ -18,7 +18,7 @@
   justify-content: center;
 }
 .contentright {
-  width: 65%;
+  width: 100%;
 }
 </style>
 

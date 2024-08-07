@@ -4,8 +4,7 @@
       <div class="dis-flex" style="align-items: flex-start">
         <div style="width: 60%" class="box-pay">
           <Stepper :steps="steps" :currentStep="currentStep" />
-          <button @click="nextStep">ถัดไป</button>
-          <button @click="showAlert">Show Alert</button>
+          <!-- <button @click="cancelpay">ถัดไป</button> -->
           <div
             v-for="(category, index) in categorizedProducts"
             :key="index"
@@ -60,8 +59,8 @@
                   <div>ยอดชำระเงินทั้งหมด</div>
                   <div>฿{{ totalAmount.toLocaleString() }}</div>
                 </div>
-                <div class="bottom-y">ชำระเงิน</div>
-                <div class="bottom-red">ยกเลิกการจอง</div>
+                <div class="bottom-y" @click="confirmpay">ชำระเงิน</div>
+                <div class="bottom-red" @click="cancelpay">ยกเลิกการจอง</div>
               </div>
             </div>
           </div>
@@ -135,14 +134,6 @@ export default {
     },
   },
   methods: {
-    showAlert() {
-      this.$swal.fire({
-        title: "Hello World!",
-        text: "This is a SweetAlert2 alert!",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
-    },
     nextStep() {
       if (this.currentStep < this.steps.length - 1) {
         this.currentStep += 1;
@@ -154,6 +145,31 @@ export default {
           this.timer--;
         }
       }, 1000);
+    },
+
+    async confirmpay() {
+      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
+      const result = await this.$swal.fire({
+        title: "ทำการซื้อสำเร็จ",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      // รีไดเรคไปยังหน้า index หลังจากกด "OK"
+      if (result.isConfirmed) {
+        this.$router.push("/ShopQR"); // รีไดเรคไปยังหน้า index
+      }
+    },
+    async cancelpay() {
+      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
+      const result = await this.$swal.fire({
+        title: "ยกเลิกการจองสำเร็จ",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      // รีไดเรคไปยังหน้า index หลังจากกด "OK"
+      if (result.isConfirmed) {
+        this.$router.push("/"); // รีไดเรคไปยังหน้า index
+      }
     },
   },
   mounted() {

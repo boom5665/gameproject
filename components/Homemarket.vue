@@ -80,7 +80,6 @@ export default {
     } else {
       console.log("No token found");
     }
-
     this.fetchData();
   },
   methods: {
@@ -88,7 +87,6 @@ export default {
       try {
         // ส่งคำขอเพื่อดึงข้อมูล
         const response = await this.$axios.$post("/product/home/list/read");
-
         console.log(response);
         // ตรวจสอบรหัสสถานะของการตอบกลับ
         if (response.code === 200) {
@@ -112,9 +110,9 @@ export default {
 
     // ฟังก์ชันสำหรับจัดระเบียบข้อมูลประเภทโปรโมชั่น
     mapProductGroups(productPromotions) {
-      return [...productPromotions].map((group) => ({
-        title: group.name, // ชื่อกลุ่ม
-        items: [...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
+      return (productPromotions || []).map((group) => ({
+        title: group.name || "กลุ่มสินค้า", // ใช้ชื่อกลุ่ม ถ้าไม่มีให้ใช้ชื่อเริ่มต้น
+        items: Array.isArray(group.product_list) ? [...group.product_list] : [], // ตรวจสอบว่าคือ array หรือไม่
       }));
     },
 

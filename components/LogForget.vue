@@ -116,23 +116,6 @@ export default {
         }
       } catch (error) {
         this.$handleError(error);
-        console.error(
-          "Error:",
-          error.response ? error.response.data : error.message
-        );
-        this.errors = {};
-
-        if (error.response && error.response.data) {
-          const errorData = error.response.data;
-          this.errors.general =
-            errorData.code === 1005
-              ? "ส่งยืนยันอีเมลไม่สำเร็จ"
-              : errorData.msg.th || "ส่งยืนยันอีเมลไม่สำเร็จ";
-        } else {
-          this.errors.general =
-            "ส่งยืนยันอีเมลไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
-        }
-        alert(this.errors.general);
         this.isLoading = false; // ซ่อน loader
       }
     },

@@ -109,32 +109,11 @@ export default {
       try {
         const response = await this.$axios.post("/users/login", formData);
         console.log("Response:", response.data);
-
         const token = response.data.data.token;
         if (token) {
           localStorage.setItem("authToken", token); // เก็บ token ใน localStorage
           console.log("Stored Token:", token);
-
-          // ใช้ฟังก์ชัน handleResponse สำหรับข้อความสำเร็จ
-          const result = await this.$swal.fire({
-            title: "เข้าสู่ระบบสำเร็จ",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-
-          // รีไดเรคไปยังหน้า index หลังจากกด "OK"
-          if (result.isConfirmed) {
-            this.$router.push("/"); // รีไดเรคไปยังหน้า index
-          }
-        } else {
-          this.$handleError({
-            response: {
-              data: {
-                msg: { th: "ไม่พบข้อมูล token" },
-              },
-              status: 400,
-            },
-          }); // ใช้ฟังก์ชัน handleError สำหรับข้อผิดพลาดที่ไม่มี token
+          this.$handleResponse(response); // ใช้ฟังก์ชัน handleError สำหรับข้อผิดพลาดที่เกิดขึ้น
         }
       } catch (error) {
         this.$handleError(error); // ใช้ฟังก์ชัน handleError สำหรับข้อผิดพลาดที่เกิดขึ้น
