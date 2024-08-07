@@ -156,7 +156,7 @@ export default {
       });
       // รีไดเรคไปยังหน้า index หลังจากกด "OK"
       if (result.isConfirmed) {
-        this.$router.push("/ShopQR"); // รีไดเรคไปยังหน้า index
+        this.$router.push("/ShopConfirmPay"); // รีไดเรคไปยังหน้า index
       }
     },
     async cancelpay() {

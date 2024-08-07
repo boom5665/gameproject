@@ -335,11 +335,12 @@
 
   button {
     padding: 0.5em 1em;
-    border: none;
-    border-radius: 4px;
+    // border: none;
+    border-radius: 10px;
     background: $Yellow-color;
     color: $Primary-Pueple-500;
     cursor: pointer;
+    font-weight: bolder;
   }
 
   button:hover {

@@ -47,9 +47,7 @@
               </div>
             </div>
           </div>
-          <button class="b-top-cy">
-            ดูร้านค้า
-          </button>
+          <button class="b-top-cy" @click="confirmpay">ยืนยันการสั่งซื้อ</button>
         </div>
       </div>
     </div>
@@ -75,6 +73,18 @@ export default {
         this.qrImageUrl = response.data.imageUrl; // สมมติว่า API ส่ง URL ของภาพ QR กลับมาใน data.imageUrl
       } catch (error) {
         console.error("Error fetching QR image:", error);
+      }
+    },
+    async confirmpay() {
+      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
+      const result = await this.$swal.fire({
+        title: "ทำการซื้อสำเร็จ",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      // รีไดเรคไปยังหน้า index หลังจากกด "OK"
+      if (result.isConfirmed) {
+        this.$router.push("/ShopConfirmPay"); // รีไดเรคไปยังหน้า index
       }
     },
   },
