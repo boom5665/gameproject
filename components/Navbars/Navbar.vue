@@ -17,15 +17,15 @@
           <Nuxt-link class="text-nav" to="/HomeMarket" target="_self"
             ><div class="bottom-top button">ตลาดซื้อขาย</div></Nuxt-link
           >
-          <Nuxt-link class="text-nav" to="/Market" target="_self"
+          <!-- <Nuxt-link class="text-nav" to="/Market" target="_self"
             ><div class="bottom-top button">การแข่งขันอีสปรอ์ต</div></Nuxt-link
-          >
+          > -->
           <Nuxt-link class="text-nav" to="/New" target="_self"
             ><div class="bottom-top button">ข่าว</div></Nuxt-link
           >
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">ช่วยเหลือ</div></Nuxt-link
-          >
+          > -->
 
           <div v-if="token" style="display: flex">
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
@@ -118,19 +118,19 @@
       </div>
       <div>
         <div class="nav-top">
-          <div class="search-container">
+          <!-- <div class="search-container">
             <img
               src="~/assets/image/search-icon.png"
               alt="Search"
               class="search-icon"
             />
             <input type="text" class="search-input" placeholder="Search" />
-          </div>
-          <div class="icon"><img class="" src="~/assets/image/love.png" /></div>
-          <div class="icon"><img class="" src="~/assets/image/bell.png" /></div>
-          <div class="icon">
+          </div> -->
+          <!-- <div class="icon"><img class="" src="~/assets/image/love.png" /></div> -->
+          <!-- <div class="icon"><img class="" src="~/assets/image/bell.png" /></div> -->
+          <!-- <div class="icon">
             <img class="" src="~/assets/image/comment.png" />
-          </div>
+          </div> -->
           <!-- <div class="icon-cart" @click="openNav">
             <img class="" src="~/assets/image/Cart.png" />
           </div> -->
@@ -151,12 +151,12 @@
           <Nuxt-link class="text-nav" to="/MarketMyshop" target="_self"
             ><div class="bottom-top button">สินค้าทั้งหมด</div></Nuxt-link
           >
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">ลดราคา</div></Nuxt-link
-          >
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          > -->
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">บัตรของขวัญ</div></Nuxt-link
-          >
+          > -->
         </div>
       </div>
 

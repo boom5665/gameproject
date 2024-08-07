@@ -20,7 +20,7 @@
         <Slider :items="group.items || []" :interval="240" />
       </div>
 
-      <div
+      <!-- <div
         v-for="(group, index) in typeGroups"
         :key="'type-' + index"
         class="slider-container type-group-container"
@@ -36,7 +36,7 @@
           </div>
         </div>
         <HomeCardSlidergame :items="group.items || []" />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -97,9 +97,9 @@ export default {
             response.data_list.product_promotions_product_list
           );
           // จัดระเบียบข้อมูลประเภทสินค้า
-          this.typeGroups = this.mapTypeGroups(
-            response.data_list.type_product_list
-          );
+          // this.typeGroups = this.mapTypeGroups(
+          //   response.data_list.category_product_list
+          // );
           // แสดงข้อมูลในคอนโซลเพื่อตรวจสอบ
           console.log(this.productGroups);
         } else {
@@ -119,12 +119,12 @@ export default {
     },
 
     // ฟังก์ชันสำหรับจัดระเบียบข้อมูลประเภทสินค้า
-    mapTypeGroups(typeProducts) {
-      return typeProducts.map((group) => ({
-        title: group.name, // ชื่อกลุ่ม
-        items: [...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
-      }));
-    },
+    // mapTypeGroups(typeProducts) {
+    //   return typeProducts.map((group) => ({
+    //     title: group.name, // ชื่อกลุ่ม
+    //     items: [...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
+    //   }));
+    // },
   },
 };
 </script>

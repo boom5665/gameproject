@@ -829,5 +829,9 @@ export default {
   color: #5c25f2;
   opacity: 5;
 }
+.box-alert {
+    padding: 16px 20px;
+
+}
 </style>
 
