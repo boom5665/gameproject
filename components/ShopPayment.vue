@@ -5,6 +5,7 @@
         <div style="width: 60%" class="box-pay">
           <Stepper :steps="steps" :currentStep="currentStep" />
           <button @click="nextStep">ถัดไป</button>
+          <button @click="showAlert">Show Alert</button>
           <div
             v-for="(category, index) in categorizedProducts"
             :key="index"
@@ -39,7 +40,7 @@
         <div style="width: 40%">
           <div class="box-time">
             <div>
-              <div style="margin: 15px 5px;">
+              <div style="margin: 15px 5px">
                 โปรดชำระเงินภายใน {{ timeRemaining }}
               </div>
               <div>
@@ -71,8 +72,8 @@
 </template>
 
 <script>
-import Stepper from '@/components/ShopStepper.vue';
-
+import Stepper from "@/components/ShopStepper.vue";
+import Swal from "sweetalert2";
 export default {
   components: {
     Stepper,
@@ -81,29 +82,29 @@ export default {
     return {
       currentStep: 0,
       steps: [
-        { label: 'คำสั่งซื้อใหม่', date: '10/07/24', time: '18:00' },
-        { label: 'ชำระเงินแล้ว', date: '--/--/--', time: '--:--' },
-        { label: 'ได้รับสินค้า', date: '--/--/--', time: '--:--' },
-        { label: 'ยืนยันสินค้า', date: '--/--/--', time: '--:--' },
-        { label: 'รีวิวสินค้า', date: '--/--/--', time: '--:--' },
+        { label: "คำสั่งซื้อใหม่", date: "10/07/24", time: "18:00" },
+        { label: "ชำระเงินแล้ว", date: "--/--/--", time: "--:--" },
+        { label: "ได้รับสินค้า", date: "--/--/--", time: "--:--" },
+        { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
+        { label: "รีวิวสินค้า", date: "--/--/--", time: "--:--" },
       ],
       categorizedProducts: [
         {
-          name: 'Razer Gold',
+          name: "Razer Gold",
           items: [
             {
-              name: 'Razer Gold',
-              imageUrl: require('@/assets/image/cardgold.png'),
-              description: 'Top up Razer Gold',
-              category: 'Digital',
+              name: "Razer Gold",
+              imageUrl: require("@/assets/image/cardgold.png"),
+              description: "Top up Razer Gold",
+              category: "Digital",
               quantity: 1,
               price: 50000,
             },
             {
-              name: 'Razer Gold',
-              imageUrl: require('@/assets/image/cardgold.png'),
-              description: 'Top up Razer Gold',
-              category: 'Digital',
+              name: "Razer Gold",
+              imageUrl: require("@/assets/image/cardgold.png"),
+              description: "Top up Razer Gold",
+              category: "Digital",
               quantity: 3,
               price: 50000,
             },
@@ -127,13 +128,21 @@ export default {
     formattedTime() {
       const minutes = Math.floor(this.timer / 60);
       const seconds = this.timer % 60;
-      return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     },
     timeRemaining() {
       return `${Math.floor(this.timer / 60)} นาที`;
     },
   },
   methods: {
+    showAlert() {
+      this.$swal.fire({
+        title: "Hello World!",
+        text: "This is a SweetAlert2 alert!",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    },
     nextStep() {
       if (this.currentStep < this.steps.length - 1) {
         this.currentStep += 1;

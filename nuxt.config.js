@@ -17,7 +17,7 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-    
+
     ],
   },
 
@@ -41,6 +41,7 @@ export default {
     { src: '~/plugins/setColor.js' },
     { src: '~/plugins/errorHandler.js' },
     { src: '~/plugins/jsonwebtoken.js' },
+    { src: '~/plugins/sweetalert2.js' },
   ],
 
   components: true,
