@@ -1,7 +1,7 @@
 <template>
   <div v-if="isVisible" class="modal-overlay">
     <div class="modal-content">
-      <!-- <button class="close" @click="closeModal">✖</button> -->
+      <button class="close" @click="closeModal">✖</button>
       <slot></slot>
       <!-- <button class="go-to-page" @click="goToPage">ไปยังหน้าถัดไป</button> -->
     </div>
@@ -28,6 +28,16 @@ export default {
 </script>
 
 <style scoped>
+.M-Create-Backgroud button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    color: red;
+    cursor: pointer;
+}
+.M-Create-Backgroud button:hover {
+    background-color: white;
+}
 .modal-overlay {
   position: fixed;
   top: 0;

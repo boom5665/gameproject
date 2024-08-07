@@ -4,7 +4,7 @@
       <div class="dis-flex" style="align-items: flex-start">
         <div style="width: 60%" class="box-pay">
           <Stepper :steps="steps" :currentStep="currentStep" />
-          <!-- <button @click="nextStep">ถัดไป</button> -->
+          <button @click="nextStep">ถัดไป</button>
           <div
             v-for="(category, index) in categorizedProducts"
             :key="index"
