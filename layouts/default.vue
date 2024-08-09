@@ -5,7 +5,7 @@
         <Navbar />
       </div>
       <div class="W-default">
-        <div style="width: 100%; background-color: rgba(0, 0, 0, 0.08)">
+        <div class="w-content">
           <Nuxt />
         </div>
       </div>

@@ -80,14 +80,22 @@ input {
   align-items: center;
   justify-content: center;
 }
-
+.w-content {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: center;
+}
 .home-logo {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: var(--Spacing-space-48, 48px);
 }
-
+.box-cotent-two{
+  display: flex;
+  justify-content: space-evenly;
+}
 .dis-col-center {
   display: flex;
   justify-content: center;
@@ -325,3 +333,5 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
   color: #fff;
   font-size: 1em;
 }
+
+

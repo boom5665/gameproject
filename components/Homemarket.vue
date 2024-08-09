@@ -80,7 +80,7 @@ export default {
     } else {
       console.log("No token found");
     }
-    this.fetchData();
+    // this.fetchData();
   },
   methods: {
     async fetchData() {

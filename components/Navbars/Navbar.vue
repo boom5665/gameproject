@@ -29,7 +29,7 @@
 
           <div v-if="token" style="display: flex">
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
-            <Nuxt-link class="text-nav" to="/" target="_self"
+            <Nuxt-link class="text-nav" to="/Profile" target="_self"
               ><div class="bottom-top bottom-w">Welcome, User</div></Nuxt-link
             >
             <div class="text-nav" @click="logout" target="_self">

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="box-cotent" style="display: flex; justify-content: center">
+    <div
+      class="box-cotent box-cotent-two"
+   
+    >
       <div class="contentleft">
         <MarketProfieleft />
       </div>

@@ -17,10 +17,8 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-
     ],
   },
-
   css: [
     '~/assets/scss/main.scss',
     '~/assets/scss/navbar.scss',
@@ -59,4 +57,7 @@ export default {
   },
 
   build: {},
+  router: {
+    middleware: ['auth']
+  }
 }
