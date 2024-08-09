@@ -95,9 +95,9 @@ export default {
             response.data_list.product_promotions_product_list
           );
           // จัดระเบียบข้อมูลประเภทสินค้า
-          // this.typeGroups = this.mapTypeGroups(
-          //   response.data_list.category_product_list
-          // );
+          this.typeGroups = this.mapTypeGroups(
+            response.data_list.category_product_list
+          );
           // แสดงข้อมูลในคอนโซลเพื่อตรวจสอบ
           console.log(this.productGroups);
         } else {
