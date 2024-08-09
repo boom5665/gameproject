@@ -15,6 +15,17 @@ export default ({ app }, inject) => {
           app.router.push("/"); // รีไดเรคไปยังหน้า index
         });
         break;
+      case 70001:
+        Swal.fire({
+          title: "ไม่สามารถบันทึกรูปภาพสินค้าได้",
+          icon: 'error',
+          timer: 1000, // หน่วงเวลา 1.5 วินาที
+          timerProgressBar: true,
+          showConfirmButton: false // ไม่แสดงปุ่ม OK
+        }).then(() => {
+          app.router.push("/MarketMyAdd"); // รีไดเรคไปยังหน้า index
+        });
+        break;
       default:
         Swal.fire({
           title: "เกิดข้อผิดพลาด",
@@ -44,6 +55,13 @@ export default ({ app }, inject) => {
         });
       } else {
         switch (errorData.code) {
+          case 70001:
+            Swal.fire({
+              title: "ไม่สามารถบันทึกรูปภาพสินค้าได้",
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+            break;
           case 50001:
             Swal.fire({
               title: "กรุณากรอกยูสเซอร์เนมไม่ต่ำกว่า 4 ตัวอักษรและไม่เกิน 12 ตัวอักษร",

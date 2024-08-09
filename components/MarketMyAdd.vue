@@ -78,7 +78,7 @@
             <div style="width: 49%">
               <label for="price">ราคา <span id="dotstyle">*</span> </label>
               <input
-                type="number"
+                type="text"
                 id="price"
                 v-model="price"
                 :class="{ 'input-error': errors.price }"
@@ -90,7 +90,7 @@
             <div style="width: 49%">
               <label for="specialPrice">ราคาพิเศษ</label>
               <input
-                type="number"
+                type="text"
                 id="specialPrice"
                 v-model="specialPrice"
                 :class="{ 'input-error': errors.specialPrice }"
@@ -241,7 +241,6 @@ export default {
   data() {
     return {
       productName: "",
-
       price: "",
       specialPrice: "",
       description: "",
@@ -251,10 +250,10 @@ export default {
       savedImageUrls: [],
       errors: {},
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
-      productTypes: [{ value: 1, label: "blech" }],
-      promotionTypes: [{ value: 1, label: "ส่วนลด" }],
-      selectedProductType: 1, // ค่าเริ่มต้น
-      selectedPromotionType: 1, // ค่าเริ่มต้น
+      productTypes: [{ value: "1", label: "blech" }],
+      promotionTypes: [{ value: "1", label: "ส่วนลด" }],
+      selectedProductType: "1", // ค่าเริ่มต้น
+      selectedPromotionType: "1", // ค่าเริ่มต้น
       // promotionDetails: "",
       // showPromotionDetails: true,
       imageInfo: {},
@@ -264,11 +263,11 @@ export default {
   methods: {
     onProductTypeChange() {
       // ตรวจสอบว่ามีการเลือกประเภทสินค้าหรือไม่
-      this.hasType = this.selectedProductType !== 1;
+      this.hasType = this.selectedProductType !== "2";
     },
     onPromotionTypeChange() {
       // ตรวจสอบว่ามีการเลือกประเภทโปรโมชั่นหรือไม่
-      this.hasType = this.selectedPromotionType !== 1;
+      this.hasType = this.selectedPromotionType !== "1";
     },
     openFileDialog(type) {
       if (type === "main") {
@@ -305,7 +304,7 @@ export default {
                   name: file.name,
                   order: this.savedImageUrls.length + 0,
                 });
-                console.log("Gallery Image URL:", e.target.result);
+                // console.log("Gallery Image URL:", e.target.result);
                 console.log("Gallery Image Info:", {
                   name: file.name,
                   order: this.savedImageUrls.length + 0,
@@ -366,8 +365,8 @@ export default {
 
     async submitData() {
       if (!this.validateForm()) {
-        this.productName = (this.productName || "").trim();
-        this.inventory = (this.inventory || "").trim();
+        // this.productName = (this.productName || "").trim();
+        // this.inventory = (this.inventory || "").trim();
         return;
       }
       this.isLoading = true; // แสดง loader
@@ -414,14 +413,26 @@ export default {
       try {
         const token = localStorage.getItem("authToken");
         console.log("Token:", token); // แสดง token
+
         // ส่งคำขอสร้างร้านค้า
         const response = await this.$axios.post("/product/create", formData, {
           headers: {
             Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
           },
         });
+
         // แสดงผลลัพธ์หลังจากส่งข้อมูลสำเร็จ
         console.log("Data submitted successfully!", response.data);
+
+        const result = await this.$swal.fire({
+          title: "เพิ่มสินค้า",
+          icon: "success",
+          showCancelButton: true,
+        });
+        // หากผู้ใช้กดปุ่ม "ยืนยัน"
+        if (result.isConfirmed) {
+          this.$router.push("/ShopQR"); // รีไดเรคไปยังหน้า ShopQR
+        }
       } catch (error) {
         console.error("Error:", error);
         this.$handleError(error);

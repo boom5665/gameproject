@@ -302,3 +302,26 @@ input {
 .ql-toolbar.ql-snow {
   border-radius: 5px 5px 0px 0px;
 }
+
+
+.swal2-confirm-button {
+  background-color: #4caf50 !important; /* สีเขียวสำหรับปุ่มยืนยัน */
+  color: white;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+  border: 0;
+  border-radius: .25em;
+  background: initial;
+  background-color: #7066e0;
+  color: #fff;
+  font-size: 1em;
+}
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
+  border: 0;
+  border-radius: .25em;
+  background: initial;
+  background-color: #6e7881;
+  color: #fff;
+  font-size: 1em;
+}
