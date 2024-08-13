@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="width-hunded">
     <div class="box-content">
       <div class="W-default">
         <ShopPayment :idd="idd" />
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ShopPayment from '~/components/ShopPayment.vue'; // แก้ไข path ตามที่ตั้งค่าไฟล์ไว้
+import ShopPayment from "~/components/ShopPayment.vue"; // แก้ไข path ตามที่ตั้งค่าไฟล์ไว้
 
 export default {
   components: {

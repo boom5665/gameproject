@@ -4,7 +4,7 @@
       <div class="dis-flex" style="align-items: flex-start">
         <div class="width-hunded box-pay" >
           <h3 class="font-re">รายละเอียดคำสั่งซื้อ</h3>
-          <div>
+          <div class="line-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="610"
@@ -47,7 +47,7 @@
                 <button class="report-button">แจ้งปัญหา</button>
               </div>
             </div>
-            <div>
+            <div class="line-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="610"
@@ -75,7 +75,7 @@
                 </div>
               </div>
 
-              <div>
+              <div class="line-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="610"
@@ -111,7 +111,7 @@
                 </div>
               </div>
 
-              <div>
+              <div class="line-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="610"
@@ -172,7 +172,8 @@ export default {
 
       // หากผู้ใช้กดปุ่ม "ยืนยัน"
       if (result.isConfirmed) {
-        this.$router.push("/ShopQR"); // รีไดเรคไปยังหน้า ShopQR
+        this.$router.push("/ShopDetail"); // รีไดเรคไปยังหน้า ShopQR
+         this.currentStep = 4 ;
       }
       // หากผู้ใช้กดปุ่ม "ยกเลิก"
       // ไม่ต้องทำอะไรจะยังคงอยู่หน้าเดิม
@@ -186,7 +187,8 @@ export default {
 .Shop .markettop-toppage {
   border-radius: 8px;
   background: var(--Linear, linear-gradient(180deg, #130048 0%, #5823e5 100%));
-  max-width: 800px;
+  /* max-width: 800px; */
+      margin: 0px 0px;
 }
 .submit {
   width: 100%;
@@ -287,5 +289,9 @@ export default {
 .order-summary {
   display: flex;
   justify-content: space-between;
+}
+.line-center{
+  width: 100%;
+  text-align: center;
 }
 </style>

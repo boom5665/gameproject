@@ -4,6 +4,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
   .group-comment {
     padding: var(--Spacing-space-16, 16px);

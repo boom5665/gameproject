@@ -148,7 +148,7 @@ export default {
 
       // หากผู้ใช้กดปุ่ม "ยืนยัน"
       if (result.isConfirmed) {
-        this.$router.push("/ShopQR"); // รีไดเรคไปยังหน้า ShopQR
+        this.$router.push("/ShopDetail"); // รีไดเรคไปยังหน้า ShopQR
       }
       // หากผู้ใช้กดปุ่ม "ยกเลิก"
       // ไม่ต้องทำอะไรจะยังคงอยู่หน้าเดิม
