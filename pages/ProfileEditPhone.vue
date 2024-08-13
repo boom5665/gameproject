@@ -13,14 +13,8 @@
 
 <style>
 
-.contentleft {
-  width: 25%;
-  display: flex;
-  justify-content: center;
-}
-.contentright {
-  width: 65%;
-}
+
+
 </style>
 
 

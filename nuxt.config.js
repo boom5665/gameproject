@@ -40,6 +40,7 @@ export default {
     { src: '~/plugins/errorHandler.js' },
     { src: '~/plugins/jsonwebtoken.js' },
     { src: '~/plugins/sweetalert2.js' },
+    { src: '~/plugins/router.js' },
   ],
 
   components: true,

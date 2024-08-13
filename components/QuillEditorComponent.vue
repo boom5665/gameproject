@@ -33,6 +33,11 @@ export default {
       }
     };
   },
+  mounted() {
+    if (process.client) {
+      this.editorOptions.bounds = document.body; // ตั้งค่า bounds หลังจากที่มั่นใจว่าอยู่ในฝั่ง client
+    }
+  },
   watch: {
     content(newValue) {
       this.$emit('input', newValue);
