@@ -14,7 +14,7 @@
         class="form-create"
         style="margin-top: 20px; gap: var(--Spacing-space-16, 12px)"
       >
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div
             style="display: flex; flex-direction: column; align-items: center"
           >

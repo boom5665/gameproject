@@ -11,7 +11,7 @@
         <Nuxt-link class="text-profile" to="/ProfilePassword" target="_self">&nbsp; | &nbsp;<span class="font-proL-top">Password</span></Nuxt-link>
       </div>
       <div class="form-create">
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div class="dis-btween">
             <div>
               <div class="but-shop font-top">Password Requirements:</div>

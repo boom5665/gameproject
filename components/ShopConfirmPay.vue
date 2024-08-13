@@ -1,8 +1,8 @@
 <template>
-  <div style="width: 100%" class="Shop">
+  <div  class="Shop width-hunded">
     <div class="markettop-toppage">
       <div class="dis-flex" style="align-items: flex-start">
-        <div style="width: 100%" class="box-pay">
+        <div  class="box-pay width-hunded">
           <Stepper :steps="steps" :currentStep="currentStep" />
           <!-- <button @click="cancelpay">ถัดไป</button> -->
           <div class="container">
@@ -171,7 +171,8 @@ export default {
 .Shop .markettop-toppage {
   border-radius: 8px;
   background: var(--Linear, linear-gradient(180deg, #130048 0%, #5823e5 100%));
-  max-width: 800px;
+   /* max-width: 800px; */
+  margin: 0px 0px;
 }
 .container {
   background-color: white;

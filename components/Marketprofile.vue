@@ -1,7 +1,7 @@
 <!-- Please remove this file from your project -->
 <template>
   <div class="markettop-toppage">
-    <div style="width: 100%">
+    <div class="width-hunded">
       <div style="display: flex; justify-content: space-between">
         <div class="shoppro-dis">
           <div>

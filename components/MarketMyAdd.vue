@@ -7,11 +7,11 @@
       </div>
 
       <div class="form-create">
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div class="font-form-add">เพิ่มสินค้า</div>
 
           <div class="dis-input height-req">
-            <div style="width: 100%">
+            <div class="width-hunded">
               <label for="phone">ชื่อสินค้า <span id="dotstyle">*</span></label>
               <input
                 type="text"
@@ -101,7 +101,7 @@
             </div>
           </div>
           <div class="dis-input height-req">
-            <div style="width: 100%">
+            <div class="width-hunded">
               <label for="inventory"
                 >สินค้าในคลัง <span id="dotstyle">*</span></label
               >
@@ -117,11 +117,11 @@
             </div>
           </div>
           <div class="dis-input">
-            <div style="width: 100%">
+            <div class="width-hunded">
               <label for="inventory"
                 >คำอธิบาย <span id="dotstyle">*</span></label
               >
-              <div style="width: 100%">
+              <div class="width-hunded">
                 <quill-editor-component
                   style="height: max-content; width: 100%"
                   v-model="description"

@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%">
+  <div class="width-hunded">
     <div><HomeCorousalBanner :items="itemsbanner" /></div>
     <div class="card-box" style="margin-top: 60px">
       <div
@@ -70,7 +70,8 @@ export default {
 
           if (!hasRefreshed) {
             localStorage.setItem("hasRefreshedMarketMyshop", "true");
-            window.location.reload();
+            this.$router.replace("/");
+            return;
           }
         }
       }
@@ -80,8 +81,9 @@ export default {
     } else {
       console.log("No token found");
     }
-    // this.fetchData();
+    this.fetchData();
   },
+
   methods: {
     async fetchData() {
       try {
@@ -89,7 +91,7 @@ export default {
         const response = await this.$axios.$post("/product/home/list/read");
         console.log(response);
         // ตรวจสอบรหัสสถานะของการตอบกลับ
-        if (response.code === 200) {
+        if (response.status === 200) {
           // จัดระเบียบข้อมูลประเภทโปรโมชั่น
           this.productGroups = this.mapProductGroups(
             response.data_list.product_promotions_product_list
@@ -117,12 +119,12 @@ export default {
     },
 
     // ฟังก์ชันสำหรับจัดระเบียบข้อมูลประเภทสินค้า
-    // mapTypeGroups(typeProducts) {
-    //   return typeProducts.map((group) => ({
-    //     title: group.name, // ชื่อกลุ่ม
-    //     items: [...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
-    //   }));
-    // },
+    mapTypeGroups(typeProducts) {
+      return typeProducts.map((group) => ({
+        title: group.name, // ชื่อกลุ่ม
+        items: [...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
+      }));
+    },
   },
 };
 </script>

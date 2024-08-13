@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%" class="Shop">
+  <div class="Shop width-hunded">
     <div class="markettop-toppage">
       <div class="dis-flex" style="align-items: flex-start">
         <div style="width: 60%" class="box-pay">
@@ -8,7 +8,7 @@
           <div
             v-for="(category, index) in categorizedProducts"
             :key="index"
-            style="width: 100%"
+            class="width-hunded"
           >
             <div class="top-head">{{ category.name }}</div>
             <div

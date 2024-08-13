@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%" class="readnew">
+  <div class="readnew width-hunded " >
     <div class="card-box" style="margin-bottom: 60px">
       <div style="display: flex; width: 100%">
         <div class="wid-one">
@@ -27,7 +27,7 @@
             :key="index"
           >
             <div>
-              <div style="width: 100%">
+              <div class="width-hunded">
                 <img class="box-new-bottom" :src="item.imgSrc" />
               </div>
               <div class="content-new-bottom">

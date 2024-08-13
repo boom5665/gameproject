@@ -1,4 +1,3 @@
-// middleware/auth.js
 let hasRedirected = false;
 
 export default function ({ route, redirect, req }) {
@@ -8,7 +7,7 @@ export default function ({ route, redirect, req }) {
       handleRedirect(token, route.path.toLowerCase(), redirect);
     } catch (error) {
       console.error('Error accessing localStorage:', error);
-      return redirect('/login');
+      return redirect('/');
     }
   } else if (process.server) {
     const token = req.headers.cookie && req.headers.cookie.split(';').find(c => c.trim().startsWith('authToken='));
@@ -20,12 +19,6 @@ export default function ({ route, redirect, req }) {
 function handleRedirect(token, path, redirect) {
   const allowedPaths = [
     '/', '/logregister', '/logforget',
-  ];
-  const successTokenPaths = [
-    '/market', '/marketcreateshop', '/marketmyadd', '/marketmyedit', '/marketmymessege',
-    '/marketmyshop', '/marketpackage', '/new', '/point', '/profile', '/profileaddress', '/profileeditemail', '/profileeditphone',
-    '/profilenoaddress', '/profilepassword', '/readnew', '/reset', '/shopconfirmpay', '/shopdetail', '/shopmanage', '/shopqr',
-    '/shopsale'
   ];
 
   if (!hasRedirected) {
@@ -41,10 +34,17 @@ function handleRedirect(token, path, redirect) {
       return redirect('/');
     }
 
-    if (token && !successTokenPaths.includes(path)) {
-      console.log('Token present, but path not allowed, redirecting to /');
-      hasRedirected = true;
-      return redirect('/');
-    }
+    // if (token && !allowedPaths.includes(path)) {
+    //   console.log('Token present, but path not allowed, redirecting to /');
+    //   hasRedirected = true;
+    //   return redirect('/');
+    // }
+  } else {
+    // เมื่อ refresh หน้าหรือพิมพ์ URL ใดๆ ให้กลับไปหน้า home
+    console.log('Page refreshed or URL typed, redirecting to /');
+    hasRedirected = false;
+    return redirect('/');
   }
+
+
 }

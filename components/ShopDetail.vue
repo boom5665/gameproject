@@ -1,8 +1,8 @@
 <template>
-  <div style="width: 100%" class="Shop">
+  <div class="Shop width-hunded"  >
     <div class="markettop-toppage">
       <div class="dis-flex" style="align-items: flex-start">
-        <div style="width: 100%" class="box-pay">
+        <div class="width-hunded box-pay" >
           <h3 class="font-re">รายละเอียดคำสั่งซื้อ</h3>
           <div>
             <svg

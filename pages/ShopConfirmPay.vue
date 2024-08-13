@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  class="width-hunded" >
     <div class="box-content">
       <div class="W-default">
         <ShopConfirmPay />

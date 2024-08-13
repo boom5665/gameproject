@@ -14,7 +14,7 @@
         class="form-create"
         style="margin-top: 20px; gap: var(--Spacing-space-16, 12px)"
       >
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div style="margin-right: 20px">
             <!-- <img class="" :src="qrImageUrl" /> -->
             <div style="margin-bottom: 20px">

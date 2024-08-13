@@ -2,7 +2,7 @@
   <div class="M-Create-Backgroud">
     <div class="navtabs">
       <div class="font-top-myshop">ร้านค้าของฉัน</div>
-      <div style="width: 100%">
+      <div class="width-hunded">
         <img
           class=""
           style="margin-right: 5px; width: 100%"
@@ -13,7 +13,7 @@
         class="form-create"
         style="margin-top: 20px; gap: var(--Spacing-space-16, 12px)"
       >
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div class="font-form-myshop">สินค้าของฉัน</div>
           <div class="font-form-myshop-under">เพิ่มสินค้าของคุณ</div>
           <Nuxt-link to="/MarketMyAdd" target="_self">
@@ -30,7 +30,7 @@
             </div>
           </Nuxt-link>
         </div>
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div class="font-form-myshop">จัดการร้านค้า</div>
           <div class="font-form-myshop-under">แก้ไขข้อมูลร้านค้า</div>
           <Nuxt-link to="/MarketMyEdit" target="_self">
@@ -47,7 +47,7 @@
             </div>
           </Nuxt-link>
         </div>
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div class="font-form-myshop">การแจ้งเตือน</div>
           <div class="font-form-myshop-under">ตั้งค่าการแจ้งเตือน</div>
           <Nuxt-link to="/MarketMyMessege" target="_self">

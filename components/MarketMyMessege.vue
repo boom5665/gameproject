@@ -8,7 +8,7 @@
         class="form-create"
         style="margin-top: 20px; gap: var(--Spacing-space-16, 12px)"
       >
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div class="box-alert">
             <div>
               <img

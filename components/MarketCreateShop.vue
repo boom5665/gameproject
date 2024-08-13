@@ -204,7 +204,7 @@
             </div>
           </div>
           <div class="dis-input height-req">
-            <div style="width: 100%">
+            <div class="width-hunded">
               <label for="address"
                 >ที่อยู่ร้านค้า <span id="dotstyle">*</span></label
               >
@@ -230,7 +230,7 @@
                 <label for="otherContact" class="box-other-content"
                   >หัวข้อ <span id="dotstyle">*</span></label
                 >
-                <div style="width: 100%">
+                <div class="width-hunded">
                   <input
                     type="text"
                     id="otherContact"
@@ -248,7 +248,7 @@
                 <label for="otherContact" class="box-other-content"
                   >ข้อความ <span id="dotstyle">*</span></label
                 >
-                <div style="width: 100%">
+                <div class="width-hunded">
                   <quill-editor-component
                     style="height: max-content; width: 100%"
                     v-model="editorContent"
@@ -395,7 +395,7 @@
               </div>
               <div class="dis-input">
                 <div class="dis-left">
-                  <div style="width: 100%">
+                  <div class="width-hunded">
                     <label for="imageUrl"
                       >ภาพหน้าบัตรประชาชน <span id="dotstyle">*</span></label
                     >
@@ -438,7 +438,7 @@
                   </div>
                 </div>
                 <div class="dis-left">
-                  <div style="width: 100%">
+                  <div class="width-hunded">
                     <label for="imageUrl2"
                       >ภาพหลังบัตรประชาชน <span id="dotstyle">*</span></label
                     >

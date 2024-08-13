@@ -22,7 +22,7 @@
             :key="index"
           >
             <div>
-              <div style="width: 100%">
+              <div class="width-hunded">
                 <img class="box-new-right" :src="item.imgSrc" />
               </div>
               <div>
@@ -47,7 +47,7 @@
             :key="index"
           >
             <div>
-              <div style="width: 100%">
+              <div class="width-hunded">
                 <img class="box-new-bottom" :src="item.imgSrc" />
               </div>
               <div></div>
@@ -83,8 +83,8 @@
         </div>
       </div>
 
-      <div style="width: 100%">
-        <div style="width: 100%">
+      <div class="width-hunded">
+        <div class="width-hunded">
           <img class="box-new-bottom" src="~/assets/image/AD.png" />
         </div>
       </div>
@@ -98,7 +98,7 @@
             :key="index"
           >
             <div>
-              <div style="width: 100%">
+              <div class="width-hunded">
                 <img class="box-new-bottom" :src="item.imgSrc" />
               </div>
               <div class="content-new-bottom">
@@ -120,7 +120,7 @@
               :key="index"
             >
               <div>
-                <div style="width: 100%">
+                <div class="width-hunded">
                   <img class="box-new-bottom" :src="item.imgSrc" />
                 </div>
                 <div class="content-new-bottom">
@@ -143,7 +143,7 @@
               :key="index"
             >
               <div>
-                <div style="width: 100%">
+                <div class="width-hunded">
                   <img class="box-new-bottom" :src="item.imgSrc" />
                 </div>
                 <div class="content-new-bottom">
@@ -176,7 +176,7 @@
               :key="index"
             >
               <div>
-                <div style="width: 100%">
+                <div class="width-hunded">
                   <img class="box-new-bottom" :src="item.imgSrc" />
                 </div>
                 <div class="content-new-bottom">

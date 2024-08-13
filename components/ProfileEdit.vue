@@ -11,7 +11,7 @@
         <Nuxt-link class="text-profile" to="/ProfilePassword" target="_self">&nbsp; | &nbsp;<span class="">Password</span></Nuxt-link>
       </div>
       <div class="form-create">
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div style="display: flex; justify-content: center">
             <div>
               <div class="font-form-add"></div>

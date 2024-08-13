@@ -2,7 +2,7 @@
   <div class="M-Create-Backgroud Profile custom-regis">
     <div class="navtabs">
       <div class="form-create">
-        <div style="width: 100%">
+        <div class="width-hunded">
           <div class="font-form-pak">สมัครสมาชิก</div>
           <form action="">
             <div class="dis-input">

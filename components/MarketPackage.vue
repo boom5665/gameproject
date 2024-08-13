@@ -61,7 +61,7 @@
               src="~/assets/image/likeintro.png"
             />เพิ่มรูปภาพสินค้าได้มากกว่าเดิม ถึง 2 เท่า
           </div>
-          <div style="width: 100%">
+          <div class="width-hunded">
             <div class="button-but">ซื้อเลย</div>
           </div>
         </div>
@@ -116,7 +116,7 @@
               src="~/assets/image/likebase.png"
             />เพิ่มรูปภาพสินค้าได้มากกว่าเดิม ถึง 2 เท่า
           </div>
-          <div style="width: 100%">
+          <div class="width-hunded">
             <div class="button-but">ซื้อเลย</div>
           </div>
         </div>
@@ -171,7 +171,7 @@
               src="~/assets/image/likebase.png"
             />เพิ่มรูปภาพสินค้าได้มากกว่าเดิม ถึง 2 เท่า
           </div>
-          <div style="width: 100%">
+          <div class="width-hunded">
             <div class="button-but">ซื้อเลย</div>
           </div>
         </div>
@@ -225,7 +225,7 @@
               src="~/assets/image/likebase.png"
             />เพิ่มรูปภาพสินค้าได้มากกว่าเดิม ถึง 2 เท่า
           </div>
-          <div style="width: 100%">
+          <div class="width-hunded">
             <div class="button-but">ซื้อเลย</div>
           </div>
         </div>

@@ -213,7 +213,7 @@
                   <img class="img-safe" src="~/assets/image/profile.png" />
                 </div>
               </div>
-              <div style="width: 100%">
+              <div class="width-hunded">
                 <textarea
                   type="text"
                   class="text-area"
