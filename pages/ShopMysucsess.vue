@@ -5,17 +5,14 @@
         <MarketProfieleft />
       </div>
       <div class="contentright">
-        <ProfileNoAddress />
+        <ShopMysucsess />
       </div>
     </div>
   </div>
 </template>
 
 <style>
-.M-Create-Backgroud .font-top-myshop {
-  font-size: 18px;
-  color: var(--color-black-white-700, #bababa);
-}
+
 
 </style>
 

@@ -3,6 +3,7 @@
 .font-re {
   color: $Primary-Pueple-500;
 }
+
 .custom-login {
 
 
@@ -136,10 +137,15 @@
   }
 }
 
+.text-profile {
+  color: $gray-color;
+  font-size: 16px;
+}
+
 .Profile {
   .text-profile {
     color: $gray-color;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .font-proL-top {

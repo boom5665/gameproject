@@ -168,7 +168,7 @@ export default {
       });
       // รีไดเรคไปยังหน้า index หลังจากกด "OK"
       if (result.isConfirmed) {
-        this.$router.push("/"); // รีไดเรคไปยังหน้า index
+        // this.$router.push("/"); // รีไดเรคไปยังหน้า index
       }
     },
   },

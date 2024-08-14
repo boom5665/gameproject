@@ -1,5 +1,5 @@
 <template>
-  <div>
+ <div class="width-hunded">
     <div class="box-cotent box-cotent-two">
       <div class="contentleft">
         <MarketProfieleft />

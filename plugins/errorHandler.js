@@ -8,12 +8,27 @@ export default ({ app }, inject) => {
         Swal.fire({
           title: "เข้าสู่ระบบสำเร็จ",
           icon: 'success',
-          timer: 1000, // หน่วงเวลา 1.5 วินาที
+          timer: 1000, // หน่วงเวลา 1 วินาที
           timerProgressBar: true,
           showConfirmButton: false // ไม่แสดงปุ่ม OK
         }).then(() => {
-          app.router.push("/"); // รีไดเรคไปยังหน้า index
+          const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
+
+          // รีไดเรคไปยังหน้า index ก่อน
+          app.router.push("/");
+
+          // ถ้ายังไม่ได้รีเฟรช
+          if (!hasRefreshed) {
+            // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
+            localStorage.setItem("hasRefreshedMarketMyshop", "true");
+
+            // หน่วงเวลาเล็กน้อยก่อนรีเฟรชหน้าเว็บ
+            setTimeout(() => {
+              window.location.reload();
+            }, 500); // หน่วงเวลา 1.5 วินาที
+          }
         });
+
         break;
       case 70001:
         Swal.fire({

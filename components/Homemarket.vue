@@ -20,8 +20,26 @@
         <Slider :items="group.items || []" :interval="240" />
       </div>
 
-      <!-- <div
+      <div
         v-for="(group, index) in typeGroups"
+        :key="'product-' + index"
+        class="slider-container product-group-container"
+      >
+        <div class="dis-play-recom">
+          <div>
+            <img src="~/assets/image/recom.png" class="img-recom" />
+            {{ group.title }}
+          </div>
+          <div>
+            See all &nbsp;
+            <img src="~/assets/image/all.png" class="img-recom" />
+          </div>
+        </div>
+        <Slider :items="group.items || []" :interval="240" />
+      </div>
+
+      <div
+        v-for="(group, index) in CateGroups"
         :key="'type-' + index"
         class="slider-container type-group-container"
       >
@@ -36,7 +54,7 @@
           </div>
         </div>
         <HomeCardSlidergame :items="group.items || []" />
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -56,25 +74,26 @@ export default {
         { imageSrc: require("~/assets/image/AD.png") },
         { imageSrc: require("~/assets/image/AD.png") },
       ],
-      productGroups: [], // เริ่มต้นเป็น array ว่าง
-      producttwoGroups: [], // เริ่มต้นเป็น array ว่าง
-      typeGroups: [], // เริ่มต้นเป็น array ว่าง
+      productGroups: [],
+      typeGroups: [],
+      CateGroups: [],
     };
   },
+
   mounted() {
     const token = localStorage.getItem("authToken");
     if (token) {
-      if (process.client) {
-        if (this.$route.path === "/") {
-          const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
+      // if (process.client) {
+      //   if (this.$route.path === "/") {
+      //     const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
 
-          if (!hasRefreshed) {
-            localStorage.setItem("hasRefreshedMarketMyshop", "true");
-            this.$router.replace("/");
-            return;
-          }
-        }
-      }
+      //     if (!hasRefreshed) {
+      //       localStorage.setItem("hasRefreshedMarketMyshop", "true");
+      //       this.$router.replace("/");
+      //       return;
+      //     }
+      //   }
+      // }
       const decoded = this.$jwt.decode(token);
       const { authen_code, id, permission } = decoded;
       console.log("authen", authen_code, "id", id, "สิทธิ", permission);
@@ -83,51 +102,61 @@ export default {
     }
     this.fetchData();
   },
-
   methods: {
     async fetchData() {
       try {
         // ส่งคำขอเพื่อดึงข้อมูล
-        const response = await this.$axios.$post("/product/home/list/read");
+        const response = await this.$axios.$post("/product/home/list/read", {
+          page: 0,
+          limit: 0,
+        });
         console.log(response);
-        // ตรวจสอบรหัสสถานะของการตอบกลับ
-        if (response.status === 200) {
+
+        if (response && response.data_list) {
           // จัดระเบียบข้อมูลประเภทโปรโมชั่น
           this.productGroups = this.mapProductGroups(
-            response.data_list.product_promotions_product_list
+            response.data_list.product_promotions_product_list || []
           );
+
           // จัดระเบียบข้อมูลประเภทสินค้า
           this.typeGroups = this.mapTypeGroups(
-            response.data_list.category_product_list
+            response.data_list.type_product_list || []
           );
+
+          this.CateGroups = this.mapCateGroups(
+            response.data_list.categorys_product_list || []
+          );
+
           // แสดงข้อมูลในคอนโซลเพื่อตรวจสอบ
-          console.log(this.productGroups);
+          console.log(this.CateGroups);
         } else {
-          console.error("Failed to fetch data:", response.msg);
+          console.error("Unexpected response structure:", response);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     },
 
-    // ฟังก์ชันสำหรับจัดระเบียบข้อมูลประเภทโปรโมชั่น
     mapProductGroups(productPromotions) {
       return (productPromotions || []).map((group) => ({
-        title: group.name || "กลุ่มสินค้า", // ใช้ชื่อกลุ่ม ถ้าไม่มีให้ใช้ชื่อเริ่มต้น
-        items: Array.isArray(group.product_list) ? [...group.product_list] : [], // ตรวจสอบว่าคือ array หรือไม่
+        title: group.name || "กลุ่มสินค้า",
+        items: Array.isArray(group.product_list) ? [...group.product_list] : [],
       }));
     },
 
-    // ฟังก์ชันสำหรับจัดระเบียบข้อมูลประเภทสินค้า
     mapTypeGroups(typeProducts) {
-      return typeProducts.map((group) => ({
-        title: group.name, // ชื่อกลุ่ม
-        items: [...group.product_list] || [], // รายการสินค้าที่อยู่ในกลุ่ม
+      return (typeProducts || []).map((group) => ({
+        title: group.name || "กลุ่มสินค้า",
+        items: Array.isArray(group.product_list) ? [...group.product_list] : [],
+      }));
+    },
+
+    mapCateGroups(CateProducts) {
+      return (CateProducts || []).map((group) => ({
+        title: group.name,
+        items: Array.isArray(group.product_list) ? [...group.product_list] : [],
       }));
     },
   },
 };
 </script>
-
-
-

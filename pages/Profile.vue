@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <div
-      class="box-cotent box-cotent-two"
-
-    >
+ <div class="width-hunded">
+    <div class="box-cotent box-cotent-two">
       <div class="contentleft">
         <MarketProfieleft />
       </div>
@@ -15,7 +12,6 @@
 </template>
 
 <style>
-
 </style>
 
 

@@ -27,14 +27,17 @@ a {
   background-color: none;
   width: 100%;
 }
+a:hover {
+  color: $white-color ;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: none;
+  width: 100%;
+}
 .width-hunded{
   width: 100%;
 }
-a:hover {
-  color: $black-color;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
+
 
 .error {
   color: red;
@@ -88,6 +91,7 @@ input {
   display: flex;
   justify-content: center;
 }
+
 .home-logo {
   display: flex;
   flex-direction: column;
@@ -96,7 +100,7 @@ input {
 }
 .box-cotent-two{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 .dis-col-center {
   display: flex;
@@ -117,7 +121,15 @@ input {
   padding: 0px 24px;
 }
 
-
+.contentleft {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  margin-right: 40px;
+}
+.contentright {
+  width: 65%;
+}
 
 .dis-contentimg {
   padding: var(--Spacing-space-24, 24px) var(--Spacing-space-0, 0px);
