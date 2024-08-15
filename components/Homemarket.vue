@@ -138,26 +138,65 @@ export default {
     },
 
     mapProductGroups(productPromotions) {
-      return (productPromotions || []).map((group) => ({
-        title: group.name || "กลุ่มสินค้า",
-        items: Array.isArray(group.product_list) ? [...group.product_list] : [],
-      }));
+      if (!productPromotions || productPromotions.length === 0) {
+        // ถ้าไม่มีข้อมูล ให้คืนค่ากลับเป็น array ว่าง
+        return [];
+      }
+
+      return productPromotions
+        .map((group) => {
+          if (!group.product_list || !Array.isArray(group.product_list)) {
+            // ถ้าไม่มีรายการสินค้าในกลุ่มหรือไม่ใช่ array ให้ข้ามกลุ่มนี้ไป
+            return null;
+          }
+
+          return {
+            title: group.name || "กลุ่มสินค้า",
+            items: [...group.product_list],
+          };
+        })
+        .filter((group) => group !== null); // กรองเอากลุ่มที่เป็น null ออก
     },
 
     mapTypeGroups(typeProducts) {
-      return (typeProducts || []).map((group) => ({
-        title: group.name || "ประเภทสินค้า",
-        items: Array.isArray(group.product_list) ? [...group.product_list] : [],
-      }));
+      if (!typeProducts || typeProducts.length === 0) {
+        // ถ้าไม่มีข้อมูล ให้คืนค่ากลับเป็น array ว่าง
+        return [];
+      }
+
+      return typeProducts
+        .map((group) => {
+          if (!group.product_list || !Array.isArray(group.product_list)) {
+            // ถ้าไม่มีรายการสินค้าในกลุ่มหรือไม่ใช่ array ให้ข้ามกลุ่มนี้ไป
+            return null;
+          }
+
+          return {
+            title: group.name || "ประเภทสินค้า",
+            items: [...group.product_list],
+          };
+        })
+        .filter((group) => group !== null); // กรองเอากลุ่มที่เป็น null ออก
     },
 
     mapCateGroups(CateProducts) {
-      return (CateProducts || []).map((group) => ({
-        title: group.name,
-        items: Array.isArray(group.product_list) ? [...group.product_list] : [],
-      }));
-    },
+      if (!CateProducts || CateProducts.length === 0) {
+        // ถ้าไม่มีข้อมูล ให้คืนค่ากลับเป็น array ว่าง
+        return [];
+      }
 
+      return CateProducts.map((group) => {
+        if (!group.product_list || !Array.isArray(group.product_list)) {
+          // ถ้าไม่มีรายการสินค้าในกลุ่มหรือไม่ใช่ array ให้ข้ามกลุ่มนี้ไป
+          return null;
+        }
+
+        return {
+          title: group.name,
+          items: [...group.product_list],
+        };
+      }).filter((group) => group !== null); // กรองเอากลุ่มที่เป็น null ออก
+    },
   },
 };
 </script>
