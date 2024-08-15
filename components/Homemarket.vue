@@ -22,7 +22,7 @@
 
       <div
         v-for="(group, index) in typeGroups"
-        :key="'product-' + index"
+        :key="'type-' + index"
         class="slider-container product-group-container"
       >
         <div class="dis-play-recom">
@@ -40,7 +40,7 @@
 
       <div
         v-for="(group, index) in CateGroups"
-        :key="'type-' + index"
+        :key="'cate-' + index"
         class="slider-container type-group-container"
       >
         <div class="dis-play-recom">
@@ -146,7 +146,7 @@ export default {
 
     mapTypeGroups(typeProducts) {
       return (typeProducts || []).map((group) => ({
-        title: group.name || "กลุ่มสินค้า",
+        title: group.name || "ประเภทสินค้า",
         items: Array.isArray(group.product_list) ? [...group.product_list] : [],
       }));
     },
@@ -157,6 +157,7 @@ export default {
         items: Array.isArray(group.product_list) ? [...group.product_list] : [],
       }));
     },
+
   },
 };
 </script>

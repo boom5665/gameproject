@@ -2,7 +2,7 @@
   <div class="width-hunded">
     <div class="box-content">
       <div class="W-default">
-        <ShopPayment :idd="idd" />
+        <ShopPayment :id="id" />
       </div>
     </div>
   </div>
@@ -16,10 +16,10 @@ export default {
     ShopPayment,
   },
   async asyncData({ params }) {
-    const idd = params.idd;
+    const id = params.id;
     // ดึงข้อมูลเพิ่มเติมตามที่ต้องการ เช่น:
-    // const data = await fetchShopPaymentById(idd);
-    return { idd };
+    // const data = await fetchShopPaymentById(id);
+    return { id };
   },
 };
 </script>
