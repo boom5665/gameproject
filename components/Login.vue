@@ -99,7 +99,6 @@ export default {
       }
 
       this.isLoading = true; // แสดง loader
-      localStorage.clear(); // ลบข้อมูลทั้งหมดใน localStorage
 
       const formData = {
         username: this.Emailphone,
@@ -108,17 +107,29 @@ export default {
 
       try {
         const response = await this.$axios.post("/users/login", formData);
-        console.log("Response:", response.data);
-        const token = response.data.data.token;
+        const token = response.data.data?.token;
         if (token) {
-          localStorage.setItem("authToken", token); // เก็บ token ใน localStorage
-          console.log("Stored Token:", token);
-          this.$handleResponse(response); // ใช้ฟังก์ชัน handleError สำหรับข้อผิดพลาดที่เกิดขึ้น
+          // บันทึก token ลงใน localStorage
+          localStorage.setItem("authToken", token);
+          localStorage.setItem("login", true);
+          localStorage.setItem("nologin", false);
+
+          // อัปเดต Vuex store
+          await this.$store.dispatch("setAuthToken", token);
+          await this.$store.dispatch("setLogin", true);
+          await this.$store.dispatch("setNologin", false);
+
+          console.log("Login state updated:", {
+            login: this.$store.state.login,
+            nologin: this.$store.state.nologin,
+          });
+
+          this.$handleResponse(response);
         }
       } catch (error) {
-        this.$handleError(error); // ใช้ฟังก์ชัน handleError สำหรับข้อผิดพลาดที่เกิดขึ้น
+        this.$handleError(error);
       } finally {
-        this.isLoading = false; // ซ่อน loader เสมอหลังจากดำเนินการเสร็จสิ้น
+        this.isLoading = false; // ซ่อน loader
       }
     },
   },

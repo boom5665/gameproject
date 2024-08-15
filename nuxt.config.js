@@ -35,7 +35,7 @@ export default {
   plugins: [
     { src: '~/plugins/slick-carousel.js', mode: 'client' },
     { src: '~/plugins/validation.js' },
-    { src: '~/plugins/token.js' },
+    // { src: '~/plugins/token.js' },
     { src: '~/plugins/setColor.js' },
     { src: '~/plugins/errorHandler.js' },
     { src: '~/plugins/jsonwebtoken.js' },
