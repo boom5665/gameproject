@@ -411,13 +411,13 @@ export default {
       }
 
       try {
-        const token = localStorage.getItem("authToken");
+        const token = this.$cookies.get("authToken");
         console.log("Token:", token); // แสดง token
 
         // ส่งคำขอสร้างร้านค้า
         const response = await this.$axios.post("/product/create", formData, {
           headers: {
-            Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
+            Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก 
           },
         });
 

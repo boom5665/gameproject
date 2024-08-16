@@ -814,14 +814,14 @@ export default {
       logFormData(formData);
 
       try {
-        const token = localStorage.getItem("authToken");
-        console.log(token); // log แสดง token
+        const token = this.$cookies.get("authToken");
+        console.log("Token:", token);
 
         // ส่งคำขอสร้างร้านค้า
         await this.$axios.post("/vendor/register/create", formData, {
           headers: {
             // axios จะตั้งค่า "Content-Type" เป็น "multipart/form-data" ให้เอง
-            Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก localStorage
+            Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก
           },
         });
 

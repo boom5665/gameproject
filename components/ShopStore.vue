@@ -766,7 +766,7 @@ export default {
       logFormData(formData);
 
       try {
-        const token = localStorage.getItem("authToken");
+        const token = this.$cookies.get("authToken");
         console.log(token); // log แสดง token
 
         // ส่งคำขอสร้างร้านค้า

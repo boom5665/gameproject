@@ -31,11 +31,11 @@ function handleRedirect(token, path, redirect, store) {
 
   // ดึงค่า state จาก Vuex
   const { } = store.state;
-  console.log(store.state);
+  // console.log(store.state);
 
-  console.log('Token:', store.state.authToken);
-  console.log('Current path:', path);
-  console.log('Allowed paths:', allowedPaths);
+  // console.log('Token:', store.state.authToken);
+  // console.log('Current path:', path);
+  // console.log('Allowed paths:', allowedPaths);
 
   // ใช้ switch สำหรับตรวจสอบเงื่อนไข
   switch (true) {

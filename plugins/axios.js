@@ -7,7 +7,7 @@ export default function ({ $axios, redirect }) {
     config.headers.common['Content-Type'] = 'application/json';
 
     // ดึง token จาก localStorage
-    const token = localStorage.getItem('authToken');
+    const token = this.$cookies.get("authToken");
     if (token) {
       // เพิ่ม header 'Authorization' ถ้ามี token
       config.headers.common['Authorization'] = `Bearer ${token}`;

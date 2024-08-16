@@ -265,7 +265,7 @@ export default {
 
   async mounted() {
     const token = Cookies.get("authToken"); // ใช้ js-cookie โดยตรง
-    console.log("Token:", token);
+    // console.log("Token:", token);
     this.token = token; // กำหนดค่า token ให้กับ this.token
     if (this.token) {
       await this.fetchProfileData();

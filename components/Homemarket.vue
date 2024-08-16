@@ -82,7 +82,7 @@ export default {
 
   mounted() {
     const token = Cookies.get("authToken"); // ใช้ js-cookie โดยตรง
-    console.log("Token:", token);
+    // console.log("Token:", token);
 
     if (token) {
       const decoded = this.$jwt.decode(token);
@@ -98,7 +98,7 @@ export default {
         }
       }
     } else {
-      console.log("No token found");
+      // console.log("No token found");
     }
 
     this.fetchData();
