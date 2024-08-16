@@ -18,7 +18,7 @@ export default ({ app }, inject) => {
           app.router.push("/");
 
           // ถ้ายังไม่ได้รีเฟรช
-          if (!hasRefreshed) {
+          if (hasRefreshed) {
             // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
             localStorage.setItem("hasRefreshedMarketMyshop", "true");
 

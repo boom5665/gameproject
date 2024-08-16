@@ -323,16 +323,31 @@ export default {
       Cookies.remove("authToken");
 
       // แสดงข้อความสำเร็จด้วย SweetAlert2
-      const result = await this.$swal.fire({
-        title: "ออกจากระบบสำเร็จ",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
+      await this.$swal
+        .fire({
+          title: "ออกจากระบบสำเร็จ",
+          icon: "success",
+          timer: 1000, // หน่วงเวลา 1 วินาที
+          timerProgressBar: true,
+          showConfirmButton: false, // ไม่แสดงปุ่ม OK
+        })
+        .then(() => {
+          // รีไดเรคไปยังหน้า login ก่อน
+          this.$router.push("/login");
 
-      // รีไดเรคไปยังหน้า login หลังจากกด "OK"
-      if (result.isConfirmed) {
-        this.$router.push("/login");
-      }
+          // ตรวจสอบสถานะการรีเฟรช
+          const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
+
+          if (hasRefreshed) {
+            // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
+            localStorage.setItem("hasRefreshedMarketMyshop", "true");
+
+            // หน่วงเวลาเล็กน้อยก่อนรีเฟรชหน้าเว็บ
+            setTimeout(() => {
+              window.location.reload();
+            }, 500); // หน่วงเวลา 0.5 วินาที
+          }
+        });
     },
   },
 };
