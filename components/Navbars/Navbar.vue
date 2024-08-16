@@ -254,6 +254,7 @@
 </template>
 
 <script>
+import Cookies from "js-cookie";
 export default {
   data() {
     return {
@@ -263,7 +264,9 @@ export default {
   },
 
   async mounted() {
-    this.token = localStorage.getItem("authToken");
+    const token = Cookies.get("authToken"); // ใช้ js-cookie โดยตรง
+    console.log("Token:", token);
+    this.token = token; // กำหนดค่า token ให้กับ this.token
     if (this.token) {
       await this.fetchProfileData();
     }
@@ -271,10 +274,10 @@ export default {
 
   methods: {
     async fetchProfileData() {
-      // if (!this.token) {
-      //   console.log("No token found");
-      //   return;
-      // }
+      if (!this.token) {
+        console.log("No token found");
+        return;
+      }
 
       try {
         const response = await this.$axios.$post(
@@ -287,14 +290,12 @@ export default {
           }
         );
 
-        // console.log(response);
-        // console.log(this.token);
+        console.log(response);
 
-        if (response.data) {
-          this.buttonText = "ดูร้านค้า";
-        } else {
-          this.buttonText = "สร้างร้านค้า";
-        }
+        this.buttonText = response.data ? "ดูร้านค้า" : "สร้างร้านค้า";
+
+        // ใช้ $nextTick เพื่อให้ Vue ตรวจจับการเปลี่ยนแปลงค่า
+        await this.$nextTick();
       } catch (error) {
         console.error("Error fetching profile data:", error);
       }
@@ -317,6 +318,10 @@ export default {
       // ลบโทเคนออกจาก localStorage และรีเซ็ตค่า token
       localStorage.removeItem("authToken");
       this.token = null;
+
+      // ลบโทเคนออกจากคุกกี้
+      Cookies.remove("authToken");
+
       // แสดงข้อความสำเร็จด้วย SweetAlert2
       const result = await this.$swal.fire({
         title: "ออกจากระบบสำเร็จ",

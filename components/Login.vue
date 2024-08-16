@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import Cookies from "js-cookie";
 export default {
   data() {
     return {
@@ -93,7 +94,7 @@ export default {
       this.showPassword = !this.showPassword;
     },
 
-    async submitData() {
+  async submitData() {
       if (!this.validateForm()) {
         return; // ถ้าฟอร์มไม่ถูกต้อง ให้หยุดการทำงาน
       }
@@ -109,21 +110,7 @@ export default {
         const response = await this.$axios.post("/users/login", formData);
         const token = response.data.data?.token;
         if (token) {
-          // บันทึก token ลงใน localStorage
-          localStorage.setItem("authToken", token);
-          localStorage.setItem("login", true);
-          localStorage.setItem("nologin", false);
-
-          // อัปเดต Vuex store
-          await this.$store.dispatch("setAuthToken", token);
-          await this.$store.dispatch("setLogin", true);
-          await this.$store.dispatch("setNologin", false);
-
-          console.log("Login state updated:", {
-            login: this.$store.state.login,
-            nologin: this.$store.state.nologin,
-          });
-
+          Cookies.set('authToken', token, { path: '/' }); // เก็บ token ใน cookie
           this.$handleResponse(response);
         }
       } catch (error) {

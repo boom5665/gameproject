@@ -63,7 +63,7 @@
 import Slider from "./Slider.vue";
 import HomeCardSlidergame from "./HomeCardSlidergame.vue";
 import HomeCorousalBanner from "./HomeCorousalBanner.vue";
-
+import Cookies from "js-cookie";
 export default {
   components: { Slider, HomeCardSlidergame, HomeCorousalBanner },
   data() {
@@ -81,27 +81,29 @@ export default {
   },
 
   mounted() {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      // if (process.client) {
-      //   if (this.$route.path === "/") {
-      //     const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
+    const token = Cookies.get("authToken"); // ใช้ js-cookie โดยตรง
+    console.log("Token:", token);
 
-      //     if (!hasRefreshed) {
-      //       localStorage.setItem("hasRefreshedMarketMyshop", "true");
-      //       this.$router.replace("/");
-      //       return;
-      //     }
-      //   }
-      // }
+    if (token) {
       const decoded = this.$jwt.decode(token);
       const { authen_code, id, permission } = decoded;
       console.log("authen", authen_code, "id", id, "สิทธิ", permission);
+
+      if (this.$route.path === "/") {
+        const hasRefreshed = Cookies.get("hasRefreshedMarketMyshop");
+        if (!hasRefreshed) {
+          Cookies.set("hasRefreshedMarketMyshop", "true");
+          this.$router.replace("/");
+          return;
+        }
+      }
     } else {
       console.log("No token found");
     }
+
     this.fetchData();
   },
+
   methods: {
     async fetchData() {
       try {
@@ -110,7 +112,7 @@ export default {
           page: 0,
           limit: 0,
         });
-        console.log(response);
+        // console.log(response);
 
         if (response && response.data_list) {
           // จัดระเบียบข้อมูลประเภทโปรโมชั่น
@@ -128,7 +130,7 @@ export default {
           );
 
           // แสดงข้อมูลในคอนโซลเพื่อตรวจสอบ
-          console.log(this.CateGroups);
+          // console.log(this.CateGroups);
         } else {
           console.error("Unexpected response structure:", response);
         }

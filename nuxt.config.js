@@ -30,6 +30,7 @@ export default {
     'quill/dist/quill.core.css',
     'quill/dist/quill.snow.css',
     'quill/dist/quill.bubble.css'
+
   ],
 
   plugins: [
@@ -41,6 +42,7 @@ export default {
     { src: '~/plugins/jsonwebtoken.js' },
     { src: '~/plugins/sweetalert2.js' },
     { src: '~/plugins/router.js' },
+    { src: '~/plugins/cookies.js' },
   ],
 
   components: true,

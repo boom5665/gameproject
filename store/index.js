@@ -1,41 +1,32 @@
+// store/index.js
+import Cookies from 'js-cookie'
+
 export const state = () => ({
-  authToken: null,
-  hasRedirected: false,
-  login: false,
-  nologin: true,
-});
+  authToken: null
+})
 
 export const mutations = {
   setAuthToken(state, token) {
-    state.authToken = token;
+    state.authToken = token
+    Cookies.set('authToken', token, { path: '/' })
   },
-  setHasRedirected(state, value) {
-    state.hasRedirected = value;
-  },
-  setLogin(state, value) {
-    state.login = value;
-  },
-  setNologin(state, value) {
-    state.nologin = value;
+  removeAuthToken(state) {
+    state.authToken = null
+    Cookies.remove('authToken', { path: '/' })
   }
-};
+}
 
 export const actions = {
-  setAuthToken({ commit }, token) {
-    console.log('Setting authToken:', token);
-    commit('setAuthToken', token);
+  async setAuthToken({ commit }, token) {
+    commit('setAuthToken', token)
   },
-  setHasRedirected({ commit }, value) {
-    console.log('Setting hasRedirected:', value);
-    commit('setHasRedirected', value);
-  },
-  setLogin({ commit }, value) {
-    console.log('Setting login:', value);
-    commit('setLogin', value);
-  },
-  setNologin({ commit }, value) {
-    console.log('Setting nologin:', value);
-    commit('setNologin', value);
+  nuxtServerInit({ commit }, { req }) {
+    if (process.server) {
+      const cookies = req.headers.cookie || ''
+      const authToken = cookies.split(';').find(c => c.trim().startsWith('authToken='))?.split('=')[1]
+      if (authToken) {
+        commit('setAuthToken', authToken)
+      }
+    }
   }
-};
-
+}
