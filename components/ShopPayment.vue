@@ -64,6 +64,7 @@
               </div>
             </div>
           </div>
+          <Loader :isLoading="isLoading" />
         </div>
       </div>
     </div>
@@ -79,38 +80,23 @@ export default {
   },
   data() {
     return {
-      currentStep: 0,
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
+      currentStep: 1,
       steps: [
-        { label: "คำสั่งซื้อใหม่", date: "10/07/24", time: "18:00" },
+        {
+          label: "คำสั่งซื้อใหม่",
+          date: this.getCurrentDate(),
+          time: this.getCurrentTime(),
+        },
         { label: "ชำระเงินแล้ว", date: "--/--/--", time: "--:--" },
         { label: "ได้รับสินค้า", date: "--/--/--", time: "--:--" },
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
         { label: "รีวิวสินค้า", date: "--/--/--", time: "--:--" },
       ],
-      categorizedProducts: [
-        {
-          name: "Razer Gold",
-          items: [
-            {
-              name: "Razer Gold",
-              imageUrl: require("@/assets/image/cardgold.png"),
-              description: "Top up Razer Gold",
-              category: "Digital",
-              quantity: 1,
-              price: 50000,
-            },
-            {
-              name: "Razer Gold",
-              imageUrl: require("@/assets/image/cardgold.png"),
-              description: "Top up Razer Gold",
-              category: "Digital",
-              quantity: 3,
-              price: 50000,
-            },
-          ],
-        },
-      ],
+      categorizedProducts: [],
       timer: 300, // 5 นาทีในหน่วยวินาที
+      id: this.$route.params.id || null, // กำหนดค่าเริ่มต้นเป็น null หรือค่า id จาก URL
+      codeqr: null, // เพิ่มตัวแปร codeqr ไว้ที่ data เพื่อให้เข้าถึงได้ใน confirmpay
     };
   },
   computed: {
@@ -133,7 +119,97 @@ export default {
       return `${Math.floor(this.timer / 60)} นาที`;
     },
   },
+  mounted() {
+    this.startTimer();
+    const id = this.$route.params.id;
+    const amount = this.$route.query.amount; // ดึง amount จาก URL
+    this.fetchProductData(id, amount);
+  },
   methods: {
+    async fetchProductData(id, amount) {
+      this.isLoading = true; // แสดง loader
+      try {
+        const idNumber = Number(id);
+        const amountNumber = Number(amount);
+
+        // ดึง token จาก cookies
+        const token = this.$cookies.get("authToken");
+
+        // ส่งคำขอเพื่อดึงข้อมูล โดยเพิ่ม header Authorization ที่มี Bearer token
+        const response = await this.$axios.$post(
+          "/product/reserve/create",
+          {
+            id: idNumber,
+            amount: amountNumber, // ใช้ค่า amount ที่รับมา
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // ตรวจสอบ response และอัพเดต categorizedProducts
+        console.log(response);
+
+        if (response.data) {
+          const price = response.data.price_new_total;
+          const timer = response.data.reserve_expire_at_list;
+          this.codeqr = response.data.id_pay_transaction_new; // เก็บ codeqr ใน data
+
+          // อัพเดต categorizedProducts ตามข้อมูลที่ได้รับ
+          this.categorizedProducts = [
+            {
+              name: "Updated Product", // เปลี่ยนเป็นชื่อที่ได้รับจาก API หรือกำหนดเอง
+              items: [
+                {
+                  name: "Updated Product",
+                  imageUrl: require("@/assets/image/cardgold.png"), // เปลี่ยนเป็น URL ที่ได้รับจาก API ถ้ามี
+                  description: "Updated Description", // เปลี่ยนเป็นคำบรรยายที่ได้รับจาก API
+                  category: "Digital", // เปลี่ยนเป็นหมวดหมู่ที่ได้รับจาก API
+                  quantity: amountNumber, // ใช้ค่าที่รับมาจาก parameter
+                  price: price, // ใช้ค่าราคาใหม่ที่ได้รับจาก API
+                },
+              ],
+            },
+          ];
+          this.isLoading = false; // ซ่อน loader
+        }
+      } catch (error) {
+        this.$handleError(error);
+        this.isLoading = false; // ซ่อน loader
+      }
+    },
+    async confirmpay() {
+      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
+      const result = await this.$swal.fire({
+        title: "ทำการซื้อสำเร็จ",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
+      // รีไดเรคไปยังหน้า ShopQR พร้อมพารามิเตอร์ id หลังจากกด "OK"
+      if (result.isConfirmed) {
+        this.$router.push({
+          path: "/ShopQR",
+          query: { codeqr: this.codeqr }, // ใช้ค่า codeqr ที่เก็บใน data
+        });
+      }
+    },
+
+    getCurrentDate() {
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, "0");
+      const month = String(now.getMonth() + 1).padStart(2, "0"); // เดือนเริ่มที่ 0
+      const year = now.getFullYear().toString().slice(-2); // ปีล่าสุด 2 หลัก
+      return `${day}/${month}/${year}`;
+    },
+    getCurrentTime() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      return `${hours}:${minutes}`;
+    },
     nextStep() {
       if (this.currentStep < this.steps.length - 1) {
         this.currentStep += 1;
@@ -147,18 +223,6 @@ export default {
       }, 1000);
     },
 
-    async confirmpay() {
-      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
-      const result = await this.$swal.fire({
-        title: "ทำการซื้อสำเร็จ",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
-      // รีไดเรคไปยังหน้า index หลังจากกด "OK"
-      if (result.isConfirmed) {
-        this.$router.push("/ShopQR"); // รีไดเรคไปยังหน้า index
-      }
-    },
     async cancelpay() {
       // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
       const result = await this.$swal.fire({
@@ -168,12 +232,9 @@ export default {
       });
       // รีไดเรคไปยังหน้า index หลังจากกด "OK"
       if (result.isConfirmed) {
-        // this.$router.push("/"); // รีไดเรคไปยังหน้า index
+        this.$router.push("/"); // รีไดเรคไปยังหน้า index
       }
     },
-  },
-  mounted() {
-    this.startTimer();
   },
 };
 </script>

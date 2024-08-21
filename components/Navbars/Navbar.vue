@@ -30,82 +30,27 @@
           <div v-if="token" style="display: flex">
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
             <Nuxt-link class="text-nav" to="/Profile" target="_self"
-              ><div class="bottom-top bottom-w">Welcome, User</div></Nuxt-link
+              ><div class="bottom-top bottom-w">
+                ยินดีตอนรับ, User
+              </div></Nuxt-link
             >
             <div class="text-nav" @click="logout" target="_self">
               <div class="bottom-top bottom-y">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <path
-                    d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
-                    stroke="#5C25F2"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  /></svg
-                ><span style="padding: 0px 5px">Logout</span
-                ><svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <path
-                    d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
-                    stroke="#5C25F2"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <span style="padding: 0px 5px">ล็อคเอาท์</span>
               </div>
             </div>
           </div>
           <div v-else style="display: flex">
             <!-- เมนูสำหรับผู้ใช้ที่ไม่ได้ล็อกอิน -->
             <Nuxt-link class="text-nav" to="/LogRegister" target="_self"
-              ><div class="bottom-top bottom-w">Register</div></Nuxt-link
+              ><div class="bottom-top bottom-w">สมัครสมาชิก</div></Nuxt-link
             >
 
             <Nuxt-link class="text-nav" to="/Login" target="_self"
               ><div class="bottom-top bottom-y">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <path
-                    d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
-                    stroke="#5C25F2"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  /></svg
-                ><span style="padding: 0px 5px">Sign in</span
-                ><svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <path
-                    d="M15.8334 9.99967H4.16675M15.8334 9.99967L11.6667 14.1663M15.8334 9.99967L11.6667 5.83301"
-                    stroke="#5C25F2"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg></div
-            ></Nuxt-link>
+                <span style="padding: 0px 5px">เข้าสู่ระบบ</span>
+              </div></Nuxt-link
+            >
           </div>
         </div>
       </div>
@@ -290,7 +235,7 @@ export default {
           }
         );
 
-        console.log(response);
+        // console.log(response);
 
         this.buttonText = response.data ? "ดูร้านค้า" : "สร้างร้านค้า";
 

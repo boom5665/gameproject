@@ -22,7 +22,7 @@
           <div>
             <div class="dis-input">
               <div>ยอดสุทธิ</div>
-              <div class="font-re">฿7,790</div>
+              <div class="font-re">{{ total_price }}</div>
             </div>
             <div>
               <div>ขั้นตอนการจ่ายเงินด้วย QR Code</div>
@@ -41,13 +41,16 @@
               <div class="dis-flex">
                 <div class="il-qr">4</div>
                 <div>
-                  หลังจากจ่ายเงินแล้ว ข้อมูลคำสั่งซื้อจะเข้าสู่ระบบ ของ Gamiqo
+                  หลังจากจ่ายเงินแล้ว ข้อมูลคำสั่งซื้อจะเข้าสู่ระบบของ Gamiqo
                   และรอร้านค้ายืนยัน
                 </div>
               </div>
             </div>
           </div>
-          <button class="b-top-cy" @click="confirmpay">ยืนยันการสั่งซื้อ</button>
+          <button class="b-top-cy" @click="confirmpay">
+            ยืนยันการสั่งซื้อ
+          </button>
+          <Loader :isLoading="isLoading" />
         </div>
       </div>
     </div>
@@ -58,33 +61,67 @@
 export default {
   data() {
     return {
-      qrImageUrl: require("@/assets/image/imageQR.png"), // กำหนดค่าเริ่มต้นสำหรับ URL ของภาพ QR
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
+      qrImageUrl: "", // กำหนดค่าเริ่มต้นสำหรับ URL ของภาพ QR
+      total_price: "",
+      qr: null, // เพิ่มตัวแปร qr ไว้ที่ data เพื่อให้เข้าถึงได้ใน confirmpay
     };
   },
-  mounted() {
-    // this.fetchQRImage();
+  async mounted() {
+    await this.fetchQRImage(); // ดึงข้อมูล QR image เมื่อคอมโพเนนต์ถูก mount
   },
   methods: {
     async fetchQRImage() {
+      this.isLoading = true; // แสดง loader
       try {
-        const response = await this.$axios.$get(
-          "https://api.example.com/qr-image"
+        const token = this.$cookies.get("authToken");
+        const codeqr = this.$route.query.codeqr; // ดึงค่า codeqr จาก query parameters
+        this.qr = Number(codeqr); // กำหนดค่า qr ใน data
+        console.log(this.qr);
+        console.log(token);
+        const response = await this.$axios.$post(
+          "/payment/product/promptpay/qr-code",
+          {
+            id: this.qr,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
-        this.qrImageUrl = response.data.imageUrl; // สมมติว่า API ส่ง URL ของภาพ QR กลับมาใน data.imageUrl
+        console.log(response);
+
+        if (response) {
+          this.qrImageUrl = response.qr_code_img; // ใช้ response.data.qr_code_img ตามที่ได้รับจาก API
+          this.total_price = response.total_price; // ใช้ response.data.total_price ตามที่ได้รับจาก API
+          this.isLoading = false; // ซ่อน loader
+        } else {
+          console.error("Unexpected response structure:", response);
+        }
       } catch (error) {
+        this.isLoading = false; // ซ่อน loader
         console.error("Error fetching QR image:", error);
       }
     },
     async confirmpay() {
-      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
-      const result = await this.$swal.fire({
-        title: "ทำการซื้อสำเร็จ",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
-      // รีไดเรคไปยังหน้า index หลังจากกด "OK"
-      if (result.isConfirmed) {
-        this.$router.push("/ShopConfirmPay"); // รีไดเรคไปยังหน้า index
+      try {
+        // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
+        const result = await this.$swal.fire({
+          title: "ทำการซื้อสำเร็จ",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        // รีไดเรคไปยังหน้า ShopConfirmPay หลังจากกด "OK"
+        if (result.isConfirmed) {
+          this.$router.push({
+            path: "/ShopConfirmPay",
+            query: { qr: this.qr }, // ใช้ค่า qr ที่เก็บใน data
+          });
+        }
+      } catch (error) {
+        this.$handleError(error);
+        this.isLoading = false; // ซ่อน loader
       }
     },
   },

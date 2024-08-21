@@ -417,7 +417,7 @@ export default {
         // ส่งคำขอสร้างร้านค้า
         const response = await this.$axios.post("/product/create", formData, {
           headers: {
-            Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก 
+            Authorization: `Bearer ${token}`, // ใช้ token ที่ดึงมาจาก
           },
         });
 
@@ -431,7 +431,7 @@ export default {
         });
         // หากผู้ใช้กดปุ่ม "ยืนยัน"
         if (result.isConfirmed) {
-          this.$router.push("/ShopQR"); // รีไดเรคไปยังหน้า ShopQR
+          this.$router.push("/"); // รีไดเรคไปยังหน้า ShopQR
         }
       } catch (error) {
         console.error("Error:", error);

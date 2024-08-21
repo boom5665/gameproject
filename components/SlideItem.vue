@@ -16,8 +16,8 @@
           <img
             src="~/assets/image/love2.png"
             style="
-              width: 18px;
-              height: 18px;
+              width: 20px;
+              height: 20px;
               padding: 2.386px 1.5px 2.386px 1.501px;
             "
             alt="Love Icon"
@@ -27,15 +27,24 @@
       </div>
     </div>
     <img :src="item.img" class="tpn_cardimg" alt="Product Image" />
-    <div class="content-under">{{ item.market_shops.review_count }}</div>
+    <div class="content-under">
+      ขายแล้ว {{ item.market_shops.review_count }}
+    </div>
     <div class="font">{{ item.description }}</div>
+    <div class="font">(จำกัดจำนวน {{ item.amount }} ชิ้น)</div>
     <div class="display">
-      <div>฿ {{ item.price }}</div>
+      <div class="font-total">
+        ฿ {{ item.price }}
+        <span class="strikethrough">{{ item.price_before_discount }}</span>
+      </div>
       <div class="buttonshop">
-        <NuxtLink class="text-nav" :to="`/ShopPayment/${item.id}`">
+        <NuxtLink
+          class="text-nav"
+          :to="`/ShopPayment/${item.id}?amount=${item.amount}`"
+        >
           <img
             src="~/assets/image/addcart.png"
-            style="width: 26px; height: 26px; margin-right: 5px"
+            style="width: 26px; height: 26px; margin: 0px 5px"
             alt="Add to Cart"
           />
         </NuxtLink>
@@ -71,12 +80,21 @@ export default {
   padding: 5px;
   border-radius: 5px;
 }
-.fontname{
-      font-size: 14px;
-    margin-right: 10px;
-    white-space: normal;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 95px;
+.fontname {
+  font-size: 14px;
+  margin: 0px 2px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95px;
+}
+.strikethrough {
+  text-decoration: line-through;
+  color: #bababa;
+  font-size: 12px;
+}
+.font-total {
+  color: #ffeb3b;
+  font-size: 20px;
 }
 </style>

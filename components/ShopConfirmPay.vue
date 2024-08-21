@@ -1,17 +1,11 @@
 <template>
-  <div  class="Shop width-hunded">
+  <div class="Shop width-hunded">
     <div class="markettop-toppage">
       <div class="dis-flex" style="align-items: flex-start">
-        <div  class="box-pay width-hunded">
+        <div class="box-pay width-hunded">
           <Stepper :steps="steps" :currentStep="currentStep" />
-          <!-- <button @click="cancelpay">ถัดไป</button> -->
           <div class="container">
             <div class="header">
-              <!-- <img
-              src="~/assets/image/success-icon.png"
-              alt="Success Icon"
-              class="icon"
-            /> -->
               <h3>การสั่งซื้อสำเร็จ</h3>
             </div>
             <div class="content">
@@ -37,76 +31,78 @@
                   />
                 </svg>
               </div>
-              <button class="btn-upload">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="21"
-                  height="20"
-                  viewBox="0 0 21 20"
-                  fill="none"
-                >
-                  <path
-                    opacity="0.2"
-                    d="M7.78906 8.125H3V5C3 4.83424 3.06585 4.67527 3.18306 4.55806C3.30027 4.44085 3.45924 4.375 3.625 4.375H7.78906C7.9242 4.37556 8.05562 4.41936 8.16406 4.5L10.5 6.25L8.16406 8C8.05562 8.08064 7.9242 8.12444 7.78906 8.125Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M10.5 6.25H17.375C17.5408 6.25 17.6997 6.31585 17.8169 6.43306C17.9342 6.55027 18 6.70924 18 6.875V15.625C18 15.7908 17.9342 15.9497 17.8169 16.0669C17.6997 16.1842 17.5408 16.25 17.375 16.25H3.625C3.45924 16.25 3.30027 16.1842 3.18306 16.0669C3.06585 15.9497 3 15.7908 3 15.625V8.125"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M7.78906 8.125H3V5C3 4.83424 3.06585 4.67527 3.18306 4.55806C3.30027 4.44085 3.45924 4.375 3.625 4.375H7.78906C7.9242 4.37556 8.05562 4.41936 8.16406 4.5L10.5 6.25L8.16406 8C8.05562 8.08064 7.9242 8.12444 7.78906 8.125V8.125Z"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M8.625 11.5625H12.375"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M10.5 9.6875V13.4375"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  /></svg
-                >แนบหลักฐานการโอนเงิน
-              </button>
-              <p>รองรับไฟล์ .jpeg และ .png ขนาดไฟล์ไม่เกิน 4 MB</p>
-              <div class="form-group">
-                <label for="account">โอนเงินจากบัญชี</label>
-                <select id="account" class="form-control">
-                  <option>เลือกบัญชี</option>
-                  <option>บัญชีที่ 1</option>
-                  <option>บัญชีที่ 2</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="bank">จากธนาคาร</label>
-                <select id="bank" class="form-control">
-                  <option>เลือกธนาคาร</option>
-                  <option>ธนาคาร A</option>
-                  <option>ธนาคาร B</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="amount">จำนวนเงิน</label>
-                <input type="text" id="amount" class="" />
-              </div>
-              <div class="form-group">
-                <label for="datetime">วัน-เวลาโอน</label>
-                <input type="datetime-local" id="datetime" class="" />
-              </div>
 
-              <div class="submit" @click="confirmpay">แจ้งการโอนเงิน</div>
+              <form @submit.prevent="confirmpay">
+                <label class="btn-upload">
+                  แนบหลักฐานการโอนเงิน
+                  <input
+                    type="file"
+                    id="fileUpload"
+                    @change="handleFileUpload"
+                    accept="image/*"
+                  />
+                </label>
+
+                <div v-if="imagePreview" class="image-preview">
+                  <img :src="imagePreview" alt="Image Preview" />
+                </div>
+                <p>รองรับไฟล์ .jpeg และ .png ขนาดไฟล์ไม่เกิน 4 MB</p>
+                <span v-if="errors.file" class="error-message">
+                  {{ errors.file }}
+                </span>
+                <div class="form-group">
+                  <label for="account">โอนเงินจากบัญชี</label>
+                  <input id="account" class="form-control" v-model="account" />
+                  <span v-if="errors.account" class="error-message">
+                    {{ errors.account }}
+                  </span>
+                </div>
+
+                <div class="form-group">
+                  <label for="bank">จากธนาคาร</label>
+                  <select id="bank" class="form-control" v-model="bank">
+                    <option value="">เลือกธนาคาร</option>
+                    <option value="ธนาคาร กสิกร">ธนาคาร กสิกร</option>
+                    <option value="ธนาคาร ไทยพาณิชย์">ธนาคาร ไทยพาณิชย์</option>
+                  </select>
+                  <span v-if="errors.bank" class="error-message">
+                    {{ errors.bank }}
+                  </span>
+                </div>
+
+                <div class="form-group">
+                  <label for="amount">จำนวนเงิน</label>
+                  <input
+                    type="text"
+                    id="amount"
+                    class="form-control"
+                    v-model="amount"
+                  />
+                  <span v-if="errors.amount" class="error-message">
+                    {{ errors.amount }}
+                  </span>
+                </div>
+
+                <div class="form-group">
+                  <label for="datetime">วัน-เวลาโอน</label>
+                  <input
+                    type="datetime-local"
+                    id="datetime"
+                    class="form-control"
+                    v-model="datetime"
+                  />
+                  <span v-if="errors.datetime" class="error-message">
+                    {{ errors.datetime }}
+                  </span>
+                </div>
+
+                <div class="submit" @click.prevent="confirmpay">
+                  แจ้งการโอนเงิน
+                </div>
+              </form>
+              <div class="submit back-submit" @click="backqr">
+                ไปหน้าชำระเงิน
+              </div>
             </div>
           </div>
         </div>
@@ -131,15 +127,155 @@ export default {
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
         { label: "รีวิวสินค้า", date: "--/--/--", time: "--:--" },
       ],
+      imagePreview: null,
+      file: null,
+      account: "",
+      bank: "",
+      amount: "",
+      datetime: "",
+      codeqr: "",
+      errors: {},
     };
   },
-  computed: {},
+
+  async mounted() {
+    // ดึงค่า codeqr จาก query parameters และแปลงเป็น number
+    const codeqr = this.$route.query.qr;
+    // ตรวจสอบว่าการแปลงสำเร็จหรือไม่
+    if (!isNaN(codeqr)) {
+      this.codeqr = codeqr;
+    } else {
+      console.error("ค่า codeqr ไม่สามารถแปลงเป็นตัวเลขได้");
+      this.codeqr = null; // หรือจัดการกับกรณีที่ค่าผิดปกติ
+    }
+
+    console.log(this.codeqr); // แสดงค่า this.codeqr
+  },
+
   methods: {
+    validateForm() {
+      this.errors = {};
+
+      if (!this.account) {
+        this.errors.account = "กรุณาระบุบัญชีที่โอนเงิน";
+      }
+      if (!this.bank) {
+        this.errors.bank = "กรุณาเลือกธนาคาร";
+      }
+      if (!this.amount || isNaN(this.amount)) {
+        this.errors.amount = "กรุณาระบุจำนวนเงินที่ถูกต้อง";
+      }
+      if (!this.datetime) {
+        this.errors.datetime = "กรุณาระบุวัน-เวลาโอน";
+      }
+      if (!this.file) {
+        this.errors.file = "กรุณาแนบหลักฐานการโอนเงิน";
+      }
+
+      return Object.keys(this.errors).length === 0;
+    },
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.file = file; // เก็บไฟล์ใน data
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreview = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    },
     async confirmpay() {
+      if (!this.validateForm()) {
+        // this.productName = (this.productName || "").trim();
+        // this.inventory = (this.inventory || "").trim();
+        return;
+      }
+      const token = this.$cookies.get("authToken");
+      const formData = new FormData();
+
+      const base64ToFile = (base64, filename) => {
+        return new Promise((resolve, reject) => {
+          const [header, data] = base64.split(",");
+          const mime = header.match(/:(.*?);/)[1];
+          const binary = atob(data);
+          const array = [];
+          for (let i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+          }
+          const blob = new Blob([new Uint8Array(array)], { type: mime });
+          const file = new File([blob], filename, { type: mime });
+          resolve(file);
+        });
+      };
+
+      if (this.imagePreviewUrl && this.imagePreviewUrl.startsWith("data:")) {
+        this.file = await base64ToFile(this.imagePreviewUrl, "logo_img.png");
+      }
+
+      formData.append("evidence_bank_from_slip_img", this.file);
+      formData.append("id", this.codeqr);
+      formData.append("evidence_bank_from_bank", this.bank);
+      formData.append("evidence_bank_from_pay_money", this.amount);
+
+      // แปลง datetime ให้เป็นรูปแบบ "dd/MM/yyyy-HHmm"
+      const datetime = new Date(this.datetime);
+      const formattedDateTime = `${datetime
+        .getDate()
+        .toString()
+        .padStart(2, "0")}/${(datetime.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${datetime.getFullYear()}-${datetime
+        .getHours()
+        .toString()
+        .padStart(2, "0")}${datetime.getMinutes().toString().padStart(2, "0")}`;
+
+      formData.append("evidence_bank_from_pay_at", formattedDateTime);
+
+      // Log formData entries
+      for (const [key, value] of formData.entries()) {
+        console.log(
+          `${key}: ${value} (Type: ${typeof value}, Instance: ${
+            value instanceof File ? "File" : "Other"
+          })`
+        );
+      }
+
+      try {
+        const result = await this.$swal.fire({
+          title: "ยืนยันคำสั่งซื้อ",
+          text: "ฉันได้ตรวจสอบและยอมรับสินค้า",
+          icon: "success",
+          showCancelButton: true,
+          confirmButtonText: "ยืนยัน",
+          cancelButtonText: "ยกเลิก",
+        });
+
+        if (result.isConfirmed) {
+          const response = await this.$axios.$post(
+            "/payment/product/request/create",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          console.log("API response:", response);
+
+          // this.$router.push("/ShopDetail");
+        }
+      } catch (error) {
+        this.$handleError(error);
+      }
+    },
+    async backqr() {
       // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
       const result = await this.$swal.fire({
-        title: "ยืนยันคำสั่งซื้อ",
-        text: "ฉันได้ตรวจสอบและยอมรับสินค้า", // Use `text` instead of `body`
+        title: "ย้อนกลับไปหน้าชำระเงิน",
+        text: "ฉันได้ตรวจสอบว่ายังไม่รับชำระเงิน", // Use `text` instead of `body`
         icon: "success",
         showCancelButton: true,
         confirmButtonText: "ยืนยัน",
@@ -147,19 +283,54 @@ export default {
       });
 
       // หากผู้ใช้กดปุ่ม "ยืนยัน"
+
       if (result.isConfirmed) {
-        this.$router.push("/ShopDetail"); // รีไดเรคไปยังหน้า ShopQR
+        this.$router.push({
+          path: "/ShopQR",
+          query: { codeqr: this.codeqr }, // ใช้ค่า qr ที่เก็บใน data
+        });
       }
       // หากผู้ใช้กดปุ่ม "ยกเลิก"
       // ไม่ต้องทำอะไรจะยังคงอยู่หน้าเดิม
     },
   },
-  mounted() {},
 };
 </script>
 
 <style scoped>
 /* เพิ่มสไตล์ตามต้องการ */
+.btn-upload {
+  display: inline-flex;
+  align-items: center;
+  background-color: #007bff; /* ปรับสีพื้นหลังตามที่ต้องการ */
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  position: relative;
+}
+
+.image-preview {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid var(--color-black-white-700, #bababa);
+}
+
+.image-preview img {
+  max-width: 100%;
+  height: auto;
+  padding: 20px;
+}
+
+.btn-upload svg {
+  margin-right: 8px; /* เพิ่มช่องว่างระหว่างไอคอนกับข้อความ */
+}
+
+.btn-upload input[type="file"] {
+  display: none; /* ซ่อน input file */
+}
 .Shop .dis-flex {
   width: 100%;
   display: flex;
@@ -171,7 +342,7 @@ export default {
 .Shop .markettop-toppage {
   border-radius: 8px;
   background: var(--Linear, linear-gradient(180deg, #130048 0%, #5823e5 100%));
-   /* max-width: 800px; */
+  /* max-width: 800px; */
   margin: 0px 0px;
 }
 .container {
@@ -239,6 +410,16 @@ export default {
 .btn-submit {
   background-color: #ffd700;
   color: black;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.back-submit {
+  background-color: #6e7881;
+  color: #fff;
   padding: 10px 15px;
   border: none;
   border-radius: 5px;

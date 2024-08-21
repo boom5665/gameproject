@@ -13,7 +13,7 @@
             {{ group.title }}
           </div>
           <div>
-            See all &nbsp;
+            ทั้งหมด &nbsp;
             <img src="~/assets/image/all.png" class="img-recom" />
           </div>
         </div>
@@ -31,7 +31,7 @@
             {{ group.title }}
           </div>
           <div>
-            See all &nbsp;
+            ทั้งหมด &nbsp;
             <img src="~/assets/image/all.png" class="img-recom" />
           </div>
         </div>
@@ -49,12 +49,13 @@
             {{ group.title }}
           </div>
           <div>
-            See all &nbsp;
+            ทั้งหมด &nbsp;
             <img src="~/assets/image/all.png" class="img-recom" />
           </div>
         </div>
         <HomeCardSlidergame :items="group.items || []" />
       </div>
+      <Loader :isLoading="isLoading" />
     </div>
   </div>
 </template>
@@ -68,6 +69,7 @@ export default {
   components: { Slider, HomeCardSlidergame, HomeCorousalBanner },
   data() {
     return {
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
       itemsbanner: [
         { imageSrc: require("~/assets/image/AD.png") },
         { imageSrc: require("~/assets/image/AD.png") },
@@ -89,14 +91,14 @@ export default {
       const { authen_code, id, permission } = decoded;
       console.log("authen", authen_code, "id", id, "สิทธิ", permission);
 
-      if (this.$route.path === "/") {
-        const hasRefreshed = Cookies.get("hasRefreshedMarketMyshop");
-        if (!hasRefreshed) {
-          Cookies.set("hasRefreshedMarketMyshop", "true");
-          this.$router.replace("/");
-          return;
-        }
-      }
+      // if (this.$route.path === "/") {
+      //   const hasRefreshed = Cookies.get("hasRefreshedMarketMyshop");
+      //   if (!hasRefreshed) {
+      //     Cookies.set("hasRefreshedMarketMyshop", "true");
+      //     this.$router.replace("/");
+      //     return;
+      //   }
+      // }
     } else {
       // console.log("No token found");
     }
@@ -106,13 +108,14 @@ export default {
 
   methods: {
     async fetchData() {
+      this.isLoading = true; // แสดง loader
       try {
         // ส่งคำขอเพื่อดึงข้อมูล
         const response = await this.$axios.$post("/product/home/list/read", {
           page: 0,
           limit: 0,
         });
-        // console.log(response);
+        console.log(response);
 
         if (response && response.data_list) {
           // จัดระเบียบข้อมูลประเภทโปรโมชั่น
@@ -128,11 +131,12 @@ export default {
           this.CateGroups = this.mapCateGroups(
             response.data_list.categorys_product_list || []
           );
-
+          this.isLoading = false; // ซ่อน loader
           // แสดงข้อมูลในคอนโซลเพื่อตรวจสอบ
           // console.log(this.CateGroups);
         } else {
           console.error("Unexpected response structure:", response);
+          this.isLoading = false; // ซ่อน loader
         }
       } catch (error) {
         console.error("Error fetching data:", error);

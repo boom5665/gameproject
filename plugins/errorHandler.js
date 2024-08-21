@@ -70,6 +70,20 @@ export default ({ app }, inject) => {
         });
       } else {
         switch (errorData.code) {
+          case 82005:
+            Swal.fire({
+              title: "ใส่รูปแบบของเวลาไม่ถูกต้อง",
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+            break;
+            case 82002:
+              Swal.fire({
+                title: "ไม่สามารถอัพเดตสถานะสินค้าให้เป็น Wait Comfirm ได้",
+                icon: 'error',
+                confirmButtonText: 'OK',
+              });
+              break;
           case 70001:
             Swal.fire({
               title: "ไม่สามารถบันทึกรูปภาพสินค้าได้",
@@ -80,6 +94,40 @@ export default ({ app }, inject) => {
           case 50001:
             Swal.fire({
               title: "กรุณากรอกยูสเซอร์เนมไม่ต่ำกว่า 4 ตัวอักษรและไม่เกิน 12 ตัวอักษร",
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+            break;
+          case 80002:
+            Swal.fire({
+              title: "สินค้าไม่เพียงพอต่อการจอง",
+              icon: 'error',
+              timer: 2000, // หน่วงเวลา 2 วินาที
+              timerProgressBar: true,
+              showConfirmButton: false, // ไม่แสดงปุ่ม OK
+            }).then(() => {
+              window.location.href = "/";
+            });
+            break;
+          case 3014:
+            Swal.fire({
+              title: "ไม่พบไฟล์",
+              icon: 'error',
+              timer: 2000, // หน่วงเวลา 2 วินาที
+              timerProgressBar: true,
+              showConfirmButton: false, // ไม่แสดงปุ่ม OK
+            });
+            break;
+          case 82004:
+            Swal.fire({
+              title: "ข้อมูลการชำระเงินไม่ถูกต้อง",
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+            break;
+          case 82003:
+            Swal.fire({
+              title: "ไม่สามารถค้นหา Id ของ Paytransaction ได้",
               icon: 'error',
               confirmButtonText: 'OK',
             });
@@ -133,6 +181,13 @@ export default ({ app }, inject) => {
               confirmButtonText: 'OK',
             });
             break;
+            case 70022:
+              Swal.fire({
+                title: "ชื่อสินค้านี้มีแล้ว",
+                icon: 'error',
+                confirmButtonText: 'OK',
+              });
+              break;
           default:
             Swal.fire({
               title: "โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง",
@@ -142,7 +197,6 @@ export default ({ app }, inject) => {
         }
       }
     } else {
-      console.error("Error:", error.message);
       Swal.fire({
         title: "โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง",
         icon: 'error',
