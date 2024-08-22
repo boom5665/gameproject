@@ -210,9 +210,10 @@ export default {
 
   async mounted() {
     const token = Cookies.get("authToken"); // ใช้ js-cookie โดยตรง
-    // console.log("Token:", token);
+    console.log("Token:", token);
     this.token = token; // กำหนดค่า token ให้กับ this.token
     if (this.token) {
+      this.buttonText = "สร้างร้านค้า"; // ตั้งค่าเมื่อไม่มี token
       await this.fetchProfileData();
     }
   },
@@ -221,6 +222,7 @@ export default {
     async fetchProfileData() {
       if (!this.token) {
         console.log("No token found");
+        this.buttonText = "สร้างร้านค้า"; // ตั้งค่าเมื่อไม่มี token
         return;
       }
 
@@ -235,9 +237,10 @@ export default {
           }
         );
 
-        // console.log(response);
+        console.log(response);
 
-        this.buttonText = response.data ? "ดูร้านค้า" : "สร้างร้านค้า";
+        // ตรวจสอบว่ามี token และมีข้อมูลจาก API
+        this.buttonText = this.token && response ? "ดูร้านค้า" : "สร้างร้านค้า";
 
         // ใช้ $nextTick เพื่อให้ Vue ตรวจจับการเปลี่ยนแปลงค่า
         await this.$nextTick();

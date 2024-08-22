@@ -61,7 +61,7 @@
                 <div class="form-group">
                   <label for="bank">จากธนาคาร</label>
                   <select id="bank" class="form-control" v-model="bank">
-                    <option value="">เลือกธนาคาร</option>
+                    <option value="Promptpay">Promptpay</option>
                     <option value="ธนาคาร กสิกร">ธนาคาร กสิกร</option>
                     <option value="ธนาคาร ไทยพาณิชย์">ธนาคาร ไทยพาณิชย์</option>
                   </select>
@@ -103,6 +103,7 @@
               <div class="submit back-submit" @click="backqr">
                 ไปหน้าชำระเงิน
               </div>
+              <Loader :isLoading="isLoading" />
             </div>
           </div>
         </div>
@@ -135,6 +136,7 @@ export default {
       datetime: "",
       codeqr: "",
       errors: {},
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
     };
   },
 
@@ -191,6 +193,7 @@ export default {
         // this.inventory = (this.inventory || "").trim();
         return;
       }
+      this.isLoading = true; // แสดง loader
       const token = this.$cookies.get("authToken");
       const formData = new FormData();
 
@@ -265,10 +268,12 @@ export default {
 
           console.log("API response:", response);
 
-          // this.$router.push("/ShopDetail");
+          this.$router.push("/ShopDetail");
         }
+        this.isLoading = false; // ซ่อน loader
       } catch (error) {
         this.$handleError(error);
+        this.isLoading = false; // ซ่อน loader
       }
     },
     async backqr() {
