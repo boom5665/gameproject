@@ -28,28 +28,31 @@ function handleRedirect(token, path, redirect, store) {
   const allowedPaths = ['/', '/logregister', '/logforget', '/reset'];
 
   function isPathAllowed(url) {
-    const urlObject = new URL(url, window.location.origin); // สร้าง URL object เพื่อให้แยก path ได้ง่าย
-    const path = urlObject.pathname; // ดึง path จาก URL
-    return allowedPaths.includes(path); // ตรวจสอบว่า path อยู่ในรายการที่อนุญาตหรือไม่
+    if (process.client) {
+      const urlObject = new URL(url, window.location.origin); // สร้าง URL object เพื่อให้แยก path ได้ง่าย
+      const path = urlObject.pathname; // ดึง path จาก URL
+      return allowedPaths.includes(path); // ตรวจสอบว่า path อยู่ในรายการที่อนุญาตหรือไม่
+    }
+    return false; // ถ้าไม่ใช่ฝั่งลูกค้า
   }
 
-
   // ดึงค่า state จาก Vuex
-  const { } = store.state;
-  // console.log(store.state);
-
-  // console.log('Token:', store.state.authToken);
-  // console.log('Current path:', path);
-  // console.log('Allowed paths:', allowedPaths);
+  const { authToken } = store.state;
 
   // ใช้ switch สำหรับตรวจสอบเงื่อนไข
   switch (true) {
-    case store.state.authToken && path === '/login': {
+    case path === '/reset': {
+      // อนุญาตให้เข้าถึง path `/reset` เสมอ
+      console.log('Path is /reset, allowing access');
+      break;
+    }
+
+    case authToken && path === '/login': {
       console.log('Token present and at /login, redirecting to /');
       return redirect('/');
     }
 
-    case !store.state.authToken && !allowedPaths.includes(path) && path !== '/login': {
+    case !authToken && !isPathAllowed(path) && path !== '/login': {
       console.log('No token and not allowed path, redirecting to /login');
       return redirect('/login');
     }
@@ -59,4 +62,7 @@ function handleRedirect(token, path, redirect, store) {
       break;
   }
 }
+
+
+
 
