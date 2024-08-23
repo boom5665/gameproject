@@ -4,10 +4,10 @@
       <div class="font-top-myshop">
         <div class="font-top-myshop">
           <Nuxt-link class="text-profile" to="/MarketMyshop" target="_self">
-            <span class="font-proL-top">ร้านค้าของฉัน</span></Nuxt-link
+            <span>ร้านค้าของฉัน &nbsp; > &nbsp;</span></Nuxt-link
           >
           <Nuxt-link class="text-profile" to="/MarketMyAdd" target="_self"
-            >&nbsp; > &nbsp;<span class="">เพิ่มสินค้า</span></Nuxt-link
+            ><span class="font-proL-top">เพิ่มสินค้า</span></Nuxt-link
           >
         </div>
       </div>
@@ -33,7 +33,9 @@
 
           <!-- ส่วนของการเลือกประเภทสินค้า -->
           <div class="form-group">
-            <label for="productType">ประเภทสินค้า:</label>
+            <label for="productType"
+              >ประเภทสินค้า <span id="dotstyle">*</span></label
+            >
             <select
               v-model="selectedProductType"
               @change="onProductTypeChange"
@@ -61,7 +63,7 @@
           </div> -->
           <!-- ส่วนของการเลือกประเภทโปรโมชั่น -->
           <div class="form-group">
-            <label for="promotionType">ประเภทโปรโมชั่น:</label>
+            <label for="promotionType">ประเภทโปรโมชั่น</label>
             <select
               v-model="selectedPromotionType"
               id="promotionType"
@@ -81,24 +83,31 @@
           <!-- ส่วนของรายละเอียดโปรโมชั่น -->
 
           <div class="dis-input height-req">
+            <!-- ฟิลด์สำหรับราคา -->
             <div style="width: 49%">
-              <label for="price">ราคา <span id="dotstyle">*</span> </label>
+              <label for="price">ราคา <span id="dotstyle">*</span></label>
               <input
                 type="text"
                 id="price"
-                v-model="price"
+                v-model="formattedPrice"
+                @input="validatePrice"
                 :class="{ 'input-error': errors.price }"
               />
               <span v-if="errors.price" class="error-message">
                 {{ errors.price }}
               </span>
             </div>
+
+            <!-- ฟิลด์สำหรับราคาพิเศษ -->
             <div style="width: 49%">
-              <label for="specialPrice">ราคาพิเศษ</label>
+              <label for="specialPrice">
+                ราคาพิเศษ <span id="dotstyle"> *</span>
+              </label>
               <input
                 type="text"
                 id="specialPrice"
-                v-model="specialPrice"
+                v-model="formattedSpecialPrice"
+                @input="validateSpecialPrice"
                 :class="{ 'input-error': errors.specialPrice }"
               />
               <span v-if="errors.specialPrice" class="error-message">
@@ -106,21 +115,20 @@
               </span>
             </div>
           </div>
-          <div class="dis-input height-req">
-            <div class="width-hunded">
-              <label for="inventory"
-                >สินค้าในคลัง <span id="dotstyle">*</span></label
-              >
-              <input
-                type="text"
-                id="inventory"
-                v-model="inventory"
-                :class="{ 'input-error': errors.inventory }"
-              />
-              <span v-if="errors.inventory" class="error-message">
-                {{ errors.inventory }}
-              </span>
-            </div>
+          <div class="width-hunded">
+            <label for="inventory">
+              สินค้าในคลัง <span id="dotstyle">*</span>
+            </label>
+            <input
+              type="text"
+              id="inventory"
+              v-model="formattedInventory"
+              @input="validateInventory"
+              :class="{ 'input-error': errors.inventory }"
+            />
+            <span v-if="errors.inventory" class="error-message">
+              {{ errors.inventory }}
+            </span>
           </div>
           <div class="dis-input">
             <div class="width-hunded">
@@ -162,7 +170,7 @@
                 style="width: max-content"
               >
                 <img
-                  style="margin: 15px 5px"
+                  style="margin: 0px 0px 15px"
                   src="~/assets/image/img-main.png"
                   @click="openFileDialog('main')"
                 />
@@ -192,7 +200,7 @@
                 style="display: flex; width: 100%; align-items: center"
               >
                 <img
-                  style="margin: 15px 5px"
+                  style="margin: 0px 0px 15px"
                   src="~/assets/image/img-all.png"
                   @click="openFileDialog('gallery')"
                 />
@@ -254,7 +262,11 @@ export default {
       imageUrl: "",
       showImage: false,
       savedImageUrls: [],
-      errors: {},
+      errors: {
+        price: null,
+        specialPrice: null,
+        inventory: null,
+      },
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
       productTypes: [{ value: "1", label: "blech" }],
       promotionTypes: [{ value: "1", label: "ส่วนลด" }],
@@ -266,7 +278,58 @@ export default {
       savedImageInfo: [],
     };
   },
+  computed: {
+    formattedPrice: {
+      get() {
+        return this.formatNumber(this.price);
+      },
+      set(value) {
+        this.price = this.parseNumber(value);
+      },
+    },
+    formattedSpecialPrice: {
+      get() {
+        return this.formatNumber(this.specialPrice);
+      },
+      set(value) {
+        this.specialPrice = this.parseNumber(value);
+      },
+    },
+    formattedInventory: {
+      get() {
+        return this.formatNumber(this.inventory);
+      },
+      set(value) {
+        this.inventory = this.parseNumber(value);
+      },
+    },
+  },
   methods: {
+    formatNumber(value) {
+      // ฟังก์ชันสำหรับฟอร์แมตตัวเลขเป็นรูปแบบที่มีลูกน้ำ
+      return value !== null ? Number(value).toLocaleString() : "";
+    },
+    parseNumber(value) {
+      // ฟังก์ชันสำหรับลบลูกน้ำและแปลงเป็นตัวเลข
+      return parseFloat(value.replace(/,/g, "")) || null;
+    },
+    validatePrice(event) {
+      const input = event.target.value;
+      // ไม่จำเป็นต้องมีการตรวจสอบข้อผิดพลาดในที่นี้
+    },
+    validateSpecialPrice(event) {
+      const input = event.target.value;
+      const validInput = input.replace(/[^0-9,]/g, "");
+      if (input !== validInput) {
+        event.target.value = validInput;
+        this.specialPrice = this.parseNumber(validInput);
+      }
+      // ไม่มีการตรวจสอบข้อผิดพลาดในที่นี้
+    },
+    validateInventory(event) {
+      const input = event.target.value;
+      // ไม่จำเป็นต้องมีการตรวจสอบข้อผิดพลาดในที่นี้
+    },
     onProductTypeChange() {
       // ตรวจสอบว่ามีการเลือกประเภทสินค้าหรือไม่
       this.hasType = this.selectedProductType !== "2";
@@ -316,7 +379,11 @@ export default {
                   order: this.savedImageUrls.length + 0,
                 });
               } else {
-                alert("สามารถเพิ่มได้สูงสุด 6 รูปภาพ");
+                const result = this.$swal.fire({
+                  title: "สามารถเพิ่มได้สูงสุด 6 รูปภาพ",
+                  icon: "error",
+                  showCancelButton: false,
+                });
               }
             };
             reader.readAsDataURL(file);
@@ -433,7 +500,7 @@ export default {
         const result = await this.$swal.fire({
           title: "เพิ่มสินค้า",
           icon: "success",
-          showCancelButton: true,
+          showCancelButton: false,
         });
         // หากผู้ใช้กดปุ่ม "ยืนยัน"
         if (result.isConfirmed) {

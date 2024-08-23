@@ -1,4 +1,3 @@
-<!-- Slider.vue -->
 <template>
   <div class="slider-container">
     <!-- Slider -->
@@ -7,10 +6,10 @@
     </div>
     <!-- ปุ่มนำทาง -->
     <div class="center-flex">
-      <button class="botton left" id="arrow-left" @click="slide('left')">
+      <button class="botton left" @click="slide('left')">
         <img src="~/assets/image/arrow-left.png" alt="" />
       </button>
-      <button class="botton right" id="arrow-right" @click="slide('right')">
+      <button class="botton right" @click="slide('right')">
         <img src="~/assets/image/arrow-right.png" alt="" />
       </button>
     </div>
@@ -50,55 +49,56 @@ export default {
     },
   },
   mounted() {
-    setInterval(() => {
-      this.slide("right");
-    }, 5000); // เปลี่ยนเป็นระยะเวลาที่คุณต้องการ
-
-    // เพิ่ม event listener สำหรับ resize
+    this.startAutoSlide();
     window.addEventListener("resize", this.handleResize);
   },
   beforeDestroy() {
-    // ลบ event listener เมื่อ component ถูกทำลาย
     window.removeEventListener("resize", this.handleResize);
+    this.stopAutoSlide();
   },
   methods: {
+    startAutoSlide() {
+      this.autoSlideInterval = setInterval(() => {
+        this.slide("right");
+      }, 5000); // เปลี่ยนเป็นระยะเวลาที่คุณต้องการ
+    },
+    stopAutoSlide() {
+      clearInterval(this.autoSlideInterval);
+    },
     handleResize() {
-      // คำนวณตำแหน่งใหม่เมื่อมีการเปลี่ยนแปลงขนาดหน้าจอ
       this.goToSlide(this.activeDot);
     },
     goToSlide(index) {
       this.activeDot = index;
       const slider = this.$refs.slider;
-      slider.style.left = `-${index * this.interval * 2}px`;
+      const slideWidth = slider.clientWidth / 4; // จำนวน items ต่อ slide
+      slider.style.left = `-${index * slideWidth}px`;
     },
     slide(direction) {
       const slider = this.$refs.slider;
-      const currentLeft = parseInt(getComputedStyle(slider).left) || 0;
-      let newLeft;
+      const slideWidth = slider.clientWidth / 4; // จำนวน items ต่อ slide
+      const totalSlides = this.numberOfDots;
+      let newIndex = this.activeDot;
 
       if (direction === "right") {
-        if (
-          Math.abs(currentLeft) + this.interval + slider.clientWidth >=
-          slider.scrollWidth
-        ) {
-          newLeft = -(slider.scrollWidth - slider.clientWidth);
+        if (newIndex < totalSlides - 1) {
+          newIndex++;
         } else {
-          newLeft = currentLeft - this.interval;
+          newIndex = 0; // กลับไปที่ slide แรก
         }
       } else if (direction === "left") {
-        newLeft = currentLeft + this.interval;
-        if (newLeft > 0) {
-          newLeft = 0;
+        if (newIndex > 0) {
+          newIndex--;
+        } else {
+          newIndex = totalSlides - 1; // ไปที่ slide สุดท้าย
         }
       }
 
-      this.activeDot = Math.abs(newLeft) / (this.interval * 2);
-      slider.style.left = `${newLeft}px`;
+      this.goToSlide(newIndex);
     },
   },
 };
 </script>
-
 
 <style>
 .center-flex {

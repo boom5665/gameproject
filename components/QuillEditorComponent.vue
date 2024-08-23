@@ -5,19 +5,10 @@
 </template>
 
 <script>
-let quillEditor;
-
-if (process.client) {
-  quillEditor = require('vue-quill-editor').quillEditor;
-  require('quill/dist/quill.core.css');
-  require('quill/dist/quill.snow.css');
-  require('quill/dist/quill.bubble.css');
-}
-
 export default {
   name: 'QuillEditorComponent',
   components: {
-    quillEditor
+    quillEditor: process.client ? require('vue-quill-editor').quillEditor : null
   },
   props: {
     value: {
@@ -29,7 +20,8 @@ export default {
     return {
       content: this.value,
       editorOptions: {
-        theme: 'snow'
+        theme: 'snow',
+        placeholder: 'ใส่ข้อความที่นี่' // เพิ่ม placeholder ที่นี่
       }
     };
   },
@@ -45,3 +37,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* เพิ่มการกำหนดค่าหรือการสไตล์สำหรับ quill-editor ที่นี่ถ้าจำเป็น */
+</style>

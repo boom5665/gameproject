@@ -1,11 +1,14 @@
 <template>
   <div class="co-new">
-    <b-carousel id="carousel1" v-model="slide" :interval="8000" controls>
+    <!-- ใช้คอมโพเนนต์ Carousel จาก BootstrapVue -->
+    <b-carousel id="carousel1" v-model="slide" :interval="10000" controls>
+      <!-- สร้างสไลด์ของ carousel แบบไดนามิกตามข้อมูลใน items -->
       <b-carousel-slide
         v-for="(img, index) in items"
         :key="index"
         :img-src="img.imageSrc"
       >
+        <!-- แคปชั่นสำหรับแต่ละสไลด์ -->
         <div class="carousel-caption">
           <div class="caption-content">
             <div class="caption-title">{{ img.title }}</div>
@@ -15,29 +18,34 @@
       </b-carousel-slide>
     </b-carousel>
 
-    <!-- จุดไข่ปลา -->
+    <!-- ตัวบ่งชี้แบบกำหนดเองสำหรับการนำทางของ carousel -->
     <div class="custom-indicators">
+      <!-- ปุ่มสำหรับไปยังสไลด์ก่อนหน้า -->
       <button id="arrow-left" @click="prevSlide">
         <img src="~/assets/image/arrow-left.png" alt="left arrow" />
       </button>
+      <!-- ตัวบ่งชี้จุด (dots) -->
       <div class="dotposition">
+        <!-- สร้างจุดไข่ปลา (dots) ตามจำนวนของ items -->
         <span
           v-for="(n, index) in items.length"
           :key="index"
           @click="goToSlide(index)"
-          :class="{ active: index === currentSlide }"
+          :class="{ active: index === slide }"
         ></span>
       </div>
-
+      <!-- ปุ่มสำหรับไปยังสไลด์ถัดไป -->
       <button id="arrow-right" @click="nextSlide">
         <img src="~/assets/image/arrow-right.png" alt="right arrow" />
       </button>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   props: {
+    // ข้อมูลที่จะแสดงใน carousel
     items: {
       type: Array,
       required: true,
@@ -45,29 +53,28 @@ export default {
   },
   data() {
     return {
+      // ติดตามดัชนีของสไลด์ปัจจุบัน
       slide: 0,
     };
   },
-  computed: {
-    currentSlide() {
-      return this.slide;
-    },
-  },
   methods: {
+    // ไปยังสไลด์ที่ระบุด้วยดัชนี
     goToSlide(index) {
       this.slide = index;
     },
+    // ไปยังสไลด์ก่อนหน้า
     prevSlide() {
       this.slide = (this.slide === 0) ? this.items.length - 1 : this.slide - 1;
     },
+    // ไปยังสไลด์ถัดไป
     nextSlide() {
       this.slide = (this.slide === this.items.length - 1) ? 0 : this.slide + 1;
     },
   },
   watch: {
     slide(newSlide) {
+      // อัปเดตการทำงานของ dot indicators เมื่อสไลด์เปลี่ยน
       this.$nextTick(() => {
-        // This ensures that the view is updated after slide change
         const dots = document.querySelectorAll('.dotposition span');
         dots.forEach((dot, index) => {
           dot.classList.toggle('active', index === newSlide);
@@ -77,10 +84,11 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .co-new {
   position: relative;
-  /* เพิ่มการตั้งค่าที่เกี่ยวข้องกับตำแหน่งของ carousel และ caption */
+  /* ตั้งค่าการจัดตำแหน่งของ carousel และ caption */
 }
 
 .carousel-caption {
@@ -115,7 +123,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 10px; /* หรือปรับตำแหน่งตามที่ต้องการ */
+  bottom: 10px; /* ปรับตำแหน่งตามที่ต้องการ */
   width: 100%;
 }
 
@@ -146,6 +154,7 @@ export default {
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .dotposition span.active {

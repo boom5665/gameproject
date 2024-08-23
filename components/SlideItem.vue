@@ -12,7 +12,7 @@
         <div class="fontname">
           {{ item.market_shops.name }}
         </div>
-        <div class="love-box">
+        <!-- <div class="love-box">
           <div class="loveimg">
             <img
               src="~/assets/image/love2.png"
@@ -25,7 +25,7 @@
             />
           </div>
           <div>{{ item.market_shops_id }}</div>
-        </div>
+        </div> -->
       </div>
       <img :src="item.img" class="tpn_cardimg" alt="Product Image" />
       <div class="content-under">
