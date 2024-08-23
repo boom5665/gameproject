@@ -115,7 +115,7 @@ export default {
           page: 0,
           limit: 0,
         });
-        console.log(response);
+        // console.log(response);
 
         if (response && response.data_list) {
           // จัดระเบียบข้อมูลประเภทโปรโมชั่น

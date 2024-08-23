@@ -8,6 +8,11 @@
   color: $Primary-Pueple-500;
   border: 1px solid $Primary-Pueple-500 !important;
 }
+
+.b-top-cy:hover {
+  background-color: #d4ac0d;
+}
+
 .navbar-main {
   padding: 16px 40px 24px 40px;
   padding: var(--Spacing-space-16, 16px) var(--Spacing-space-40, 40px) var(--Spacing-space-24, 24px) var(--Spacing-space-40, 40px);
@@ -89,7 +94,10 @@
     border-radius: 8px;
     background: $white-color;
     color: $Primary-Pueple-500;
+  }
 
+  .bottom-w:hover {
+    background: #8c8c8c;
   }
 
   .bottom-y {

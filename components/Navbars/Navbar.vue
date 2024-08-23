@@ -31,9 +31,8 @@
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
             <Nuxt-link class="text-nav" to="/Profile" target="_self"
               ><div class="bottom-top bottom-w">
-                ยินดีตอนรับ, User
-              </div></Nuxt-link
-            >
+                ยินดีต้อนรับ, User
+              </div></Nuxt-link>
             <div class="text-nav" @click="logout" target="_self">
               <div class="bottom-top bottom-y">
                 <span style="padding: 0px 5px">ล็อคเอาท์</span>
@@ -210,7 +209,7 @@ export default {
 
   async mounted() {
     const token = Cookies.get("authToken"); // ใช้ js-cookie โดยตรง
-    console.log("Token:", token);
+    // console.log("Token:", token);
     this.token = token; // กำหนดค่า token ให้กับ this.token
     if (this.token) {
       this.buttonText = "สร้างร้านค้า"; // ตั้งค่าเมื่อไม่มี token
@@ -221,7 +220,7 @@ export default {
   methods: {
     async fetchProfileData() {
       if (!this.token) {
-        console.log("No token found");
+        // console.log("No token found");
         this.buttonText = "สร้างร้านค้า"; // ตั้งค่าเมื่อไม่มี token
         return;
       }
@@ -237,7 +236,7 @@ export default {
           }
         );
 
-        console.log(response);
+        // console.log(response);
 
         // ตรวจสอบว่ามี token และมีข้อมูลจาก API
         this.buttonText = this.token && response ? "ดูร้านค้า" : "สร้างร้านค้า";

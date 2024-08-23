@@ -7,10 +7,10 @@
         <div class="dis-play-evenly">
           <div style="width: 15%">
             <div>LOGO</div>
-            <div>
+            <!-- <div>
               20 ซอย รามอินทรา 5 แยก 15 แขวงอนุสาวรีย์ เขตบางเขน กรุงเทพมหานคร
               10220
-            </div>
+            </div> -->
           </div>
           <div>
             <div>Brand</div>

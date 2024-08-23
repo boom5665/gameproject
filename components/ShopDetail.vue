@@ -1,8 +1,8 @@
 <template>
-  <div class="Shop width-hunded"  >
+  <div class="Shop width-hunded">
     <div class="markettop-toppage">
       <div class="dis-flex" style="align-items: flex-start">
-        <div class="width-hunded box-pay" >
+        <div class="width-hunded box-pay">
           <h3 class="font-re">รายละเอียดคำสั่งซื้อ</h3>
           <div class="line-center">
             <svg
@@ -22,29 +22,45 @@
           </div>
           <Stepper :steps="steps" :currentStep="currentStep" />
           <!-- <button @click="cancelpay">ถัดไป</button> -->
-          <div class="order-container">
+          <div class="order-container" v-for="order in orders" :key="order.id">
             <div class="order-header">
               <div class="order-info">
                 <div class="order-number">
-                  <img src="your-icon-path.png" alt="icon" />
-                  <span>หมายเลขคำสั่งซื้อ</span>
-                  <span class="font-re">T240606085dda80</span>
+                  <div>
+                    <img src="~/assets/image/iconbill.png" alt="icon" />
+                  </div>
+                  <div class="oder-content">
+                    <span>หมายเลขคำสั่งซื้อ</span>
+                    <span class="font-re">{{ order.orderNumber }}</span>
+                  </div>
                 </div>
                 <div class="order-status">
-                  <img src="your-icon-path.png" alt="icon" />
-                  <span>สถานะคำสั่งซื้อ</span>
-                  <span class="font-re">รอผู้ขายยืนยันการชำระเงิน</span>
+                  <div>
+                    <img src="~/assets/image/iconbill.png" alt="icon" />
+                  </div>
+                  <div class="oder-content">
+                    <span>สถานะคำสั่งซื้อ</span>
+                    <span class="font-re">{{ order.orderStatus }}</span>
+                  </div>
                 </div>
                 <div class="order-details">
-                  <img src="your-icon-path.png" alt="icon" />
-                  <span>ข้อมูลการซื้อ</span>
-                  <span class="font-re">ตรวจสอบเรียบร้อย</span>
+                  <div>
+                    <img src="~/assets/image/iconcar.png" alt="icon" />
+                  </div>
+                  <div class="oder-content">
+                    <span>ข้อมูลการซื้อ</span>
+                    <span class="font-re">{{ order.orderDetails }}</span>
+                  </div>
                 </div>
               </div>
 
               <div class="order-actions">
-                <button class="submit" @click="confirmpay">ยืนยัน</button>
-                <button class="report-button">แจ้งปัญหา</button>
+                <button class="submit" @click="confirmpay(order)">
+                  ยืนยัน
+                </button>
+                <button class="report-button" @click="reportProblem(order)">
+                  แจ้งปัญหา
+                </button>
               </div>
             </div>
             <div class="line-center">
@@ -67,11 +83,13 @@
             <div class="order-body">
               <div class="order-code">
                 <div style="width: 85%">
-                  <img src="your-icon-path.png" alt="icon" />
+                  <!-- <img src="your-icon-path.png" alt="icon" /> -->
                   <span>โค้ดสั่งซื้อ</span>
                 </div>
                 <div style="width: 15%">
-                  <button class="submit">ดูโค้ด</button>
+                  <button class="submit" @click="viewCode(order)">
+                    ดูโค้ด
+                  </button>
                 </div>
               </div>
 
@@ -94,20 +112,20 @@
               <div class="order-timestamp">
                 <div class="order-timestamp-content">
                   <span>เวลาการสั่งซื้อ </span>
-                  <span class="font-re">06/06/2024 12:38</span>
+                  <span class="font-re">{{ order.timestamp }}</span>
                 </div>
 
                 <div class="order-timestamp-content">
                   <span>วิธีชำระเงิน </span>
-                  <span class="font-re">QR Cash</span>
+                  <span class="font-re">{{ order.paymentMethod }}</span>
                 </div>
               </div>
               <div class="order-product">
-                <img src="~/assets/image/cardgold.png" alt="Product Image" />
+                <img :src="order.productImage" alt="Product Image" />
                 <div class="product-details">
-                  <span>Top up Razer Gold</span>
-                  <span>x1</span>
-                  <span>฿9,999</span>
+                  <span>{{ order.productName }}</span>
+                  <span>x{{ order.quantity }}</span>
+                  <span>฿{{ order.price }}</span>
                 </div>
               </div>
 
@@ -129,7 +147,7 @@
               </div>
               <div class="order-summary">
                 <span>รวมยอดสั่งซื้อทั้งหมด</span>
-                <span class="font-re">฿9,999</span>
+                <span class="font-re">฿{{ order.totalPrice }}</span>
               </div>
             </div>
           </div>
@@ -155,9 +173,32 @@ export default {
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
         { label: "รีวิวสินค้า", date: "--/--/--", time: "--:--" },
       ],
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
+      orders: [
+        {
+          id: 1,
+          orderNumber: "T240606085dda80",
+          orderStatus: "รอผู้ขายยืนยันการชำระเงิน",
+          orderDetails: "ตรวจสอบเรียบร้อย",
+          timestamp: "06/06/2024 12:38",
+          paymentMethod: "QR Cash",
+          productName: "Top up Razer Gold",
+          quantity: 1,
+          price: 9999,
+          totalPrice: 9999,
+          productImage: require("@/assets/image/monthunt.png"),
+        },
+        // สามารถเพิ่มรายการอื่น ๆ ได้ตามต้องการ
+      ],
     };
   },
   computed: {},
+
+  async mounted() {
+    const responseData = JSON.parse(this.$route.query.data);
+    console.log(responseData);
+    // await this.fetchdata(); // ดึงข้อมูล QR image เมื่อคอมโพเนนต์ถูก mount
+  },
   methods: {
     async confirmpay() {
       // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
@@ -173,13 +214,59 @@ export default {
       // หากผู้ใช้กดปุ่ม "ยืนยัน"
       if (result.isConfirmed) {
         this.$router.push("/ShopDetail"); // รีไดเรคไปยังหน้า ShopQR
-         this.currentStep = 4 ;
+        this.currentStep = 4;
       }
       // หากผู้ใช้กดปุ่ม "ยกเลิก"
       // ไม่ต้องทำอะไรจะยังคงอยู่หน้าเดิม
     },
+    async reportProblem(order) {
+      // ฟังก์ชันแจ้งปัญหา
+      const result = await this.$swal.fire({
+        title: "คุณจะแจ้งปัญหาใช่ไหม",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "แก้ไข",
+      });
+    },
+    async viewCode(order) {
+      const result = await this.$swal.fire({
+        title: "จะดูโค้ดใช่ไหม",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "ยกเลิก",
+      });
+    },
+    async fetchdata() {
+      this.isLoading = true; // แสดง loader
+      try {
+        const token = this.$cookies.get("authToken");
+        console.log(token);
+
+        const response = await this.$axios.$post(
+          "/payment/vendor/product/request/list/read",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response);
+
+        if (response) {
+          // ทำบางอย่างกับ response ถ้าจำเป็น
+        } else {
+          console.error("Unexpected response structure:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching QR image:", error);
+      } finally {
+        this.isLoading = false; // ซ่อน loader ในทุกกรณี
+      }
+    },
   },
-  mounted() {},
 };
 </script>
 
@@ -188,7 +275,7 @@ export default {
   border-radius: 8px;
   background: var(--Linear, linear-gradient(180deg, #130048 0%, #5823e5 100%));
   /* max-width: 800px; */
-      margin: 0px 0px;
+  margin: 0px 0px;
 }
 .submit {
   width: 100%;
@@ -217,10 +304,13 @@ export default {
   display: flex;
   align-items: flex-start;
   margin-bottom: 8px;
-  flex-direction: column;
+  flex-direction: row;
   margin-left: 5px;
 }
-
+.oder-content {
+  display: flex;
+  flex-direction: column;
+}
 .order-number img,
 .order-status img,
 .order-details img {
@@ -290,7 +380,7 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.line-center{
+.line-center {
   width: 100%;
   text-align: center;
 }

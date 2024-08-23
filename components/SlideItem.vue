@@ -1,55 +1,59 @@
 <template>
   <div class="tpn_card">
-    <div class="dis-tpn">
-      <div>
-        <img
-          :src="item.market_shops.logo_img"
-          style="width: 26px; height: 26px; margin-right: 5px"
-          alt="Shop Logo"
-        />
-      </div>
-      <div class="fontname">
-        {{ item.market_shops.name }}
-      </div>
-      <div class="love-box">
-        <div class="loveimg">
+    <NuxtLink
+      :to="`/ShopPayment/${item.id}?amount=${item.amount}`"
+    >
+      <div class="dis-tpn">
+        <div>
           <img
-            src="~/assets/image/love2.png"
-            style="
-              width: 20px;
-              height: 20px;
-              padding: 2.386px 1.5px 2.386px 1.501px;
-            "
-            alt="Love Icon"
+            :src="item.market_shops.logo_img"
+            style="width: 26px; height: 26px; margin-right: 5px"
+            alt="Shop Logo"
           />
         </div>
-        <div>{{ item.market_shops_id }}</div>
+        <div class="fontname">
+          {{ item.market_shops.name }}
+        </div>
+        <div class="love-box">
+          <div class="loveimg">
+            <img
+              src="~/assets/image/love2.png"
+              style="
+                width: 20px;
+                height: 20px;
+                padding: 2.386px 1.5px 2.386px 1.501px;
+              "
+              alt="Love Icon"
+            />
+          </div>
+          <div>{{ item.market_shops_id }}</div>
+        </div>
       </div>
-    </div>
-    <img :src="item.img" class="tpn_cardimg" alt="Product Image" />
-    <div class="content-under">
-      ขายแล้ว {{ item.market_shops.review_count }}
-    </div>
-    <div class="font">{{ item.description }}</div>
-    <div class="font">(จำกัดจำนวน {{ item.amount }} ชิ้น)</div>
-    <div class="display">
-      <div class="font-total">
-        ฿ {{ item.price }}
-        <span class="strikethrough">{{ item.price_before_discount }}</span>
+      <img :src="item.img" class="tpn_cardimg" alt="Product Image" />
+      <div class="content-under">
+        ขายแล้ว {{ item.market_shops.review_count }}
       </div>
-      <div class="buttonshop">
-        <NuxtLink
-          class="text-nav"
-          :to="`/ShopPayment/${item.id}?amount=${item.amount}`"
-        >
-          <img
-            src="~/assets/image/addcart.png"
-            style="width: 26px; height: 26px; margin: 0px 5px"
-            alt="Add to Cart"
-          />
-        </NuxtLink>
+      <div class="font">{{ item.description }}</div>
+      <div class="font">(จำกัดจำนวน {{ item.amount }} ชิ้น)</div>
+      <div class="display">
+        <div class="font-total">
+          ฿ {{ item.price }}
+          <span class="strikethrough">{{ item.price_before_discount }}</span>
+        </div>
+        <div class="buttonshop">
+          <NuxtLink
+            class="text-nav"
+            :to="`/ShopPayment/${item.id}?amount=${item.amount}`"
+          >
+            <img
+              src="~/assets/image/addcart.png"
+              style="width: 26px; height: 26px; margin: 0px 5px"
+              alt="Add to Cart"
+            />
+          </NuxtLink>
+        </div>
       </div>
-    </div>
+    </NuxtLink>
   </div>
 </template>
 
@@ -83,7 +87,7 @@ export default {
 .fontname {
   font-size: 14px;
   margin: 0px 2px;
-  white-space: normal;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 95px;

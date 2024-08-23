@@ -61,10 +61,40 @@
                 <div class="form-group">
                   <label for="bank">จากธนาคาร</label>
                   <select id="bank" class="form-control" v-model="bank">
-                    <option value="Promptpay">Promptpay</option>
-                    <option value="ธนาคาร กสิกร">ธนาคาร กสิกร</option>
-                    <option value="ธนาคาร ไทยพาณิชย์">ธนาคาร ไทยพาณิชย์</option>
+                    <option value="KBANK">ธนาคารกสิกรไทย</option>
+                    <option value="BBL">ธนาคารกรุงเทพ</option>
+                    <option value="KTB">ธนาคารกรุงไทย</option>
+                    <option value="TMB">ธนาคารทหารไทย</option>
+                    <option value="SCB">ธนาคารไทยพานิชย์</option>
+                    <option value="BAY">ธนาคารกรุงศรีอยุธยา</option>
+                    <option value="KKP">ธนาคารเกียรตินาคิน</option>
+                    <option value="CIMBT">ธนาคารซีไอเอ็มบีไทย</option>
+                    <option value="TISCO">ธนาคารทิสโก้</option>
+                    <option value="TTB">ธนาคารธนชาต</option>
+                    <option value="UOBT">ธนาคารยูโอบี</option>
+                    <option value="SCBT">
+                      ธนาคารสแตนดาร์ดชาร์เตอร์ด (ไทย)
+                    </option>
+                    <option value="LHBANK">ธนาคารแลนด์ แอนด์ เฮาส์</option>
+                    <option value="ICBC">ธนาคารไอซีบีซี (ไทย)</option>
+                    <option value="BAAC">
+                      ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร
+                    </option>
+                    <option value="EXIM">
+                      ธนาคารเพื่อการส่งออกและนำเข้าแห่งประเทศไทย
+                    </option>
+                    <option value="GSB">ธนาคารออมสิน</option>
+                    <option value="GHB">ธนาคารอาคารสงเคราะห์</option>
+                    <option value="ISBT">ธนาคารอิสลามแห่งประเทศไทย</option>
+                    <option value="BOC">ธนาคารแห่งประเทศจีน</option>
+                    <option value="SMTBT">
+                      ธนาคารซูมิโตโม มิตซุย ทรัสต์ (ไทย)
+                    </option>
+                    <option value="HSBC">
+                      ธนาคารฮ่องกงและเซี้ยงไฮ้แบงกิ้งคอร์ปอเรชั่น จำกัด
+                    </option>
                   </select>
+
                   <span v-if="errors.bank" class="error-message">
                     {{ errors.bank }}
                   </span>
@@ -119,6 +149,8 @@ export default {
     Stepper,
   },
   data() {
+    const today = new Date().toISOString().substr(0, 10); // วันที่ปัจจุบันในรูปแบบ 'YYYY-MM-DD'
+    const defaultTime = "T12:00"; // เวลาที่ต้องการตั้งเอง
     return {
       currentStep: 2,
       steps: [
@@ -133,7 +165,7 @@ export default {
       account: "",
       bank: "",
       amount: "",
-      datetime: "",
+      datetime: `${today}${defaultTime}`, // กำหนดค่าเริ่มต้นเป็นวันที่ปัจจุบันและเวลา '12:00'
       codeqr: "",
       errors: {},
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
@@ -189,8 +221,6 @@ export default {
     },
     async confirmpay() {
       if (!this.validateForm()) {
-        // this.productName = (this.productName || "").trim();
-        // this.inventory = (this.inventory || "").trim();
         return;
       }
       this.isLoading = true; // แสดง loader
@@ -267,15 +297,18 @@ export default {
           );
 
           console.log("API response:", response);
-
-          this.$router.push("/ShopDetail");
+          this.$router.push({
+            path: "/ShopDetail",
+            query: { data: JSON.stringify(response) }, // แก้ไขตรงนี้
+          });
         }
-        this.isLoading = false; // ซ่อน loader
       } catch (error) {
         this.$handleError(error);
+      } finally {
         this.isLoading = false; // ซ่อน loader
       }
     },
+
     async backqr() {
       // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
       const result = await this.$swal.fire({

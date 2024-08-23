@@ -46,22 +46,31 @@ export default {
   },
   computed: {
     numberOfDots() {
-      return Math.ceil(this.items.length / 4); // แบ่งจำนวน items ด้วย 3 เพราะว่าแสดง 3 items ต่อ slide
+      return Math.ceil(this.items.length / 4); // แบ่งจำนวน items ด้วย 4 เพราะว่าแสดง 4 items ต่อ slide
     },
   },
   mounted() {
     setInterval(() => {
       this.slide("right");
     }, 5000); // เปลี่ยนเป็นระยะเวลาที่คุณต้องการ
+
+    // เพิ่ม event listener สำหรับ resize
+    window.addEventListener("resize", this.handleResize);
+  },
+  beforeDestroy() {
+    // ลบ event listener เมื่อ component ถูกทำลาย
+    window.removeEventListener("resize", this.handleResize);
   },
   methods: {
-    // เพิ่ม method ใหม่
+    handleResize() {
+      // คำนวณตำแหน่งใหม่เมื่อมีการเปลี่ยนแปลงขนาดหน้าจอ
+      this.goToSlide(this.activeDot);
+    },
     goToSlide(index) {
       this.activeDot = index;
       const slider = this.$refs.slider;
       slider.style.left = `-${index * this.interval * 2}px`;
     },
-    // แก้ไข slide() เพื่อรองรับการเปลี่ยน activeDot
     slide(direction) {
       const slider = this.$refs.slider;
       const currentLeft = parseInt(getComputedStyle(slider).left) || 0;
