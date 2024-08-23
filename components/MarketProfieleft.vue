@@ -19,20 +19,20 @@
             src="~/assets/image/genshin.png"
           />
         </div>
-        <div>#00000000</div>
-        <div class="monney">฿ 10,000,000</div>
-        <div class="dis-mgin">
+        <!-- <div>#00000000</div> -->
+        <!-- <div class="monney">฿ 10,000,000</div> -->
+        <!-- <div class="dis-mgin">
           <div class="button-but">เติมเงิน</div>
           <div class="button-but">ถอนเงิน</div>
-        </div>
+        </div> -->
         <div class="dis-mgin">
           <Nuxt-link to="/Market" target="_self"><div class="button-but">ดูร้านค้า</div></Nuxt-link>
         </div>
-        <div class="dis-mgin">
+        <!-- <div class="dis-mgin">
           <div class="but-folow">Total items</div>
           <div class="but-folow">Followwers</div>
           <div class="but-folow">Reviews</div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="navtabs-left" style="width: 280px">

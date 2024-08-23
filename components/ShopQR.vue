@@ -116,7 +116,10 @@ export default {
         if (result.isConfirmed) {
           this.$router.push({
             path: "/ShopConfirmPay",
-            query: { qr: this.qr }, // ใช้ค่า qr ที่เก็บใน data
+            query: {
+              qr: this.qr, // ใช้ค่า qr ที่เก็บใน data
+              total_price: this.total_price, // ใช้ค่า total_price ที่เก็บใน data
+            },
           });
         }
       } catch (error) {

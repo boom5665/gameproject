@@ -91,14 +91,14 @@ export default {
       const { authen_code, id, permission } = decoded;
       console.log("authen", authen_code, "id", id, "สิทธิ", permission);
 
-      // if (this.$route.path === "/") {
-      //   const hasRefreshed = Cookies.get("hasRefreshedMarketMyshop");
-      //   if (!hasRefreshed) {
-      //     Cookies.set("hasRefreshedMarketMyshop", "true");
-      //     this.$router.replace("/");
-      //     return;
-      //   }
-      // }
+      if (this.$route.path === "/") {
+        const hasRefreshed = Cookies.get("hasRefreshedMarketMyshop");
+        if (!hasRefreshed) {
+          Cookies.set("hasRefreshedMarketMyshop", "true");
+          this.$router.replace("/");
+          return;
+        }
+      }
     } else {
       // console.log("No token found");
     }
@@ -115,7 +115,7 @@ export default {
           page: 0,
           limit: 0,
         });
-        // console.log(response);
+        console.log(response);
 
         if (response && response.data_list) {
           // จัดระเบียบข้อมูลประเภทโปรโมชั่น

@@ -1,7 +1,7 @@
 <template>
   <div v-if="isVisible" class="modal-overlay">
     <div class="modal-content">
-      <button class="close" @click="closeModal">✖</button>
+      <!-- <button class="close" @click="closeModal">✖</button> -->
       <slot></slot>
       <!-- <button class="go-to-page" @click="goToPage">ไปยังหน้าถัดไป</button> -->
     </div>

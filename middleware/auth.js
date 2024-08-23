@@ -25,9 +25,14 @@ export default async function ({ route, redirect, req, store }) {
 
 
 function handleRedirect(token, path, redirect, store) {
-  const allowedPaths = [
-    '/', '/logregister', '/logforget',
-  ];
+  const allowedPaths = ['/', '/logregister', '/logforget', '/reset'];
+
+  function isPathAllowed(url) {
+    const urlObject = new URL(url, window.location.origin); // สร้าง URL object เพื่อให้แยก path ได้ง่าย
+    const path = urlObject.pathname; // ดึง path จาก URL
+    return allowedPaths.includes(path); // ตรวจสอบว่า path อยู่ในรายการที่อนุญาตหรือไม่
+  }
+
 
   // ดึงค่า state จาก Vuex
   const { } = store.state;

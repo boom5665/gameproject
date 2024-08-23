@@ -803,7 +803,7 @@ export default {
 </script>
 <style scoped>
 .maketcreateshop img {
-    cursor: pointer;
+    /* cursor: pointer; */
     width: 100%;
 }
 .preview {

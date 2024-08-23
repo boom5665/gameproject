@@ -12,7 +12,7 @@
                     type="text"
                     id="Emailphone"
                     v-model="Emailphone"
-                    placeholder="ชื่อผู้ใช้"
+                    placeholder="ชื่อเข้าสู่ระบบ"
                   />
                   <span v-if="errors.Emailphone" class="error">
                     {{ errors.Emailphone }}
@@ -41,7 +41,7 @@
                 class="submit button-pro-edit"
                 @click.prevent="submitData"
               >
-                เข้าสู่ระบบ
+                ชื่อเข้าสู่ระบบ
               </button>
             </form>
             <Loader :isLoading="isLoading" />
@@ -50,7 +50,7 @@
                 <span class="font-top-myshop">ลืมรหัสผ่าน ? </span></Nuxt-link
               >
             </div>
-            <div style="font-size: 18px">
+            <div class="font-top-myshop" style="text-align: center">
               ยังไม่ได้เป็นสมาชิกใช่ไหม?
               <Nuxt-link class="text-profile" to="/LogRegister" target="_self">
                 <span class="font-re"> สมัครที่นี่ </span></Nuxt-link
@@ -81,7 +81,7 @@ export default {
       this.errors = {};
 
       if (!this.Emailphone) {
-        this.errors.Emailphone = "กรุณากรอกชื่อผู้ใช้";
+        this.errors.Emailphone = "กรุณากรอกชื่อเข้าสู่ระบบ";
       }
       if (!this.Password) {
         this.errors.Password = "กรุณากรอกรหัสผ่าน.";
@@ -94,7 +94,7 @@ export default {
       this.showPassword = !this.showPassword;
     },
 
-  async submitData() {
+    async submitData() {
       if (!this.validateForm()) {
         return; // ถ้าฟอร์มไม่ถูกต้อง ให้หยุดการทำงาน
       }
@@ -110,7 +110,7 @@ export default {
         const response = await this.$axios.post("/users/login", formData);
         const token = response.data.data?.token;
         if (token) {
-          Cookies.set('authToken', token, { path: '/' }); // เก็บ token ใน cookie
+          Cookies.set("authToken", token, { path: "/" }); // เก็บ token ใน cookie
           this.$handleResponse(response);
         }
       } catch (error) {

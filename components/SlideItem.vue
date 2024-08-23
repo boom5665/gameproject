@@ -1,8 +1,6 @@
 <template>
   <div class="tpn_card">
-    <NuxtLink
-      :to="`/ShopPayment/${item.id}?amount=${item.amount}`"
-    >
+    <NuxtLink :to="`/ShopPayment/${item.id}?amount=1`">
       <div class="dis-tpn">
         <div>
           <img
@@ -41,10 +39,7 @@
           <span class="strikethrough">{{ item.price_before_discount }}</span>
         </div>
         <div class="buttonshop">
-          <NuxtLink
-            class="text-nav"
-            :to="`/ShopPayment/${item.id}?amount=${item.amount}`"
-          >
+          <NuxtLink class="text-nav" :to="`/ShopPayment/${item.id}?amount=1`">
             <img
               src="~/assets/image/addcart.png"
               style="width: 26px; height: 26px; margin: 0px 5px"

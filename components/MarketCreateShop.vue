@@ -61,7 +61,7 @@
                   src="~/assets/image/User.png"
                 />
               </div>
-              ร้านค้า
+              ชื่อร้านค้า
             </div>
             <div>
               <input
@@ -367,8 +367,9 @@
                     <span id="dotstyle">*</span></label
                   >
                   <input
-                    type="text"
+                    type="Number"
                     id="idCard"
+                    maxlength="13"
                     v-model="idCard"
                     :class="{ 'input-error': errors.idCard }"
                     ref="idCard"
@@ -557,14 +558,35 @@ export default {
   },
   watch: {
     idCardBack(newVal) {
-      // ฟอร์แมตหมายเลขให้มีขีด
+      // ลบช่องว่างด้านหน้าและด้านหลัง และฟอร์แมตหมายเลขให้มีขีด
+      newVal = newVal.trim();
       this.idCardBack = newVal.replace(
         /(\w{2})(\d{4})(\d{4})(\d{2})/,
         "$1-$2-$3-$4"
       );
-      this.idCardBack = newVal.trim();
+    },
+    idCard(newVal) {
+      // ลบช่องว่างด้านหน้าและด้านหลัง
+      newVal = newVal.trim();
+
+      // ตรวจสอบไม่ให้ใส่เกิน 13 หลัก
+      if (newVal.length > 14) {
+        // ถ้าเกิน 13 หลัก หยุดการทำงานเพื่อไม่ให้เปลี่ยนค่า
+        return;
+      }
+
+      // ฟอร์แมตหมายเลขบัตรประชาชนให้มีขีดเมื่อความยาวครบ 13 หลัก
+      if (newVal.length === 14) {
+        this.idCard = newVal.replace(
+          /(\d{1})(\d{4})(\d{5})(\d{2})/,
+          "$1-$2-$3-$4"
+        );
+      } else {
+        this.idCard = newVal;
+      }
     },
   },
+
   methods: {
     triggerFileInput(refName) {
       this.$refs[refName].click();
@@ -826,7 +848,6 @@ export default {
         });
 
         // แสดง alert หลังจากสร้างร้านค้าเสร็จ
-        alert("สร้างร้านค้าได้สำเร็จ");
 
         // ดึงข้อมูลโปรไฟล์หลังจากแสดง alert
         const profileResponse = await this.$axios.$post(
@@ -838,7 +859,37 @@ export default {
             },
           }
         );
-        this.$router.push("/MarketMyshop");
+
+        if (profileResponse) {
+          // แสดง SweetAlert2
+          const result = await this.$swal.fire({
+            title: "สร้างร้านค้าสำเร็จ",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+            showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+          });
+
+          // ตรวจสอบผลลัพธ์ของ SweetAlert2
+          if (result.isConfirmed) {
+            const hasRefreshed = localStorage.getItem(
+              "hasRefreshedMarketMyshop"
+            );
+            this.$router.push("/");
+            if (hasRefreshed) {
+              // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
+              localStorage.setItem("hasRefreshedMarketMyshop", "true");
+
+              // หน่วงเวลาเล็กน้อยก่อนรีเฟรชหน้าเว็บ
+              setTimeout(() => {
+                window.location.reload();
+              }, 500); // หน่วงเวลา 1.5 วินาที
+            }
+            // คุณอาจจะต้องการรีไดเรคหรือทำบางอย่างเพิ่มเติมที่นี่
+          }
+        } else {
+          // แสดงข้อความเตือนเมื่อไม่มีข้อมูล
+          alert("ไม่พบข้อมูล การลงทะเบียนสำเร็จ");
+        }
       } catch (error) {
         console.error("There was an error submitting the form", error);
         this.$handleError(error);

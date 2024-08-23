@@ -31,7 +31,7 @@
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
             <Nuxt-link class="text-nav" to="/Profile" target="_self"
               ><div class="bottom-top bottom-w">
-                ยินดีต้อนรับ, User
+                 โปรไฟล์ของฉัน,User
               </div></Nuxt-link>
             <div class="text-nav" @click="logout" target="_self">
               <div class="bottom-top bottom-y">

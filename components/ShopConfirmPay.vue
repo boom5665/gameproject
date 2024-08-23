@@ -13,7 +13,7 @@
                 รอการยืนยันหลักฐานการโอนเงิน
               </p>
               <p>กรุณาชำระเงินภายในเวลาที่กำหนดเพื่อไม่ให้ออเดอร์ถูกยกเลิก</p>
-              <div class="amount">ยอดรวม ฿7,790</div>
+              <div class="amount">ยอดรวม ฿{{total}}</div>
               <div class="line">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -169,18 +169,24 @@ export default {
       codeqr: "",
       errors: {},
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
+
     };
   },
 
   async mounted() {
     // ดึงค่า codeqr จาก query parameters และแปลงเป็น number
     const codeqr = this.$route.query.qr;
+    const total = this.$route.query.total_price;
+    console.log(total);
+
     // ตรวจสอบว่าการแปลงสำเร็จหรือไม่
     if (!isNaN(codeqr)) {
       this.codeqr = codeqr;
+      this.total = total;
     } else {
       console.error("ค่า codeqr ไม่สามารถแปลงเป็นตัวเลขได้");
       this.codeqr = null; // หรือจัดการกับกรณีที่ค่าผิดปกติ
+      this.total = null;
     }
 
     console.log(this.codeqr); // แสดงค่า this.codeqr

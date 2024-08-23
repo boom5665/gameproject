@@ -22,77 +22,52 @@
           </div>
           <Stepper :steps="steps" :currentStep="currentStep" />
           <!-- <button @click="cancelpay">ถัดไป</button> -->
-          <div class="order-container" v-for="order in orders" :key="order.id">
-            <div class="order-header">
-              <div class="order-info">
-                <div class="order-number">
-                  <div>
-                    <img src="~/assets/image/iconbill.png" alt="icon" />
+          <div>
+            <div
+              class="order-container"
+              v-for="order in orders"
+              :key="order.id"
+            >
+              <div class="order-header">
+                <div class="order-info">
+                  <div class="order-number">
+                    <div>
+                      <img src="~/assets/image/iconbill.png" alt="icon" />
+                    </div>
+                    <div class="oder-content">
+                      <span>หมายเลขคำสั่งซื้อ</span>
+                      <span class="font-re">{{ order.id }}</span>
+                    </div>
                   </div>
-                  <div class="oder-content">
-                    <span>หมายเลขคำสั่งซื้อ</span>
-                    <span class="font-re">{{ order.orderNumber }}</span>
+                  <div class="order-status">
+                    <div>
+                      <img src="~/assets/image/iconbill.png" alt="icon" />
+                    </div>
+                    <div class="oder-content">
+                      <span>สถานะคำสั่งซื้อ</span>
+                      <span class="font-re">{{ order.orderStatus }}</span>
+                    </div>
+                  </div>
+                  <div class="order-details">
+                    <div>
+                      <img src="~/assets/image/iconcar.png" alt="icon" />
+                    </div>
+                    <div class="oder-content">
+                      <span>ข้อมูลการซื้อ</span>
+                      <span class="font-re">{{ order.orderDetails }}</span>
+                    </div>
                   </div>
                 </div>
-                <div class="order-status">
-                  <div>
-                    <img src="~/assets/image/iconbill.png" alt="icon" />
-                  </div>
-                  <div class="oder-content">
-                    <span>สถานะคำสั่งซื้อ</span>
-                    <span class="font-re">{{ order.orderStatus }}</span>
-                  </div>
-                </div>
-                <div class="order-details">
-                  <div>
-                    <img src="~/assets/image/iconcar.png" alt="icon" />
-                  </div>
-                  <div class="oder-content">
-                    <span>ข้อมูลการซื้อ</span>
-                    <span class="font-re">{{ order.orderDetails }}</span>
-                  </div>
-                </div>
-              </div>
 
-              <div class="order-actions">
-                <button class="submit" @click="confirmpay(order)">
-                  ยืนยัน
-                </button>
-                <button class="report-button" @click="reportProblem(order)">
-                  แจ้งปัญหา
-                </button>
-              </div>
-            </div>
-            <div class="line-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="610"
-                height="2"
-                viewBox="0 0 610 2"
-                fill="none"
-              >
-                <path
-                  d="M1 1H609"
-                  stroke="#5C25F2"
-                  stroke-linecap="round"
-                  stroke-dasharray="3 3"
-                />
-              </svg>
-            </div>
-
-            <div class="order-body">
-              <div class="order-code">
-                <div style="width: 85%">
-                  <!-- <img src="your-icon-path.png" alt="icon" /> -->
-                  <span>โค้ดสั่งซื้อ</span>
-                </div>
-                <div style="width: 15%">
-                  <button class="submit" @click="viewCode(order)">
-                    ดูโค้ด
+                <div class="order-actions">
+                  <button class="submit" @click="confirmpay(order)">
+                    ยืนยัน
+                  </button>
+                  <button class="report-button" @click="reportProblem(order)">
+                    แจ้งปัญหา
                   </button>
                 </div>
               </div>
-
               <div class="line-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -109,45 +84,85 @@
                   />
                 </svg>
               </div>
-              <div class="order-timestamp">
-                <div class="order-timestamp-content">
-                  <span>เวลาการสั่งซื้อ </span>
-                  <span class="font-re">{{ order.timestamp }}</span>
+
+              <div class="order-body">
+                <div class="order-code">
+                  <div style="width: 85%">
+                    <span>โค้ดสั่งซื้อ</span>
+                  </div>
+                  <div style="width: 15%">
+                    <button class="submit" @click="viewCode(order)">
+                      ดูโค้ด
+                    </button>
+                  </div>
                 </div>
 
-                <div class="order-timestamp-content">
-                  <span>วิธีชำระเงิน </span>
-                  <span class="font-re">{{ order.paymentMethod }}</span>
+                <div class="line-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="610"
+                    height="2"
+                    viewBox="0 0 610 2"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 1H609"
+                      stroke="#5C25F2"
+                      stroke-linecap="round"
+                      stroke-dasharray="3 3"
+                    />
+                  </svg>
                 </div>
-              </div>
-              <div class="order-product">
-                <img :src="order.productImage" alt="Product Image" />
-                <div class="product-details">
-                  <span>{{ order.productName }}</span>
-                  <span>x{{ order.quantity }}</span>
-                  <span>฿{{ order.price }}</span>
-                </div>
-              </div>
+                <div class="order-timestamp">
+                  <div class="order-timestamp-content">
+                    <span>เวลาการสั่งซื้อ </span>
+                    <span class="font-re">{{ order.timestamp }}</span>
+                  </div>
 
-              <div class="line-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="610"
-                  height="2"
-                  viewBox="0 0 610 2"
-                  fill="none"
-                >
-                  <path
-                    d="M1 1H609"
-                    stroke="#5C25F2"
-                    stroke-linecap="round"
-                    stroke-dasharray="3 3"
-                  />
-                </svg>
-              </div>
-              <div class="order-summary">
-                <span>รวมยอดสั่งซื้อทั้งหมด</span>
-                <span class="font-re">฿{{ order.totalPrice }}</span>
+                  <div class="order-timestamp-content">
+                    <span>วิธีชำระเงิน </span>
+                    <span class="font-re">{{ order.paymentMethod }}</span>
+                  </div>
+                </div>
+                <div class="order-product">
+                  <div
+                    v-for="(product, index) in order.product"
+                    :key="index"
+                    class="product-item"
+                  >
+                    <img :src="product.productImage" alt="Product Image" />
+                    <div class="be-under">
+                      <div class="product-details">
+                        <span>{{ product.productName }}</span>
+                        <span>x{{ order.quantity }}</span>
+                      </div>
+                      <div>
+                        <span>฿{{ product.price }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="line-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="610"
+                    height="2"
+                    viewBox="0 0 610 2"
+                    fill="none"
+                  >
+                    <path
+                      d="M1 1H609"
+                      stroke="#5C25F2"
+                      stroke-linecap="round"
+                      stroke-dasharray="3 3"
+                    />
+                  </svg>
+                </div>
+                <div class="order-summary">
+                  <span>รวมยอดสั่งซื้อทั้งหมด</span>
+                  <span class="font-re">฿{{ order.totalPrice }}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -174,32 +189,73 @@ export default {
         { label: "รีวิวสินค้า", date: "--/--/--", time: "--:--" },
       ],
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
-      orders: [
-        {
-          id: 1,
-          orderNumber: "T240606085dda80",
-          orderStatus: "รอผู้ขายยืนยันการชำระเงิน",
-          orderDetails: "ตรวจสอบเรียบร้อย",
-          timestamp: "06/06/2024 12:38",
-          paymentMethod: "QR Cash",
-          productName: "Top up Razer Gold",
-          quantity: 1,
-          price: 9999,
-          totalPrice: 9999,
-          productImage: require("@/assets/image/monthunt.png"),
-        },
-        // สามารถเพิ่มรายการอื่น ๆ ได้ตามต้องการ
-      ],
+      orders: [],
+
+      dataProperty: this.dataProperty, // ตั้งค่าเริ่มต้น
     };
   },
   computed: {},
 
   async mounted() {
-    const responseData = JSON.parse(this.$route.query.data);
-    console.log(responseData);
-    // await this.fetchdata(); // ดึงข้อมูล QR image เมื่อคอมโพเนนต์ถูก mount
+    this.isLoading = true;
+    try {
+      if (this.$route.query.data) {
+        const responseData = JSON.parse(this.$route.query.data);
+        this.processResponseData(responseData);
+      } else {
+        console.warn("No data found in route query");
+      }
+    } catch (error) {
+      console.error("Error parsing response data from route query:", error);
+    } finally {
+      this.isLoading = false;
+    }
   },
   methods: {
+    processResponseData(responseData) {
+      console.log("Response Data:", responseData); // ตรวจสอบข้อมูลที่ได้รับ
+
+      if (responseData && responseData.data) {
+        const data = responseData.data;
+
+        if (Array.isArray(data.product)) {
+          this.orders = [
+            {
+              id: data.id,
+              orderStatus:
+                data.status === "WAIT_CONFIRM"
+                  ? "รอผู้ขายยืนยันการชำระเงิน"
+                  : "สถานะอื่น ๆ", // แทนที่ด้วยสถานะที่ต้องการในกรณีอื่น
+              orderDetails: "ตรวจสอบเรียบร้อย",
+              timestamp: data.created_at
+                ? new Date(data.created_at).toLocaleString()
+                : "ไม่ระบุเวลา",
+              paymentMethod: data.evidence_bank_from_bank,
+
+              quantity: 1, // กำหนดเป็น 1 เสมอ
+              product:
+                data.product.length > 0
+                  ? data.product.map((item) => ({
+                      productImage: item.img || "@/assets/image/default.png", // ใช้ภาพเริ่มต้นหากไม่มี
+                      productName: item.name || "ไม่ระบุชื่อสินค้า", // ใช้ชื่อเริ่มต้นหากไม่มี
+                      price: item.price || "ไม่ระบุชื่อสินค้า", // ใช้ชื่อเริ่มต้นหากไม่มี
+                    }))
+                  : [
+                      {
+                        productImage: "@/assets/image/default.png", // ใช้ภาพเริ่มต้นหากไม่มีข้อมูล
+                        productName: "ไม่ระบุชื่อสินค้า", // ใช้ชื่อเริ่มต้นหากไม่มีข้อมูล
+                      },
+                    ],
+              totalPrice: data.price || 0,
+            },
+          ];
+
+          console.log("Orders:", this.orders); // ตรวจสอบ orders ที่อัปเดตแล้ว
+        }
+      } else {
+        console.warn("No response data found");
+      }
+    },
     async confirmpay() {
       // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
       const result = await this.$swal.fire({
@@ -238,39 +294,21 @@ export default {
         cancelButtonText: "ยกเลิก",
       });
     },
-    async fetchdata() {
-      this.isLoading = true; // แสดง loader
-      try {
-        const token = this.$cookies.get("authToken");
-        console.log(token);
-
-        const response = await this.$axios.$post(
-          "/payment/vendor/product/request/list/read",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log(response);
-
-        if (response) {
-          // ทำบางอย่างกับ response ถ้าจำเป็น
-        } else {
-          console.error("Unexpected response structure:", response);
-        }
-      } catch (error) {
-        console.error("Error fetching QR image:", error);
-      } finally {
-        this.isLoading = false; // ซ่อน loader ในทุกกรณี
-      }
-    },
   },
 };
 </script>
 
 <style scoped>
+.product-item {
+  display: flex;
+  width: 100%;
+}
+.be-under {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  justify-content: space-between;
+}
 .Shop .markettop-toppage {
   border-radius: 8px;
   background: var(--Linear, linear-gradient(180deg, #130048 0%, #5823e5 100%));

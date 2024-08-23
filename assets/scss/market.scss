@@ -300,7 +300,16 @@
     height: 90px;
   }
 
-  ;
+  .form-control:focus {
+    border: 2px solid #000000;
+    box-shadow: none;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background: $white-color;
+    // color: $Primary-Pueple-500
+  }
+
 
   .font-top {
     color: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
@@ -317,9 +326,17 @@
     border-radius: 6px;
     border: 1px solid $gray-color;
     background: $white-color;
-    color: $Primary-Pueple-500;
+    // color: $Primary-Pueple-500 !important;
     //   margin-top: 15px;
+
   }
+
+  input[type="text"]::placeholder {
+    height: 50px;
+    color: #888; // สีของ placeholder
+    opacity: 1; // ความโปร่งใสของ placeholder
+  }
+
 
   input[type="password"] {
     height: 40px;
@@ -328,9 +345,15 @@
     box-sizing: border-box;
     border-radius: 6px;
     border: 1px solid $gray-color;
-    background: $white-color;
+    background-color: $white-color;
     color: $Primary-Pueple-500;
     // margin-top: 15px;
+  }
+
+  input:focus,
+  input:active {
+    background-color: $white-color;
+    /* สีพื้นหลังเมื่ออยู่ในสถานะ focus หรือ active */
   }
 
   button {
@@ -1221,7 +1244,7 @@
   }
 
   img {
-    cursor: pointer;
+    // cursor: pointer;
   }
 
   .pro-img {

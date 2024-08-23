@@ -8,13 +8,13 @@
             <div class="dis-input">
               <div class="w-input">
                 <label for="username">
-                  ชื่อผู้ใช้ <span id="dotstyle">*</span>
+                  ชื่อเข้าสู่ระบบ <span id="dotstyle">*</span>
                 </label>
                 <input
                   type="text"
                   id="username"
                   v-model="username"
-                  placeholder="กรุณากรอกชื่อผู้ใช้"
+                  placeholder="กรุณากรอกชื่อเข้าสู่ระบบ"
                 />
                 <span v-if="errors.username" class="error">{{
                   errors.username
@@ -57,7 +57,7 @@
                   เบอร์โทรศัพท์ <span id="dotstyle">*</span>
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="phone"
                   v-model="phone"
                   placeholder="กรุณากรอกเบอร์โทรศัพท์"
@@ -128,7 +128,7 @@ export default {
 
       if (!this.$validate.username(this.username)) {
         this.errors.username =
-          "ชื่อผู้ใช้ต้องเป็นตัวอักษรและตัวเลข 8-30 ตัวอักษร";
+          "ชื่อเข้าสู่ระบบต้องเป็นตัวอักษรและตัวเลข 8-30 ตัวอักษร";
       }
       if (!this.$validate.password(this.password)) {
         this.errors.password =
@@ -162,10 +162,28 @@ export default {
         console.log("Response:", response.data);
         const responseDATA = response.data;
         if (responseDATA) {
-          alert("การลงทะเบียนสำเร็จ");
+          // แสดง SweetAlert2
+          const result = await this.$swal.fire({
+            title: "การลงทะเบียนสำเร็จ",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+            showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+          });
+
+          // ตรวจสอบผลลัพธ์ของ SweetAlert2
+          if (result.isConfirmed) {
+            // การกระทำที่ต้องทำเมื่อผู้ใช้คลิก "ยืนยัน"
+            console.log("User confirmed");
+            // คุณอาจจะต้องการรีไดเรคหรือทำบางอย่างเพิ่มเติมที่นี่
+          } else if (result.isDismissed) {
+            // การกระทำที่ต้องทำเมื่อผู้ใช้คลิก "ยกเลิก" หรือปิดกล่องข้อความ
+            console.log("User cancelled or dismissed the alert");
+          }
         } else {
+          // แสดงข้อความเตือนเมื่อไม่มีข้อมูล
           alert("ไม่พบข้อมูล การลงทะเบียนสำเร็จ");
         }
+
         this.$router.push("/login"); // รีไดเรคไปยังหน้า login หลังจาก 1 วินาที
         this.isLoading = false; // ซ่อน loader
       } catch (error) {

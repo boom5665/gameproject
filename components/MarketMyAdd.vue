@@ -2,8 +2,14 @@
   <div class="M-Create-Backgroud">
     <div class="navtabs">
       <div class="font-top-myshop">
-        ร้านค้าของฉัน &nbsp; > &nbsp;
-        <span class="font-proL-top">เพิ่มสินค้า</span>
+        <div class="font-top-myshop">
+          <Nuxt-link class="text-profile" to="/MarketMyshop" target="_self">
+            <span class="font-proL-top">ร้านค้าของฉัน</span></Nuxt-link
+          >
+          <Nuxt-link class="text-profile" to="/MarketMyAdd" target="_self"
+            >&nbsp; > &nbsp;<span class="">เพิ่มสินค้า</span></Nuxt-link
+          >
+        </div>
       </div>
 
       <div class="form-create">
