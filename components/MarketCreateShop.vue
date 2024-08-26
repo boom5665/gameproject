@@ -367,7 +367,7 @@
                     <span id="dotstyle">*</span></label
                   >
                   <input
-                    type="Number"
+                    type="text"
                     id="idCard"
                     maxlength="13"
                     v-model="idCard"
@@ -569,20 +569,74 @@ export default {
       // ลบช่องว่างด้านหน้าและด้านหลัง
       newVal = newVal.trim();
 
-      // ตรวจสอบไม่ให้ใส่เกิน 13 หลัก
-      if (newVal.length > 14) {
-        // ถ้าเกิน 13 หลัก หยุดการทำงานเพื่อไม่ให้เปลี่ยนค่า
-        return;
+      // ลบอักขระที่ไม่ใช่ตัวเลข
+      newVal = newVal.replace(/\D/g, "");
+
+      // ตรวจสอบไม่ให้ใส่เกิน 14 หลัก
+      if (newVal.length > 13) {
+        newVal = newVal.slice(0, 13); // ตัดค่าที่เกิน
       }
 
-      // ฟอร์แมตหมายเลขบัตรประชาชนให้มีขีดเมื่อความยาวครบ 13 หลัก
-      if (newVal.length === 14) {
+      // ฟอร์แมตหมายเลขพร้อมเพย์ให้มีขีดเมื่อความยาวครบ 13 หรือ 14 หลัก
+      if (newVal.length === 13) {
         this.idCard = newVal.replace(
-          /(\d{1})(\d{4})(\d{5})(\d{2})/,
+          /(\d{1})(\d{4})(\d{4})(\d{4})/,
+          "$1-$2-$3-$4"
+        );
+      } else if (newVal.length === 13) {
+        this.idCard = newVal.replace(
+          /(\d{2})(\d{4})(\d{4})(\d{4})/,
           "$1-$2-$3-$4"
         );
       } else {
         this.idCard = newVal;
+      }
+    },
+    phone(newVal) {
+      // ลบช่องว่างด้านหน้าและด้านหลัง
+      newVal = newVal.trim();
+
+      // ลบอักขระที่ไม่ใช่ตัวเลข
+      newVal = newVal.replace(/\D/g, "");
+
+      // ตรวจสอบไม่ให้ใส่เกิน 10 หลัก
+      if (newVal.length > 10) {
+        newVal = newVal.slice(0, 10); // ตัดค่าที่เกิน
+      }
+
+      // ฟอร์แมตหมายเลขโทรศัพท์ให้มีขีดเมื่อความยาวครบ 10 หลัก
+      if (newVal.length === 10) {
+        this.phone = newVal.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+      } else {
+        this.phone = newVal;
+      }
+    },
+
+    PROMPTPAYNumber(newVal) {
+      // ลบช่องว่างด้านหน้าและด้านหลัง
+      newVal = newVal.trim();
+
+      // ลบอักขระที่ไม่ใช่ตัวเลข
+      newVal = newVal.replace(/\D/g, "");
+
+      // ตรวจสอบไม่ให้ใส่เกิน 14 หลัก
+      if (newVal.length > 13) {
+        newVal = newVal.slice(0, 13); // ตัดค่าที่เกิน
+      }
+
+      // ฟอร์แมตหมายเลขพร้อมเพย์ให้มีขีดเมื่อความยาวครบ 13 หรือ 14 หลัก
+      if (newVal.length === 13) {
+        this.PROMPTPAYNumber = newVal.replace(
+          /(\d{1})(\d{4})(\d{4})(\d{4})/,
+          "$1-$2-$3-$4"
+        );
+      } else if (newVal.length === 13) {
+        this.PROMPTPAYNumber = newVal.replace(
+          /(\d{2})(\d{4})(\d{4})(\d{4})/,
+          "$1-$2-$3-$4"
+        );
+      } else {
+        this.PROMPTPAYNumber = newVal;
       }
     },
   },
@@ -671,6 +725,21 @@ export default {
       if (!this.$validate.phone(this.phone)) {
         this.errors.phone = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
         if (!firstErrorField) firstErrorField = "phone";
+      } else if (this.phone.length > 11) {
+        this.errors.phone = "หมายเลขโทรศัพท์ห้ามเกิน 11 หลัก";
+        if (!firstErrorField) firstErrorField = "phone";
+      }
+
+      // ตรวจสอบหมายเลขพร้อมเพย์
+      if (this.paymentMethod === "PROMPTPAY") {
+        if (!this.$validate.PROMPTPAYNumber(this.PROMPTPAYNumber)) {
+          this.errors.consentcash =
+            "กรุณากรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชนเท่านั้น";
+          if (!firstErrorField) firstErrorField = "PROMPTPAYNumber";
+        } else if (this.PROMPTPAYNumber.length > 14) {
+          this.errors.consentcash = "หมายเลขพร้อมเพย์ห้ามเกิน 14 หลัก";
+          if (!firstErrorField) firstErrorField = "PROMPTPAYNumber";
+        }
       }
       if (!this.$validate.email(this.email)) {
         this.errors.email = "ที่อยู่อีเมลไม่ถูกต้อง";
@@ -711,13 +780,6 @@ export default {
         if (!firstErrorField) firstErrorField = "consent";
       }
 
-      if (this.paymentMethod === "PROMPTPAY") {
-        if (!this.$validate.PROMPTPAYNumber(this.PROMPTPAYNumber)) {
-          this.errors.consentcash =
-            "กรุณากรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชนเท่านั้น";
-          if (!firstErrorField) firstErrorField = "PROMPTPAYNumber";
-        }
-      }
       if (!this.imagePreviewUrl) {
         this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
         if (!firstErrorField) firstErrorField = "imageFileInput";

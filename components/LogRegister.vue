@@ -57,7 +57,7 @@
                   เบอร์โทรศัพท์ <span id="dotstyle">*</span>
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   id="phone"
                   v-model="phone"
                   placeholder="กรุณากรอกเบอร์โทรศัพท์"
@@ -121,6 +121,27 @@ export default {
       originalPassword: "", // ตัวแปรที่ใช้เก็บรหัสผ่านเดิม
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
     };
+  },
+  watch: {
+      phone(newVal) {
+      // ลบช่องว่างด้านหน้าและด้านหลัง
+      newVal = newVal.trim();
+
+      // ลบอักขระที่ไม่ใช่ตัวเลข
+      newVal = newVal.replace(/\D/g, "");
+
+      // ตรวจสอบไม่ให้ใส่เกิน 10 หลัก
+      if (newVal.length > 10) {
+        newVal = newVal.slice(0, 10); // ตัดค่าที่เกิน
+      }
+
+      // ฟอร์แมตหมายเลขโทรศัพท์ให้มีขีดเมื่อความยาวครบ 10 หลัก
+      if (newVal.length === 10) {
+        this.phone = newVal.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+      } else {
+        this.phone = newVal;
+      }
+    },
   },
   methods: {
     validateForm() {

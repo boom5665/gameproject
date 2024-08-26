@@ -89,7 +89,7 @@ export default {
 
   mounted() {
     // ดึง rps_code จาก URL query parameters
-    this.rpsCode = this.$route.query.rps_code;
+    this.rpsCode = this.$route.query.rps_verify_code;
     console.log("RPS Code:", this.rpsCode);
   },
 
