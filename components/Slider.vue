@@ -6,16 +6,24 @@
     </div>
     <!-- ปุ่มนำทาง -->
     <div class="center-flex">
-      <button class="botton left" @click="slide('left')">
+      <button
+        v-if="items.length > 6"
+        class="button left"
+        @click="slide('left')"
+      >
         <img src="~/assets/image/arrow-left.png" alt="" />
       </button>
-      <button class="botton right" @click="slide('right')">
+      <button
+        v-if="items.length > 6"
+        class="button right"
+        @click="slide('right')"
+      >
         <img src="~/assets/image/arrow-right.png" alt="" />
       </button>
     </div>
 
     <!-- จุดสำหรับนำทาง -->
-    <div class="dots">
+    <div class="dots" v-if="items.length > 6">
       <span
         class="dot"
         v-for="(dot, index) in numberOfDots"
@@ -49,7 +57,10 @@ export default {
     },
   },
   mounted() {
-    this.startAutoSlide();
+    if (this.items.length > 6) {
+      // เริ่มออโต้สไลด์เฉพาะเมื่อมี items มากกว่า 6 ชิ้น
+      this.startAutoSlide();
+    }
     window.addEventListener("resize", this.handleResize);
   },
   beforeDestroy() {
@@ -58,9 +69,12 @@ export default {
   },
   methods: {
     startAutoSlide() {
-      this.autoSlideInterval = setInterval(() => {
-        this.slide("right");
-      }, 5000); // เปลี่ยนเป็นระยะเวลาที่คุณต้องการ
+      if (this.items.length > 6) {
+        // ตรวจสอบจำนวน items ก่อนเริ่มออโต้สไลด์
+        this.autoSlideInterval = setInterval(() => {
+          this.slide("right");
+        }, 5000); // เปลี่ยนเป็นระยะเวลาที่คุณต้องการ
+      }
     },
     stopAutoSlide() {
       clearInterval(this.autoSlideInterval);
@@ -75,6 +89,8 @@ export default {
       slider.style.left = `-${index * slideWidth}px`;
     },
     slide(direction) {
+      if (this.items.length <= 6) return; // ถ้าจำนวน items ไม่เกิน 6 ให้ return ออกไป
+
       const slider = this.$refs.slider;
       const slideWidth = slider.clientWidth / 4; // จำนวน items ต่อ slide
       const totalSlides = this.numberOfDots;
@@ -100,6 +116,7 @@ export default {
 };
 </script>
 
+
 <style>
 .center-flex {
   display: flex;
@@ -116,11 +133,15 @@ export default {
   right: -45px;
   top: 20px;
   z-index: 100;
+  background: no-repeat;
+  border: none;
 }
 .left {
   position: relative;
   left: -45px;
   top: 20px;
   z-index: 100;
+  background: no-repeat;
+  border: none;
 }
 </style>
