@@ -27,14 +27,16 @@ a {
   background-color: none;
   width: 100%;
 }
+
 a:hover {
-  color: $white-color ;
+  color: $white-color;
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: none;
   width: 100%;
 }
-.width-hunded{
+
+.width-hunded {
   width: 100%;
 }
 
@@ -59,9 +61,24 @@ input {
   box-sizing: border-box;
   padding: 0 10px;
 }
+
+/* เปลี่ยนสีพื้นหลังเมื่อ input ได้ focus */
+input:focus,
+input:focus-visible {
+  background-color: #fff !important;
+  /* เปลี่ยนเป็นสีที่คุณต้องการ */
+  border: 2px solid #5c25f2 !important;
+  /* เปลี่ยนเป็นสีที่คุณต้องการ */
+  outline: none;
+
+}
+input[type="text"], input[type="password"], input[type="email"], textarea {
+  background-color: #fff !important; /* เปลี่ยนเป็นสีที่คุณต้องการ */
+}
 .ql-editor {
   height: 150px !important;
 }
+
 .dis-play-evenly {
   display: flex;
   justify-content: space-evenly;
@@ -87,6 +104,7 @@ input {
   align-items: center;
   justify-content: center;
 }
+
 .w-content {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.08);
@@ -100,10 +118,12 @@ input {
   align-items: center;
   padding: var(--Spacing-space-48, 48px);
 }
-.box-cotent-two{
+
+.box-cotent-two {
   display: flex;
   justify-content: center;
 }
+
 .dis-col-center {
   display: flex;
   justify-content: center;
@@ -129,6 +149,7 @@ input {
   justify-content: center;
   margin-right: 40px;
 }
+
 .contentright {
   width: 65%;
 }
@@ -331,7 +352,8 @@ input {
 
 
 .swal2-confirm-button {
-  background-color: #4caf50 !important; /* สีเขียวสำหรับปุ่มยืนยัน */
+  background-color: #4caf50 !important;
+  /* สีเขียวสำหรับปุ่มยืนยัน */
   color: white;
 }
 
@@ -343,6 +365,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
   color: #fff;
   font-size: 1em;
 }
+
 div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
   border: 0;
   border-radius: .25em;
@@ -351,5 +374,3 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
   color: #fff;
   font-size: 1em;
 }
-
-
