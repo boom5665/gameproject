@@ -398,6 +398,11 @@ export default {
     },
 
     validateForm() {
+      const maxFileSizeMB = 8; // ขนาดสูงสุดของไฟล์ใน MB
+      const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024; // แปลงเป็น bytes
+      const imageTypes = ["image/jpeg", "image/png"]; // ประเภทของไฟล์ที่อนุญาต
+
+      let firstErrorField = null;
       this.errors = {}; // ล้างข้อผิดพลาดก่อนเริ่มการตรวจสอบ
       if (!this.productName) {
         this.errors.productName = "กรุณากรอกชื่อสินค้า";
@@ -413,11 +418,35 @@ export default {
       }
       if (!this.imageUrl) {
         this.errors.imageUrl = "กรุณาอัพโหลดรูปหลัก";
-      }
-      if (!this.savedImageUrls.length) {
-        this.errors.savedImageUrls = "กรุณาอัพโหลดรูปภาพคลัง";
+        if (!firstErrorField) firstErrorField = "imageUrl";
+      } else {
+        const file = this.imageUrl;
+        if (!imageTypes.includes(file.type)) {
+          this.errors.imageUrl = "กรุณาอัพโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+          if (!firstErrorField) firstErrorField = "imageUrl";
+        } else if (file.size > maxFileSizeBytes) {
+          this.errors.imageUrl = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
+          if (!firstErrorField) firstErrorField = "imageUrl";
+        }
       }
 
+      // ตรวจสอบรูปภาพคลัง (savedImageUrls)
+      if (!this.savedImageUrls.length) {
+        this.errors.savedImageUrls = "กรุณาอัพโหลดรูปภาพคลัง";
+        if (!firstErrorField) firstErrorField = "savedImageUrls";
+      } else {
+        this.savedImageUrls.forEach((file, index) => {
+          if (!imageTypes.includes(file.type)) {
+            this.errors.savedImageUrls =
+              "กรุณาอัพโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+            if (!firstErrorField) firstErrorField = `savedImageUrls-${index}`;
+          } else if (file.size > maxFileSizeBytes) {
+            this.errors.savedImageUrls = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
+            if (!firstErrorField) firstErrorField = `savedImageUrls-${index}`;
+          }
+        });
+      }
+    
       return Object.keys(this.errors).length === 0;
     },
 

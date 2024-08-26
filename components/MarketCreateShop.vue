@@ -58,7 +58,7 @@
                 <img
                   class=""
                   style="margin: 0px 10px; width: 20px"
-                  src="~/assets/image/User.png"
+                  src="~/assets/image/store.png"
                 />
               </div>
               ชื่อร้านค้า
@@ -306,7 +306,7 @@
                   <img
                     class=""
                     style="margin: 0px 10px; width: 20px"
-                    src="~/assets/image/store.png"
+                    src="~/assets/image/User.png"
                   />
                 </div>
                 ข้อมูลผู้ติดต่อ
@@ -480,7 +480,7 @@
                 </div>
               </div>
 
-              <div style="margin-top: 20px">
+              <div style="margin-top: 20px; width: max-content">
                 <label class="container">
                   <input type="checkbox" v-model="consent" />
                   <div class="checkmark"></div>
@@ -616,7 +616,7 @@ export default {
           reader.readAsDataURL(file);
         } else {
           this.errors[side === "front" ? "imageUrl" : "imageUrl2"] =
-            "ขนาดไฟล์ไม่เกิน 8MB";
+            "ขนาดไฟล์ไม่เกิน 8MB ใส่ได้เฉพาะรูปเท่านั้น";
           if (side === "front") {
             this.showImage = false;
             this.imageStatus = "invalid"; // สถานะรูปภาพ
@@ -653,12 +653,11 @@ export default {
     },
     validateForm() {
       this.errors = {};
+      const maxFileSizeMB = 8; // ขนาดสูงสุดของไฟล์ใน MB
+      const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024; // แปลงเป็น bytes
+      const imageTypes = ["image/jpeg", "image/png"]; // ประเภทของไฟล์ที่อนุญาต
       let firstErrorField = null;
 
-      if (!this.imagePreviewUrl) {
-        this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
-        if (!firstErrorField) firstErrorField = "imageFileInput";
-      }
       if (!this.$validate.name(this.name)) {
         this.errors.name =
           "ชื่อร้านค้า ชื้อห้ามซ้ำกับร้านค้าอื่นๆและห้ามน้อยกว่า 8 หลักและไม่มากว่า 100  ";
@@ -678,7 +677,8 @@ export default {
         if (!firstErrorField) firstErrorField = "email";
       }
       if (!this.$validate.firstName(this.firstName)) {
-        this.errors.firstName = "ชื่อไม่ถูกต้อง";
+        this.errors.firstName =
+          "ชื่อไม่ถูกต้องเฉพาะตัวอักษรไทยหรืออังกฤษเท่านั้น";
         if (!firstErrorField) firstErrorField = "firstName";
       }
       if (!this.$validate.lastName(this.lastName)) {
@@ -706,15 +706,6 @@ export default {
         this.errors.idCardBack = "หมายเลขหลังบัตรประชาชนไม่ถูกต้อง";
         if (!firstErrorField) firstErrorField = "idCardBack";
       }
-
-      if (!this.imageUrl) {
-        this.errors.imageUrl = "กรุณาอัปโหลดภาพหน้าบัตรประชาชน";
-        if (!firstErrorField) firstErrorField = "imageUrl";
-      }
-      if (!this.imageUrl2) {
-        this.errors.imageUrl2 = "กรุณาอัปโหลดภาพหลังบัตรประชาชน";
-        if (!firstErrorField) firstErrorField = "imageUrl2";
-      }
       if (!this.consent) {
         this.errors.consent = "กรุณายินยอมข้อกำหนดและเงื่อนไข";
         if (!firstErrorField) firstErrorField = "consent";
@@ -725,6 +716,51 @@ export default {
           this.errors.consentcash =
             "กรุณากรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชนเท่านั้น";
           if (!firstErrorField) firstErrorField = "PROMPTPAYNumber";
+        }
+      }
+      if (!this.imagePreviewUrl) {
+        this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
+        if (!firstErrorField) firstErrorField = "imageFileInput";
+      } else {
+        const file = this.imagePreviewUrl;
+        if (!imageTypes.includes(file.type)) {
+          this.errors.imagePreviewUrl =
+            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+          if (!firstErrorField) firstErrorField = "imageFileInput";
+        } else if (file.size > maxFileSizeBytes) {
+          this.errors.imagePreviewUrl = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
+          if (!firstErrorField) firstErrorField = "imageFileInput";
+        }
+      }
+
+      // ตรวจสอบภาพหน้าบัตรประชาชน
+      if (!this.imageUrl) {
+        this.errors.imageUrl = "กรุณาอัปโหลดภาพหน้าบัตรประชาชน";
+        if (!firstErrorField) firstErrorField = "imageUrl";
+      } else {
+        const file = this.imageUrl;
+        if (!imageTypes.includes(file.type)) {
+          this.errors.imageUrl = "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+          if (!firstErrorField) firstErrorField = "imageUrl";
+        } else if (file.size > maxFileSizeBytes) {
+          this.errors.imageUrl = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
+          if (!firstErrorField) firstErrorField = "imageUrl";
+        }
+      }
+
+      // ตรวจสอบภาพหลังบัตรประชาชน
+      if (!this.imageUrl2) {
+        this.errors.imageUrl2 = "กรุณาอัปโหลดภาพหลังบัตรประชาชน";
+        if (!firstErrorField) firstErrorField = "imageUrl2";
+      } else {
+        const file = this.imageUrl2;
+        if (!imageTypes.includes(file.type)) {
+          this.errors.imageUrl2 =
+            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+          if (!firstErrorField) firstErrorField = "imageUrl2";
+        } else if (file.size > maxFileSizeBytes) {
+          this.errors.imageUrl2 = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
+          if (!firstErrorField) firstErrorField = "imageUrl2";
         }
       }
 

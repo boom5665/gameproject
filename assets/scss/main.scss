@@ -59,11 +59,13 @@ input {
   box-sizing: border-box;
   padding: 0 10px;
 }
-
+.ql-editor {
+  height: 150px !important;
+}
 .dis-play-evenly {
   display: flex;
   justify-content: space-evenly;
-  padding: 0px 80px;
+  padding: 0px 50px;
 }
 
 .dis-play-between {

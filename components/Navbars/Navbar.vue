@@ -5,7 +5,13 @@
       <div class="nav-left">
         <div class="">
           <div class="display-f">
-            <img class="img-safe" src="~/assets/image/safe.png" />SAFE & SECURE
+            <div>
+              <img
+                src="~/assets/image/Logo-Gamemarket.png"
+                alt="Search"
+                class="Logo-img"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -31,8 +37,9 @@
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
             <Nuxt-link class="text-nav" to="/Profile" target="_self"
               ><div class="bottom-top bottom-w">
-                 โปรไฟล์ของฉัน,User
-              </div></Nuxt-link>
+                โปรไฟล์ของฉัน,User
+              </div></Nuxt-link
+            >
             <div class="text-nav" @click="logout" target="_self">
               <div class="bottom-top bottom-y">
                 <span style="padding: 0px 5px">ล็อคเอาท์</span>
@@ -55,11 +62,6 @@
       </div>
     </div>
     <div class="navbar">
-      <div class="nav-left">
-        <div>
-          <div>Logo</div>
-        </div>
-      </div>
       <div>
         <div class="nav-top">
           <!-- <div class="search-container">

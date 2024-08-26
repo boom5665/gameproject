@@ -268,7 +268,7 @@ export default {
   font-weight: bold;
 }
 .view-shop-button:hover {
-  background-color: #d4ac0d;
+  background-color: #CCBC2F;
 }
 .shop-stats {
   display: flex;

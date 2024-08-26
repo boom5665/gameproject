@@ -22,9 +22,9 @@
           </div>
           <Stepper :steps="steps" :currentStep="currentStep" />
           <!-- <button @click="cancelpay">ถัดไป</button> -->
-          <div>
+          <div class="order-container">
             <div
-              class="order-container"
+              class=""
               v-for="order in orders"
               :key="order.id"
             >

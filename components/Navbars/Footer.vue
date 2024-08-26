@@ -6,7 +6,13 @@
         <!-- Footer -->
         <div class="dis-play-evenly">
           <div style="width: 15%">
-            <div>LOGO</div>
+            <div>
+              <img
+                src="~/assets/image/Logo-Gamemarket.png"
+                alt="Search"
+                class="Logo-img"
+              />
+            </div>
             <!-- <div>
               20 ซอย รามอินทรา 5 แยก 15 แขวงอนุสาวรีย์ เขตบางเขน กรุงเทพมหานคร
               10220

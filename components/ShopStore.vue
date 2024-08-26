@@ -208,7 +208,7 @@
               <div>
                 <img class="" src="~/assets/image/rule.png" />
               </div>
-              <div style="width: 90%;">
+              <div style="width: 90%">
                 <div>
                   ทำไมจึงต้องขอเลขหลังบัตรประชาชนเพื่อทำการยืนยันตัวตน,
                   สร้างร้านค้า และ สมัครโปรโมเตอร์?
@@ -233,8 +233,8 @@
                     นั้นอยู่ภายใต้การกำกับดูแลอย่างเคร่งครัด ของกรมการปกครอง
                     กระทรวงมหาดไทย
                   </div>
-                  <div style="width: 100%;">
-                    <img style="width: 100%;" src="~/assets/image/line.png" />
+                  <div style="width: 100%">
+                    <img style="width: 100%" src="~/assets/image/line.png" />
                   </div>
                   <div>
                     ได้รับอนุญาตอย่างถูกต้อง หมายเลขหนังสืออนุญาตจากกรมการปกครอง
@@ -350,11 +350,7 @@
                         @click="triggerFileInput('fileInputFront')"
                       />
                     </div>
-                    <div
-                      class=""
-                      v-show="!showImage"
-                      style="width: 100%;"
-                    >
+                    <div class="" v-show="!showImage" style="width: 100%">
                       <img
                         class=""
                         style=""
@@ -393,11 +389,7 @@
                         @click="triggerFileInput('fileInputBack')"
                       />
                     </div>
-                    <div
-                      class=""
-                      v-show="!showImage2"
-                      style="width: 100%;"
-                    >
+                    <div class="" v-show="!showImage2" style="width: 100%">
                       <img
                         class=""
                         style=""
@@ -583,12 +575,11 @@ export default {
     },
     validateForm() {
       this.errors = {};
+      const maxFileSizeMB = 8; // ขนาดสูงสุดของไฟล์ใน MB
+      const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024; // แปลงเป็น bytes
+      const imageTypes = ["image/jpeg", "image/png"]; // ประเภทของไฟล์ที่อนุญาต
       let firstErrorField = null;
 
-      if (!this.imagePreviewUrl) {
-        this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
-        if (!firstErrorField) firstErrorField = "imageFileInput";
-      }
       if (!this.$validate.name(this.name)) {
         this.errors.name =
           "ชื่อร้านค้า ชื้อห้ามซ้ำกับร้านค้าอื่นๆและห้ามน้อยกว่า 8 หลักและไม่มากว่า 100  ";
@@ -608,7 +599,8 @@ export default {
         if (!firstErrorField) firstErrorField = "email";
       }
       if (!this.$validate.firstName(this.firstName)) {
-        this.errors.firstName = "ชื่อไม่ถูกต้อง";
+        this.errors.firstName =
+          "ชื่อไม่ถูกต้องเฉพาะตัวอักษรไทยหรืออังกฤษเท่านั้น";
         if (!firstErrorField) firstErrorField = "firstName";
       }
       if (!this.$validate.lastName(this.lastName)) {
@@ -636,25 +628,61 @@ export default {
         this.errors.idCardBack = "หมายเลขหลังบัตรประชาชนไม่ถูกต้อง";
         if (!firstErrorField) firstErrorField = "idCardBack";
       }
-
-      if (!this.imageUrl) {
-        this.errors.imageUrl = "กรุณาอัปโหลดภาพหน้าบัตรประชาชน";
-        if (!firstErrorField) firstErrorField = "imageUrl";
+      if (!this.consent) {
+        this.errors.consent = "กรุณายินยอมข้อกำหนดและเงื่อนไข";
+        if (!firstErrorField) firstErrorField = "consent";
       }
-      if (!this.imageUrl2) {
-        this.errors.imageUrl2 = "กรุณาอัปโหลดภาพหลังบัตรประชาชน";
-        if (!firstErrorField) firstErrorField = "imageUrl2";
-      }
-      // if (!this.consent) {
-      //   this.errors.consent = "กรุณายินยอมข้อกำหนดและเงื่อนไข";
-      //   if (!firstErrorField) firstErrorField = "consent";
-      // }
 
       if (this.paymentMethod === "PROMPTPAY") {
         if (!this.$validate.PROMPTPAYNumber(this.PROMPTPAYNumber)) {
           this.errors.consentcash =
             "กรุณากรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชนเท่านั้น";
           if (!firstErrorField) firstErrorField = "PROMPTPAYNumber";
+        }
+      }
+      if (!this.imagePreviewUrl) {
+        this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
+        if (!firstErrorField) firstErrorField = "imageFileInput";
+      } else {
+        const file = this.imagePreviewUrl;
+        if (!imageTypes.includes(file.type)) {
+          this.errors.imagePreviewUrl =
+            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+          if (!firstErrorField) firstErrorField = "imageFileInput";
+        } else if (file.size > maxFileSizeBytes) {
+          this.errors.imagePreviewUrl = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
+          if (!firstErrorField) firstErrorField = "imageFileInput";
+        }
+      }
+
+      // ตรวจสอบภาพหน้าบัตรประชาชน
+      if (!this.imageUrl) {
+        this.errors.imageUrl = "กรุณาอัปโหลดภาพหน้าบัตรประชาชน";
+        if (!firstErrorField) firstErrorField = "imageUrl";
+      } else {
+        const file = this.imageUrl;
+        if (!imageTypes.includes(file.type)) {
+          this.errors.imageUrl = "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+          if (!firstErrorField) firstErrorField = "imageUrl";
+        } else if (file.size > maxFileSizeBytes) {
+          this.errors.imageUrl = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
+          if (!firstErrorField) firstErrorField = "imageUrl";
+        }
+      }
+
+      // ตรวจสอบภาพหลังบัตรประชาชน
+      if (!this.imageUrl2) {
+        this.errors.imageUrl2 = "กรุณาอัปโหลดภาพหลังบัตรประชาชน";
+        if (!firstErrorField) firstErrorField = "imageUrl2";
+      } else {
+        const file = this.imageUrl2;
+        if (!imageTypes.includes(file.type)) {
+          this.errors.imageUrl2 =
+            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+          if (!firstErrorField) firstErrorField = "imageUrl2";
+        } else if (file.size > maxFileSizeBytes) {
+          this.errors.imageUrl2 = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
+          if (!firstErrorField) firstErrorField = "imageUrl2";
         }
       }
 
@@ -803,8 +831,8 @@ export default {
 </script>
 <style scoped>
 .maketcreateshop img {
-    /* cursor: pointer; */
-    width: 100%;
+  /* cursor: pointer; */
+  width: 100%;
 }
 .preview {
   width: 100%;
@@ -830,8 +858,7 @@ export default {
   opacity: 5;
 }
 .box-alert {
-    padding: 16px 20px;
-
+  padding: 16px 20px;
 }
 </style>
 

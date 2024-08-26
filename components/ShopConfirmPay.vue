@@ -169,6 +169,7 @@ export default {
       codeqr: "",
       errors: {},
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
+      total:"",
 
     };
   },

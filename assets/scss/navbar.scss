@@ -10,24 +10,26 @@
 }
 
 .b-top-cy:hover {
-  background-color: #d4ac0d;
+  background-color: #CCBC2F;
 }
 
 .navbar-main {
-  padding: 16px 40px 24px 40px;
-  padding: var(--Spacing-space-16, 16px) var(--Spacing-space-40, 40px) var(--Spacing-space-24, 24px) var(--Spacing-space-40, 40px);
+  padding: 16px 40px 16px 40px;
   border-radius: 0px 0px 16px 16px;
   background: linear-gradient(180deg, #130048 0%, #5823E5 100%);
+  background: linear-gradient(180deg, #130048 0%, #5823E5 100%);
   background: var(--Linear, linear-gradient(180deg, #130048 0%, #5823E5 100%));
-  max-width: 1300px;
+  max-width: 1400px;
   width: 100%;
 
   // max-width: 1300px;
   .navbar {
     display: flex;
     width: 100%;
-    padding: 10px;
+    padding: 0px;
+    align-items: flex-start;
   }
+
 
   .nav-left.nav-right {
     display: flex;
@@ -98,7 +100,7 @@
   }
 
   .bottom-w:hover {
-    background: #8c8c8c;
+    background: #F8F8F8;
   }
 
   .bottom-y {
@@ -113,7 +115,7 @@
   }
 
   .bottom-y:hover {
-    background-color: #d4ac0d;
+    background-color: #CCBC2F;
   }
 
   .search-container {
@@ -186,4 +188,9 @@
     transition: width 1.5s ease;
     /* เพิ่ม transition เพื่อทำให้การเข้ารหัสมีความช้า ๆ */
   }
+}
+
+.Logo-img {
+  width: 100%;
+  height: 110px;
 }
