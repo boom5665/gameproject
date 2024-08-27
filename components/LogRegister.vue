@@ -123,7 +123,7 @@ export default {
     };
   },
   watch: {
-      phone(newVal) {
+    phone(newVal) {
       // ลบช่องว่างด้านหน้าและด้านหลัง
       newVal = newVal.trim();
 

@@ -13,13 +13,25 @@ export default ({ app }, inject) => {
     return regex.test(password);
   };
   const validatePhone = (phone) => {
+    // ลบขีด (-) ออกทั้งหมดก่อนทำการตรวจสอบ
+    const cleanedPhone = phone.replace(/-/g, "");
+
+    // ตรวจสอบหมายเลขโทรศัพท์ที่ขึ้นต้นด้วย 0 และมีความยาว 10 หลัก
     const regex = /^0[0-9]{9}$/;
-    return regex.test(phone);
+
+    return regex.test(cleanedPhone);
   };
+
   const validatePROMPTPAYNumber = (PROMPTPAYNumber) => {
+    // ลบขีดออกทั้งหมดก่อนทำการตรวจสอบ
+    const cleanedPROMPTPAYNumber = PROMPTPAYNumber.replace(/-/g, "");
+
+    // ตรวจสอบรูปแบบของหมายเลขพร้อมเพย์: เบอร์โทรศัพท์ 10 หลัก หรือ เลขบัตรประชาชน 13 หลัก
     const regex = /^(0[0-9]{9}|[0-9]{13})$/;
-    return regex.test(PROMPTPAYNumber);
+
+    return regex.test(cleanedPROMPTPAYNumber);
   };
+
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const thaiRegex = /[ก-ฮ]/; // ตรวจสอบว่ามีตัวอักษรภาษาไทยหรือไม่

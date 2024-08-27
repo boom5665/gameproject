@@ -552,7 +552,7 @@ export default {
       },
       qrPROMPTPAYNumber: "",
       qrPROMPTPAYQR: null,
-      PROMPTPAYNumber: null,
+      PROMPTPAYNumber: "",
       firstErrorField: null,
     };
   },
@@ -725,22 +725,26 @@ export default {
       if (!this.$validate.phone(this.phone)) {
         this.errors.phone = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
         if (!firstErrorField) firstErrorField = "phone";
-      } else if (this.phone.length > 11) {
+      } else if (this.phone.length > 13) {
         this.errors.phone = "หมายเลขโทรศัพท์ห้ามเกิน 11 หลัก";
         if (!firstErrorField) firstErrorField = "phone";
       }
 
       // ตรวจสอบหมายเลขพร้อมเพย์
       if (this.paymentMethod === "PROMPTPAY") {
-        if (!this.$validate.PROMPTPAYNumber(this.PROMPTPAYNumber)) {
+        // ลบขีด (-) ออกก่อนตรวจสอบความถูกต้องและความยาว
+        const cleanedPROMPTPAYNumber = this.PROMPTPAYNumber.replace(/-/g, "");
+
+        if (!this.$validate.PROMPTPAYNumber(cleanedPROMPTPAYNumber)) {
           this.errors.consentcash =
             "กรุณากรอกหมายเลขพร้อมเพย์ เบอร์โทรศัพท์หรือเลขหน้าบัตรประชาชนเท่านั้น";
           if (!firstErrorField) firstErrorField = "PROMPTPAYNumber";
-        } else if (this.PROMPTPAYNumber.length > 14) {
+        } else if (cleanedPROMPTPAYNumber.length > 14) {
           this.errors.consentcash = "หมายเลขพร้อมเพย์ห้ามเกิน 14 หลัก";
           if (!firstErrorField) firstErrorField = "PROMPTPAYNumber";
         }
       }
+
       if (!this.$validate.email(this.email)) {
         this.errors.email = "ที่อยู่อีเมลไม่ถูกต้อง";
         if (!firstErrorField) firstErrorField = "email";
@@ -762,7 +766,8 @@ export default {
         this.errors.editorContent = "ข้อมูลข้อความไม่ถูกต้อง";
         if (!firstErrorField) firstErrorField = "editorContent";
       }
-      if (!this.$validate.idCard(this.idCard)) {
+      const cleanedIdCard = this.idCard.replace(/-/g, "");
+      if (!this.$validate.idCard(cleanedIdCard)) {
         this.errors.idCard = "หมายเลขบัตรประชาชนไม่ถูกต้อง";
         if (!firstErrorField) firstErrorField = "idCard";
       }
