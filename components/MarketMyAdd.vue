@@ -263,9 +263,9 @@ export default {
       showImage: false,
       savedImageUrls: [],
       errors: {
-        price: null,
-        specialPrice: null,
-        inventory: null,
+        price: "",
+        specialPrice: "",
+        inventory: "",
         imageUrl: "",
         savedImageUrls: "",
       },
@@ -500,9 +500,9 @@ export default {
       formData.append("description", this.description);
       formData.append("product_types_pt_id", this.selectedProductType);
       formData.append("product_promotions_pp_id", this.selectedPromotionType);
-      formData.append("price_before_discount", this.price.replace(/,/g, ""));
-      formData.append("price", this.specialPrice.replace(/,/g, ""));
-      formData.append("amount", this.inventory.replace(/,/g, ""));
+      formData.append("price_before_discount", this.price);
+      formData.append("price", this.specialPrice);
+      formData.append("amount", this.inventory);
       formData.append("is_public", "true");
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}: ${pair[1]}`);

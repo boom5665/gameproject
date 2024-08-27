@@ -246,10 +246,15 @@ export default {
     },
     validateForm() {
       this.errors = {};
+     
       // เรียกใช้ formataccount เพื่อจัดการการตรวจสอบและการจัดรูปแบบ
-      this.account = this.formataccount(this.account);
+      const formattedAccount = this.formataccount(this.account);
+
+      // ตรวจสอบหมายเลขบัญชีธนาคาร
       if (!this.account) {
-        this.errors.account = "กรุณาระบุบัญชีที่โอนเงิน";
+        this.errors.account = "กรุณากรอกหมายเลขบัญชีธนาคาร";
+      } else if (formattedAccount.length < 10) {
+        this.errors.account = "หมายเลขบัญชีธนาคารต้องมี 10 หลัก";
       }
       if (!this.bank) {
         this.errors.bank = "กรุณาเลือกธนาคาร";
