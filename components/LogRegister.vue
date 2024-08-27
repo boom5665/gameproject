@@ -174,7 +174,7 @@ export default {
       const formData = {
         username: this.username,
         password: this.password,
-        phone: this.phone,
+        phone: this.phone.replace(/-/g, ""),
         email: this.email,
       };
 

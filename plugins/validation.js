@@ -66,6 +66,7 @@ export default ({ app }, inject) => {
     const regex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif))$/i;
     return regex.test(imageUrl);
   };
+
   const validateFileSize = (file, maxSizeMB) => {
     const maxSize = maxSizeMB * 1024 * 1024; // แปลง MB เป็น bytes
     return file.size <= maxSize;
@@ -84,6 +85,7 @@ export default ({ app }, inject) => {
     idCard: validateIdCard,
     idCardBack: validateIdCardBack,
     imageUrl: validateImageUrl,
+    imageUrl2: validateImageUrl,
     file: validateFileSize,
   });
 };

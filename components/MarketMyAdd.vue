@@ -266,6 +266,8 @@ export default {
         price: null,
         specialPrice: null,
         inventory: null,
+        imageUrl: "",
+        savedImageUrls: "",
       },
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
       productTypes: [{ value: "1", label: "blech" }],
@@ -348,38 +350,51 @@ export default {
 
     onFileChange(event, type) {
       const files = event.target.files;
-      if (files.length) {
+
+      // ตรวจสอบว่าเลือกไฟล์และไม่ใช่โฟลเดอร์
+      if (
+        files.length &&
+        Array.from(files).every((file) => file instanceof File)
+      ) {
+        // ตรวจสอบว่าไฟล์ทั้งหมดเป็นรูปภาพและไม่เกิน 8 MB
+        const validFiles = Array.from(files).filter(
+          (file) =>
+            file.type.startsWith("image/") && file.size <= 8 * 1024 * 1024
+        );
+
+        if (validFiles.length === 0) {
+          this.errors.imageUrl =
+            "กรุณาเลือกไฟล์รูปภาพที่มีขนาดไม่เกิน 8 MB เท่านั้น";
+          this.errors.savedImageUrls =
+            "กรุณาเลือกไฟล์รูปภาพที่มีขนาดไม่เกิน 8 MB เท่านั้น";
+          return;
+        }
+
         if (type === "main") {
-          const file = files[0];
+          const file = validFiles[0];
           const reader = new FileReader();
           reader.onload = (e) => {
             this.imageUrl = e.target.result;
-            // this.imageInfo = {
-            //   name: file.name,
-            //   order: 1,
-            // };
             this.showImage = true;
-            // console.log("Main Image URL:", this.imageUrl);
-            // console.log("Main Image Info:", this.imageInfo);
           };
           reader.readAsDataURL(file);
         } else if (type === "gallery") {
-          Array.from(files).forEach((file, index) => {
+          validFiles.forEach((file, index) => {
             const reader = new FileReader();
             reader.onload = (e) => {
               if (this.savedImageUrls.length < 6) {
                 this.savedImageUrls.push(e.target.result);
                 this.savedImageInfo.push({
                   name: file.name,
-                  order: this.savedImageUrls.length + 0,
+                  order: this.savedImageUrls.length,
                 });
-                // console.log("Gallery Image URL:", e.target.result);
+
                 console.log("Gallery Image Info:", {
                   name: file.name,
-                  order: this.savedImageUrls.length + 0,
+                  order: this.savedImageUrls.length,
                 });
               } else {
-                const result = this.$swal.fire({
+                this.$swal.fire({
                   title: "สามารถเพิ่มได้สูงสุด 6 รูปภาพ",
                   icon: "error",
                   showCancelButton: false,
@@ -389,19 +404,20 @@ export default {
             reader.readAsDataURL(file);
           });
         }
+      } else {
+        this.$swal.fire({
+          title: "กรุณาเลือกเฉพาะไฟล์ ไม่ใช่โฟลเดอร์",
+          icon: "error",
+          showCancelButton: false,
+        });
       }
     },
-
     removeSavedImage(index) {
       this.savedImageUrls.splice(index, 1);
       this.savedImageInfo.splice(index, 1); // ลบข้อมูลที่เกี่ยวข้องด้วย
     },
 
     validateForm() {
-      const maxFileSizeMB = 8; // ขนาดสูงสุดของไฟล์ใน MB
-      const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024; // แปลงเป็น bytes
-      const imageTypes = ["image/jpeg", "image/png"]; // ประเภทของไฟล์ที่อนุญาต
-
       let firstErrorField = null;
       this.errors = {}; // ล้างข้อผิดพลาดก่อนเริ่มการตรวจสอบ
       if (!this.productName) {
@@ -416,37 +432,17 @@ export default {
       if (!this.description) {
         this.errors.description = "กรุณากรอกคำอธิบาย";
       }
+
       if (!this.imageUrl) {
         this.errors.imageUrl = "กรุณาอัพโหลดรูปหลัก";
-        if (!firstErrorField) firstErrorField = "imageUrl";
-      } else {
-        const file = this.imageUrl;
-        if (!imageTypes.includes(file.type)) {
-          this.errors.imageUrl = "กรุณาอัพโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
-          if (!firstErrorField) firstErrorField = "imageUrl";
-        } else if (file.size > maxFileSizeBytes) {
-          this.errors.imageUrl = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
-          if (!firstErrorField) firstErrorField = "imageUrl";
-        }
       }
 
       // ตรวจสอบรูปภาพคลัง (savedImageUrls)
       if (!this.savedImageUrls.length) {
         this.errors.savedImageUrls = "กรุณาอัพโหลดรูปภาพคลัง";
         if (!firstErrorField) firstErrorField = "savedImageUrls";
-      } else {
-        this.savedImageUrls.forEach((file, index) => {
-          if (!imageTypes.includes(file.type)) {
-            this.errors.savedImageUrls =
-              "กรุณาอัพโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
-            if (!firstErrorField) firstErrorField = `savedImageUrls-${index}`;
-          } else if (file.size > maxFileSizeBytes) {
-            this.errors.savedImageUrls = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
-            if (!firstErrorField) firstErrorField = `savedImageUrls-${index}`;
-          }
-        });
       }
-    
+
       return Object.keys(this.errors).length === 0;
     },
 

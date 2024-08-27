@@ -652,6 +652,22 @@ export default {
       const maxFileSizeMB = 8; // 8MB
 
       if (file) {
+        // ตรวจสอบประเภทไฟล์ (JPG หรือ PNG)
+        const imageTypes = ["image/jpeg", "image/png"];
+        if (!imageTypes.includes(file.type)) {
+          this.errors[side === "front" ? "imageUrl" : "imageUrl2"] =
+            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+          if (side === "front") {
+            this.showImage = false;
+            this.imageStatus = "invalid"; // สถานะรูปภาพ
+          } else {
+            this.showImage2 = false;
+            this.imageStatus2 = "invalid"; // สถานะรูปภาพ
+          }
+          return; // หยุดการทำงานหากไฟล์ไม่ตรงตามประเภท
+        }
+
+        // ตรวจสอบขนาดไฟล์
         if (this.$validate.file(file, maxFileSizeMB)) {
           const reader = new FileReader();
           reader.onload = (e) => {
@@ -687,29 +703,43 @@ export default {
     showSelectedImage() {
       const file = this.$refs.imageFileInput.files[0];
       const maxFileSizeMB = 8; // 8MB
+      const validImageTypes = ["image/jpeg", "image/png"]; // ประเภทไฟล์ภาพที่อนุญาต
 
       if (file) {
-        if (this.$validate.file(file, maxFileSizeMB)) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            this.imagePreviewUrl = e.target.result;
-            this.isImageVisible = true;
-            this.errors.imagePreviewUrl = "รูปภาพนี้ใช้งานได้";
-            this.imagePreviewStatus = "valid"; // สถานะรูปภาพ
-          };
-          reader.readAsDataURL(file);
-        } else {
+        // ตรวจสอบประเภทไฟล์
+        if (!validImageTypes.includes(file.type)) {
+          this.errors.imagePreviewUrl =
+            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+          this.isImageVisible = false;
+          this.imagePreviewStatus = "invalid"; // สถานะรูปภาพ
+          return;
+        }
+
+        // ตรวจสอบขนาดไฟล์
+        if (file.size > maxFileSizeMB * 1024 * 1024) {
           this.errors.imagePreviewUrl = "ขนาดไฟล์ไม่เกิน 8MB";
           this.isImageVisible = false;
           this.imagePreviewStatus = "invalid"; // สถานะรูปภาพ
+          return;
         }
+
+        // อ่านไฟล์และแสดงตัวอย่าง
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreviewUrl = e.target.result;
+          this.isImageVisible = true;
+          this.errors.imagePreviewUrl = ""; // ล้างข้อความผิดพลาดก่อน
+          this.imagePreviewStatus = "valid"; // สถานะรูปภาพ
+        };
+        reader.readAsDataURL(file);
+      } else {
+        this.errors.imagePreviewUrl = "กรุณาเลือกไฟล์ภาพ";
+        this.isImageVisible = false;
+        this.imagePreviewStatus = "invalid"; // สถานะรูปภาพ
       }
     },
     validateForm() {
       this.errors = {};
-      const maxFileSizeMB = 8; // ขนาดสูงสุดของไฟล์ใน MB
-      const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024; // แปลงเป็น bytes
-      const imageTypes = ["image/jpeg", "image/png"]; // ประเภทของไฟล์ที่อนุญาต
       let firstErrorField = null;
 
       if (!this.$validate.name(this.name)) {
@@ -784,51 +814,43 @@ export default {
         this.errors.consent = "กรุณายินยอมข้อกำหนดและเงื่อนไข";
         if (!firstErrorField) firstErrorField = "consent";
       }
+      const maxFileSizeMB = 8; // ขนาดสูงสุดของไฟล์ใน MB
+      const maxFileSizeBytes = maxFileSizeMB * 1024 * 1024; // แปลงเป็น bytes
+      const imageTypes = ["image/jpeg", "image/png"]; // ประเภทของไฟล์ที่อนุญาต
 
-      if (!this.imagePreviewUrl) {
-        this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
-        if (!firstErrorField) firstErrorField = "imageFileInput";
-      } else {
-        const file = this.imagePreviewUrl;
-        if (!imageTypes.includes(file.type)) {
+      const fileInput = document.querySelector("#imageFileInput"); // เปลี่ยนเป็น selector ของ input ของคุณ
+
+      if (fileInput && fileInput.files.length > 0) {
+        const file = fileInput.files[0]; // เข้าถึงไฟล์แรกที่เลือก
+
+        if (fileInput.hasAttribute("webkitdirectory")) {
+          // ถ้าใช้ webkitdirectory (เลือกโฟลเดอร์)
+          this.errors.imagePreviewUrl = "ไม่สามารถเลือกโฟลเดอร์ได้";
+          if (!firstErrorField) firstErrorField = "imageFileInput";
+        } else if (!imageTypes.includes(file.type)) {
           this.errors.imagePreviewUrl =
             "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
           if (!firstErrorField) firstErrorField = "imageFileInput";
         } else if (file.size > maxFileSizeBytes) {
           this.errors.imagePreviewUrl = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
           if (!firstErrorField) firstErrorField = "imageFileInput";
+        } else {
+          // ถ้าตรวจสอบผ่านทั้งหมด
+          // ตั้งค่า imagePreviewUrl และอื่นๆ ตามต้องการ
         }
+      } else {
+        this.errors.imagePreviewUrl = "กรุณาอัปโหลดภาพโปรไฟล์";
+        if (!firstErrorField) firstErrorField = "imageFileInput";
       }
 
-      // ตรวจสอบภาพหน้าบัตรประชาชน
       if (!this.imageUrl) {
         this.errors.imageUrl = "กรุณาอัปโหลดภาพหน้าบัตรประชาชน";
         if (!firstErrorField) firstErrorField = "imageUrl";
-      } else {
-        const file = this.imageUrl;
-        if (!imageTypes.includes(file.type)) {
-          this.errors.imageUrl = "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
-          if (!firstErrorField) firstErrorField = "imageUrl";
-        } else if (file.size > maxFileSizeBytes) {
-          this.errors.imageUrl = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
-          if (!firstErrorField) firstErrorField = "imageUrl";
-        }
       }
 
-      // ตรวจสอบภาพหลังบัตรประชาชน
       if (!this.imageUrl2) {
         this.errors.imageUrl2 = "กรุณาอัปโหลดภาพหลังบัตรประชาชน";
         if (!firstErrorField) firstErrorField = "imageUrl2";
-      } else {
-        const file = this.imageUrl2;
-        if (!imageTypes.includes(file.type)) {
-          this.errors.imageUrl2 =
-            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
-          if (!firstErrorField) firstErrorField = "imageUrl2";
-        } else if (file.size > maxFileSizeBytes) {
-          this.errors.imageUrl2 = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
-          if (!firstErrorField) firstErrorField = "imageUrl2";
-        }
       }
 
       // ถ้ามีข้อผิดพลาด ให้นำฟิลด์แรกที่พบข้อผิดพลาดไปที่หน้าจอ
@@ -849,7 +871,7 @@ export default {
     async handleSubmit() {
       if (!this.validateForm()) {
         this.name = (this.name || "").trim();
-        this.phone = (this.phone || "").trim();
+        this.phone = (this.phone || "").replace(/-/g, "").trim();
         this.email = (this.email || "").trim();
         this.address = (this.address || "").trim();
         this.otherContact = (this.otherContact || "").trim();
@@ -893,14 +915,14 @@ export default {
 
       // เพิ่มข้อมูลลงใน FormData
       formData.append("name", this.name);
-      formData.append("phone", this.phone);
+      formData.append("phone", this.phone.replace(/-/g, ""));
       formData.append("email", this.email);
       formData.append("address", this.address);
       formData.append("title_description", this.otherContact);
       formData.append("description", this.editorContent);
       formData.append("first_name", this.firstName);
       formData.append("last_name", this.lastName);
-      formData.append("id_card_number_front", this.idCard);
+      formData.append("id_card_number_front", this.idCard.replace(/-/g, ""));
       formData.append("id_card_number_back", this.idCardBack.replace(/-/g, ""));
 
       if (this.imageUrl.startsWith("data:")) {
@@ -924,10 +946,10 @@ export default {
       }
 
       formData.append("pay_method_id", 1);
-      formData.append("pay_slug", this.paymentMethod);
+      formData.append("pay_slug", this.paymentMethod.replace(/-/g, ""));
 
       if (this.paymentMethod === "PROMPTPAY") {
-        formData.append("pay_ref_1", this.PROMPTPAYNumber);
+        formData.append("pay_ref_1", this.PROMPTPAYNumber.replace(/-/g, ""));
       }
 
       // ฟังก์ชันสำหรับ log ข้อมูลใน FormData
