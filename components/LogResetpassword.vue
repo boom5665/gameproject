@@ -40,7 +40,9 @@
                     />
                   </div>
                 </div>
-                <span v-if="errors.Password" class="error">{{ errors.Password }}</span>
+                <span v-if="errors.Password" class="error">{{
+                  errors.Password
+                }}</span>
               </div>
               <div class="w-input">
                 <input
@@ -49,7 +51,9 @@
                   v-model="Passwordconfirm"
                   placeholder="ยืนยันรหัสผ่าน"
                 />
-                <span v-if="errors.Passwordconfirm" class="error">{{ errors.Passwordconfirm }}</span>
+                <span v-if="errors.Passwordconfirm" class="error">{{
+                  errors.Passwordconfirm
+                }}</span>
               </div>
             </div>
 
@@ -122,33 +126,56 @@ export default {
       };
 
       try {
-        const response = await this.$axios.post("/users/forgot-password/reset", formData);
+        const response = await this.$axios.post(
+          "/users/forgot-password/reset",
+          formData
+        );
         console.log("Response:", response.data);
-        alert("เปลี่ยนรหัสผ่านสำเร็จ");
 
+        const result = await this.$swal.fire({
+          title: "เปลี่ยนรหัสผ่านสำเร็จ",
+          icon: "success",
+          confirmButtonText: "ยืนยัน",
+          showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+        });
         if (this.rpsCode) {
           this.$router.push("/login"); // รีไดเรคไปยังหน้า index
         } else {
-          alert("เปลี่ยนรหัสผ่านไม่สำเร็จ");
+          const result = await this.$swal.fire({
+            title: "เปลี่ยนรหัสผ่านไม่สำเร็จ",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+            showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+          });
         }
-
       } catch (error) {
         this.$handleError(error);
-        console.error("Error:", error.response ? error.response.data : error.message);
+        console.error(
+          "Error:",
+          error.response ? error.response.data : error.message
+        );
         if (error.response && error.response.data) {
           const errorData = error.response.data;
           this.errors = {}; // Clear previous errors
 
           // แสดงข้อความ error ตาม code
           if (errorData.code === 60004) {
-            this.generalError = errorData.msg.th || "ไม่มียูสเซอร์จากอาร์พีเอสไอดีนี้";
+            this.generalError =
+              errorData.msg.th || "ไม่มียูสเซอร์จากอาร์พีเอสไอดีนี้";
           } else {
             this.generalError = errorData.msg || "เกิดข้อผิดพลาด";
           }
         } else {
-          this.generalError = "การเปลี่ยนรหัสผ่านไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
+          this.generalError =
+            "การเปลี่ยนรหัสผ่านไม่สำเร็จ โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง";
         }
-        alert(this.generalError);
+
+        const result = await this.$swal.fire({
+          title: this.generalError,
+          icon: "error",
+          confirmButtonText: "ยืนยัน",
+          showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+        });
       }
     },
   },
@@ -160,5 +187,4 @@ export default {
   width: 100%;
   height: 65px;
 }
-
 </style>

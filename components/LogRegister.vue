@@ -202,7 +202,13 @@ export default {
           }
         } else {
           // แสดงข้อความเตือนเมื่อไม่มีข้อมูล
-          alert("ไม่พบข้อมูล การลงทะเบียนสำเร็จ");
+          const result = await this.$swal.fire({
+            title: "ไม่พบข้อมูล การลงทะเบียนสำเร็จ",
+            icon: "error",
+            confirmButtonText: "ยืนยัน",
+            showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+          });
+
         }
 
         this.$router.push("/login"); // รีไดเรคไปยังหน้า login หลังจาก 1 วินาที

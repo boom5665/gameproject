@@ -806,8 +806,13 @@ export default {
         });
 
         // แสดง alert หลังจากสร้างร้านค้าเสร็จ
-        alert("สร้างร้านค้าได้สำเร็จ");
 
+        const result = await this.$swal.fire({
+          title: "สร้างร้านค้าได้สำเร็จ",
+          icon: "success",
+          confirmButtonText: "ยืนยัน",
+          showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+        });
         // ดึงข้อมูลโปรไฟล์หลังจากแสดง alert
         const profileResponse = await this.$axios.$post(
           "/vendor/profile/me/read",

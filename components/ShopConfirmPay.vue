@@ -13,7 +13,7 @@
                 รอการยืนยันหลักฐานการโอนเงิน
               </p>
               <p>กรุณาชำระเงินภายในเวลาที่กำหนดเพื่อไม่ให้ออเดอร์ถูกยกเลิก</p>
-              <div class="amount">ยอดรวม ฿{{total}}</div>
+              <div class="amount">ยอดรวม ฿{{ total }}</div>
               <div class="line">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -149,8 +149,7 @@ export default {
     Stepper,
   },
   data() {
-    const today = new Date().toISOString().substr(0, 10); // วันที่ปัจจุบันในรูปแบบ 'YYYY-MM-DD'
-    const defaultTime = "T12:00"; // เวลาที่ต้องการตั้งเอง
+    const today = new Date();
     return {
       currentStep: 2,
       steps: [
@@ -165,12 +164,11 @@ export default {
       account: "",
       bank: "",
       amount: "",
-      datetime: `${today}${defaultTime}`, // กำหนดค่าเริ่มต้นเป็นวันที่ปัจจุบันและเวลา '12:00'
+      datetime: this.getFormattedDateTime(), // เรียกใช้ฟังก์ชันในการกำหนดค่าเริ่มต้น
       codeqr: "",
       errors: {},
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
-      total:"",
-
+      total: "",
     };
   },
 
@@ -192,18 +190,71 @@ export default {
 
     console.log(this.codeqr); // แสดงค่า this.codeqr
   },
-
+  watch: {
+    amount(newValue) {
+      // จัดรูปแบบและอัปเดต amount
+      const formattedAmount = this.formatNumber(newValue);
+      // ตรวจสอบว่าค่าที่จัดรูปแบบแล้วต่างจากค่าปัจจุบันหรือไม่
+      if (formattedAmount !== this.amount) {
+        this.amount = formattedAmount;
+      }
+    },
+    account(newValue) {
+      // จัดรูปแบบและอัปเดต account
+      const formattedAccount = this.formataccount(newValue);
+      // ตรวจสอบว่าค่าที่จัดรูปแบบแล้วต่างจากค่าปัจจุบันหรือไม่
+      if (formattedAccount !== this.account) {
+        this.account = formattedAccount;
+      }
+    },
+  },
   methods: {
+    formatNumber(value) {
+      // กำจัดอักขระที่ไม่ใช่ตัวเลข
+      const numericValue = value.replace(/[^0-9]/g, "");
+      // ฟอร์แมตเป็นตัวเลขพร้อมลูกน้ำ
+      return numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    formataccount(value) {
+      // ลบช่องว่างด้านหน้าและด้านหลัง
+      let newVal = value.trim();
+
+      // ลบอักขระที่ไม่ใช่ตัวเลข
+      newVal = newVal.replace(/\D/g, "");
+
+      // ตรวจสอบไม่ให้ใส่เกิน 10 หลัก
+      if (newVal.length > 10) {
+        newVal = newVal.slice(0, 10); // ตัดค่าที่เกิน
+      }
+
+      // ฟอร์แมตหมายเลขโทรศัพท์ให้มีขีดเมื่อความยาวครบ 10 หลัก
+      if (newVal.length === 10) {
+        return newVal.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+      } else {
+        return newVal;
+      }
+    },
+    getFormattedDateTime() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+      const hours = String(today.getHours()).padStart(2, "0");
+      const minutes = String(today.getMinutes()).padStart(2, "0");
+
+      return `${year}-${month}-${day}T${hours}:${minutes}`;
+    },
     validateForm() {
       this.errors = {};
-
+      // เรียกใช้ formataccount เพื่อจัดการการตรวจสอบและการจัดรูปแบบ
+      this.account = this.formataccount(this.account);
       if (!this.account) {
         this.errors.account = "กรุณาระบุบัญชีที่โอนเงิน";
       }
       if (!this.bank) {
         this.errors.bank = "กรุณาเลือกธนาคาร";
       }
-      if (!this.amount || isNaN(this.amount)) {
+      if (!this.amount) {
         this.errors.amount = "กรุณาระบุจำนวนเงินที่ถูกต้อง";
       }
       if (!this.datetime) {
@@ -228,8 +279,10 @@ export default {
     },
     async confirmpay() {
       if (!this.validateForm()) {
-        return;
+        console.log("Validation failed");
+        return; // หยุดการดำเนินการหาก validateForm ไม่ผ่าน
       }
+
       this.isLoading = true; // แสดง loader
       const token = this.$cookies.get("authToken");
       const formData = new FormData();
@@ -315,7 +368,6 @@ export default {
         this.isLoading = false; // ซ่อน loader
       }
     },
-
     async backqr() {
       // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
       const result = await this.$swal.fire({

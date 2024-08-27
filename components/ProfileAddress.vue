@@ -2,12 +2,24 @@
   <div class="M-Create-Backgroud Profile Profile-address">
     <div class="navtabs">
       <div class="font-top-myshop">
-        <Nuxt-link class="text-profile" to="/Profile" target="_self"><span class="">Profile</span></Nuxt-link>
-        <Nuxt-link class="text-profile" to="/ProfileEdit" target="_self">&nbsp; | &nbsp;<span class="">Edit profile</span></Nuxt-link>
-        <Nuxt-link class="text-profile" to="/ProfileEditEmail" target="_self">&nbsp; | &nbsp;<span class="">Email</span></Nuxt-link>
-        <Nuxt-link class="text-profile" to="/ProfileEditPhone" target="_self">&nbsp; | &nbsp;<span class="">Phone number</span ></Nuxt-link>
-        <Nuxt-link class="text-profile" to="/ProfileAddress" target="_self">&nbsp; | &nbsp;<span class="font-proL-top">Address</span></Nuxt-link>
-        <Nuxt-link class="text-profile" to="/ProfilePassword" target="_self">&nbsp; | &nbsp;<span class="">Password</span></Nuxt-link>
+        <Nuxt-link class="text-profile" to="/Profile" target="_self"
+          ><span class="">Profile</span></Nuxt-link
+        >
+        <Nuxt-link class="text-profile" to="/ProfileEdit" target="_self"
+          >&nbsp; | &nbsp;<span class="">Edit profile</span></Nuxt-link
+        >
+        <Nuxt-link class="text-profile" to="/ProfileEditEmail" target="_self"
+          >&nbsp; | &nbsp;<span class="">Email</span></Nuxt-link
+        >
+        <Nuxt-link class="text-profile" to="/ProfileEditPhone" target="_self"
+          >&nbsp; | &nbsp;<span class="">Phone number</span></Nuxt-link
+        >
+        <Nuxt-link class="text-profile" to="/ProfileAddress" target="_self"
+          >&nbsp; | &nbsp;<span class="font-proL-top">Address</span></Nuxt-link
+        >
+        <Nuxt-link class="text-profile" to="/ProfilePassword" target="_self"
+          >&nbsp; | &nbsp;<span class="">Password</span></Nuxt-link
+        >
       </div>
       <div class="form-create">
         <div class="width-hunded">
@@ -80,16 +92,22 @@ export default {
   },
 
   methods: {
-    submitImage() {
+    async submitImage() {
       // ส่วนนี้คือการส่งข้อมูลไปยัง API หรือทำการบันทึกข้อมูลตามที่ต้องการ
       console.log("Submitted:", this.imageData);
 
       // เมื่อส่งเสร็จแล้วแสดงภาพที่อัพโหลด
       this.showImage = true;
-      alert("เพิ่มภาพเรียบร้อย");
+
+      const result = await this.$swal.fire({
+        title: "เพิ่มภาพเรียบร้อย",
+        icon: "error",
+        confirmButtonText: "ยืนยัน",
+        showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+      });
     },
 
-    submitData() {
+    async submitData() {
       console.log(
         "Form submitted:",
         this.name,
@@ -107,10 +125,15 @@ export default {
       console.log("Sucess:", this.imageData);
 
       // เมื่อส่งเสร็จแล้วสามารถทำการ reset หรือแสดงผลอื่น ๆ ตามที่ต้องการได้
-      alert("Data submitted successfully!");
+
+      const result = await this.$swal.fire({
+        title: "Data submitted successfully!",
+        icon: "error",
+        confirmButtonText: "ยืนยัน",
+        showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+      });
     },
   },
-
 };
 </script>
 

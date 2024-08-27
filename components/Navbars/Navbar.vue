@@ -250,12 +250,17 @@ export default {
       }
     },
 
-    handleNavigation() {
+    async handleNavigation() {
       if (this.buttonText === "ดูร้านค้า") {
         if (this.token) {
           this.$router.push("/MarketMyshop");
         } else {
-          alert("กรุณาสร้างสินค้าก่อน");
+          const result = await this.$swal.fire({
+            title: "กรุณาสร้างสินค้าก่อน",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+            showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+          });
           this.$router.push("/MarketCreateShop");
         }
       } else if (this.buttonText === "สร้างร้านค้า") {
