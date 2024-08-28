@@ -98,7 +98,7 @@
           <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">เกม</div></Nuxt-link
           >
-          <Nuxt-link class="text-nav" to="/MarketMyshop" target="_self"
+          <Nuxt-link class="text-nav" to="/Shopmanage" target="_self"
             ><div class="bottom-top button">สินค้าทั้งหมด</div></Nuxt-link
           >
           <!-- <Nuxt-link class="text-nav" to="/" target="_self"
@@ -257,7 +257,7 @@ export default {
     async handleNavigation() {
       if (this.buttonText === "ดูร้านค้า") {
         if (this.token) {
-          this.$router.push("/MarketMyshop");
+          this.$router.push("/Shopmanage");
         } else {
           const result = await this.$swal.fire({
             title: "กรุณาสร้างสินค้าก่อน",

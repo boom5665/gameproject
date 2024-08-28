@@ -1,68 +1,88 @@
 <template>
   <div>
-    <div>
-      <input v-model="searchQuery" placeholder="ค้นหาสินค้า..." />
+    <!-- ส่วนค้นหาสินค้า -->
+    <div v-if="!showDetail">
+      <div>
+        <input v-model="searchQuery" placeholder="ค้นหาสินค้า..." />
+      </div>
+      <div class="order-list">
+        <div>รายการคำสั่งซื้อ</div>
+        <table class="order-table">
+          <thead>
+            <tr>
+              <th>ภาพสินค้า</th>
+              <th>ชื่อสินค้า</th>
+              <th>สถานะ</th>
+              <th>ยอด</th>
+              <th>เวลา/วันที่</th>
+              <th>ตรวจสอบรายการ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in filteredOrderItems" :key="item.id">
+              <td><img :src="item.image" alt="Product Image" /></td>
+              <td>{{ item.name }}</td>
+              <td>
+                <span class="status pending">{{ item.status }}</span>
+              </td>
+              <td>
+                <span class="color-am">{{ item.amount }}</span>
+              </td>
+              <td>{{ item.date }}</td>
+              <td>
+                <button class="check-button" @click="viewDetail(item.id)">ตรวจสอบ</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div>รายการที่ยืนยันแล้ว</div>
+        <table class="order-table">
+          <thead class="thead-sale">
+            <tr>
+              <th>ภาพสินค้า</th>
+              <th>ชื่อสินค้า</th>
+              <th>สถานะ</th>
+              <th>ยอด</th>
+              <th>เวลา/วันที่</th>
+            </tr>
+          </thead>
+          <tbody class="thead-saletb">
+            <tr v-for="purchasedItem in purchasedItems" :key="purchasedItem.id">
+              <td><img :src="purchasedItem.image" alt="Product Image" /></td>
+              <td>{{ purchasedItem.name }}</td>
+              <td>{{ purchasedItem.status }}</td>
+              <td>
+                {{ purchasedItem.amount }}
+              </td>
+              <td>{{ purchasedItem.date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="order-list">
-      <!-- เพิ่ม input สำหรับการค้นหา -->
 
-      <div>รายการคำสั่งซื้อ</div>
-      <table class="order-table">
-        <thead>
-          <tr>
-            <th>ภาพสินค้า</th>
-            <th>ชื่อสินค้า</th>
-            <th>สถานะ</th>
-            <th>ยอด</th>
-            <th>เวลา/วันที่</th>
-            <th>ตรวจสอบรายการ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in filteredOrderItems" :key="item.id">
-            <td><img :src="item.image" alt="Product Image" /></td>
-            <td>{{ item.name }}</td>
-            <td>
-              <span class="status pending">{{ item.status }}</span>
-            </td>
-            <td>
-              <span class="color-am">{{ item.amount }}</span>
-            </td>
-            <td>{{ item.date }}</td>
-            <td><button class="check-button">ตรวจสอบ</button></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div>รายการที่ยืนยันแล้ว</div>
-      <table class="order-table">
-        <thead class="thead-sale">
-          <tr>
-            <th>ภาพสินค้า</th>
-            <th>ชื่อสินค้า</th>
-            <th>สถานะ</th>
-            <th>ยอด</th>
-            <th>เวลา/วันที่</th>
-          </tr>
-        </thead>
-        <tbody class="thead-saletb">
-          <tr v-for="purchasedItem in purchasedItems" :key="purchasedItem.id">
-            <td><img :src="purchasedItem.image" alt="Product Image" /></td>
-            <td>{{ purchasedItem.name }}</td>
-            <td>{{ purchasedItem.status }}</td>
-            <td>
-              {{ purchasedItem.amount }}
-            </td>
-            <td>{{ purchasedItem.date }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- ส่วนแสดงรายละเอียดสินค้า -->
+    <div v-else>
+      <button @click="showDetail = false">กลับ</button>
+      <div>
+        <h2>รายละเอียดสินค้า</h2>
+        <!-- เพิ่มเนื้อหาที่เกี่ยวข้องกับรายละเอียดสินค้า -->
+        <p>ข้อมูลสินค้า ID: {{ selectedItemId }}</p>
+        <!-- ตัวอย่างการแสดงผลข้อมูลสินค้า -->
+        <!-- คุณสามารถเพิ่มรายละเอียดเพิ่มเติมตามที่คุณต้องการ -->
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue"; // นำเข้า ref และ computed จาก Vue
+import { ref, computed } from "vue";
+
+// ตัวแปรสำหรับค้นหาสินค้า
+const searchQuery = ref("");
+const showDetail = ref(false); // ตัวแปรสถานะเพื่อแสดงรายละเอียดสินค้า
+const selectedItemId = ref(null); // ตัวแปรสำหรับเก็บ ID ของสินค้าที่ถูกเลือก
 
 const props = defineProps({
   orderItems: {
@@ -75,8 +95,11 @@ const props = defineProps({
   },
 });
 
-// ใช้ ref เพื่อจัดการค่า searchQuery
-const searchQuery = ref("");
+// ฟังก์ชันสำหรับเปลี่ยนสถานะเพื่อแสดงรายละเอียดสินค้า
+const viewDetail = (id) => {
+  selectedItemId.value = id;
+  showDetail.value = true;
+};
 
 // คำนวณการกรองรายการคำสั่งซื้อ
 const filteredOrderItems = computed(() => {
@@ -88,6 +111,7 @@ const filteredOrderItems = computed(() => {
   );
 });
 </script>
+
 
 
 

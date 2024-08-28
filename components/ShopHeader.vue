@@ -1,7 +1,8 @@
 <template>
   <div class="M-Create-Backgroud">
     <div class="navtabs">
-      <div class="shop-header">
+      <!-- ส่วนหัว -->
+      <!-- <div class="shop-header">
         <div class="shop-info">
           <img :src="shopLogo" class="shop-logo" />
           <div class="shop-name">
@@ -33,7 +34,7 @@
           <div class="price">29฿/เดือน</div>
           <div class="time">เหลือเวลา 16 วัน</div>
         </div>
-      </div>
+      </div> -->
       <div class="container form-create">
         <div style="width: 100%; display: flex">
           <div style="width: 20%">
@@ -90,7 +91,7 @@
                   /></svg
                 >รายการสั่งซื้อ
               </button>
-              <button
+              <!-- <button
                 class="sidebar-button"
                 @click="currentView = 'ShopStore'"
                 :class="{ active: currentView === 'ShopStore' }"
@@ -113,7 +114,7 @@
                     </clipPath>
                   </defs></svg
                 >จัดการร้านค้า
-              </button>
+              </button> -->
             </div>
           </div>
           <div style="margin-left: 25px; width: 80%">
@@ -154,7 +155,7 @@ export default {
       productsCount: 50,
       followersCount: 1000,
       reviewsCount: 200,
-      currentView: "ShopStore", // ค่าเริ่มต้นของ currentView
+      currentView: "ShopOrder", // ค่าเริ่มต้นของ currentView
       itemsData: [
         {
           loveCount: 100,
@@ -268,7 +269,7 @@ export default {
   font-weight: bold;
 }
 .view-shop-button:hover {
-  background-color: #CCBC2F;
+  background-color: #ccbc2f;
 }
 .shop-stats {
   display: flex;

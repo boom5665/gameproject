@@ -24,14 +24,24 @@
                   @click="openImageSelector"
                 />
               </div>
+
               <div
-                class=""
+                class="imglogo"
                 v-show="!isImageVisible"
                 @click="openImageSelector"
                 style="width: max-content"
               >
-                <img class="" src="~/assets/image/Edit.png" />
+                <img
+                  style="position: relative; width: 90%; top: 30px; left: 10px"
+                  src="~/assets/image/Logo-Gamemarket.png"
+                />
+                <img
+                  class="edit-icon-two"
+                  src="~/assets/image/icon-Edit.png"
+                  @click="openImageSelector"
+                />
               </div>
+
               <input
                 type="file"
                 id="imageFileInput"
@@ -1043,12 +1053,37 @@ export default {
   width: 100%;
   margin: 0px 0px 0px;
   height: 200px;
-  border: 3px dashed #d00;
+  border: 3px solid #5c25f2;
   background: #31303f;
 }
 img {
   vertical-align: middle;
   border-style: none;
+  cursor: pointer;
+}
+.img-edit {
+  width: 130px !important;
+  height: 130px;
+  margin: 0px 0px;
+  cursor: pointer;
+  border-radius: 110px;
+  border: 4px solid #5c25f2;
+}
+.imglogo {
+  width: 130px !important;
+  height: 130px;
+  margin: 0px 0px;
+  cursor: pointer;
+  border-radius: 110px;
+  border: 4px solid #5c25f2;
+  background: black;
+}
+.edit-icon-two {
+  position: relative;
+  bottom: -41px;
+  right: -96px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
 }
 </style>

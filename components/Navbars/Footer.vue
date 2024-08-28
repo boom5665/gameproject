@@ -5,7 +5,7 @@
       <div class="footer-head">
         <!-- Footer -->
         <div class="dis-play-evenly">
-          <div style="width: 19%">
+          <div style="width: 14%">
             <div>
               <img
                 src="~/assets/image/Logo-Gamemarket.png"

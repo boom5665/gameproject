@@ -3,7 +3,7 @@ export default {
     port: 5008
   },
   head: {
-    title: 'Game Market',
+    title: 'GameMarket',
     htmlAttrs: {
       lang: 'en'
     },
