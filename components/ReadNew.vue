@@ -108,7 +108,7 @@ export default {
     async fetchData() {
       try {
         const response = await this.$axios.$get(
-          "https://dev-api-gamiqo.pirate168.com/api/v1/list/marketplace/home"
+          "https://dev-api-Game Market.pirate168.com/api/v1/list/marketplace/home"
         );
         console.log(response);
         if (response.code === 200) {

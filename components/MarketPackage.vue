@@ -297,7 +297,7 @@
           <div>
             <img class="button-dot" src="~/assets/image/button.png" />
           </div>
-          สะสมคูปองส่วนลดมากขึ้น (เฉพาะ คูปองสำหรับสมาชิก gamiqo+ เท่านั้น)
+          สะสมคูปองส่วนลดมากขึ้น (เฉพาะ คูปองสำหรับสมาชิก Game Market+ เท่านั้น)
         </div>
         <div class="wid-content">
           <div>
@@ -309,7 +309,7 @@
           <div>
             <img class="button-dot" src="~/assets/image/button.png" />
           </div>
-          ได้รับส่วนลดจากร้านค้า Gamiqo official เพิ่มสูงสุด 5 - 50 %
+          ได้รับส่วนลดจากร้านค้า Game Market official เพิ่มสูงสุด 5 - 50 %
         </div>
         <div class="wid-content">
           <div>
@@ -321,7 +321,7 @@
           <div>
             <img class="button-dot" src="~/assets/image/button.png" />
           </div>
-          สิทธิพิเศษสำหรับซื้อสินค้า เฉพาะ สมาชิก Gamiqo+ เท่านั้น
+          สิทธิพิเศษสำหรับซื้อสินค้า เฉพาะ สมาชิก Game Market+ เท่านั้น
         </div>
       </div>
       <div class="font-form-buy">Seller</div>
@@ -348,13 +348,13 @@
           <div>
             <img class="button-dot" src="~/assets/image/button.png" />
           </div>
-          ได้รับสัญลักษณ์ว่าเป็นร้านค้า "Gamiqo+"
+          ได้รับสัญลักษณ์ว่าเป็นร้านค้า "Game Market+"
         </div>
         <div class="wid-content">
           <div>
             <img class="button-dot" src="~/assets/image/button.png" />
           </div>
-          สินค้าของร้านทุกชิ้น จะขึ้นแสดงใน หน้า "Gamiqo+ Marketplace"
+          สินค้าของร้านทุกชิ้น จะขึ้นแสดงใน หน้า "Game Market+ Marketplace"
         </div>
         <div class="wid-content">
           <div>

@@ -330,6 +330,11 @@ export default {
     validatePrice(event) {
       const input = event.target.value;
       // ไม่จำเป็นต้องมีการตรวจสอบข้อผิดพลาดในที่นี้
+      const validInput = input.replace(/[^0-9,]/g, "");
+      if (input !== validInput) {
+        event.target.value = validInput;
+        this.Price = this.parseNumber(validInput);
+      }
     },
     validateSpecialPrice(event) {
       const input = event.target.value;
@@ -343,6 +348,11 @@ export default {
     validateInventory(event) {
       const input = event.target.value;
       // ไม่จำเป็นต้องมีการตรวจสอบข้อผิดพลาดในที่นี้
+      const validInput = input.replace(/[^0-9,]/g, "");
+      if (input !== validInput) {
+        event.target.value = validInput;
+        this.Inventory = this.parseNumber(validInput);
+      }
     },
     onProductTypeChange() {
       // ตรวจสอบว่ามีการเลือกประเภทสินค้าหรือไม่

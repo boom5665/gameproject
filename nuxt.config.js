@@ -3,7 +3,7 @@ export default {
     port: 5008
   },
   head: {
-    title: 'gamiqo',
+    title: 'Game Market',
     htmlAttrs: {
       lang: 'en'
     },

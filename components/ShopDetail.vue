@@ -23,11 +23,7 @@
           <Stepper :steps="steps" :currentStep="currentStep" />
           <!-- <button @click="cancelpay">ถัดไป</button> -->
           <div class="order-container">
-            <div
-              class=""
-              v-for="order in orders"
-              :key="order.id"
-            >
+            <div class="" v-for="order in orders" :key="order.id">
               <div class="order-header">
                 <div class="order-info">
                   <div class="order-number">
@@ -48,7 +44,7 @@
                       <span class="font-re">{{ order.orderStatus }}</span>
                     </div>
                   </div>
-                  <div class="order-details">
+                  <!-- <div class="order-details">
                     <div>
                       <img src="~/assets/image/iconcar.png" alt="icon" />
                     </div>
@@ -56,16 +52,16 @@
                       <span>ข้อมูลการซื้อ</span>
                       <span class="font-re">{{ order.orderDetails }}</span>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="order-actions">
                   <button class="submit" @click="confirmpay(order)">
                     ยืนยัน
                   </button>
-                  <button class="report-button" @click="reportProblem(order)">
+                  <!-- <button class="report-button" @click="reportProblem(order)">
                     แจ้งปัญหา
-                  </button>
+                  </button> -->
                 </div>
               </div>
               <div class="line-center">
@@ -86,18 +82,18 @@
               </div>
 
               <div class="order-body">
-                <div class="order-code">
+                <!-- <div class="order-code">
                   <div style="width: 85%">
                     <span>โค้ดสั่งซื้อ</span>
                   </div>
-                  <div style="width: 15%">
+                  <div>
                     <button class="submit" @click="viewCode(order)">
                       ดูโค้ด
                     </button>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="line-center">
+                <!-- <div class="line-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="610"
@@ -112,7 +108,7 @@
                       stroke-dasharray="3 3"
                     />
                   </svg>
-                </div>
+                </div> -->
                 <div class="order-timestamp">
                   <div class="order-timestamp-content">
                     <span>เวลาการสั่งซื้อ </span>
@@ -186,7 +182,6 @@ export default {
         { label: "ชำระเงินแล้ว", date: "10/07/24", time: "18:00" },
         { label: "ได้รับสินค้า", date: "10/07/24", time: "18:00" },
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
-     
       ],
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
       orders: [],
@@ -316,7 +311,7 @@ export default {
   margin: 0px 0px;
 }
 .submit {
-  width: 100%;
+  width: 120px;
   margin-top: 0;
 }
 .order-container {
