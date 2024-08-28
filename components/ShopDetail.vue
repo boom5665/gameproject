@@ -186,7 +186,7 @@ export default {
         { label: "ชำระเงินแล้ว", date: "10/07/24", time: "18:00" },
         { label: "ได้รับสินค้า", date: "10/07/24", time: "18:00" },
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
-        // { label: "รีวิวสินค้า", date: "--/--/--", time: "--:--" },
+     
       ],
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
       orders: [],

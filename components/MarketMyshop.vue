@@ -33,7 +33,8 @@
         <div class="width-hunded">
           <div class="font-form-myshop">จัดการร้านค้า</div>
           <div class="font-form-myshop-under">แก้ไขข้อมูลร้านค้า</div>
-          <Nuxt-link to="/MarketMyEdit" target="_self">
+          <!-- <Nuxt-link to="/MarketMyEdit" target="_self"> -->
+          <Nuxt-link to="/MarketMyshop" target="_self">
             <div class="img-add">
               <div class="font-form-myshop">
                 <div class="img-contentadd">
@@ -50,7 +51,8 @@
         <div class="width-hunded">
           <div class="font-form-myshop">การแจ้งเตือน</div>
           <div class="font-form-myshop-under">ตั้งค่าการแจ้งเตือน</div>
-          <Nuxt-link to="/MarketMyMessege" target="_self">
+          <!-- <Nuxt-link to="/MarketMyMessege" target="_self"> -->
+          <Nuxt-link to="/MarketMyshop" target="_self">
             <div class="img-add">
               <div class="font-form-myshop">
                 <div class="img-contentadd">

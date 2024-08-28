@@ -157,7 +157,7 @@ export default {
         { label: "ชำระเงินแล้ว", date: "10/07/24", time: "18:00" },
         { label: "ได้รับสินค้า", date: "--/--/--", time: "--:--" },
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
-        { label: "รีวิวสินค้า", date: "--/--/--", time: "--:--" },
+    
       ],
       imagePreview: null,
       file: null,
@@ -246,7 +246,7 @@ export default {
     },
     validateForm() {
       this.errors = {};
-     
+
       // เรียกใช้ formataccount เพื่อจัดการการตรวจสอบและการจัดรูปแบบ
       const formattedAccount = this.formataccount(this.account);
 

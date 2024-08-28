@@ -26,7 +26,8 @@
           <!-- <Nuxt-link class="text-nav" to="/Market" target="_self"
             ><div class="bottom-top button">การแข่งขันอีสปรอ์ต</div></Nuxt-link
           > -->
-          <Nuxt-link class="text-nav" to="/New" target="_self"
+          <!-- <Nuxt-link class="text-nav" to="/New" target="_self" -->
+           <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">ข่าว</div></Nuxt-link
           >
           <!-- <Nuxt-link class="text-nav" to="/" target="_self"
@@ -35,10 +36,13 @@
 
           <div v-if="token" style="display: flex">
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
-            <Nuxt-link class="text-nav" to="/Profile" target="_self"
-              ><div class="bottom-top bottom-w">
-                โปรไฟล์ของฉัน,User
-              </div></Nuxt-link
+            <!-- <Nuxt-link class="text-nav" to="/Profile" target="_self" -->
+              <Nuxt-link class="text-nav" to="/" target="_self"
+              >
+              <div class="bottom-top bottom-y">
+                โปรไฟล์ของฉัน
+              </div>
+              </Nuxt-link
             >
             <div class="text-nav" @click="logout" target="_self">
               <div class="bottom-top bottom-y">
@@ -109,7 +113,7 @@
       <div class="nav-right">
         <div v-if="buttonText">
           <div class="text-nav" @click="handleNavigation">
-            <div class="bottom-top b-top-cy">
+            <div class="bottom-top bottom-ybottom-top bottom-y">
               <img
                 class=""
                 src="~/assets/image/home.png"

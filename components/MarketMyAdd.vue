@@ -156,7 +156,19 @@
               <div class="font-form-add">
                 รูปหลัก <span id="dotstyle">*</span>
               </div>
-              <div class="preview" style="width: max-content">
+              <div
+                class="preview image-container"
+                style="position: relative; width: max-content"
+              >
+                <!-- ปุ่มลบรูปภาพ -->
+                <button
+                  v-show="showImage"
+                  @click="removeImage('main')"
+                  class="delete-button"
+                >
+                  &times;
+                </button>
+
                 <img
                   :src="imageUrl"
                   class="profile-img"
@@ -186,10 +198,10 @@
               </span>
             </div>
 
-            <!-- ส่วนของคลังรูปภาพ -->
+            <!-- ส่วนของรูปสินค้าเพิ่มเติม -->
             <div>
               <div class="font-form-add">
-                คลังรูปภาพ ({{ savedImageUrls.length }}/6)
+                รูปสินค้าเพิ่มเติม ({{ savedImageUrls.length }}/6)
                 <span id="dotstyle">*</span>
               </div>
               <div class="preview" style="width: max-content">
@@ -416,7 +428,13 @@ export default {
       this.savedImageUrls.splice(index, 1);
       this.savedImageInfo.splice(index, 1); // ลบข้อมูลที่เกี่ยวข้องด้วย
     },
-
+    removeImage(type) {
+      if (type === "main") {
+        this.imageUrl = ""; // ล้าง URL รูปภาพ
+        this.showImage = false; // ซ่อนรูปภาพ
+        this.$refs.mainFileInput.value = null; // รีเซ็ต input file
+      }
+    },
     validateForm() {
       let firstErrorField = null;
       this.errors = {}; // ล้างข้อผิดพลาดก่อนเริ่มการตรวจสอบ
@@ -578,8 +596,8 @@ export default {
 
 .image-container button {
   position: absolute;
-  top: 5px;
-  right: -10px;
+  top: -10px;
+  right: -9px;
 }
 .height-req {
   height: 80px;
@@ -615,5 +633,10 @@ export default {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+img {
+  vertical-align: middle;
+  border-style: none;
+  cursor: pointer;
 }
 </style>

@@ -1040,9 +1040,16 @@ export default {
   justify-content: center;
 }
 .profile-img {
-  width: 25%;
+  width: 100%;
   margin: 0px 0px 0px;
-  height: 70px;
+  height: 200px;
+  border: 3px dashed #d00;
+  background: #31303f;
+}
+img {
+  vertical-align: middle;
+  border-style: none;
+  cursor: pointer;
 }
 </style>
 

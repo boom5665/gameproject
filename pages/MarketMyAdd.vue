@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="box-cotent box-cotent-two">
-      <div class="contentleft">
+      <!-- <div class="contentleft">
         <MarketProfieleft />
-      </div>
+      </div> -->
       <div class="contentright">
         <MarketMyAdd />
       </div>
