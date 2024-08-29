@@ -3,8 +3,15 @@
     <div class="navtabs">
       <div class="font-top-myshop">
         <div class="font-top-myshop">
-          <Nuxt-link class="text-profile" to="/MarketMyshop" target="_self">
-            <span>ร้านค้าของฉัน &nbsp; > &nbsp;</span></Nuxt-link
+          <Nuxt-link class="text-profile" to="/Shopmanage" target="_self">
+            <span
+              >ร้านค้าของฉัน &nbsp;
+              <img
+                style="position: relative; width: 20px; top: -3px"
+                src="~/assets/image/rightcrum.png"
+              />
+              &nbsp;</span
+            ></Nuxt-link
           >
           <Nuxt-link class="text-profile" to="/MarketMyAdd" target="_self"
             ><span class="font-proL-top">เพิ่มสินค้า</span></Nuxt-link
@@ -24,6 +31,7 @@
                 id="phone"
                 v-model="productName"
                 :class="{ 'input-error': errors.productName }"
+                placeholder="กรุณากรอกชื่อสินค้า"
               />
               <span v-if="errors.productName" class="error-message">
                 {{ errors.productName }}
@@ -92,6 +100,7 @@
                 v-model="formattedPrice"
                 @input="validatePrice"
                 :class="{ 'input-error': errors.price }"
+                placeholder="กรุณากรอกราคาสินค้า"
               />
               <span v-if="errors.price" class="error-message">
                 {{ errors.price }}
@@ -109,26 +118,31 @@
                 v-model="formattedSpecialPrice"
                 @input="validateSpecialPrice"
                 :class="{ 'input-error': errors.specialPrice }"
+                placeholder="กรุณากรอกราคาพิเศษ"
               />
               <span v-if="errors.specialPrice" class="error-message">
                 {{ errors.specialPrice }}
               </span>
             </div>
           </div>
-          <div class="width-hunded">
-            <label for="inventory">
-              สินค้าในคลัง <span id="dotstyle">*</span>
-            </label>
-            <input
-              type="text"
-              id="inventory"
-              v-model="formattedInventory"
-              @input="validateInventory"
-              :class="{ 'input-error': errors.inventory }"
-            />
-            <span v-if="errors.inventory" class="error-message">
-              {{ errors.inventory }}
-            </span>
+          <div class="width-hunded" style="margin-bottom: 10px">
+            <div class=" ">
+              <label for="inventory">
+                สินค้าในคลัง <span id="dotstyle">*</span>
+              </label>
+
+              <input
+                type="text"
+                id="inventory"
+                v-model="formattedInventory"
+                @input="validateInventory"
+                :class="{ 'input-error': errors.inventory }"
+                placeholder="กรุณากรอกสินค้าในคลัง"
+              />
+              <span v-if="errors.inventory" class="error-message">
+                {{ errors.inventory }}
+              </span>
+            </div>
           </div>
           <div class="dis-input">
             <div class="width-hunded">
@@ -149,7 +163,6 @@
               </span> -->
             </div>
           </div>
-
           <div>
             <!-- ส่วนของรูปหลัก -->
             <div>
@@ -169,6 +182,7 @@
                   &times;
                 </button>
 
+                <!-- แสดงภาพที่เลือก -->
                 <img
                   :src="imageUrl"
                   class="profile-img"
@@ -192,10 +206,11 @@
                 ref="mainFileInput"
                 style="display: none"
                 @change="onFileChange($event, 'main')"
+                accept="image/*"
               />
-              <span v-if="errors.imageUrl" class="error-message">
-                {{ errors.imageUrl }}
-              </span>
+              <span v-if="errors.imageUrl" class="error-message">{{
+                errors.imageUrl
+              }}</span>
             </div>
 
             <!-- ส่วนของรูปสินค้าเพิ่มเติม -->
@@ -207,29 +222,25 @@
               <div class="preview" style="width: max-content">
                 <!-- ไม่มีการแสดงภาพใน div นี้ -->
               </div>
-              <div
-                ref="sidebarOpener"
-                style="display: flex; width: 100%; align-items: center"
-              >
+              <div ref="sidebarOpener" class="imagesave">
                 <img
-                  style="margin: 0px 0px 15px"
+                  class="imginput"
                   src="~/assets/image/img-all.png"
                   @click="openFileDialog('gallery')"
                 />
-                <div class="saved-images">
-                  <div
-                    v-for="(url, index) in savedImageUrls"
-                    :key="index"
-                    class="image-container"
+
+                <div
+                  v-for="(url, index) in savedImageUrls"
+                  :key="index"
+                  class="image-container"
+                >
+                  <img :src="url" class="profile-img-main" />
+                  <button
+                    @click="removeSavedImage(index)"
+                    class="delete-button"
                   >
-                    <img :src="url" class="profile-img-main" />
-                    <button
-                      @click="removeSavedImage(index)"
-                      class="delete-button"
-                    >
-                      X
-                    </button>
-                  </div>
+                    X
+                  </button>
                 </div>
               </div>
               <input
@@ -238,10 +249,11 @@
                 multiple
                 style="display: none"
                 @change="onFileChange($event, 'gallery')"
+                accept="image/*"
               />
-              <span v-if="errors.savedImageUrls" class="error-message">
-                {{ errors.savedImageUrls }}
-              </span>
+              <span v-if="errors.savedImageUrls" class="error-message">{{
+                errors.savedImageUrls
+              }}</span>
             </div>
           </div>
           <!-- loader -->
@@ -267,10 +279,10 @@ export default {
   data() {
     return {
       productName: "",
-      price: "",
-      specialPrice: "",
+      price: "0",
+      specialPrice: "0",
       description: "",
-      inventory: "",
+      inventory: "0",
       imageUrl: "",
       showImage: false,
       savedImageUrls: [],
@@ -320,40 +332,42 @@ export default {
   },
   methods: {
     formatNumber(value) {
+      // ตรวจสอบค่าที่เป็น 0 หรือ null หรือ undefined
+      if (value == 0 || value == null || value == undefined) {
+        return "";
+      }
       // ฟังก์ชันสำหรับฟอร์แมตตัวเลขเป็นรูปแบบที่มีลูกน้ำ
-      return value !== null ? Number(value).toLocaleString() : "";
+      return Number(value).toLocaleString();
     },
+
     parseNumber(value) {
       // ฟังก์ชันสำหรับลบลูกน้ำและแปลงเป็นตัวเลข
       return parseFloat(value.replace(/,/g, "")) || null;
     },
+
     validatePrice(event) {
-      const input = event.target.value;
-      // ไม่จำเป็นต้องมีการตรวจสอบข้อผิดพลาดในที่นี้
-      const validInput = input.replace(/[^0-9,]/g, "");
-      if (input !== validInput) {
-        event.target.value = validInput;
-        this.Price = this.parseNumber(validInput);
-      }
+      this.validateInput(event, "Price");
     },
+
     validateSpecialPrice(event) {
-      const input = event.target.value;
-      const validInput = input.replace(/[^0-9,]/g, "");
-      if (input !== validInput) {
-        event.target.value = validInput;
-        this.specialPrice = this.parseNumber(validInput);
-      }
-      // ไม่มีการตรวจสอบข้อผิดพลาดในที่นี้
+      this.validateInput(event, "specialPrice");
     },
+
     validateInventory(event) {
+      this.validateInput(event, "Inventory");
+    },
+
+    validateInput(event, property) {
       const input = event.target.value;
-      // ไม่จำเป็นต้องมีการตรวจสอบข้อผิดพลาดในที่นี้
+      // ลบอักขระที่ไม่ใช่ตัวเลขและลูกน้ำ
       const validInput = input.replace(/[^0-9,]/g, "");
       if (input !== validInput) {
         event.target.value = validInput;
-        this.Inventory = this.parseNumber(validInput);
       }
+      // อัปเดตค่าที่สะอาด
+      this[property] = this.parseNumber(validInput);
     },
+
     onProductTypeChange() {
       // ตรวจสอบว่ามีการเลือกประเภทสินค้าหรือไม่
       this.hasType = this.selectedProductType !== "2";
@@ -369,7 +383,6 @@ export default {
         this.$refs.galleryFileInput.click();
       }
     },
-
     onFileChange(event, type) {
       const files = event.target.files;
 
@@ -402,37 +415,27 @@ export default {
           reader.readAsDataURL(file);
         } else if (type === "gallery") {
           validFiles.forEach((file, index) => {
+            if (this.savedImageUrls.length >= 6) {
+              this.$swal.fire({
+                title: "สามารถเพิ่มได้สูงสุด 6 รูปภาพ",
+                icon: "error",
+                showCancelButton: false,
+              });
+              return;
+            }
+
             const reader = new FileReader();
             reader.onload = (e) => {
-              if (this.savedImageUrls.length < 6) {
-                this.savedImageUrls.push(e.target.result);
-                this.savedImageInfo.push({
-                  name: file.name,
-                  order: this.savedImageUrls.length,
-                });
-
-                console.log("Gallery Image Info:", {
-                  name: file.name,
-                  order: this.savedImageUrls.length,
-                });
-              } else {
-                this.$swal.fire({
-                  title: "สามารถเพิ่มได้สูงสุด 6 รูปภาพ",
-                  icon: "error",
-                  showCancelButton: false,
-                });
-              }
+              this.savedImageUrls.push(e.target.result);
+              this.savedImageInfo.push({
+                name: file.name,
+                order: this.savedImageUrls.length,
+              });
             };
             reader.readAsDataURL(file);
           });
         }
-      } else {
-        this.$swal.fire({
-          title: "กรุณาเลือกเฉพาะไฟล์ ไม่ใช่โฟลเดอร์",
-          icon: "error",
-          showCancelButton: false,
-        });
-      }
+      } 
     },
     removeSavedImage(index) {
       this.savedImageUrls.splice(index, 1);
@@ -601,9 +604,13 @@ export default {
 
 .image-container {
   position: relative;
-  margin: 5px;
+  margin: 0px 15px 0px 0px;
 }
-
+.imginput{
+      margin: 0px 0px 15px;
+    position: relative;
+    margin-right: 13px;
+}
 .image-container button {
   position: absolute;
   top: -10px;
@@ -648,5 +655,11 @@ img {
   vertical-align: middle;
   border-style: none;
   cursor: pointer;
+}
+.imagesave {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
 </style>

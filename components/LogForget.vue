@@ -4,10 +4,10 @@
       <div class="navtabs forget">
         <div class="font-top-myshop">
           <Nuxt-link class="text-profile" to="/Login" target="_self">
-            <span class="font-top-myshop">Login &nbsp; / &nbsp;</span>
+            <span class="font-top-myshop">ล็อคอิน &nbsp; / &nbsp;</span>
           </Nuxt-link>
           <Nuxt-link class="text-profile" to="/LogForget" target="_self">
-            <span class="font-proL-top">Forgot password</span>
+            <span class="font-proL-top">ลืมรหัสผ่าน</span>
           </Nuxt-link>
         </div>
         <div class="form-create">
@@ -109,11 +109,25 @@ export default {
         console.log("Response:", response.data);
 
         if (response.data) {
-          this.isModalVisible = true;
+          const result = await this.$swal.fire({
+            title: "ส่งอีเมลเรียบร้อย",
+            text: "กรุณาเข้าไปเช็คที่อีเมลของท่าน เพื่อรีเซ็ตรหัสผ่าน",
+            icon: "success",
+            confirmButtonText: "ยืนยัน",
+            showCancelButton: false, // ซ่อนปุ่ม "ยกเลิก"
+          });
           this.isLoading = false; // ซ่อน loader
+          if (result.isConfirmed) {
+            // การกระทำที่ต้องทำเมื่อผู้ใช้คลิก "ยืนยัน"
+            console.log("User confirmed");
+            this.$router.push("/login"); // รีไดเรคไปยังหน้า login หลังจาก 1 วินาที
+            // คุณอาจจะต้องการรีไดเรคหรือทำบางอย่างเพิ่มเติมที่นี่
+          } else if (result.isDismissed) {
+            // การกระทำที่ต้องทำเมื่อผู้ใช้คลิก "ยกเลิก" หรือปิดกล่องข้อความ
+            console.log("User cancelled or dismissed the alert");
+          }
         } else {
           alert("ไม่พบข้อมูล token");
-          
         }
       } catch (error) {
         this.$handleError(error);

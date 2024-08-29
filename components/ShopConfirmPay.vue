@@ -150,14 +150,23 @@ export default {
   },
   data() {
     const today = new Date();
+    const currentDateTime = new Date();
+    const formattedDate = currentDateTime.toLocaleDateString("th-TH", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+    });
+    const formattedTime = currentDateTime.toLocaleTimeString("th-TH", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     return {
       currentStep: 2,
       steps: [
-        { label: "คำสั่งซื้อใหม่", date: "10/07/24", time: "18:00" },
-        { label: "ชำระเงินแล้ว", date: "10/07/24", time: "18:00" },
+        { label: "คำสั่งซื้อใหม่", date: formattedDate, time: formattedTime },
+        { label: "ชำระเงินแล้ว", date: formattedDate, time: formattedTime },
         { label: "ได้รับสินค้า", date: "--/--/--", time: "--:--" },
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
-    
       ],
       imagePreview: null,
       file: null,
@@ -341,8 +350,8 @@ export default {
 
       try {
         const result = await this.$swal.fire({
-          title: "ยืนยันคำสั่งซื้อ",
-          text: "ฉันได้ตรวจสอบและยอมรับสินค้า",
+          title: "ยืนยันการชำระเงิน",
+          text: "ฉันได้ตรวจสอบข้อมูลการชำระเงินเรียบร้อยแล้ว?",
           icon: "success",
           showCancelButton: true,
           confirmButtonText: "ยืนยัน",

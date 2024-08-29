@@ -36,10 +36,10 @@
         </div>
       </div> -->
       <div class="container form-create">
-        <div style="width: 100%; display: flex">
-          <div style="width: 20%">
+        <div class="box-manage">
+          <div style="width: 100%">
             <div class="sidebar">
-              <button
+              <!-- <button
                 class="sidebar-button"
                 @click="currentView = 'Shopmanage'"
                 :class="{ active: currentView === 'Shopmanage' }"
@@ -73,7 +73,7 @@
                   </defs>
                 </svg>
                 จัดการสินค้า
-              </button>
+              </button> -->
               <button
                 class="sidebar-button"
                 @click="currentView = 'ShopOrder'"
@@ -117,7 +117,7 @@
               </button> -->
             </div>
           </div>
-          <div style="margin-left: 25px; width: 80%">
+          <div>
             <!-- ใช้ dynamic component rendering -->
             <div class="component-wrapper">
               <component
@@ -166,25 +166,7 @@ export default {
           cartSrc: require("@/assets/image/Delete.png"),
         },
       ],
-      orderItems: [
-        {
-          id: 1,
-          image: require("@/assets/image/goldtap.png"),
-          name: "ROV 12 Coupon ROV",
-          status: "รอยืนยัน",
-          amount: "฿9,999",
-          date: "14:02 / 31-12-2024",
-        },
-        {
-          id: 2,
-          image: require("@/assets/image/goldtap.png"),
-          name: "boooo 12 Coupon ROV",
-          status: "รอยืนยัน",
-          amount: "฿9,999",
-          date: "14:02 / 31-12-2024",
-        },
-        // รายการเพิ่มเติม
-      ],
+      orderItems: [], // เริ่มต้นด้วยอาร์เรย์ว่างสำหรับ orderItems],
       purchasedItems: [
         {
           id: 1,
@@ -198,10 +180,95 @@ export default {
       ],
     };
   },
+  async mounted() {
+    await this.fetchdata();
+  },
+  methods: {
+    async fetchdata() {
+      this.isLoading = true; // แสดง loader
+      try {
+        const token = this.$cookies.get("authToken");
+        console.log(token);
+
+        const response = await this.$axios.$post(
+          "/payment/vendor/product/request/list/read",
+          {
+            id: 0,
+            status: "",
+            product_name: "",
+            is_sort_reserve_expire_at: true,
+            start_created_at: "",
+            end_created_at: "",
+            start_updated_at: "",
+            end_updated_at: "",
+            page: 0,
+            limit: 1,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const resalldata = response.data_list;
+        console.log(resalldata);
+
+        if (Array.isArray(resalldata) && resalldata.length > 0) {
+          // ตรวจสอบว่า resalldata เป็นอาร์เรย์และไม่ว่าง
+          resalldata.forEach((item) => {
+            // ตรวจสอบความถูกต้องของข้อมูลก่อนใช้งาน
+            const product = item.product || {}; // ตรวจสอบว่า product มีค่าเป็นออบเจกต์
+            const newOrderItem = {
+              id: item.id || null, // นำ id จาก API มาใช้ ถ้าไม่มีจะใช้ null
+              status: item.status || "Unknown", // นำ status จาก API มาใช้ ถ้าไม่มีจะใช้ 'Unknown'
+              amount: `฿${
+                item.price_total ? item.price_total.toFixed(2) : "0.00"
+              }`, // ใช้ price_total จาก API และเพิ่มเครื่องหมายบาท (฿) ถ้าไม่มีจะใช้ '0.00'
+
+              img: product.img || "", // นำ img จาก product ใน API มาใช้ ถ้าไม่มีจะใช้ string ว่าง
+              name: product.name || "Unknown", // นำ name จาก product ใน API มาใช้ ถ้าไม่มีจะใช้ 'Unknown'
+
+              date: this.formatDate(item.created_at) || "Invalid Date", // ใช้ created_at จาก API และแปลงวันที่ให้อยู่ในรูปแบบที่ต้องการ ถ้าไม่มีจะใช้ 'Invalid Date'
+            };
+
+            // เพิ่มรายการใหม่ใน orderItems
+            this.orderItems.push(newOrderItem);
+          });
+        } else {
+          console.error("Unexpected response structure:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching data from API:", error);
+      } finally {
+        this.isLoading = false; // ซ่อน loader เมื่อกระบวนการเสร็จสิ้นไม่ว่าจะสำเร็จหรือไม่
+      }
+    },
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      const hours = date.getHours().toString().padStart(2, "0");
+      const minutes = date.getMinutes().toString().padStart(2, "0");
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const year = date.getFullYear();
+      return `${hours}:${minutes} / ${day}-${month}-${year}`;
+    },
+  },
 };
 </script>
 
+
+
+
+
+
+
 <style lang="scss" scoped>
+.box-manage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 .component-wrapper {
   max-height: 500px; /* กำหนดความสูงสูงสุด */
   overflow-y: auto; /* เพิ่มแถบเลื่อนแนวตั้งเมื่อเนื้อหาเกิน */
@@ -305,7 +372,8 @@ export default {
 
 .sidebar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  width: 50%;
 }
 .sidebar-button {
   margin: 5px 0;
@@ -320,9 +388,13 @@ export default {
   align-items: center;
   justify-content: center;
   border: none;
+  margin: 10px;
+}
+.sidebar-button:hover svg {
+  fill: #5c25f2 !important;
 }
 .sidebar-button:hover {
-  background-color: #ddd;
+  color: #5c25f2 !important;
 }
 .sidebar-button.active {
   background-color: #ffeb3b;

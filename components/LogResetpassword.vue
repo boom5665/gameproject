@@ -4,15 +4,15 @@
       <div class="navtabs forget">
         <div class="font-top-myshop">
           <Nuxt-link class="text-profile" to="/Login" target="_self">
-            <span class="font-top-myshop">Login &nbsp; / &nbsp;</span>
+            <span class="font-top-myshop">ล็อคอิน &nbsp; / &nbsp;</span>
           </Nuxt-link>
           <Nuxt-link class="text-profile" to="/LogForget" target="_self">
-            <span class="font-proL-top">Confirm Password</span>
+            <span class="font-proL-top">ยืนยันรหัสผ่าน</span>
           </Nuxt-link>
         </div>
         <div class="form-create">
           <div>
-            <img src="~/assets/image/forget.png" class="img-recom" />
+            <img src="~/assets/image/reset.png" class="img-recom" />
           </div>
 
           <div class="dis-input-box">

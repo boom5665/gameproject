@@ -20,7 +20,7 @@
           </thead>
           <tbody>
             <tr v-for="item in filteredOrderItems" :key="item.id">
-              <td><img :src="item.image" alt="Product Image" /></td>
+              <td><img :src="item.img" alt="Product Image" /></td>
               <td>{{ item.name }}</td>
               <td>
                 <span class="status pending">{{ item.status }}</span>
@@ -30,7 +30,9 @@
               </td>
               <td>{{ item.date }}</td>
               <td>
-                <button class="check-button" @click="viewDetail(item.id)">ตรวจสอบ</button>
+                <button class="check-button" @click="viewDetail(item.id, item)">
+                  ตรวจสอบ
+                </button>
               </td>
             </tr>
           </tbody>
@@ -66,50 +68,92 @@
     <div v-else>
       <button @click="showDetail = false">กลับ</button>
       <div>
-        <h2>รายละเอียดสินค้า</h2>
-        <!-- เพิ่มเนื้อหาที่เกี่ยวข้องกับรายละเอียดสินค้า -->
         <p>ข้อมูลสินค้า ID: {{ selectedItemId }}</p>
-        <!-- ตัวอย่างการแสดงผลข้อมูลสินค้า -->
-        <!-- คุณสามารถเพิ่มรายละเอียดเพิ่มเติมตามที่คุณต้องการ -->
+        <h2>รายละเอียดสินค้า</h2>
+        <p>
+          <strong>ชื่อสินค้า:</strong>
+          {{ getSelectedItem.name || "ไม่มีข้อมูล" }}
+        </p>
+        <p>
+          <strong>ราคา:</strong> {{ getSelectedItem.amount || "ไม่มีข้อมูล" }}
+        </p>
+        <p>
+          <strong>สถานะ:</strong> {{ getSelectedItem.status || "ไม่มีข้อมูล" }}
+        </p>
+        <p>
+          <strong>วันที่สร้าง:</strong>
+          {{ getSelectedItem.date || "ไม่มีข้อมูล" }}
+        </p>
+        <img :src="getSelectedItem.img || ''" alt="Product Image" />
+        <button class="check-button" @click="confirmpay">ยืนยันสินค้า</button>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from "vue";
+<script>
+import Swal from "sweetalert2";
 
-// ตัวแปรสำหรับค้นหาสินค้า
-const searchQuery = ref("");
-const showDetail = ref(false); // ตัวแปรสถานะเพื่อแสดงรายละเอียดสินค้า
-const selectedItemId = ref(null); // ตัวแปรสำหรับเก็บ ID ของสินค้าที่ถูกเลือก
-
-const props = defineProps({
-  orderItems: {
-    type: Array,
-    required: true,
+export default {
+  props: {
+    orderItems: {
+      type: Array,
+      required: true,
+    },
+    purchasedItems: {
+      type: Array,
+      required: true,
+    },
   },
-  purchasedItems: {
-    type: Array,
-    required: true,
+  data() {
+    return {
+      searchQuery: "",
+      showDetail: false,
+      selectedItemId: null,
+    };
   },
-});
+  computed: {
+    filteredOrderItems() {
+      if (!this.searchQuery) return this.orderItems;
+      const query = this.searchQuery.toLowerCase();
+      return this.orderItems.filter((item) =>
+        item.name.toLowerCase().includes(query)
+      );
+    },
+    getSelectedItem() {
+      const item = this.orderItems.find(
+        (item) => item.id === this.selectedItemId
+      );
+      return item || {};
+    },
+  },
+  methods: {
+    viewDetail(id) {
+      console.log("Selected Item ID:", id); // แสดง ID ที่ถูกเลือก
+      this.selectedItemId = id;
+      this.showDetail = true;
+    },
+    async confirmpay() {
+      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
+      const result = await Swal.fire({
+        title: "ยืนยันแจ้งชำระเงิน",
+        text: "ยืนยันหลักฐานการชำระเงิน", // ใช้ `text` แทน `body`
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "แก้ไข",
+      });
 
-// ฟังก์ชันสำหรับเปลี่ยนสถานะเพื่อแสดงรายละเอียดสินค้า
-const viewDetail = (id) => {
-  selectedItemId.value = id;
-  showDetail.value = true;
+      // หากผู้ใช้กดปุ่ม "ยืนยัน"
+      if (result.isConfirmed) {
+        this.$router.push("/ShopDetail"); // รีไดเรคไปยังหน้า ShopDetail
+        this.currentStep = 4;
+      }
+      // หากผู้ใช้กดปุ่ม "ยกเลิก"
+      // ไม่ต้องทำอะไรจะยังคงอยู่หน้าเดิม
+    },
+  },
 };
-
-// คำนวณการกรองรายการคำสั่งซื้อ
-const filteredOrderItems = computed(() => {
-  if (!searchQuery.value) return props.orderItems;
-
-  const query = searchQuery.value.toLowerCase();
-  return props.orderItems.filter((item) =>
-    item.name.toLowerCase().includes(query)
-  );
-});
 </script>
 
 

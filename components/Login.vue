@@ -47,7 +47,11 @@
             <Loader :isLoading="isLoading" />
             <div style="margin: 10px">
               <Nuxt-link class="text-profile" to="/LogForget" target="_self">
-                <span class="font-top-myshop">ลืมรหัสผ่าน ? </span></Nuxt-link
+                <span
+                  class="font-top-myshop"
+                  style="text-decoration-line: underline"
+                  >ลืมรหัสผ่าน ?
+                </span></Nuxt-link
               >
             </div>
             <div class="font-top-myshop" style="text-align: center">

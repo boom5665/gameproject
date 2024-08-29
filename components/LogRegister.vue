@@ -159,7 +159,7 @@ export default {
         this.errors.phone = "หมายเลขโทรศัพท์ไม่ถูกต้อง";
       }
       if (!this.$validate.email(this.email)) {
-        this.errors.email = "ที่อยู่อีเมลที่ไม่ถูกต้อง.";
+        this.errors.email = "ที่อยู่อีเมลที่ไม่ถูกต้อง";
       }
 
       return Object.keys(this.errors).length === 0;

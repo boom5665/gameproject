@@ -80,6 +80,7 @@ export default {
   },
   data() {
     return {
+
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
       currentStep: 1,
       steps: [
@@ -91,7 +92,6 @@ export default {
         { label: "ชำระเงินแล้ว", date: "--/--/--", time: "--:--" },
         { label: "ได้รับสินค้า", date: "--/--/--", time: "--:--" },
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
-       
       ],
       categorizedProducts: [],
       timer: 300, // 5 นาทีในหน่วยวินาที
@@ -123,6 +123,8 @@ export default {
     this.startTimer();
     const id = this.$route.params.id;
     const amount = this.$route.query.amount; // ดึง amount จาก URL
+    const productListString = this.$route.query.product_list;
+    console.log(productListString);
     this.fetchProductData(id, amount);
   },
   methods: {
@@ -182,19 +184,13 @@ export default {
     },
     async confirmpay() {
       // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
-      const result = await this.$swal.fire({
-        title: "ทำการซื้อสำเร็จ",
-        icon: "success",
-        confirmButtonText: "OK",
-      });
 
       // รีไดเรคไปยังหน้า ShopQR พร้อมพารามิเตอร์ id หลังจากกด "OK"
-      if (result.isConfirmed) {
-        this.$router.push({
-          path: "/ShopQR",
-          query: { codeqr: this.codeqr }, // ใช้ค่า codeqr ที่เก็บใน data
-        });
-      }
+
+      this.$router.push({
+        path: "/ShopQR",
+        query: { codeqr: this.codeqr }, // ใช้ค่า codeqr ที่เก็บใน data
+      });
     },
 
     getCurrentDate() {

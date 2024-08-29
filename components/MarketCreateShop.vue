@@ -48,6 +48,7 @@
                 ref="imageFileInput"
                 style="display: none"
                 @change="showSelectedImage"
+                accept="image/*"
               />
             </div>
           </div>
@@ -71,22 +72,25 @@
                   src="~/assets/image/store.png"
                 />
               </div>
-              ชื่อร้านค้า
-            </div>
-            <div>
-              <input
-                type="text"
-                id="name"
-                v-model="name"
-                ref="name"
-                :class="{ 'input-error': errors.name }"
-              />
-              <span v-if="errors.name" class="error-message">{{
-                errors.name
-              }}</span>
+              ร้านค้า
             </div>
           </div>
-          <div style="margin-top: 10px">
+          <div>
+            <label for="paymentMethod">
+              ชื่อร้านค้า <span id="dotstyle">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              v-model="name"
+              ref="name"
+              :class="{ 'input-error': errors.name }"
+            />
+            <span v-if="errors.name" class="error-message">{{
+              errors.name
+            }}</span>
+          </div>
+          <div class="margin-topten">
             <div class="form-group">
               <label for="paymentMethod">
                 ช่องทางรับเงิน <span id="dotstyle">*</span>
@@ -176,7 +180,7 @@
               errors.consentcash
             }}</span>
           </div>
-          <div style="margin-top: 10px">
+          <div class="margin-topten">
             <div>ช่องทางการติดต่อร้านค้า</div>
             <div class="comment-font">
               (ข้อมูลนี้จะถูกแสดงให้กับผู้ซื้อในรายการสินค้า)
@@ -213,7 +217,7 @@
               }}</span>
             </div>
           </div>
-          <div class="dis-input height-req">
+          <div class="dis-input height-req margin-topten">
             <div class="width-hunded">
               <label for="address"
                 >ที่อยู่ร้านค้า <span id="dotstyle">*</span></label
@@ -231,7 +235,7 @@
             </div>
           </div>
 
-          <div for="otherContact">
+          <div for="otherContact" class="margin-topten">
             คำอธิบายร้านค้า <span id="dotstyle">*</span>
           </div>
           <div class="dis-input">
@@ -370,7 +374,7 @@
                 </div>
               </div>
 
-              <div class="dis-input height-req">
+              <div class="dis-input height-req margin-topten">
                 <div style="width: 49%">
                   <label for="idCard"
                     >หมายเลขบัตรประชาชน (13 หลัก)
@@ -404,7 +408,7 @@
                   }}</span>
                 </div>
               </div>
-              <div class="dis-input">
+              <div class="dis-input margin-topten">
                 <div class="dis-left">
                   <div class="width-hunded">
                     <label for="imageUrl"
@@ -425,7 +429,7 @@
                     >
                       <img
                         class=""
-                        style=""
+                        style="cursor: pointer"
                         src="~/assets/image/img-id-card.png"
                         @click="triggerFileInput('fileInputFront')"
                       />
@@ -435,6 +439,7 @@
                         ref="fileInputFront"
                         style="display: none"
                         @change="previewImage('front')"
+                        accept="image/*"
                       />
                     </div>
                     <span
@@ -459,6 +464,7 @@
                         class="profile-img"
                         v-show="showImage2"
                         @click="triggerFileInput('fileInputBack')"
+                        accept="image/*"
                       />
                     </div>
                     <div
@@ -468,7 +474,7 @@
                     >
                       <img
                         class=""
-                        style=""
+                        style="cursor: pointer"
                         src="~/assets/image/img-id-card.png"
                         @click="triggerFileInput('fileInputBack')"
                       />
@@ -568,12 +574,38 @@ export default {
   },
   watch: {
     idCardBack(newVal) {
-      // ลบช่องว่างด้านหน้าและด้านหลัง และฟอร์แมตหมายเลขให้มีขีด
+      // ลบช่องว่างด้านหน้าและด้านหลัง
       newVal = newVal.trim();
-      this.idCardBack = newVal.replace(
-        /(\w{2})(\d{4})(\d{4})(\d{2})/,
-        "$1-$2-$3-$4"
-      );
+
+      // ลบอักขระที่ไม่ใช่ตัวอักษรภาษาอังกฤษหรือตัวเลข
+      newVal = newVal.replace(/[^a-zA-Z0-9]/g, "");
+
+      // แยกตัวอักษรภาษาอังกฤษ 2 ตัวแรกและตัวเลขที่ตามมา
+      let letters = newVal.slice(0, 2).toUpperCase();
+      let numbers = newVal.slice(2);
+
+      // ตรวจสอบความยาวของตัวอักษร
+      if (letters.length > 2) {
+        letters = letters.slice(0, 2); // ตัดค่าที่เกิน
+      }
+
+      // ตรวจสอบความยาวของตัวเลข
+      if (numbers.length > 10) {
+        numbers = numbers.slice(0, 10); // ตัดค่าที่เกิน
+      }
+
+      // ฟอร์แมตหมายเลขให้มีขีดเมื่อความยาวครบ 10 หลัก
+      if (letters.length === 2 && numbers.length === 10) {
+        this.idCardBack = `${letters}${numbers.replace(
+          /(\d{1})(\d{3})(\d{3})/,
+          "$1-$2-$3"
+        )}`;
+      } else if (letters.length === 2 && numbers.length < 10) {
+        this.idCardBack = `${letters}${numbers}`;
+      } else {
+        // กรณีที่ข้อมูลไม่ตรงตามข้อกำหนด ให้แสดงข้อความหรือค่าเริ่มต้น
+        this.idCardBack = `${letters}${numbers}`;
+      }
     },
     idCard(newVal) {
       // ลบช่องว่างด้านหน้าและด้านหลัง
@@ -666,7 +698,7 @@ export default {
         const imageTypes = ["image/jpeg", "image/png"];
         if (!imageTypes.includes(file.type)) {
           this.errors[side === "front" ? "imageUrl" : "imageUrl2"] =
-            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPEG หรือ PNG)";
           if (side === "front") {
             this.showImage = false;
             this.imageStatus = "invalid"; // สถานะรูปภาพ
@@ -719,7 +751,7 @@ export default {
         // ตรวจสอบประเภทไฟล์
         if (!validImageTypes.includes(file.type)) {
           this.errors.imagePreviewUrl =
-            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPEG หรือ PNG)";
           this.isImageVisible = false;
           this.imagePreviewStatus = "invalid"; // สถานะรูปภาพ
           return;
@@ -791,7 +823,7 @@ export default {
       }
       if (!this.$validate.firstName(this.firstName)) {
         this.errors.firstName =
-          "ชื่อไม่ถูกต้องเฉพาะตัวอักษรไทยหรืออังกฤษเท่านั้น";
+          "ชื่อไม่ถูกต้องรับเฉพาะตัวอักษรไทยหรืออังกฤษเท่านั้น";
         if (!firstErrorField) firstErrorField = "firstName";
       }
       if (!this.$validate.lastName(this.lastName)) {
@@ -839,7 +871,7 @@ export default {
           if (!firstErrorField) firstErrorField = "imageFileInput";
         } else if (!imageTypes.includes(file.type)) {
           this.errors.imagePreviewUrl =
-            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPG หรือ PNG)";
+            "กรุณาอัปโหลดไฟล์ภาพที่ถูกต้อง (JPEG หรือ PNG)";
           if (!firstErrorField) firstErrorField = "imageFileInput";
         } else if (file.size > maxFileSizeBytes) {
           this.errors.imagePreviewUrl = `ขนาดไฟล์ต้องไม่เกิน ${maxFileSizeMB} MB`;
@@ -1056,11 +1088,7 @@ export default {
   border: 3px solid #5c25f2;
   background: #31303f;
 }
-img {
-  vertical-align: middle;
-  border-style: none;
-  cursor: pointer;
-}
+
 .img-edit {
   width: 130px !important;
   height: 130px;
@@ -1077,6 +1105,7 @@ img {
   border-radius: 110px;
   border: 4px solid #5c25f2;
   background: black;
+  cursor: pointer;
 }
 .edit-icon-two {
   position: relative;
@@ -1085,6 +1114,9 @@ img {
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+.margin-topten {
+  margin-top: 10px;
 }
 </style>
 

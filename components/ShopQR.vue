@@ -41,8 +41,8 @@
               <div class="dis-flex">
                 <div class="il-qr">4</div>
                 <div>
-                  หลังจากจ่ายเงินแล้ว ข้อมูลคำสั่งซื้อจะเข้าสู่ระบบของ Game Market
-                  และรอร้านค้ายืนยัน
+                  หลังจากจ่ายเงินแล้ว ข้อมูลคำสั่งซื้อจะเข้าสู่ระบบของ Game
+                  Market และรอร้านค้ายืนยัน
                 </div>
               </div>
             </div>
@@ -107,21 +107,16 @@ export default {
     async confirmpay() {
       try {
         // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
-        const result = await this.$swal.fire({
-          title: "ทำการซื้อสำเร็จ",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
+
         // รีไดเรคไปยังหน้า ShopConfirmPay หลังจากกด "OK"
-        if (result.isConfirmed) {
-          this.$router.push({
-            path: "/ShopConfirmPay",
-            query: {
-              qr: this.qr, // ใช้ค่า qr ที่เก็บใน data
-              total_price: this.total_price, // ใช้ค่า total_price ที่เก็บใน data
-            },
-          });
-        }
+
+        this.$router.push({
+          path: "/ShopConfirmPay",
+          query: {
+            qr: this.qr, // ใช้ค่า qr ที่เก็บใน data
+            total_price: this.total_price, // ใช้ค่า total_price ที่เก็บใน data
+          },
+        });
       } catch (error) {
         this.$handleError(error);
         this.isLoading = false; // ซ่อน loader

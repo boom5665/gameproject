@@ -134,11 +134,18 @@ export default ({ app }, inject) => {
             break;
           case 3001:
             Swal.fire({
-              title: "พบข้อมูลผู้ใช้ซ้ำ กรุณาลองใหม่อีกครั้ง",
+              title: "พบข้อมูลผู้ใช้ซ้ำ",
               icon: 'error',
               confirmButtonText: 'OK',
             });
             break;
+            case 70016:
+              Swal.fire({
+                title: "ห้ามมีรูปภาเพิน 6 รูป",
+                icon: 'error',
+                confirmButtonText: 'OK',
+              });
+              break;
           case 3008:
             Swal.fire({
               title: "ไม่พบไฟล์",

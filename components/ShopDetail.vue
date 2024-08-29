@@ -175,12 +175,23 @@ export default {
     Stepper,
   },
   data() {
+    const today = new Date();
+    const currentDateTime = new Date();
+    const formattedDate = currentDateTime.toLocaleDateString("th-TH", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "2-digit",
+    });
+    const formattedTime = currentDateTime.toLocaleTimeString("th-TH", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
     return {
       currentStep: 3,
       steps: [
-        { label: "คำสั่งซื้อใหม่", date: "10/07/24", time: "18:00" },
-        { label: "ชำระเงินแล้ว", date: "10/07/24", time: "18:00" },
-        { label: "ได้รับสินค้า", date: "10/07/24", time: "18:00" },
+        { label: "คำสั่งซื้อใหม่", date: formattedDate, time: formattedTime },
+        { label: "ชำระเงินแล้ว", date: formattedDate, time: formattedTime },
+        { label: "ได้รับสินค้า", date: formattedDate, time: formattedTime },
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
       ],
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
@@ -264,8 +275,7 @@ export default {
 
       // หากผู้ใช้กดปุ่ม "ยืนยัน"
       if (result.isConfirmed) {
-        this.$router.push("/ShopDetail"); // รีไดเรคไปยังหน้า ShopQR
-        this.currentStep = 4;
+        this.$router.push("/ShopMysucsess"); // รีไดเรคไปยังหน้า ShopQR
       }
       // หากผู้ใช้กดปุ่ม "ยกเลิก"
       // ไม่ต้องทำอะไรจะยังคงอยู่หน้าเดิม

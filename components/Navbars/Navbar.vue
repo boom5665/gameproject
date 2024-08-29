@@ -39,7 +39,7 @@
             <!-- <Nuxt-link class="text-nav" to="/Profile" target="_self" -->
               <Nuxt-link class="text-nav" to="/" target="_self"
               >
-              <div class="bottom-top bottom-y">
+              <div class="bottom-top bottom-w">
                 โปรไฟล์ของฉัน
               </div>
               </Nuxt-link
@@ -53,7 +53,7 @@
           <div v-else style="display: flex">
             <!-- เมนูสำหรับผู้ใช้ที่ไม่ได้ล็อกอิน -->
             <Nuxt-link class="text-nav" to="/LogRegister" target="_self"
-              ><div class="bottom-top bottom-y">สมัครสมาชิก</div></Nuxt-link
+              ><div class="bottom-top bottom-w">สมัครสมาชิก</div></Nuxt-link
             >
 
             <Nuxt-link class="text-nav" to="/Login" target="_self"
