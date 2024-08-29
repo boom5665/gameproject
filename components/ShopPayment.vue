@@ -80,7 +80,6 @@ export default {
   },
   data() {
     return {
-
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
       currentStep: 1,
       steps: [
@@ -123,12 +122,15 @@ export default {
     this.startTimer();
     const id = this.$route.params.id;
     const amount = this.$route.query.amount; // ดึง amount จาก URL
-    const productListString = this.$route.query.product_list;
-    console.log(productListString);
-    this.fetchProductData(id, amount);
+    const query = this.$route.query;
+    const name = this.$route.query.name;
+    const description = this.$route.query.description;
+    const img = this.$route.query.img;
+    console.log(query);
+    this.fetchProductData(id, amount, name, description, img);
   },
   methods: {
-    async fetchProductData(id, amount) {
+    async fetchProductData(id, amount, name, description, img) {
       this.isLoading = true; // แสดง loader
       try {
         const idNumber = Number(id);
@@ -162,13 +164,13 @@ export default {
           // อัพเดต categorizedProducts ตามข้อมูลที่ได้รับ
           this.categorizedProducts = [
             {
-              name: "Updated Product", // เปลี่ยนเป็นชื่อที่ได้รับจาก API หรือกำหนดเอง
+              name: "รายการสินค้า", // เปลี่ยนเป็นชื่อที่ได้รับจาก API หรือกำหนดเอง
               items: [
                 {
-                  name: "Updated Product",
-                  imageUrl: require("@/assets/image/cardgold.png"), // เปลี่ยนเป็น URL ที่ได้รับจาก API ถ้ามี
-                  description: "Updated Description", // เปลี่ยนเป็นคำบรรยายที่ได้รับจาก API
-                  category: "Digital", // เปลี่ยนเป็นหมวดหมู่ที่ได้รับจาก API
+                  name: name,
+                  imageUrl: img, // เปลี่ยนเป็น URL ที่ได้รับจาก API ถ้ามี
+                  description: name, // เปลี่ยนเป็นคำบรรยายที่ได้รับจาก API
+                  category: description, // เปลี่ยนเป็นหมวดหมู่ที่ได้รับจาก API
                   quantity: amountNumber, // ใช้ค่าที่รับมาจาก parameter
                   price: price, // ใช้ค่าราคาใหม่ที่ได้รับจาก API
                 },
