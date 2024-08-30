@@ -37,10 +37,10 @@
           <div v-if="token" style="display: flex">
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
             <!-- <Nuxt-link class="text-nav" to="/Profile" target="_self" -->
-              <Nuxt-link class="text-nav" to="/" target="_self"
+              <Nuxt-link class="text-nav" to="/ShopMysucsess" target="_self"
               >
               <div class="bottom-top bottom-w">
-                โปรไฟล์ของฉัน
+                รายการคำสั่งซื้อ
               </div>
               </Nuxt-link
             >

@@ -3,33 +3,25 @@
     <div class="navtabs shopsucsess">
       <div class="font-top-myshop">
         <Nuxt-link class="text-profile" to="/ShopMy" target="_self">
-          <span class=""
-            >การซื้อของฉัน
-            <img
-              class="SHOPright"
-              src="~/assets/image/SHOPright.png"
-              alt="" /></span
-        ></Nuxt-link>
-        <Nuxt-link class="text-profile" to="/ShopMysucsess" target="_self"
-          ><span class="font-proL-top">รายการคำสั่งซื้อ</span></Nuxt-link
-        >
+          <span>
+            การซื้อของฉัน
+            <img class="SHOPright" src="~/assets/image/SHOPright.png" alt="" />
+          </span>
+        </Nuxt-link>
+        <Nuxt-link class="text-profile" to="/ShopMysucsess" target="_self">
+          <span class="font-proL-top">รายการคำสั่งซื้อ</span>
+        </Nuxt-link>
       </div>
       <div
         class="form-create"
         style="margin-top: 20px; gap: var(--Spacing-space-16, 12px)"
       >
-        <div>
-          <div class="display">
-            <div class="font-re">การซื้อของฉัน</div>
-          </div>
+        <div class="display">
+          <div class="font-re">การซื้อของฉัน</div>
         </div>
 
         <div class="order-list">
-          <div
-            v-for="order in computedOrders"
-            :key="order.id"
-            class="order-item"
-          >
+          <div v-for="order in orders" :key="order.id" class="order-item">
             <div class="order-header">
               <div class="order-id">
                 รายการคำสั่งซื้อ #{{ order.id }}
@@ -86,108 +78,121 @@
   </div>
 </template>
 
-
 <script>
 export default {
   data() {
     return {
-      orders: [
-        {
-          id: "403559",
-          totalItems: 1,
-          statusText: "ซื้อสำเร็จ",
-          productImage: require("~/assets/image/cardgold.png"),
-          productName: "Top up Razer Gold",
-          productTag: "ดิจิตอล",
-          date: "11 ก.ค. 2567 14:14",
-          amount: "฿7,790",
-        },
-        {
-          id: "403560",
-          totalItems: 1,
-          statusText: "รายการมีปัญหา",
-          productImage: require("~/assets/image/cardgold.png"),
-          productName: "Top up Razer Gold",
-          productTag: "ดิจิตอล",
-          date: "12 ก.ค. 2567 14:14",
-          amount: "฿8,790",
-        },
-        {
-          id: "403560",
-          totalItems: 1,
-          statusText: "รอคืนเงิน",
-          productImage: require("~/assets/image/cardgold.png"),
-          productName: "Top up Razer Gold",
-          productTag: "ดิจิตอล",
-          date: "12 ก.ค. 2567 14:14",
-          amount: "฿8,790",
-        },
-        {
-          id: "403560",
-          totalItems: 1,
-          statusText: "คืนเงินสำเร็จ",
-          productImage: require("~/assets/image/cardgold.png"),
-          productName: "Top up Razer Gold",
-          productTag: "ดิจิตอล",
-          date: "12 ก.ค. 2567 14:14",
-          amount: "฿8,790",
-        },
-        {
-          id: "403560",
-          totalItems: 1,
-          statusText: "รอการชำระเงิน",
-          productImage: require("~/assets/image/cardgold.png"),
-          productName: "Top up Razer Gold",
-          productTag: "ดิจิตอล",
-          date: "12 ก.ค. 2567 14:14",
-          amount: "฿8,790",
-        },
-        // เพิ่มข้อมูล order ตามต้องการ
-      ],
+      orders: [], // Data will be populated by API
+      isLoading: false,
     };
-  },
-  mounted() {
-    if (process.client) {
-      // ตรวจสอบว่า URL ปัจจุบันตรงกับ /MarketMyshop หรือไม่
-      if (this.$route.path === "/MarketMyshop") {
-        const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
-
-        console.log(hasRefreshed);
-        if (!hasRefreshed) {
-          // ตั้งค่าสถานะว่าได้รีเฟรชหน้าแล้ว
-          localStorage.setItem("hasRefreshedMarketMyshop", "true");
-
-          // รีเฟรชหน้าเว็บ
-          window.location.reload();
-        }
-      }
-    }
   },
   computed: {
     computedOrders() {
       return this.orders.map((order) => {
-        let statusClass = "";
-
-        if (order.statusText.includes("ซื้อสำเร็จ")) {
-          statusClass = "complete";
-        } else if (order.statusText.includes("รายการมีปัญหา")) {
-          statusClass = "problem";
-        } else if (order.statusText.includes("รอคืนเงิน")) {
-          statusClass = "wait";
-        } else if (order.statusText.includes("รอการชำระเงิน")) {
-          statusClass = "waitcash";
-        } else {
-          // สำหรับสถานะอื่นๆ ที่ไม่ตรงกับสามสถานะข้างต้น
-          statusClass = "complete"; // ตั้งค่าเป็นสีเขียวปกติ
-        }
+        let statusClass = this.getStatusClass(order.statusText);
 
         return { ...order, statusClass };
       });
     },
   },
+  mounted() {
+    if (process.client) {
+      if (this.$route.path === "/MarketMyshop") {
+        const hasRefreshed = localStorage.getItem("hasRefreshedMarketMyshop");
+
+        if (!hasRefreshed) {
+          localStorage.setItem("hasRefreshedMarketMyshop", "true");
+          window.location.reload();
+        }
+      }
+    }
+    this.fetchData();
+  },
+  methods: {
+    async fetchData() {
+      this.isLoading = true;
+      try {
+        const token = this.$cookies.get("authToken");
+        const response = await this.$axios.$post(
+          "/payment/product/request/list/read",
+          {
+            id: 0,
+            status: "",
+            product_name: "",
+            is_sort_reserve_expire_at: true,
+            start_created_at: "",
+            end_created_at: "",
+            start_updated_at: "",
+            end_updated_at: "",
+            page: 1,
+            limit: 10,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const resalldata = response.data_list;
+        console.log(resalldata);
+
+        if (Array.isArray(resalldata) && resalldata.length > 0) {
+          this.orders = resalldata.map((item) => {
+            const product = item.product || {};
+            const customer = item.customer || {};
+            const statusText = item.status || "Unknown";
+
+            const orderItem = {
+              id: item.id || null,
+              totalItems: item.amount || 0,
+              statusText: statusText,
+              statusClass: this.getStatusClass(statusText),
+              productImage: product.img || "",
+              productName: product.name || "Unknown",
+              productTag: product.description || "",
+              amount: `฿${item.price_total ? item.price_total.toFixed(2) : "0.00"}`,
+              date: this.formatDate(item.created_at) || "Invalid Date",
+            };
+
+            console.log("Order item:", orderItem); // Log the complete order item
+
+            return orderItem;
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        // Optionally set an error message in the state or show a notification
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
+    getStatusClass(statusText) {
+      if (statusText.includes("SUCCESS")) {
+        return "complete";
+      } else if (statusText.includes("REJECT_CONFIRM")) {
+        return "problem";
+      } else if (statusText.includes("TIMEOUT")) {
+        return "wait";
+      } else if (statusText.includes("รอการชำระเงิน")) {
+        return "waitcash";
+      } else {
+        return "complete"; // Default status class
+      }
+    },
+
+    formatDate(dateString) {
+      if (!dateString) return "Invalid Date";
+
+      const date = new Date(dateString);
+      const hours = date.getHours().toString().padStart(2, "0");
+      const minutes = date.getMinutes().toString().padStart(2, "0");
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const year = date.getFullYear();
+      return `${hours}:${minutes} / ${day}-${month}-${year}`;
+    },
+  },
 };
 </script>
-
-
-<style scoped>
-</style>
