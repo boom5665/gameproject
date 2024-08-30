@@ -85,6 +85,7 @@
               v-model="name"
               ref="name"
               :class="{ 'input-error': errors.name }"
+              placeholder="กรอกชื่อร้านค้า"
             />
             <span v-if="errors.name" class="error-message">{{
               errors.name
@@ -198,6 +199,7 @@
                 v-model="phone"
                 :class="{ 'input-error': errors.phone }"
                 ref="phone"
+                placeholder="กรอกหมายเลขโทรศัพท์"
               />
               <span v-if="errors.phone" class="error-message">{{
                 errors.phone
@@ -211,6 +213,7 @@
                 v-model="email"
                 :class="{ 'input-error': errors.email }"
                 ref="email"
+                placeholder="กรอกอีเมล"
               />
               <span v-if="errors.email" class="error-message">{{
                 errors.email
@@ -228,6 +231,7 @@
                 v-model="address"
                 :class="{ 'input-error': errors.address }"
                 ref="address"
+                placeholder="กรอกที่อยู่ร้านค้า"
               />
               <span v-if="errors.address" class="error-message">{{
                 errors.address
@@ -251,6 +255,7 @@
                     v-model="otherContact"
                     :class="{ 'input-error': errors.otherContact }"
                     ref="otherContact"
+                    placeholder="กรอกคำอธิบายร้านค้า"
                   />
                   <span v-if="errors.otherContact" class="error-message">{{
                     errors.otherContact
@@ -351,6 +356,7 @@
                     v-model="firstName"
                     :class="{ 'input-error': errors.firstName }"
                     ref="firstName"
+                    placeholder="กรอกชื่อ"
                   />
                   <span v-if="errors.firstName" class="error-message">{{
                     errors.firstName
@@ -366,6 +372,7 @@
                     v-model="lastName"
                     :class="{ 'input-error': errors.lastName }"
                     ref="lastName"
+                    placeholder="กรอกนามสกุล"
                   />
 
                   <span v-if="errors.lastName" class="error-message">{{
@@ -387,6 +394,7 @@
                     v-model="idCard"
                     :class="{ 'input-error': errors.idCard }"
                     ref="idCard"
+                    placeholder="กรอกหมายเลขบัตรประชาชน"
                   />
                   <span v-if="errors.idCard" class="error-message">{{
                     errors.idCard
@@ -394,7 +402,7 @@
                 </div>
                 <div style="width: 49%">
                   <label for="idCardBack"
-                    >เลขหลังบัตรประชาชน <span id="dotstyle">*</span></label
+                    >หมายเลขหลังบัตรประชาชน <span id="dotstyle">*</span></label
                   >
                   <input
                     type="text"
@@ -402,6 +410,7 @@
                     v-model="idCardBack"
                     :class="{ 'input-error': errors.idCardBack }"
                     ref="idCard"
+                    placeholder="กรอกหมายเลขหลังบัตรประชาชนน"
                   />
                   <span v-if="errors.idCardBack" class="error-message">{{
                     errors.idCardBack

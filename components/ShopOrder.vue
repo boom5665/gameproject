@@ -168,10 +168,7 @@
         </div>
         <div class="dis-box">
           <div class="width-hunded margin-right">
-            <button
-              class="check-button check-cacel"
-              @click="showDetail = false"
-            >
+            <button class="check-button check-cacel" @click="concancel">
               ปฏิเสธรายการ
             </button>
           </div>
@@ -246,11 +243,90 @@ export default {
 
       // หากผู้ใช้กดปุ่ม "ยืนยัน"
       if (result.isConfirmed) {
-        this.$router.push("/ShopDetail"); // รีไดเรคไปยังหน้า ShopDetail
-        this.currentStep = 4;
+        try {
+          const token = this.$cookies.get("authToken");
+          const idsend = Number(this.selectedItemId);
+
+          console.log(token);
+
+          // ส่งคำขอไปยัง API
+          const response = await this.$axios.$post(
+            "/payment/vendor/product/request/update",
+            {
+              id: idsend,
+              status: "SUCCESS", // ตรวจสอบให้แน่ใจว่า SUCCESS ถูกกำหนดไว้ถูกต้อง
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const result = await Swal.fire({
+            title: "สำเร็จ",
+            icon: "success",
+            showCancelButton: false,
+          });
+          if (result.isConfirmed) {
+            this.$router.push("/Shopmanage");
+          }
+          // รีไดเรคไปยังหน้า ShopDetail หลังจากได้รับการตอบกลับสำเร็จ
+        } catch (error) {
+          console.error("An error occurred:", error); // แสดงข้อผิดพลาดที่เกิดขึ้น
+          // คุณสามารถแสดงข้อความแจ้งเตือนหรือดำเนินการอื่นๆ ได้ที่นี่
+        }
       }
+
       // หากผู้ใช้กดปุ่ม "ยกเลิก"
       // ไม่ต้องทำอะไรจะยังคงอยู่หน้าเดิม
+    },
+    async concancel() {
+      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
+      const result = await Swal.fire({
+        title: "ยืนยันแจ้งชำระเงิน",
+        text: "ยืนยันหลักฐานการชำระเงิน", // ใช้ `text` แทน `body`
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonText: "ยืนยัน",
+        cancelButtonText: "แก้ไข",
+      });
+
+      // หากผู้ใช้กดปุ่ม "ยืนยัน"
+      if (result.isConfirmed) {
+        try {
+          const token = this.$cookies.get("authToken");
+          const idsend = Number(this.selectedItemId);
+
+          console.log(token);
+
+          // ส่งคำขอไปยัง API
+          const response = await this.$axios.$post(
+            "/payment/vendor/product/request/update",
+            {
+              id: idsend,
+              status: "REJECT_CONFIRM", // ตรวจสอบให้แน่ใจว่า SUCCESS ถูกกำหนดไว้ถูกต้อง
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const result = await Swal.fire({
+            title: "ยกเลิกสินค้าสำเร็จ",
+            icon: "success",
+            showCancelButton: false,
+          });
+          if (result.isConfirmed) {
+            showDetail = false
+          }
+          // รีไดเรคไปยังหน้า ShopDetail หลังจากได้รับการตอบกลับสำเร็จ
+        } catch (error) {
+          console.error("An error occurred:", error); // แสดงข้อผิดพลาดที่เกิดขึ้น
+          // คุณสามารถแสดงข้อความแจ้งเตือนหรือดำเนินการอื่นๆ ได้ที่นี่
+        }
+      }
+
     },
   },
 };
