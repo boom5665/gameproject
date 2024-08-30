@@ -125,10 +125,10 @@
             </div>
           </div>
           <div class="dis-box">
-            <div class="width-hunded" v-if="slip_img">
+            <div class="width-hunded" v-if="getSelectedItem.slipimg">
               <img
                 class="img-product img-product-slip"
-                :src="slip_img"
+                :src="getSelectedItem.slipimg"
                 alt="Product Image"
               />
             </div>
