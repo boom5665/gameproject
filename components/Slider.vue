@@ -85,7 +85,7 @@ export default {
     goToSlide(index) {
       this.activeDot = index;
       const slider = this.$refs.slider;
-      const slideWidth = slider.clientWidth / 4; // จำนวน items ต่อ slide
+      const slideWidth = slider.clientWidth / 2; // จำนวน items ต่อ slide
       slider.style.left = `-${index * slideWidth}px`;
     },
     slide(direction) {

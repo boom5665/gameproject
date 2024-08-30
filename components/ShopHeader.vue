@@ -194,7 +194,7 @@ export default {
             start_updated_at: "",
             end_updated_at: "",
             page: 0,
-            limit: 10,
+            limit: 500,
           },
           {
             headers: {

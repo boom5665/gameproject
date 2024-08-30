@@ -41,7 +41,7 @@
                 class="submit button-pro-edit"
                 @click.prevent="submitData"
               >
-                ชื่อเข้าสู่ระบบ
+                เข้าสู่ระบบ
               </button>
             </form>
             <Loader :isLoading="isLoading" />

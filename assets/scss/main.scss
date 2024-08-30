@@ -40,6 +40,32 @@ a:hover {
   width: 100%;
 }
 
+select {
+  padding-right: 20px;
+  /* เพิ่ม padding ด้านขวาเพื่อเว้นระยะให้กับลูกศร */
+  // -webkit-appearance: none; /* ปิดการแสดงลูกศรเริ่มต้นของ select บน Safari และ Chrome */
+  // -moz-appearance: none; /* ปิดการแสดงลูกศรเริ่มต้นของ select บน Firefox */
+  // appearance: none; /* ปิดการแสดงลูกศรเริ่มต้นของ select บนเบราว์เซอร์อื่น ๆ */
+}
+
+.select-no-arrow {
+  -webkit-appearance: none;
+  /* ซ่อนลูกศรใน Chrome และ Safari */
+  -moz-appearance: none;
+  /* ซ่อนลูกศรใน Firefox */
+  appearance: none;
+  /* ซ่อนลูกศรในเบราว์เซอร์อื่น ๆ */
+  padding-right: 30px;
+  /* เพิ่มระยะห่างด้านขวา */
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+  /* ใช้ SVG เป็นลูกศร */
+  background-repeat: no-repeat;
+  /* ป้องกันการซ้ำของพื้นหลัง */
+  background-position: right 10px center;
+  /* กำหนดตำแหน่งของลูกศร */
+  background-size: 12px;
+  /* กำหนดขนาดของลูกศร */
+}
 
 .error {
   color: red;
@@ -48,6 +74,15 @@ a:hover {
 
 form {
   width: 100%;
+}
+
+select {
+  -webkit-appearance: none;
+  /* ซ่อนลูกศรของ Safari */
+  -moz-appearance: none;
+  /* ซ่อนลูกศรของ Firefox */
+  appearance: none;
+  
 }
 
 input {
@@ -72,9 +107,15 @@ input:focus-visible {
   outline: none;
 
 }
-input[type="text"], input[type="password"], input[type="email"], textarea {
-  background-color: #fff !important; /* เปลี่ยนเป็นสีที่คุณต้องการ */
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+  background-color: #fff !important;
+  /* เปลี่ยนเป็นสีที่คุณต้องการ */
 }
+
 .ql-editor {
   height: 150px !important;
 }

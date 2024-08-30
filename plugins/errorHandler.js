@@ -77,13 +77,25 @@ export default ({ app }, inject) => {
               confirmButtonText: 'OK',
             });
             break;
-            case 82002:
-              Swal.fire({
-                title: "ไม่สามารถอัพเดตสถานะสินค้าให้เป็น Wait Comfirm ได้",
-                icon: 'error',
-                confirmButtonText: 'OK',
-              });
-              break;
+          case 82002:
+            Swal.fire({
+              title: "ไม่สามารถอัพเดตสถานะสินค้าให้เป็น Wait Comfirm ได้",
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+            break;
+          case 80013:
+            Swal.fire({
+              title: "เจ้าของร้านค้าไม่สามารถจองสินค้าของตัวเองได้",
+              icon: 'error',
+              timer: 1000, // หน่วงเวลา 2 วินาที
+              timerProgressBar: true,
+              showConfirmButton: false, // ไม่แสดงปุ่ม OK
+            }).then(() => {
+              window.location.href = "/";
+            });
+
+            break;
           case 70001:
             Swal.fire({
               title: "ไม่สามารถบันทึกรูปภาพสินค้าได้",
@@ -139,13 +151,13 @@ export default ({ app }, inject) => {
               confirmButtonText: 'OK',
             });
             break;
-            case 70016:
-              Swal.fire({
-                title: "ห้ามมีรูปภาเพิน 6 รูป",
-                icon: 'error',
-                confirmButtonText: 'OK',
-              });
-              break;
+          case 70016:
+            Swal.fire({
+              title: "ห้ามมีรูปภาเพิน 6 รูป",
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+            break;
           case 3008:
             Swal.fire({
               title: "ไม่พบไฟล์",
@@ -188,13 +200,13 @@ export default ({ app }, inject) => {
               confirmButtonText: 'OK',
             });
             break;
-            case 70022:
-              Swal.fire({
-                title: "ชื่อสินค้านี้มีแล้ว",
-                icon: 'error',
-                confirmButtonText: 'OK',
-              });
-              break;
+          case 70022:
+            Swal.fire({
+              title: "ชื่อสินค้านี้มีแล้ว",
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+            break;
           default:
             Swal.fire({
               title: "โปรดตรวจสอบข้อมูลที่คุณป้อนแล้วลองอีกครั้ง",
