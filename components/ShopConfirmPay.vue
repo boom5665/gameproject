@@ -52,7 +52,12 @@
                 </span>
                 <div class="form-group">
                   <label for="account">โอนเงินจากบัญชี</label>
-                  <input id="account" class="form-control" v-model="account" />
+                  <input
+                    type="text"
+                    id="account"
+                    class="form-control"
+                    v-model="account"
+                  />
                   <span v-if="errors.account" class="error-message">
                     {{ errors.account }}
                   </span>
@@ -165,7 +170,7 @@ export default {
       steps: [
         { label: "คำสั่งซื้อใหม่", date: formattedDate, time: formattedTime },
         { label: "ชำระเงินแล้ว", date: formattedDate, time: formattedTime },
-     
+
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
       ],
       imagePreview: null,
@@ -228,20 +233,16 @@ export default {
       // ลบช่องว่างด้านหน้าและด้านหลัง
       let newVal = value.trim();
 
-      // ลบอักขระที่ไม่ใช่ตัวเลข
-      newVal = newVal.replace(/\D/g, "");
+      // ลบอักขระที่เป็นตัวเลข (0-9) เท่านั้น
+      newVal = newVal.replace(/[0-9]/g, "");
 
-      // ตรวจสอบไม่ให้ใส่เกิน 10 หลัก
-      if (newVal.length > 10) {
-        newVal = newVal.slice(0, 10); // ตัดค่าที่เกิน
+      // ตรวจสอบไม่ให้ใส่เกิน 50 ตัวอักษร
+      if (newVal.length > 40) {
+        newVal = newVal.slice(0, 40); // ตัดค่าที่เกิน
       }
 
-      // ฟอร์แมตหมายเลขโทรศัพท์ให้มีขีดเมื่อความยาวครบ 10 หลัก
-      if (newVal.length === 10) {
-        return newVal.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
-      } else {
-        return newVal;
-      }
+      // คืนค่า newVal ที่ไม่มีตัวเลข
+      return newVal;
     },
     getFormattedDateTime() {
       const today = new Date();
@@ -257,13 +258,10 @@ export default {
       this.errors = {};
 
       // เรียกใช้ formataccount เพื่อจัดการการตรวจสอบและการจัดรูปแบบ
-      const formattedAccount = this.formataccount(this.account);
 
       // ตรวจสอบหมายเลขบัญชีธนาคาร
       if (!this.account) {
-        this.errors.account = "กรุณากรอกหมายเลขบัญชีธนาคาร";
-      } else if (formattedAccount.length < 10) {
-        this.errors.account = "หมายเลขบัญชีธนาคารต้องมี 10 หลัก";
+        this.errors.account = "กรุณากรอกชื่อบัญชี";
       }
       if (!this.bank) {
         this.errors.bank = "กรุณาเลือกธนาคาร";
@@ -319,7 +317,7 @@ export default {
       if (this.imagePreviewUrl && this.imagePreviewUrl.startsWith("data:")) {
         this.file = await base64ToFile(this.imagePreviewUrl, "logo_img.png");
       }
-
+      formData.append("evidence_back_from_name", this.account);
       formData.append("evidence_bank_from_slip_img", this.file);
       formData.append("id", this.codeqr);
       formData.append("evidence_bank_from_bank", this.bank);

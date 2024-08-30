@@ -128,6 +128,7 @@
               />
             </div>
           </div>
+          <Loader :isLoading="isLoading" />
         </div>
       </div>
     </div>
@@ -147,6 +148,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
       shopLogo: require("@/assets/image/genshin.png"),
       shopName: "ร้านค้าของฉัน",
       shopDescription: "รายละเอียดร้านค้า",
@@ -167,17 +169,7 @@ export default {
         },
       ],
       orderItems: [], // เริ่มต้นด้วยอาร์เรย์ว่างสำหรับ orderItems],
-      purchasedItems: [
-        {
-          id: 1,
-          image: require("@/assets/image/goldtap.png"),
-          name: "ROV 12 Coupon ROV",
-          status: "รับสินค้าแล้ว",
-          price: "฿9,999",
-          date: "14:02 / 31-12-2024",
-        },
-        // รายการเพิ่มเติม
-      ],
+      purchasedItems: [],
     };
   },
   async mounted() {
@@ -279,7 +271,7 @@ export default {
   flex-direction: column;
 }
 .component-wrapper {
-  max-height: 500px; /* กำหนดความสูงสูงสุด */
+  // max-height: 500px; /* กำหนดความสูงสูงสุด */
   overflow-y: auto; /* เพิ่มแถบเลื่อนแนวตั้งเมื่อเนื้อหาเกิน */
   overflow-x: hidden; /* ซ่อนแถบเลื่อนแนวนอน */
 }

@@ -19,6 +19,7 @@
             </tr>
           </thead>
           <tbody>
+            <!-- Loop through filteredOrderItems for items that are not confirmed -->
             <tr v-for="item in filteredOrderItems" :key="item.id">
               <td><img :src="item.img" alt="Product Image" /></td>
               <td>{{ item.name }}</td>
@@ -38,29 +39,33 @@
           </tbody>
         </table>
 
-        <div>รายการที่ยืนยันแล้ว</div>
-        <table class="order-table">
-          <thead class="thead-sale">
-            <tr>
-              <th>ภาพสินค้า</th>
-              <th>ชื่อสินค้า</th>
-              <th>สถานะ</th>
-              <th>ยอด</th>
-              <th>เวลา/วันที่</th>
-            </tr>
-          </thead>
-          <tbody class="thead-saletb">
-            <tr v-for="purchasedItem in purchasedItems" :key="purchasedItem.id">
-              <td><img :src="purchasedItem.image" alt="Product Image" /></td>
-              <td>{{ purchasedItem.name }}</td>
-              <td>{{ purchasedItem.status }}</td>
-              <td>
-                {{ purchasedItem.price }}
-              </td>
-              <td>{{ purchasedItem.date }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- Second table for confirmed orders -->
+        <div v-if="filteredOrderItems2.length > 0">
+          <div>รายการที่ยืนยันแล้ว</div>
+          <table class="order-table">
+            <thead class="thead-sale">
+              <tr>
+                <th>ภาพสินค้า</th>
+                <th>ชื่อสินค้า</th>
+                <th>สถานะ</th>
+                <th>ยอด</th>
+                <th>เวลา/วันที่</th>
+              </tr>
+            </thead>
+            <tbody class="thead-saletb">
+              <!-- Loop through filteredOrderItems2 for items that are confirmed -->
+              <tr v-for="item in filteredOrderItems2" :key="item.id">
+                <td><img :src="item.img" alt="Product Image" /></td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.status }}</td>
+                <td>
+                  <span class="color-am">{{ item.price }}</span>
+                </td>
+                <td>{{ item.date }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -68,113 +73,139 @@
 
     <div v-else>
       <div>ตรวจสอบข้อมูลการซื้อ</div>
-      <div class="dis-box">
-        <div>
-          <img
-            class="img-product"
-            :src="getSelectedItem.img"
-            alt="Product Image"
-          />
+      <div class="box-content-pay">
+        <div class="dis-box">
+          <div>
+            <img
+              class="img-product"
+              :src="getSelectedItem.img"
+              alt="Product Image"
+            />
+          </div>
+
+          <div class="width-hunded">
+            <div class="width-hunded">
+              <div>ชื่อสินค้า</div>
+              <div class="div-box">
+                {{ getSelectedItem.name || "ไม่มีข้อมูล" }}
+              </div>
+            </div>
+            <div class="width-hunded">
+              <div>รายละเอียดสินค้า</div>
+              <div class="div-box">
+                {{ getSelectedItem.description || "ไม่มีข้อมูล" }}
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="width-hunded">
-          <div class="width-hunded">
-            <div>ชื่อสินค้า</div>
-            <div class="div-box">
-              {{ getSelectedItem.name || "ไม่มีข้อมูล" }}
+        <div>
+          <div>ข้อมูลสินค้า ID {{ selectedItemId }}</div>
+
+          <div class="dis-box">
+            <div class="width-hunded">
+              <div>ราคา</div>
+              <div class="div-box">
+                {{ getSelectedItem.price || "ไม่มีข้อมูล" }}
+              </div>
+            </div>
+            <div class="width-hunded">
+              <div>จำนวนที่ซื้อ</div>
+              <div class="div-box">
+                {{ getSelectedItem.amount || "ไม่มีข้อมูล" }}
+              </div>
             </div>
           </div>
-          <div class="width-hunded">
-            <div>รายละเอียดสินค้า</div>
-            <div class="div-box">
-              {{ getSelectedItem.description || "ไม่มีข้อมูล" }}
+          <div class="dis-box">
+            <div class="width-hunded">
+              <div>ยอดรวม</div>
+              <div class="div-box">
+                {{ getSelectedItem.price || "ไม่มีข้อมูล" }}
+              </div>
             </div>
           </div>
+          <div class="dis-box">
+            <div class="width-hunded" v-if="slip_img">
+              <img
+                class="img-product img-product-slip"
+                :src="slip_img"
+                alt="Product Image"
+              />
+            </div>
+            <div v-else>
+              <div>
+                <div class="img-product img-product-slip">ไม่มีการโอน</div>
+              </div>
+            </div>
+          </div>
+          <div class="dis-box">
+            <div class="width-hunded">
+              <div>ชื่อผู้ซื้อ</div>
+              <div class="div-box">
+                {{ getSelectedItem.formname || "ไม่มีข้อมูลชื่อผู้ซื้อ" }}
+              </div>
+            </div>
+            <div class="width-hunded">
+              <div>ธนาคารที่โอน</div>
+              <div class="div-box">
+                {{ getSelectedItem.bank || "ไม่มีข้อมูลธนาคารที่โอน" }}
+              </div>
+            </div>
+          </div>
+          <div class="dis-box">
+            <div class="width-hunded">
+              <div>เบอร์โทร</div>
+              <div class="div-box">
+                {{ getSelectedItem.phone || "ไม่มีข้อมูล" }}
+              </div>
+            </div>
+            <div class="width-hunded">
+              <div>เวลาที่โอน</div>
+              <div class="div-box">
+                {{ getSelectedItem.payatt || "ไม่มีข้อมูลเวลาที่โอน" }}
+              </div>
+            </div>
+          </div>
+          <div class="dis-box">
+            <div class="width-hunded">
+              <div>อีเมล</div>
+              <div class="div-box">
+                {{ getSelectedItem.email || "ไม่มีข้อมูล" }}
+              </div>
+            </div>
+            <div class="width-hunded">
+              <div>ยอดที่โอน</div>
+              <div class="div-box">
+                {{ getSelectedItem.money || "ไม่มีข้อมูล" }}
+              </div>
+            </div>
+          </div>
+
+          <Loader :isLoading="isLoading" />
         </div>
       </div>
-
-      <div>
-        <div>ข้อมูลสินค้า ID {{ selectedItemId }}</div>
-
-        <div class="dis-box">
-          <div class="width-hunded">
-            <div>ราคา</div>
-            <div class="div-box">
-              {{ getSelectedItem.price || "ไม่มีข้อมูล" }}
-            </div>
-          </div>
-          <div class="width-hunded">
-            <div>จำนวนที่ซื้อ</div>
-            <div class="div-box">
-              {{ getSelectedItem.amount || "ไม่มีข้อมูล" }}
-            </div>
-          </div>
-        </div>
-        <div class="dis-box">
-          <div class="width-hunded">
-            <div>ยอดรวม</div>
-            <div class="div-box">
-              {{ getSelectedItem.price || "ไม่มีข้อมูล" }}
-            </div>
-          </div>
-        </div>
-        <div class="dis-box">
-          <div class="width-hunded" v-if="slip_img">
-            <img class="img-product" :src="slip_img" alt="Product Image" />
-          </div>
-          <div v-else>ไม่มีสลิป</div>
-        </div>
-        <div class="dis-box">
-          <div class="width-hunded">
-            <div>ชื่อผู้ซื้อ</div>
-            <div class="div-box">
-              {{ getSelectedItem.formname || "ไม่มีข้อมูลชื่อผู้ซื้อ" }}
-            </div>
-          </div>
-          <div class="width-hunded">
-            <div>ธนาคารที่โอน</div>
-            <div class="div-box">
-              {{ getSelectedItem.bank || "ไม่มีข้อมูลธนาคารที่โอน" }}
-            </div>
-          </div>
-        </div>
-        <div class="dis-box">
-          <div class="width-hunded">
-            <div>เบอร์โทร</div>
-            <div class="div-box">
-              {{ getSelectedItem.phone || "ไม่มีข้อมูล" }}
-            </div>
-          </div>
-          <div class="width-hunded">
-            <div>เวลาที่โอน</div>
-            <div class="div-box">
-              {{ getSelectedItem.payatt || "ไม่มีข้อมูลเวลาที่โอน" }}
-            </div>
-          </div>
-        </div>
-        <div class="dis-box">
-          <div class="width-hunded">
-            <div>อีเมล</div>
-            <div class="div-box">
-              {{ getSelectedItem.email || "ไม่มีข้อมูล" }}
-            </div>
-          </div>
-          <div class="width-hunded">
-            <div>ยอดที่โอน</div>
-            <div class="div-box">
-              {{ getSelectedItem.money || "ไม่มีข้อมูล" }}
-            </div>
-          </div>
-        </div>
-        <div class="dis-box">
+      <div v-if="getSelectedItem.status === 'WAIT_CONFIRM'">
+        <div class="dis-box" style="display: flex; width: 100%">
           <div class="width-hunded margin-right">
-            <button class="check-button check-cacel" @click="concancel">
+            <button class="check-button check-cancel" @click="concancel">
               ปฏิเสธรายการ
             </button>
           </div>
           <div class="width-hunded margin-right">
             <button class="check-button" @click="confirmpay">
-              อนุมัติการขำระ
+              อนุมัติการชำระ
+            </button>
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <div class="dis-box" style="display: flex; width: 100%">
+          <div class="width-hunded margin-right">
+            <button
+              class="check-button check-cancel"
+              @click="showDetail = false"
+            >
+              ย้อนกลับ
             </button>
           </div>
         </div>
@@ -199,6 +230,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false, // ตัวแปรที่ใช้แสดง loader
       searchQuery: "",
       showDetail: false,
       selectedItemId: null,
@@ -208,12 +240,36 @@ export default {
   },
   computed: {
     filteredOrderItems() {
-      if (!this.searchQuery) return this.orderItems;
-      const query = this.searchQuery.toLowerCase();
-      return this.orderItems.filter((item) =>
-        item.name.toLowerCase().includes(query)
+      // กรองรายการที่ไม่ยืนยัน (ใช้ searchQuery ถ้ามี)
+      let filteredItems = this.orderItems.filter(
+        (item) => item.status !== "SUCCESS"
       );
+
+      if (this.searchQuery) {
+        const query = this.searchQuery.toLowerCase();
+        filteredItems = filteredItems.filter((item) =>
+          item.name.toLowerCase().includes(query)
+        );
+      }
+
+      return filteredItems;
     },
+    filteredOrderItems2() {
+      // กรองรายการที่ยืนยันแล้ว
+      let confirmedItems = this.orderItems.filter(
+        (item) => item.status === "SUCCESS"
+      );
+
+      if (this.searchQuery) {
+        const query = this.searchQuery.toLowerCase();
+        confirmedItems = confirmedItems.filter((item) =>
+          item.name.toLowerCase().includes(query)
+        );
+      }
+
+      return confirmedItems;
+    },
+
     getSelectedItem() {
       const item = this.orderItems.find(
         (item) => item.id === this.selectedItemId
@@ -233,8 +289,7 @@ export default {
     async confirmpay() {
       // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
       const result = await Swal.fire({
-        title: "ยืนยันแจ้งชำระเงิน",
-        text: "ยืนยันหลักฐานการชำระเงิน", // ใช้ `text` แทน `body`
+        title: "ยืนยันสินค้า",
         icon: "success",
         showCancelButton: true,
         confirmButtonText: "ยืนยัน",
@@ -244,6 +299,7 @@ export default {
       // หากผู้ใช้กดปุ่ม "ยืนยัน"
       if (result.isConfirmed) {
         try {
+          this.isLoading = true; // แสดง loader
           const token = this.$cookies.get("authToken");
           const idsend = Number(this.selectedItemId);
 
@@ -262,13 +318,15 @@ export default {
               },
             }
           );
+          this.isLoading = false; // แสดง loader
           const result = await Swal.fire({
             title: "สำเร็จ",
             icon: "success",
             showCancelButton: false,
           });
           if (result.isConfirmed) {
-            this.$router.push("/Shopmanage");
+            this.showDetail = false;
+            window.location.reload();
           }
           // รีไดเรคไปยังหน้า ShopDetail หลังจากได้รับการตอบกลับสำเร็จ
         } catch (error) {
@@ -283,8 +341,7 @@ export default {
     async concancel() {
       // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
       const result = await Swal.fire({
-        title: "ยืนยันแจ้งชำระเงิน",
-        text: "ยืนยันหลักฐานการชำระเงิน", // ใช้ `text` แทน `body`
+        title: "ยืนยันยกเลิกสินค้า",
         icon: "success",
         showCancelButton: true,
         confirmButtonText: "ยืนยัน",
@@ -294,6 +351,7 @@ export default {
       // หากผู้ใช้กดปุ่ม "ยืนยัน"
       if (result.isConfirmed) {
         try {
+          this.isLoading = true; // แสดง loader
           const token = this.$cookies.get("authToken");
           const idsend = Number(this.selectedItemId);
 
@@ -312,13 +370,15 @@ export default {
               },
             }
           );
+          this.isLoading = false; // แสดง loader
           const result = await Swal.fire({
             title: "ยกเลิกสินค้าสำเร็จ",
             icon: "success",
             showCancelButton: false,
           });
           if (result.isConfirmed) {
-            showDetail = false
+            this.showDetail = false;
+            window.location.reload();
           }
           // รีไดเรคไปยังหน้า ShopDetail หลังจากได้รับการตอบกลับสำเร็จ
         } catch (error) {
@@ -326,7 +386,6 @@ export default {
           // คุณสามารถแสดงข้อความแจ้งเตือนหรือดำเนินการอื่นๆ ได้ที่นี่
         }
       }
-
     },
   },
 };
@@ -357,7 +416,7 @@ export default {
   width: 130px;
   height: 130px;
   border-radius: 10px;
-  margin: 30px;
+  margin: 30px 30px 30px 0px;
   border: 3px solid #5c25f2;
 }
 .M-Create-Backgroud .container input {
@@ -438,5 +497,22 @@ export default {
 }
 .margin-right {
   margin-right: 15px;
+}
+.box-content-pay {
+  border-radius: var(--Border-radius-6, 6px);
+  border-right: 5px solid var(--Color-Primary-Pueple-500, #5c25f2);
+  border-left: 5px solid var(--Color-Primary-Pueple-500, #5c25f2);
+  background: var(--color-black-white-800, #f8f8f8);
+  padding: 15px 0px 20px 15px;
+  cursor: auto;
+}
+.img-product-slip {
+  display: flex;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
 }
 </style>
