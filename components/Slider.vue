@@ -4,7 +4,7 @@
     <div class="slider" ref="slider">
       <slide-item v-for="item in items" :key="item.id" :item="item" />
     </div>
-    <!-- ปุ่มนำทาง -->
+    <!-- Navigation Buttons -->
     <div class="center-flex">
       <button
         v-if="items.length > 6"
@@ -38,16 +38,17 @@ export default {
   data() {
     return {
       activeDot: 0,
+      autoSlideInterval: null,
     };
   },
   computed: {
     numberOfDots() {
-      return Math.ceil(this.items.length / 4); // แบ่งจำนวน items ด้วย 4 เพราะว่าแสดง 4 items ต่อ slide
+      return Math.ceil(this.items.length / 4); // Divide items by 4 because 4 items are displayed per slide
     },
   },
   mounted() {
     if (this.items.length > 6) {
-      // เริ่มออโต้สไลด์เฉพาะเมื่อมี items มากกว่า 6 ชิ้น
+      // Start auto-slide only when there are more than 6 items
       this.startAutoSlide();
     }
     window.addEventListener("resize", this.handleResize);
@@ -59,10 +60,10 @@ export default {
   methods: {
     startAutoSlide() {
       if (this.items.length > 6) {
-        // ตรวจสอบจำนวน items ก่อนเริ่มออโต้สไลด์
+        // Check the number of items before starting auto-slide
         this.autoSlideInterval = setInterval(() => {
           this.slide("right");
-        }, 5000); // เปลี่ยนเป็นระยะเวลาที่คุณต้องการ
+        }, 5000); // Change to the interval you want
       }
     },
     stopAutoSlide() {
@@ -74,14 +75,16 @@ export default {
     goToSlide(index) {
       this.activeDot = index;
       const slider = this.$refs.slider;
-      const slideWidth = slider.clientWidth / 4; // จำนวน items ต่อ slide
+      const slideWidth = slider.clientWidth / 1.2; // Number of items per slide
+      const totalSlides = this.numberOfDots;
       slider.style.left = `-${index * slideWidth}px`;
+      console.log(`Going to slide ${index}, slider width: ${slider.clientWidth}, slide width: ${slideWidth}`);
     },
     slide(direction) {
-      if (this.items.length <= 6) return; // ถ้าจำนวน items ไม่เกิน 6 ให้ return ออกไป
+      if (this.items.length <= 6) return; // Exit if the number of items is 6 or less
 
       const slider = this.$refs.slider;
-      const slideWidth = slider.clientWidth / 4; // จำนวน items ต่อ slide
+      const slideWidth = slider.clientWidth / 4; // Number of items per slide
       const totalSlides = this.numberOfDots;
       let newIndex = this.activeDot;
 
@@ -89,13 +92,15 @@ export default {
         if (newIndex < totalSlides - 1) {
           newIndex++;
         } else {
-          newIndex = 0; // กลับไปที่ slide แรก
+          newIndex = 0; // Go back to the first slide
+          // alert('Reached the first slide'); // Show alert when sliding back to the first slide
         }
       } else if (direction === "left") {
         if (newIndex > 0) {
           newIndex--;
         } else {
-          newIndex = totalSlides - 1; // ไปที่ slide สุดท้าย
+          newIndex = totalSlides - 1; // Go to the last slide
+          // alert('Reached the last slide'); // Show alert when sliding to the last slide
         }
       }
 
@@ -104,6 +109,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .slider-container {

@@ -39,7 +39,7 @@
       <div class="display">
         <div class="font-total">
           ฿ {{ item.price }}
-          <span class="strikethrough">{{ item.price_before_discount }}</span>
+          <!-- <span class="strikethrough">{{ item.price_before_discount }}</span> -->
         </div>
 
         <div class="buttonshop">

@@ -37,7 +37,7 @@
         </div>
         <Slider :items="group.items || []" :interval="240" />
       </div>
-
+<!--
       <div
         v-for="(group, index) in CateGroups"
         :key="'cate-' + index"
@@ -54,7 +54,7 @@
           </div>
         </div>
         <HomeCardSlidergame :items="group.items || []" />
-      </div>
+      </div> -->
       <Loader :isLoading="isLoading" />
     </div>
   </div>
