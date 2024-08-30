@@ -39,7 +39,7 @@
         <div class="box-manage">
           <div style="width: 100%">
             <div class="sidebar">
-              <!-- <button
+              <button
                 class="sidebar-button"
                 @click="currentView = 'Shopmanage'"
                 :class="{ active: currentView === 'Shopmanage' }"
@@ -73,7 +73,7 @@
                   </defs>
                 </svg>
                 จัดการสินค้า
-              </button> -->
+              </button>
               <button
                 class="sidebar-button"
                 @click="currentView = 'ShopOrder'"
@@ -173,7 +173,7 @@ export default {
           image: require("@/assets/image/goldtap.png"),
           name: "ROV 12 Coupon ROV",
           status: "รับสินค้าแล้ว",
-          amount: "฿9,999",
+          price: "฿9,999",
           date: "14:02 / 31-12-2024",
         },
         // รายการเพิ่มเติม
@@ -187,9 +187,9 @@ export default {
     async fetchdata() {
       this.isLoading = true; // แสดง loader
       try {
-        const token = this.$cookies.get("authToken");
+        // const token = this.$cookies.get("authToken");
         console.log(token);
-
+        const token = this.$cookies.get("authToken");
         const response = await this.$axios.$post(
           "/payment/vendor/product/request/list/read",
           {
@@ -202,7 +202,7 @@ export default {
             start_updated_at: "",
             end_updated_at: "",
             page: 0,
-            limit: 1,
+            limit: 10,
           },
           {
             headers: {
@@ -218,17 +218,26 @@ export default {
           // ตรวจสอบว่า resalldata เป็นอาร์เรย์และไม่ว่าง
           resalldata.forEach((item) => {
             // ตรวจสอบความถูกต้องของข้อมูลก่อนใช้งาน
+
             const product = item.product || {}; // ตรวจสอบว่า product มีค่าเป็นออบเจกต์
+            const customer = item.customer || {}; // ตรวจสอบว่า product มีค่าเป็นออบเจกต์
             const newOrderItem = {
+              amount: item.amount || null, // นำ amount จาก API มาใช้ ถ้าไม่มีจะใช้ null
+              slipimg: item.evidence_bank_from_slip_img || null, // นำ slipimg
+              payatt: item.evidence_bank_from_pay_at || null, // นำ slipimg
+              bank: item.evidence_bank_from_bank || null,
+              formname: item.evidence_bank_from_name || null,
+              money: item.evidence_bank_from_pay_money || null,
               id: item.id || null, // นำ id จาก API มาใช้ ถ้าไม่มีจะใช้ null
               status: item.status || "Unknown", // นำ status จาก API มาใช้ ถ้าไม่มีจะใช้ 'Unknown'
-              amount: `฿${
+              price: `฿${
                 item.price_total ? item.price_total.toFixed(2) : "0.00"
               }`, // ใช้ price_total จาก API และเพิ่มเครื่องหมายบาท (฿) ถ้าไม่มีจะใช้ '0.00'
-
+              phone: customer.phone || null,
+              email: customer.email || null,
               img: product.img || "", // นำ img จาก product ใน API มาใช้ ถ้าไม่มีจะใช้ string ว่าง
               name: product.name || "Unknown", // นำ name จาก product ใน API มาใช้ ถ้าไม่มีจะใช้ 'Unknown'
-
+              description: product.description || "Unknown", // นำ name จาก product ใน API มาใช้ ถ้าไม่มีจะใช้ 'Unknown'
               date: this.formatDate(item.created_at) || "Invalid Date", // ใช้ created_at จาก API และแปลงวันที่ให้อยู่ในรูปแบบที่ต้องการ ถ้าไม่มีจะใช้ 'Invalid Date'
             };
 
@@ -239,7 +248,7 @@ export default {
           console.error("Unexpected response structure:", response);
         }
       } catch (error) {
-        console.error("Error fetching data from API:", error);
+        console.error("ไม่มา", error);
       } finally {
         this.isLoading = false; // ซ่อน loader เมื่อกระบวนการเสร็จสิ้นไม่ว่าจะสำเร็จหรือไม่
       }

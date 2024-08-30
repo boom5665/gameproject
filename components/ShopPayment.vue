@@ -89,7 +89,7 @@ export default {
           time: this.getCurrentTime(),
         },
         { label: "ชำระเงินแล้ว", date: "--/--/--", time: "--:--" },
-        { label: "ได้รับสินค้า", date: "--/--/--", time: "--:--" },
+
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
       ],
       categorizedProducts: [],

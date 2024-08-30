@@ -591,19 +591,18 @@ export default {
 
       // ตรวจสอบความยาวของตัวเลข
       if (numbers.length > 10) {
+        // ตัวเลขทั้งหมดต้องมี 10 ตัว
         numbers = numbers.slice(0, 10); // ตัดค่าที่เกิน
       }
 
       // ฟอร์แมตหมายเลขให้มีขีดเมื่อความยาวครบ 10 หลัก
       if (letters.length === 2 && numbers.length === 10) {
         this.idCardBack = `${letters}${numbers.replace(
-          /(\d{1})(\d{3})(\d{3})/,
+          /(\d{1})(\d{3})(\d{6})/,
           "$1-$2-$3"
         )}`;
-      } else if (letters.length === 2 && numbers.length < 10) {
-        this.idCardBack = `${letters}${numbers}`;
       } else {
-        // กรณีที่ข้อมูลไม่ตรงตามข้อกำหนด ให้แสดงข้อความหรือค่าเริ่มต้น
+        // กรณีที่ข้อมูลไม่ตรงตามข้อกำหนด ให้แสดงข้อมูลที่ไม่มีขีด
         this.idCardBack = `${letters}${numbers}`;
       }
     },
@@ -848,7 +847,7 @@ export default {
         if (!firstErrorField) firstErrorField = "address";
       }
 
-      if (!this.$validate.idCardBack(this.idCardBack)) {
+      if (!this.idCardBack) {
         this.errors.idCardBack = "หมายเลขหลังบัตรประชาชนไม่ถูกต้อง";
         if (!firstErrorField) firstErrorField = "idCardBack";
       }

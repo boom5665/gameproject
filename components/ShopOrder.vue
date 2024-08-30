@@ -26,7 +26,7 @@
                 <span class="status pending">{{ item.status }}</span>
               </td>
               <td>
-                <span class="color-am">{{ item.amount }}</span>
+                <span class="color-am">{{ item.price }}</span>
               </td>
               <td>{{ item.date }}</td>
               <td>
@@ -55,7 +55,7 @@
               <td>{{ purchasedItem.name }}</td>
               <td>{{ purchasedItem.status }}</td>
               <td>
-                {{ purchasedItem.amount }}
+                {{ purchasedItem.price }}
               </td>
               <td>{{ purchasedItem.date }}</td>
             </tr>
@@ -65,27 +65,122 @@
     </div>
 
     <!-- ส่วนแสดงรายละเอียดสินค้า -->
+
     <div v-else>
-      <button @click="showDetail = false">กลับ</button>
+      <div>ตรวจสอบข้อมูลการซื้อ</div>
+      <div class="dis-box">
+        <div>
+          <img
+            class="img-product"
+            :src="getSelectedItem.img"
+            alt="Product Image"
+          />
+        </div>
+
+        <div class="width-hunded">
+          <div class="width-hunded">
+            <div>ชื่อสินค้า</div>
+            <div class="div-box">
+              {{ getSelectedItem.name || "ไม่มีข้อมูล" }}
+            </div>
+          </div>
+          <div class="width-hunded">
+            <div>รายละเอียดสินค้า</div>
+            <div class="div-box">
+              {{ getSelectedItem.description || "ไม่มีข้อมูล" }}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div>
-        <p>ข้อมูลสินค้า ID: {{ selectedItemId }}</p>
-        <h2>รายละเอียดสินค้า</h2>
-        <p>
-          <strong>ชื่อสินค้า:</strong>
-          {{ getSelectedItem.name || "ไม่มีข้อมูล" }}
-        </p>
-        <p>
-          <strong>ราคา:</strong> {{ getSelectedItem.amount || "ไม่มีข้อมูล" }}
-        </p>
-        <p>
-          <strong>สถานะ:</strong> {{ getSelectedItem.status || "ไม่มีข้อมูล" }}
-        </p>
-        <p>
-          <strong>วันที่สร้าง:</strong>
-          {{ getSelectedItem.date || "ไม่มีข้อมูล" }}
-        </p>
-        <img :src="getSelectedItem.img || ''" alt="Product Image" />
-        <button class="check-button" @click="confirmpay">ยืนยันสินค้า</button>
+        <div>ข้อมูลสินค้า ID {{ selectedItemId }}</div>
+
+        <div class="dis-box">
+          <div class="width-hunded">
+            <div>ราคา</div>
+            <div class="div-box">
+              {{ getSelectedItem.price || "ไม่มีข้อมูล" }}
+            </div>
+          </div>
+          <div class="width-hunded">
+            <div>จำนวนที่ซื้อ</div>
+            <div class="div-box">
+              {{ getSelectedItem.amount || "ไม่มีข้อมูล" }}
+            </div>
+          </div>
+        </div>
+        <div class="dis-box">
+          <div class="width-hunded">
+            <div>ยอดรวม</div>
+            <div class="div-box">
+              {{ getSelectedItem.price || "ไม่มีข้อมูล" }}
+            </div>
+          </div>
+        </div>
+        <div class="dis-box">
+          <div class="width-hunded" v-if="slip_img">
+            <img class="img-product" :src="slip_img" alt="Product Image" />
+          </div>
+          <div v-else>ไม่มีสลิป</div>
+        </div>
+        <div class="dis-box">
+          <div class="width-hunded">
+            <div>ชื่อผู้ซื้อ</div>
+            <div class="div-box">
+              {{ getSelectedItem.formname || "ไม่มีข้อมูลชื่อผู้ซื้อ" }}
+            </div>
+          </div>
+          <div class="width-hunded">
+            <div>ธนาคารที่โอน</div>
+            <div class="div-box">
+              {{ getSelectedItem.bank || "ไม่มีข้อมูลธนาคารที่โอน" }}
+            </div>
+          </div>
+        </div>
+        <div class="dis-box">
+          <div class="width-hunded">
+            <div>เบอร์โทร</div>
+            <div class="div-box">
+              {{ getSelectedItem.phone || "ไม่มีข้อมูล" }}
+            </div>
+          </div>
+          <div class="width-hunded">
+            <div>เวลาที่โอน</div>
+            <div class="div-box">
+              {{ getSelectedItem.payatt || "ไม่มีข้อมูลเวลาที่โอน" }}
+            </div>
+          </div>
+        </div>
+        <div class="dis-box">
+          <div class="width-hunded">
+            <div>อีเมล</div>
+            <div class="div-box">
+              {{ getSelectedItem.email || "ไม่มีข้อมูล" }}
+            </div>
+          </div>
+          <div class="width-hunded">
+            <div>ยอดที่โอน</div>
+            <div class="div-box">
+              {{ getSelectedItem.money || "ไม่มีข้อมูล" }}
+            </div>
+          </div>
+        </div>
+        <div class="dis-box">
+          <div class="width-hunded margin-right">
+            <button
+              class="check-button check-cacel"
+              @click="showDetail = false"
+            >
+              ปฏิเสธรายการ
+            </button>
+          </div>
+          <div class="width-hunded margin-right">
+            <button class="check-button" @click="confirmpay">
+              อนุมัติการขำระ
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -110,6 +205,8 @@ export default {
       searchQuery: "",
       showDetail: false,
       selectedItemId: null,
+      price: "",
+      slip_img: "",
     };
   },
   computed: {
@@ -124,12 +221,15 @@ export default {
       const item = this.orderItems.find(
         (item) => item.id === this.selectedItemId
       );
-      return item || {};
+
+      console.log(item); // Use console.log(item) to see the details of the selected item
+
+      return item || {}; // Return the found item or an empty object if none is found
     },
   },
   methods: {
     viewDetail(id) {
-      console.log("Selected Item ID:", id); // แสดง ID ที่ถูกเลือก
+      // console.log("Selected Item ID:", id); // แสดง ID ที่ถูกเลือก
       this.selectedItemId = id;
       this.showDetail = true;
     },
@@ -161,10 +261,32 @@ export default {
 
 
 <style scoped>
+.div-box {
+  display: flex;
+  height: 40px;
+  padding: 12px 16px;
+  align-items: center;
+  gap: var(--Spacing-space-0, 0px);
+  border-radius: 6px;
+  border: 2px solid #bababa;
+  background: #fff;
+  margin: 10px 15px 20px 0px;
+  color: #5c25f2;
+}
+.dis-box {
+  display: flex;
+  width: 100%;
+}
+.img-product {
+  width: 130px;
+  height: 130px;
+  border-radius: 10px;
+  margin: 30px;
+  border: 3px solid #5c25f2;
+}
 .M-Create-Backgroud .container input {
   position: relative;
   opacity: 1;
-  cursor: pointer;
   height: 30px;
   width: 100%;
   border-radius: 10px;
@@ -221,11 +343,24 @@ export default {
 .check-button {
   padding: 5px 10px;
   cursor: pointer;
-  border-radius: var(--Border-radius-8, 8px);
-  border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2);
-  background: var(--Color-Secondary-500, #ffeb3b);
+  border-radius: 8px;
+  border: 1px solid #5c25f2;
+  background: #ffeb3b;
+  width: 100%;
 }
 .check-button:hover {
   background-color: #d7a400; /* สีเหลืองเข้มขึ้น */
+}
+.check-cacel {
+  border-radius: var(--Border-radius-8, 8px);
+  background: var(--Color-Midnight-400, #3c3b4b);
+  color: white;
+  border: none;
+}
+.check-cacel:hover {
+  background: #5c5c5c !important;
+}
+.margin-right {
+  margin-right: 15px;
 }
 </style>

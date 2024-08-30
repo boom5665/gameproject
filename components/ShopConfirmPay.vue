@@ -165,7 +165,7 @@ export default {
       steps: [
         { label: "คำสั่งซื้อใหม่", date: formattedDate, time: formattedTime },
         { label: "ชำระเงินแล้ว", date: formattedDate, time: formattedTime },
-        { label: "ได้รับสินค้า", date: "--/--/--", time: "--:--" },
+     
         { label: "ยืนยันสินค้า", date: "--/--/--", time: "--:--" },
       ],
       imagePreview: null,

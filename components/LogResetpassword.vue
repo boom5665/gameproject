@@ -7,7 +7,7 @@
             <span class="font-top-myshop">ล็อคอิน &nbsp; / &nbsp;</span>
           </Nuxt-link>
           <Nuxt-link class="text-profile" to="/LogForget" target="_self">
-            <span class="font-proL-top">ยืนยันรหัสผ่าน</span>
+            <span class="font-proL-top">เปลื่ยนรหัสผ่าน</span>
           </Nuxt-link>
         </div>
         <div class="form-create">
@@ -23,7 +23,7 @@
                     :type="showPassword ? 'text' : 'password'"
                     id="Password"
                     v-model="Password"
-                    placeholder="กรอกรหัสผ่าน"
+                    placeholder="เปลื่ยนรหัสผ่านใหม่"
                   />
                   <div
                     @click="togglePasswordVisibility"
@@ -49,7 +49,7 @@
                   type="password"
                   id="Passwordconfirm"
                   v-model="Passwordconfirm"
-                  placeholder="ยืนยันรหัสผ่าน"
+                  placeholder="ยืนยันรหัสผ่านใหม่อีกครั้ง"
                 />
                 <span v-if="errors.Passwordconfirm" class="error">{{
                   errors.Passwordconfirm
@@ -159,7 +159,7 @@ export default {
           this.errors = {}; // Clear previous errors
 
           // แสดงข้อความ error ตาม code
-          if (errorData.code === 60004) {
+          if (errorData.code) {
             this.generalError =
               errorData.msg.th || "ไม่มียูสเซอร์จากอาร์พีเอสไอดีนี้";
           } else {
