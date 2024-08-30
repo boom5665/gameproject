@@ -113,7 +113,7 @@ export default {
         // ส่งคำขอเพื่อดึงข้อมูล
         const response = await this.$axios.$post("/product/home/list/read", {
           page: 0,
-          limit: 0,
+          limit: 9999,
         });
         console.log(response);
 

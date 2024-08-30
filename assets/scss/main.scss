@@ -82,7 +82,7 @@ select {
   -moz-appearance: none;
   /* ซ่อนลูกศรของ Firefox */
   appearance: none;
-  
+
 }
 
 input {
@@ -305,6 +305,7 @@ textarea {
   padding: 20px;
   margin: 10px;
   cursor: pointer;
+  height: 310px;
 }
 
 .tpn_cardimg {

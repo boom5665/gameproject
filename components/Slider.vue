@@ -11,26 +11,15 @@
         class="button left"
         @click="slide('left')"
       >
-        <img src="~/assets/image/arrow-left.png" alt="" />
+        <img src="~/assets/image/arrow-left.png" alt="Left Arrow" />
       </button>
       <button
         v-if="items.length > 6"
         class="button right"
         @click="slide('right')"
       >
-        <img src="~/assets/image/arrow-right.png" alt="" />
+        <img src="~/assets/image/arrow-right.png" alt="Right Arrow" />
       </button>
-    </div>
-
-    <!-- จุดสำหรับนำทาง -->
-    <div class="dots" v-if="items.length > 6">
-      <span
-        class="dot"
-        v-for="(dot, index) in numberOfDots"
-        :key="index"
-        :class="{ active: index === activeDot }"
-        @click="goToSlide(index)"
-      ></span>
     </div>
   </div>
 </template>
@@ -85,7 +74,7 @@ export default {
     goToSlide(index) {
       this.activeDot = index;
       const slider = this.$refs.slider;
-      const slideWidth = slider.clientWidth / 2; // จำนวน items ต่อ slide
+      const slideWidth = slider.clientWidth / 4; // จำนวน items ต่อ slide
       slider.style.left = `-${index * slideWidth}px`;
     },
     slide(direction) {
@@ -116,32 +105,48 @@ export default {
 };
 </script>
 
+<style scoped>
+.slider-container {
+  position: relative;
+  overflow: hidden;
+}
 
-<style>
+.slider {
+  display: flex;
+  transition: left 0.5s ease;
+}
+
 .center-flex {
   display: flex;
   justify-content: center;
+  position: absolute;
+  width: 100%;
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 100;
 }
-.botton {
+
+.button {
+  background-color: #000; /* สีม่วงสำหรับพื้นหลัง */
+  border: none;
   cursor: pointer;
-  color: black;
-  background: transparent;
-  border: none;
+  border-radius: 4px; /* เพิ่มความโค้งให้ปุ่ม */
+  padding: 10px; /* เพิ่มพื้นที่ภายในปุ่ม */
 }
-.right {
-  position: relative;
-  right: -45px;
-  top: 20px;
-  z-index: 100;
-  background: no-repeat;
-  border: none;
+
+.button img {
+  width: 24px; /* ขนาดของลูกศร */
+  height: 24px;
+  vertical-align: middle; /* จัดแนวให้ลูกศรอยู่ตรงกลาง */
 }
+
 .left {
-  position: relative;
-  left: -45px;
-  top: 20px;
-  z-index: 100;
-  background: no-repeat;
-  border: none;
+  position: absolute;
+  left: 10px;
+}
+
+.right {
+  position: absolute;
+  right: 10px;
 }
 </style>

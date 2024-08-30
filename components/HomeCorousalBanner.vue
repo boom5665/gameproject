@@ -62,6 +62,13 @@ export default {
 </script>
 
 <style scoped>
+img {
+    vertical-align: middle;
+    border-style: none;
+    width: 17px;
+    position: relative;
+    top: -2px;
+}
 .custom-co-banner {
   position: relative;
 }
