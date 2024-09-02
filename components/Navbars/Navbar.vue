@@ -5,45 +5,37 @@
       <div class="nav-left">
         <div class="">
           <div class="display-f">
-            <div>
-              <img
-                src="~/assets/image/Logo-Gamemarket.png"
-                alt="Search"
-                class="Logo-img"
-              />
-            </div>
+            <Nuxt-link class="text-nav" to="/" target="_self">
+              <div>
+                <img src="~/assets/image/Logo-Gamemarket.png" alt="Search" class="Logo-img" />
+              </div>
+            </Nuxt-link>
           </div>
         </div>
       </div>
       <div>
         <div class="nav-top">
-          <Nuxt-link class="text-nav" to="/" target="_self"
-            ><div class="bottom-top button">หน้าแรก</div></Nuxt-link
-          >
-          <Nuxt-link class="text-nav" to="/" target="_self"
-            ><div class="bottom-top button">ตลาดซื้อขาย</div></Nuxt-link
-          >
-          <!-- <Nuxt-link class="text-nav" to="/Market" target="_self"
-            ><div class="bottom-top button">การแข่งขันอีสปรอ์ต</div></Nuxt-link
-          > -->
-          <!-- <Nuxt-link class="text-nav" to="/New" target="_self" -->
-           <Nuxt-link class="text-nav" to="/" target="_self"
-            ><div class="bottom-top button">ข่าว</div></Nuxt-link
-          >
-          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
-            ><div class="bottom-top button">ช่วยเหลือ</div></Nuxt-link
-          > -->
+          <Nuxt-link class="text-nav" to="/" target="_self">
+            <div class="bottom-top button">หน้าแรก</div>
+          </Nuxt-link>
+          <Nuxt-link class="text-nav" to="/Market" target="_self">
+            <div class="bottom-top button disabled">การแข่งขันอีสปรอ์ต</div>
+          </Nuxt-link>
+          <Nuxt-link class="text-nav" to="/New" target="_self" <Nuxt-link class="text-nav" to="/" target="_self">
+            <div class="bottom-top button disabled">ข่าว</div>
+          </Nuxt-link>
+          <Nuxt-link class="text-nav" to="/" target="_self">
+            <div class="bottom-top button disabled">ช่วยเหลือ</div>
+          </Nuxt-link>
 
           <div v-if="token" style="display: flex">
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
             <!-- <Nuxt-link class="text-nav" to="/Profile" target="_self" -->
-              <Nuxt-link class="text-nav" to="/ShopMysucsess" target="_self"
-              >
+            <Nuxt-link class="text-nav" to="/ShopMysucsess" target="_self">
               <div class="bottom-top bottom-w">
                 รายการคำสั่งซื้อ
               </div>
-              </Nuxt-link
-            >
+            </Nuxt-link>
             <div class="text-nav" @click="logout" target="_self">
               <div class="bottom-top bottom-y">
                 <span style="padding: 0px 5px">ล็อคเอาท์</span>
@@ -52,15 +44,15 @@
           </div>
           <div v-else style="display: flex">
             <!-- เมนูสำหรับผู้ใช้ที่ไม่ได้ล็อกอิน -->
-            <Nuxt-link class="text-nav" to="/LogRegister" target="_self"
-              ><div class="bottom-top bottom-w">สมัครสมาชิก</div></Nuxt-link
-            >
+            <Nuxt-link class="text-nav" to="/LogRegister" target="_self">
+              <div class="bottom-top bottom-w">สมัครสมาชิก</div>
+            </Nuxt-link>
 
-            <Nuxt-link class="text-nav" to="/Login" target="_self"
-              ><div class="bottom-top bottom-y">
+            <Nuxt-link class="text-nav" to="/Login" target="_self">
+              <div class="bottom-top bottom-y">
                 <span style="padding: 0px 5px">เข้าสู่ระบบ</span>
-              </div></Nuxt-link
-            >
+              </div>
+            </Nuxt-link>
           </div>
         </div>
       </div>
@@ -90,23 +82,26 @@
     <div class="navbar">
       <div>
         <div class="nav-top">
-          <Nuxt-link class="text-nav" to="/" target="_self"
-            ><div class="bottom-top button" style="10px 0px 0px 0px">
+          <Nuxt-link class="text-nav" to="/" target="_self">
+            <div class="bottom-top button disabled" style="10px 0px 0px 0px">
               ประเภทสินค้า
-            </div></Nuxt-link
-          >
-          <Nuxt-link class="text-nav" to="/" target="_self"
-            ><div class="bottom-top button">เกม</div></Nuxt-link
-          >
-          <Nuxt-link class="text-nav" to="/Shopmanage" target="_self"
-            ><div class="bottom-top button">สินค้าทั้งหมด</div></Nuxt-link
-          >
-          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
-            ><div class="bottom-top button">ลดราคา</div></Nuxt-link
-          > -->
-          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
-            ><div class="bottom-top button">บัตรของขวัญ</div></Nuxt-link
-          > -->
+            </div>
+          </Nuxt-link>
+          <Nuxt-link class="text-nav" to="/" target="_self">
+            <div class="bottom-top button disabled">เกม</div>
+          </Nuxt-link>
+          <Nuxt-link class="text-nav" to="/Shopmanage" target="_self">
+            <div class="bottom-top button disabled">สินค้าทั้งหมด</div>
+          </Nuxt-link>
+          <Nuxt-link class="text-nav" to="/" target="_self">
+            <div class="bottom-top button">ตลาดซื้อขาย</div>
+          </Nuxt-link>
+          <Nuxt-link class="text-nav" to="/" target="_self">
+            <div class="bottom-top button disabled">ลดราคา</div>
+          </Nuxt-link>
+          <Nuxt-link class="text-nav" to="/" target="_self">
+            <div class="bottom-top button disabled">บัตรของขวัญ</div>
+          </Nuxt-link>
         </div>
       </div>
 
@@ -114,11 +109,7 @@
         <div v-if="buttonText">
           <div class="text-nav" @click="handleNavigation">
             <div class="bottom-top bottom-ybottom-top bottom-y">
-              <img
-                class=""
-                src="~/assets/image/home.png"
-                style="padding-right: 5px"
-              />
+              <img class="" src="~/assets/image/home.png" style="padding-right: 5px" />
               {{ buttonText }}
             </div>
           </div>
@@ -319,6 +310,7 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .d-flex {
   display: flex;
 }
@@ -328,16 +320,19 @@ export default {
   flex-direction: column;
   align-items: flex-end;
 }
+
 .img-safe {
   /* padding-right: 8px; */
   top: 1px;
   position: relative;
 }
+
 .img-shop-nav {
   width: 50px;
   border-radius: 10px;
   height: 50px;
 }
+
 .box-total {
   display: flex;
   padding: var(--Spacing-space-16, 16px);
@@ -349,6 +344,7 @@ export default {
   border-radius: var(--Border-radius-8, 8px);
   background: var(--Color-Primary-Pueple-500, #5c25f2);
 }
+
 .submit {
   width: 100%;
 }
@@ -362,48 +358,48 @@ export default {
 
 
 
- data() {
-    return {
-      products: [
-        {
-          id: 1,
-          name: "Razer Gold",
-          imageUrl: require("@/assets/image/cardgold.png"),
-          description: "Top up Razer Gold",
-          category: "Digital",
-          quantity: 1,
-          price: 9999,
-        },
-      ],
-      token: null,
-      buttonText: "", // ค่าเริ่มต้นของปุ่มเป็นค่าว่าง
-    };
-  },
-  computed: {
-    // totalAmount() {
-    //   return this.products.reduce((total, product) => {
-    //     return total + product.price * product.quantity;
-    //   }, 0);
-    // },
-  },
-    // openNav() {
-    //   // เปิดเมนูด้านข้าง
-    //   document.getElementById("mySidenavtop").style.width = "400px";
-    //   document.getElementById("mySidenavtop").style.right = "0px";
-    // },
-    // closeNav() {
-    //   // ปิดเมนูด้านข้าง
-    //   document.getElementById("mySidenavtop").style.width = "0";
-    //   document.getElementById("mySidenavtop").style.right = "-50px";
-    // },
-    // increaseQuantity(product) {
-    //   product.quantity += 1;
-    // },
-    // decreaseQuantity(product) {
-    //   if (product.quantity > 1) {
-    //     product.quantity -= 1;
-    //   }
-    // },
-    // removeProduct(product) {
-    //   this.products = this.products.filter((p) => p.id !== product.id);
-    // },
+data() {
+return {
+products: [
+{
+id: 1,
+name: "Razer Gold",
+imageUrl: require("@/assets/image/cardgold.png"),
+description: "Top up Razer Gold",
+category: "Digital",
+quantity: 1,
+price: 9999,
+},
+],
+token: null,
+buttonText: "", // ค่าเริ่มต้นของปุ่มเป็นค่าว่าง
+};
+},
+computed: {
+// totalAmount() {
+// return this.products.reduce((total, product) => {
+// return total + product.price * product.quantity;
+// }, 0);
+// },
+},
+// openNav() {
+// // เปิดเมนูด้านข้าง
+// document.getElementById("mySidenavtop").style.width = "400px";
+// document.getElementById("mySidenavtop").style.right = "0px";
+// },
+// closeNav() {
+// // ปิดเมนูด้านข้าง
+// document.getElementById("mySidenavtop").style.width = "0";
+// document.getElementById("mySidenavtop").style.right = "-50px";
+// },
+// increaseQuantity(product) {
+// product.quantity += 1;
+// },
+// decreaseQuantity(product) {
+// if (product.quantity > 1) {
+// product.quantity -= 1;
+// }
+// },
+// removeProduct(product) {
+// this.products = this.products.filter((p) => p.id !== product.id);
+// },

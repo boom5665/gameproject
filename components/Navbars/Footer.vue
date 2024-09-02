@@ -4,40 +4,38 @@
     <footer>
       <div class="footer-head">
         <!-- Footer -->
-        <div class="dis-play-evenly">
-          <div style="width: 14%">
-            <div>
-              <img
-                src="~/assets/image/Logo-Gamemarket.png"
-                alt="Search"
-                class="Logo-img"
-              />
-            </div>
+        <div class="footer-layout">
+          <div>
+            <Nuxt-link class="text-nav" to="/" target="_self">
+              <div>
+                <img src="~/assets/image/Logo-Gamemarket.png" alt="Search" class="Logo-img logo-footer" />
+              </div>
+            </Nuxt-link>
             <!-- <div>
               20 ซอย รามอินทรา 5 แยก 15 แขวงอนุสาวรีย์ เขตบางเขน กรุงเทพมหานคร
               10220
             </div> -->
           </div>
-          <div>
-            <div>Brand</div>
-            <div>About Brand</div>
-            <div>Contact us</div>
+          <div class="footer-menu">
+            <div class="sub-menu">ช่วยเหลือ</div>
+            <div class="sub-menu">เกี่ยวกับเรา</div>
+            <div class="sub-menu">ติดต่อเรา</div>
           </div>
           <div>
-            <div>Help Center</div>
+            <!-- <div>Help Center</div>
             <div>Terms & Conditions</div>
             <div>Brand</div>
-            <div>Privacy Policy</div>
+            <div>Privacy Policy</div> -->
           </div>
-          <div>
+          <div style="margin-left: auto;">
             <div>Payment method</div>
-            <div style="display: flex; align-items: center">
-              <div>
+            <div style="display: flex; align-items: center;">
+              <div><img class="" src="~/assets/image/QR.png" /></div>
+              <div class="disabled">
                 <img class="" src="~/assets/image/mastercard_icon.png" />
               </div>
-              <div><img class="" src="~/assets/image/visa_icon.png" /></div>
-              <div><img class="" src="~/assets/image/QR.png" /></div>
-              <div>
+              <div class="disabled"><img class="" src="~/assets/image/visa_icon.png" /></div>
+              <div class="disabled">
                 <img class="" src="~/assets/image/true_wallet_icon.png" />
               </div>
             </div>
@@ -48,9 +46,9 @@
       </div>
       <div class="footer-bottom">
         <!-- Footer -->
-        <div class="dis-play-between">
+        <div class="lower-footer-layout">
           <div style="">
-            <div>© 2024 Brand. All rights reserved.</div>
+            <div>© 2024 Game Market สงวนลิขสิทธิ์.</div>
           </div>
           <div>
             <div class="d-flex">
