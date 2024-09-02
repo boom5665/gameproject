@@ -43,12 +43,11 @@ export default {
   },
   computed: {
     numberOfDots() {
-      return Math.ceil(this.items.length / 4); // Divide items by 4 because 4 items are displayed per slide
+      return Math.ceil(this.items.length / 4); // จำนวนสไลด์ที่จำเป็น
     },
   },
   mounted() {
     if (this.items.length > 6) {
-      // Start auto-slide only when there are more than 6 items
       this.startAutoSlide();
     }
     window.addEventListener("resize", this.handleResize);
@@ -60,10 +59,9 @@ export default {
   methods: {
     startAutoSlide() {
       if (this.items.length > 6) {
-        // Check the number of items before starting auto-slide
         this.autoSlideInterval = setInterval(() => {
           this.slide("right");
-        }, 5000); // Change to the interval you want
+        }, 5000); // การตั้งค่าเวลาอัตโนมัติ
       }
     },
     stopAutoSlide() {
@@ -75,16 +73,15 @@ export default {
     goToSlide(index) {
       this.activeDot = index;
       const slider = this.$refs.slider;
-      const slideWidth = slider.clientWidth / 1.2; // Number of items per slide
-      const totalSlides = this.numberOfDots;
+      const slideWidth = slider.clientWidth / 1.2; // ขนาดของแต่ละสไลด์
       slider.style.left = `-${index * slideWidth}px`;
       console.log(`Going to slide ${index}, slider width: ${slider.clientWidth}, slide width: ${slideWidth}`);
     },
     slide(direction) {
-      if (this.items.length <= 6) return; // Exit if the number of items is 6 or less
+      if (this.items.length <= 6) return;
 
       const slider = this.$refs.slider;
-      const slideWidth = slider.clientWidth / 4; // Number of items per slide
+      const slideWidth = slider.clientWidth / 3; // ขนาดของแต่ละสไลด์
       const totalSlides = this.numberOfDots;
       let newIndex = this.activeDot;
 
@@ -92,15 +89,13 @@ export default {
         if (newIndex < totalSlides - 1) {
           newIndex++;
         } else {
-          newIndex = 0; // Go back to the first slide
-          // alert('Reached the first slide'); // Show alert when sliding back to the first slide
+          newIndex = 0; // กลับไปที่สไลด์แรก
         }
       } else if (direction === "left") {
         if (newIndex > 0) {
           newIndex--;
         } else {
-          newIndex = totalSlides - 1; // Go to the last slide
-          // alert('Reached the last slide'); // Show alert when sliding to the last slide
+          newIndex = totalSlides - 1; // ไปที่สไลด์สุดท้าย
         }
       }
 
@@ -109,7 +104,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .slider-container {
@@ -120,6 +114,7 @@ export default {
 .slider {
   display: flex;
   transition: left 0.5s ease;
+  width: 100%; /* กำหนดความกว้างเป็น 100% */
 }
 
 .center-flex {
@@ -133,26 +128,26 @@ export default {
 }
 
 .button {
-  background-color: #000; /* สีม่วงสำหรับพื้นหลัง */
+  background-color: #000; /* สีพื้นหลังของปุ่ม */
   border: none;
   cursor: pointer;
-  border-radius: 4px; /* เพิ่มความโค้งให้ปุ่ม */
-  padding: 10px; /* เพิ่มพื้นที่ภายในปุ่ม */
+  border-radius: 4px; /* ขอบโค้งของปุ่ม */
+  padding: 10px; /* ขนาดพื้นที่ภายในปุ่ม */
 }
 
 .button img {
   width: 24px; /* ขนาดของลูกศร */
   height: 24px;
-  vertical-align: middle; /* จัดแนวให้ลูกศรอยู่ตรงกลาง */
+  vertical-align: middle; /* จัดแนวลูกศรให้ตรงกลาง */
 }
 
 .left {
   position: absolute;
-  left: 10px;
+  left: 10px; /* ระยะห่างจากซ้าย */
 }
 
 .right {
   position: absolute;
-  right: 10px;
+  right: 10px; /* ระยะห่างจากขวา */
 }
 </style>

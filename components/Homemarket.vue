@@ -9,13 +9,13 @@
       >
         <div class="dis-play-recom">
           <div>
-            <img src="~/assets/image/recom.png" class="img-recom" />
+            <img :src="group.img" class="img-recom" />
             {{ group.title }}
           </div>
-          <div>
+          <!-- <div>
             ทั้งหมด &nbsp;
             <img src="~/assets/image/all.png" class="img-recom" />
-          </div>
+          </div> -->
         </div>
         <Slider :items="group.items || []" :interval="240" />
       </div>
@@ -27,17 +27,17 @@
       >
         <div class="dis-play-recom">
           <div>
-            <img src="~/assets/image/recom.png" class="img-recom" />
+            <img :src="group.img" class="img-recom" />
             {{ group.title }}
           </div>
-          <div>
+          <!-- <div>
             ทั้งหมด &nbsp;
             <img src="~/assets/image/all.png" class="img-recom" />
-          </div>
+          </div> -->
         </div>
         <Slider :items="group.items || []" :interval="240" />
       </div>
-<!--
+      <!--
       <div
         v-for="(group, index) in CateGroups"
         :key="'cate-' + index"
@@ -158,6 +158,7 @@ export default {
 
           return {
             title: group.name || "กลุ่มสินค้า",
+            img: group.img || "กลุ่มสินค้า",
             items: [...group.product_list],
           };
         })
@@ -178,7 +179,8 @@ export default {
           }
 
           return {
-            title: group.name || "ประเภทสินค้า",
+            title: group.name || "กลุ่มสินค้า",
+            img: group.img || "กลุ่มสินค้า",
             items: [...group.product_list],
           };
         })
@@ -198,7 +200,8 @@ export default {
         }
 
         return {
-          title: group.name,
+          title: group.name || "กลุ่มสินค้า",
+          img: group.img || "กลุ่มสินค้า",
           items: [...group.product_list],
         };
       }).filter((group) => group !== null); // กรองเอากลุ่มที่เป็น null ออก

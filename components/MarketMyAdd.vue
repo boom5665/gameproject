@@ -93,7 +93,18 @@
           <div class="dis-input height-req">
             <!-- ฟิลด์สำหรับราคา -->
             <div style="width: 49%">
-              <label for="price">ราคา <span id="dotstyle">*</span></label>
+              <label for="price">
+                ราคา <span id="dotstyle">*</span>
+                <div class="tooltip-container">
+                  <img
+                    class="img-in"
+                    src="~/assets/image/information-circle.png"
+                    alt="Information Icon"
+                  />
+                  <div class="tooltip-content">ราคาสินค้าก่อนลดราคา</div>
+                </div>
+              </label>
+
               <input
                 type="text"
                 id="price"
@@ -111,6 +122,14 @@
             <div style="width: 49%">
               <label for="specialPrice">
                 ราคาพิเศษ <span id="dotstyle"> *</span>
+                <div class="tooltip-container">
+                  <img
+                    class="img-in"
+                    src="~/assets/image/information-circle.png"
+                    alt="Information Icon"
+                  />
+                  <div class="tooltip-content">ราคาสินค้าหลังจากการลดราคาแล้ว</div>
+                </div>
               </label>
               <input
                 type="text"
@@ -167,7 +186,8 @@
             <!-- ส่วนของรูปหลัก -->
             <div>
               <div class="font-form-add">
-                รูปหลัก <span id="dotstyle">*</span>
+                รูปสินค้าหลัก <span id="dotstyle">*</span>
+
               </div>
               <div
                 class="preview image-container"
@@ -280,6 +300,7 @@
 export default {
   data() {
     return {
+      isVisible: false,
       productName: "",
       price: "0",
       specialPrice: "0",
@@ -333,6 +354,12 @@ export default {
     },
   },
   methods: {
+    showTooltip() {
+      this.isVisible = true;
+    },
+    hideTooltip() {
+      this.isVisible = false;
+    },
     formatNumber(value) {
       // ตรวจสอบค่าที่เป็น 0 หรือ null หรือ undefined
       if (value == 0 || value == null || value == undefined) {
@@ -472,7 +499,7 @@ export default {
 
       // ตรวจสอบรูปภาพคลัง (savedImageUrls)
       if (!this.savedImageUrls.length) {
-        this.errors.savedImageUrls = "กรุณาอัพโหลดรูปภาพคลัง";
+        this.errors.savedImageUrls = "กรุณาอัพโหลดรูปภาพเพิ่มเติม";
         if (!firstErrorField) firstErrorField = "savedImageUrls";
       }
 
@@ -576,6 +603,66 @@ export default {
 </script>
 
 <style scoped>
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-content {
+  visibility: hidden;
+  width: auto;
+  background-color: #5c25f2;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(0%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+.img-in {
+  position: relative;
+  cursor: pointer;
+}
+
+.img-in::after {
+  content: attr(data-tooltip);
+  visibility: hidden;
+  width: auto;
+  background-color: purple;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+
+  /* Positioning the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%; /* Show above the image */
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+
+  /* Smooth transition for visibility */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.img-in:hover::after {
+  visibility: visible;
+  opacity: 1; /* Fade in the tooltip */
+}
+
 .img-M {
   margin: 0px 0px 15px;
   height: 250px;
@@ -674,5 +761,11 @@ img {
   flex-wrap: wrap;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+.img-in {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: -3px;
 }
 </style>

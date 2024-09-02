@@ -332,15 +332,10 @@
               </div>
               <div class="box-alert">
                 <div>
-                  <img
-                    class=""
-                    style="margin: 10px 20px; width: 20px"
-                    src="~/assets/image/alet.png"
-                  />
+                  <img class="" style=" margin: 10px 16px; width: 30px;" src="~/assets/image/alet.png" />
                 </div>
-                <div>
-                  กรุณาใส่ข้อมูลให้ตรงกับบัตรประชาชน
-                  และกรอกชื่อ-นามสกุลด้วยภาษาไทยเท่านั้น
+                <div style="font-size: 18px">
+                  กรุณาใส่ข้อมูลให้ตรงกับบัตรประชาชน และกรอกชื่อ-นามสกุล
                   หมายเลขบัตรประชาชนนี้จะไม่สามารถนำไปใช้กับบัญชีผู้ใช้อื่นได้อีก
                   และจะไม่สามารถเปลี่ยนแปลงหมายเลขบัตรได้
                 </div>
@@ -493,6 +488,7 @@
                         ref="fileInputBack"
                         style="display: none"
                         @change="previewImage('back')"
+                         accept="image/*"
                       />
                     </div>
                     <span

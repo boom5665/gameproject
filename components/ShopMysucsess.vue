@@ -2,12 +2,12 @@
   <div class="M-Create-Backgroud">
     <div class="navtabs shopsucsess">
       <div class="font-top-myshop">
-        <Nuxt-link class="text-profile" to="/ShopMy" target="_self">
+        <!-- <Nuxt-link class="text-profile" to="/ShopMy" target="_self">
           <span>
             การซื้อของฉัน
             <img class="SHOPright" src="~/assets/image/SHOPright.png" alt="" />
           </span>
-        </Nuxt-link>
+        </Nuxt-link> -->
         <Nuxt-link class="text-profile" to="/ShopMysucsess" target="_self">
           <span class="font-proL-top">รายการคำสั่งซื้อ</span>
         </Nuxt-link>
@@ -74,6 +74,7 @@
           </div>
         </div>
       </div>
+      <Loader :isLoading="isLoading" />
     </div>
   </div>
 </template>
@@ -151,7 +152,9 @@ export default {
               productImage: product.img || "",
               productName: product.name || "Unknown",
               productTag: product.description || "",
-              amount: `฿${item.price_total ? item.price_total.toFixed(2) : "0.00"}`,
+              amount: `฿${
+                item.price_total ? item.price_total.toFixed(2) : "0.00"
+              }`,
               date: this.formatDate(item.created_at) || "Invalid Date",
             };
 
@@ -160,10 +163,10 @@ export default {
             return orderItem;
           });
         }
+        this.isLoading = false;
       } catch (error) {
         console.error("Error fetching data:", error);
         // Optionally set an error message in the state or show a notification
-      } finally {
         this.isLoading = false;
       }
     },
@@ -177,6 +180,8 @@ export default {
         return "wait";
       } else if (statusText.includes("WAIT_CONFIRM")) {
         return "waitcash";
+      } else if (statusText.includes("RESERVE")) {
+        return "RESERVE";
       } else {
         return "complete"; // Default status class
       }

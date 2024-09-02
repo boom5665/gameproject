@@ -581,13 +581,20 @@
     /* สีตัวอักษร */
   }
 
+  .order-status.RESERVE {
+    background-color: #74f3ff;
+    /* สีแดง */
+    color: black;
+    /* สีตัวอักษร */
+  }
+
+
   .order-status.waitcash {
     background-color: #ffffff;
     /* สีแดง */
     color: black;
     /* สีตัวอักษร */
   }
-
   .order-content {
     margin: 12px;
   }

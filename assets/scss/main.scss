@@ -192,7 +192,7 @@ textarea {
 }
 
 .contentright {
-  width: 65%;
+  width: 80%;
 }
 
 .dis-contentimg {
@@ -419,5 +419,5 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
 
 .disabled {
   filter: brightness(0.4);
-  cursor: auto !important;
+  cursor: context-menu !important;
 }
