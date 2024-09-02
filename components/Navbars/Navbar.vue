@@ -17,19 +17,19 @@
       </div>
       <div>
         <div class="nav-top">
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">หน้าแรก</div></Nuxt-link
-          >
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          > -->
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">ตลาดซื้อขาย</div></Nuxt-link
-          >
+          > -->
           <!-- <Nuxt-link class="text-nav" to="/Market" target="_self"
             ><div class="bottom-top button">การแข่งขันอีสปรอ์ต</div></Nuxt-link
           > -->
           <!-- <Nuxt-link class="text-nav" to="/New" target="_self" -->
-           <Nuxt-link class="text-nav" to="/" target="_self"
-            ><div class="bottom-top button">ข่าว</div></Nuxt-link
-          >
+           <!-- <Nuxt-link class="text-nav" to="/" target="_self"
+            ><div class="bottom-top button">ข่าว</div></Nuxt-link 
+          >-->
           <!-- <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">ช่วยเหลือ</div></Nuxt-link
           > -->
@@ -90,16 +90,19 @@
     <div class="navbar">
       <div>
         <div class="nav-top">
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button" style="10px 0px 0px 0px">
               ประเภทสินค้า
             </div></Nuxt-link
-          >
-          <Nuxt-link class="text-nav" to="/" target="_self"
+          > -->
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">เกม</div></Nuxt-link
-          >
-          <Nuxt-link class="text-nav" to="/Shopmanage" target="_self"
+          > -->
+          <!-- <Nuxt-link class="text-nav" to="/Shopmanage" target="_self"
             ><div class="bottom-top button">สินค้าทั้งหมด</div></Nuxt-link
+          > -->
+          <Nuxt-link class="text-nav" to="/Shopmanage" target="_self"
+            ><div class="bottom-top button">ตลาดซื้อขาย</div></Nuxt-link
           >
           <!-- <Nuxt-link class="text-nav" to="/" target="_self"
             ><div class="bottom-top button">ลดราคา</div></Nuxt-link
