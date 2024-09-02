@@ -125,7 +125,7 @@
               </span>
             </div>
           </div>
-          <div class="width-hunded" style="margin-bottom: 10px">
+          <div class="width-hunded" style="margin-bottom: 20px">
             <div class=" ">
               <label for="inventory">
                 สินค้าในคลัง <span id="dotstyle">*</span>
@@ -178,6 +178,7 @@
                   v-show="showImage"
                   @click="removeImage('main')"
                   class="delete-button"
+                  style="position: absolute; top: -10px; right: 140px"
                 >
                   &times;
                 </button>
@@ -196,7 +197,7 @@
                 style="width: max-content"
               >
                 <img
-                  style="margin: 0px 0px 15px"
+                  class="img-M"
                   src="~/assets/image/img-main.png"
                   @click="openFileDialog('main')"
                 />
@@ -227,6 +228,7 @@
                   class="imginput"
                   src="~/assets/image/img-all.png"
                   @click="openFileDialog('gallery')"
+                  v-bind:class="{ displaynone: savedImageUrls.length >= 6 }"
                 />
 
                 <div
@@ -435,7 +437,7 @@ export default {
             reader.readAsDataURL(file);
           });
         }
-      } 
+      }
     },
     removeSavedImage(index) {
       this.savedImageUrls.splice(index, 1);
@@ -574,7 +576,15 @@ export default {
 </script>
 
 <style scoped>
+.img-M {
+  margin: 0px 0px 15px;
+  height: 250px;
+  width: 62%;
+}
 /* เพิ่มการจัดรูปแบบสำหรับฟอร์มและส่วนต่างๆ ที่เกี่ยวข้อง */
+.displaynone {
+  display: none !important;
+}
 .form-container {
   width: 100%;
 }
@@ -606,10 +616,11 @@ export default {
   position: relative;
   margin: 0px 15px 0px 0px;
 }
-.imginput{
-      margin: 0px 0px 15px;
-    position: relative;
-    margin-right: 13px;
+.imginput {
+  margin: 0px 8px 15px 0px;
+  position: relative;
+  height: 250px;
+  width: 250px;
 }
 .image-container button {
   position: absolute;
@@ -630,6 +641,7 @@ export default {
   display: flex; /* ใช้ flexbox สำหรับการจัดตำแหน่ง */
   align-items: center; /* จัดตำแหน่งไอคอน X ให้อยู่ตรงกลาง */
   justify-content: center; /* จัดตำแหน่งไอคอน X ให้อยู่กลางปุ่ม */
+  z-index: 5;
 }
 
 .form-group {
@@ -657,9 +669,10 @@ img {
   cursor: pointer;
 }
 .imagesave {
-  display: flex;
   width: 100%;
   align-items: flex-start;
   flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 </style>

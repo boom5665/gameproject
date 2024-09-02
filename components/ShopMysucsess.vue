@@ -175,7 +175,7 @@ export default {
         return "problem";
       } else if (statusText.includes("TIMEOUT")) {
         return "wait";
-      } else if (statusText.includes("รอการชำระเงิน")) {
+      } else if (statusText.includes("WAIT_CONFIRM")) {
         return "waitcash";
       } else {
         return "complete"; // Default status class

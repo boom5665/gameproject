@@ -4,7 +4,7 @@
       <!-- <div class="contentleft">
         <MarketProfieleft />
       </div> -->
-      <div class="contentright">
+      <div class="contentright" style="width: 100%;">
         <MarketMyAdd />
       </div>
     </div>

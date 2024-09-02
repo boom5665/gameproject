@@ -787,6 +787,8 @@
   width: 110px;
   margin: 0px 0px 15px;
   cursor: pointer;
+  height: 250px;
+  width: 62%;
 }
 
 .profile-img-main {
@@ -794,13 +796,14 @@
   border: 1px dashed #d00;
   background: #31303f;
   display: flex;
-  height: 70px;
   justify-content: center;
   align-items: center;
+  grid-gap: 10px;
   gap: 10px;
   background-repeat: no-repeat;
   background-size: contain;
-  width: 110px;
+  width: 250px;
+  height: 250px;
   margin: 0px 0px 15px;
 }
 

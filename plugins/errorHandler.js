@@ -153,7 +153,7 @@ export default ({ app }, inject) => {
             break;
           case 70016:
             Swal.fire({
-              title: "ห้ามมีรูปภาเพิน 6 รูป",
+              title: "ห้ามมีรูปภาพเกิน 6 รูป",
               icon: 'error',
               confirmButtonText: 'OK',
             });
