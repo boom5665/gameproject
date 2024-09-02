@@ -128,7 +128,9 @@
               />
             </div>
           </div>
-          <Loader :isLoading="isLoading" />
+
+            <Loader :isLoading="isLoading" />
+
         </div>
       </div>
     </div>
@@ -172,89 +174,8 @@ export default {
       purchasedItems: [],
     };
   },
-  async mounted() {
-    await this.fetchdata();
-  },
-  methods: {
-    async fetchdata() {
-      this.isLoading = true; // แสดง loader
-      try {
-        // const token = this.$cookies.get("authToken");
-        console.log(token);
-        const token = this.$cookies.get("authToken");
-        const response = await this.$axios.$post(
-          "/payment/vendor/product/request/list/read",
-          {
-            id: 0,
-            status: "",
-            product_name: "",
-            is_sort_reserve_expire_at: true,
-            start_created_at: "",
-            end_created_at: "",
-            start_updated_at: "",
-            end_updated_at: "",
-            page: 0,
-            limit: 500,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
 
-        const resalldata = response.data_list;
-        console.log(resalldata);
-
-        if (Array.isArray(resalldata) && resalldata.length > 0) {
-          // ตรวจสอบว่า resalldata เป็นอาร์เรย์และไม่ว่าง
-          resalldata.forEach((item) => {
-            // ตรวจสอบความถูกต้องของข้อมูลก่อนใช้งาน
-
-            const product = item.product || {}; // ตรวจสอบว่า product มีค่าเป็นออบเจกต์
-            const customer = item.customer || {}; // ตรวจสอบว่า product มีค่าเป็นออบเจกต์
-            const newOrderItem = {
-              amount: item.amount || null, // นำ amount จาก API มาใช้ ถ้าไม่มีจะใช้ null
-              slipimg: item.evidence_bank_from_slip_img || null, // นำ slipimg
-              payatt: item.evidence_bank_from_pay_at || null, // นำ slipimg
-              bank: item.evidence_bank_from_bank || null,
-              formname: item.evidence_bank_from_name || null,
-              money: item.evidence_bank_from_pay_money || null,
-              id: item.id || null, // นำ id จาก API มาใช้ ถ้าไม่มีจะใช้ null
-              status: item.status || "Unknown", // นำ status จาก API มาใช้ ถ้าไม่มีจะใช้ 'Unknown'
-              price: `฿${
-                item.price_total ? item.price_total.toFixed(2) : "0.00"
-              }`, // ใช้ price_total จาก API และเพิ่มเครื่องหมายบาท (฿) ถ้าไม่มีจะใช้ '0.00'
-              phone: customer.phone || null,
-              email: customer.email || null,
-              img: product.img || "", // นำ img จาก product ใน API มาใช้ ถ้าไม่มีจะใช้ string ว่าง
-              name: product.name || "Unknown", // นำ name จาก product ใน API มาใช้ ถ้าไม่มีจะใช้ 'Unknown'
-              description: product.description || "Unknown", // นำ name จาก product ใน API มาใช้ ถ้าไม่มีจะใช้ 'Unknown'
-              date: this.formatDate(item.created_at) || "Invalid Date", // ใช้ created_at จาก API และแปลงวันที่ให้อยู่ในรูปแบบที่ต้องการ ถ้าไม่มีจะใช้ 'Invalid Date'
-            };
-
-            // เพิ่มรายการใหม่ใน orderItems
-            this.orderItems.push(newOrderItem);
-          });
-        } else {
-          console.error("Unexpected response structure:", response);
-        }
-      } catch (error) {
-        console.error("ไม่มา", error);
-      } finally {
-        this.isLoading = false; // ซ่อน loader เมื่อกระบวนการเสร็จสิ้นไม่ว่าจะสำเร็จหรือไม่
-      }
-    },
-    formatDate(dateString) {
-      const date = new Date(dateString);
-      const hours = date.getHours().toString().padStart(2, "0");
-      const minutes = date.getMinutes().toString().padStart(2, "0");
-      const day = date.getDate().toString().padStart(2, "0");
-      const month = (date.getMonth() + 1).toString().padStart(2, "0");
-      const year = date.getFullYear();
-      return `${hours}:${minutes} / ${day}-${month}-${year}`;
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -271,9 +192,9 @@ export default {
   flex-direction: column;
 }
 .component-wrapper {
-  // max-height: 500px; /* กำหนดความสูงสูงสุด */
-  overflow-y: auto; /* เพิ่มแถบเลื่อนแนวตั้งเมื่อเนื้อหาเกิน */
-  overflow-x: hidden; /* ซ่อนแถบเลื่อนแนวนอน */
+  // max-height: 1000px; /* กำหนดความสูงสูงสุด */
+  // overflow-y: none; /* เพิ่มแถบเลื่อนแนวตั้งเมื่อเนื้อหาเกิน */
+  // overflow-x: hidden; /* ซ่อนแถบเลื่อนแนวนอน */
 }
 .M-Create-Backgroud .navtabs {
   max-width: 1092px;

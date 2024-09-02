@@ -24,7 +24,11 @@
               <td><img :src="item.img" alt="Product Image" /></td>
               <td>{{ item.name }}</td>
               <td>
-                <span class="status pending">{{ item.status }}</span>
+                <span
+                  class="status pending"
+                  :style="{ color: item.status.color }"
+                  >{{ item.status.text }}</span
+                >
               </td>
               <td>
                 <span class="color-am">{{ item.price }}</span>
@@ -38,39 +42,10 @@
             </tr>
           </tbody>
         </table>
-
-        <!-- Second table for confirmed orders -->
-        <div v-if="filteredOrderItems2.length > 0">
-          <div>รายการที่ยืนยันแล้ว</div>
-          <table class="order-table">
-            <thead class="thead-sale">
-              <tr>
-                <th>ภาพสินค้า</th>
-                <th>ชื่อสินค้า</th>
-                <th>สถานะ</th>
-                <th>ยอด</th>
-                <th>เวลา/วันที่</th>
-              </tr>
-            </thead>
-            <tbody class="thead-saletb">
-              <!-- Loop through filteredOrderItems2 for items that are confirmed -->
-              <tr v-for="item in filteredOrderItems2" :key="item.id">
-                <td><img :src="item.img" alt="Product Image" /></td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.status }}</td>
-                <td>
-                  <span class="color-am">{{ item.price }}</span>
-                </td>
-                <td>{{ item.date }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
 
     <!-- ส่วนแสดงรายละเอียดสินค้า -->
-
     <div v-else>
       <div>ตรวจสอบข้อมูลการซื้อ</div>
       <div class="box-content-pay">
@@ -129,13 +104,11 @@
               <img
                 class="img-product img-product-slip"
                 :src="getSelectedItem.slipimg"
-                alt="Product Image"
+                alt="Slip Image"
               />
             </div>
             <div v-else>
-              <div>
-                <div class="img-product img-product-slip">ไม่มีการโอน</div>
-              </div>
+              <div class="img-product img-product-slip">ไม่มีการโอน</div>
             </div>
           </div>
           <div class="dis-box">
@@ -211,6 +184,13 @@
         </div>
       </div>
     </div>
+    <div v-if="!showDetail">
+      <Pagination
+        :currentPage="currentPage"
+        :totalPages="totalPages"
+        @page-changed="onPageChanged"
+      />
+    </div>
   </div>
 </template>
 
@@ -218,24 +198,17 @@
 import Swal from "sweetalert2";
 
 export default {
-  props: {
-    orderItems: {
-      type: Array,
-      required: true,
-    },
-    purchasedItems: {
-      type: Array,
-      required: true,
-    },
-  },
   data() {
     return {
+      orderItems: [], // เริ่มต้นด้วยอาร์เรย์ว่างสำหรับ orderItems
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
       searchQuery: "",
       showDetail: false,
       selectedItemId: null,
-      price: "",
-      slip_img: "",
+      items: [], // เปลี่ยนเป็นอาร์เรย์ว่าง
+      currentPage: 1,
+      perPage: 5,
+      page_count: 0,
     };
   },
   computed: {
@@ -269,7 +242,6 @@ export default {
 
       return confirmedItems;
     },
-
     getSelectedItem() {
       const item = this.orderItems.find(
         (item) => item.id === this.selectedItemId
@@ -279,121 +251,164 @@ export default {
 
       return item || {}; // Return the found item or an empty object if none is found
     },
+    totalPages() {
+      return this.page_count;
+    },
+    paginatedItems() {
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.orderItems.slice(start, end);
+    },
   },
   methods: {
-    viewDetail(id) {
-      // console.log("Selected Item ID:", id); // แสดง ID ที่ถูกเลือก
+    formatDate(date) {
+      // แปลงวันที่จาก ISO string เป็นรูปแบบที่ต้องการ
+      const d = new Date(date);
+      const day = d.getDate().toString().padStart(2, "0");
+      const month = (d.getMonth() + 1).toString().padStart(2, "0");
+      const year = d.getFullYear();
+      const hours = d.getHours().toString().padStart(2, "0");
+      const minutes = d.getMinutes().toString().padStart(2, "0");
+
+      return `${hours}:${minutes} / ${day}-${month}-${year}`;
+    },
+    async fetchdata(page = 1) {
+      this.isLoading = true; // แสดง loader
+      this.orderItems = [];
+      try {
+        const token = this.$cookies.get("authToken");
+        if (!token) {
+          throw new Error("Authentication token is missing");
+        }
+
+        // เรียกใช้ API แรก
+        const response1 = await this.$axios.$post(
+          "/payment/vendor/product/request/list/read",
+          {
+            id: 0,
+            status: "",
+            product_name: "",
+            is_sort_reserve_expire_at: true,
+            start_created_at: "",
+            end_created_at: "",
+            start_updated_at: "",
+            end_updated_at: "",
+            page: page,
+            limit: 10,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const resalldata1 = response1.data_list || [];
+        this.page_count = response1.page_count;
+        console.log("Data from first API:", resalldata1);
+
+        if (Array.isArray(resalldata1) && resalldata1.length > 0) {
+          resalldata1.forEach((item) => {
+            const product = item.product || {};
+            const customer = item.customer || {};
+            const newOrderItem = {
+              amount: item.amount || null,
+              slipimg: item.evidence_bank_from_slip_img || null,
+              payatt: item.evidence_bank_from_pay_at || null,
+              bank: item.evidence_bank_from_bank || null,
+              formname: item.evidence_bank_from_name || null,
+              money: item.evidence_bank_from_pay_money || null,
+              id: item.id || null,
+              status: this.getStatusLabel(item.status), // ใช้ฟังก์ชันเพื่อแปลสถานะ
+              price: `฿${(item.price_total || 0).toFixed(2)}`,
+              phone: customer.phone || null,
+              email: customer.email || null,
+              img: product.img || "",
+              name: product.name || "Unknown",
+              description: product.description || "Unknown",
+              date: this.formatDate(item.created_at) || "Invalid Date",
+            };
+
+            this.orderItems.push(newOrderItem);
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.message || "Something went wrong!",
+        });
+      } finally {
+        this.isLoading = false; // ซ่อน loader
+      }
+    },
+
+    getStatusLabel(status) {
+      const statusLabels = {
+        RESERVE: { text: "ถูกจอง", color: "white" },
+        WAIT_CONFIRM: { text: "รอตรวจสอบ", color: "#FFEB3B" },
+        SUCCESS: { text: "อนุมัติชำระ", color: "#92E6CD" },
+        TIMEOUT: { text: "หมดเวลาจอง", color: "gray" },
+        REJECT_CONFIRM: { text: "ไม่อนุมัติการแจ้งชำระ", color: "#FF5959" },
+        CANCELED: { text: "ยกเลิกรายการ", color: "red" },
+      };
+      return statusLabels[status] || { text: "Unknown", color: "black" };
+    },
+
+    viewDetail(id, item) {
       this.selectedItemId = id;
       this.showDetail = true;
     },
-    async confirmpay() {
-      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
-      const result = await Swal.fire({
-        title: "ยืนยันสินค้า",
-        icon: "success",
+
+    concancel() {
+      Swal.fire({
+        title: "ยืนยันการปฏิเสธรายการ",
+        text: "คุณต้องการปฏิเสธรายการนี้หรือไม่?",
+        icon: "warning",
         showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
         confirmButtonText: "ยืนยัน",
-        cancelButtonText: "แก้ไข",
-      });
-
-      // หากผู้ใช้กดปุ่ม "ยืนยัน"
-      if (result.isConfirmed) {
-        try {
-          this.isLoading = true; // แสดง loader
-          const token = this.$cookies.get("authToken");
-          const idsend = Number(this.selectedItemId);
-
-          console.log(token);
-
-          // ส่งคำขอไปยัง API
-          const response = await this.$axios.$post(
-            "/payment/vendor/product/request/update",
-            {
-              id: idsend,
-              status: "SUCCESS", // ตรวจสอบให้แน่ใจว่า SUCCESS ถูกกำหนดไว้ถูกต้อง
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          this.isLoading = false; // แสดง loader
-          const result = await Swal.fire({
-            title: "สำเร็จ",
-            icon: "success",
-            showCancelButton: false,
-          });
-          if (result.isConfirmed) {
-            this.showDetail = false;
-            window.location.reload();
-          }
-          // รีไดเรคไปยังหน้า ShopDetail หลังจากได้รับการตอบกลับสำเร็จ
-        } catch (error) {
-          console.error("An error occurred:", error); // แสดงข้อผิดพลาดที่เกิดขึ้น
-          // คุณสามารถแสดงข้อความแจ้งเตือนหรือดำเนินการอื่นๆ ได้ที่นี่
+        cancelButtonText: "ยกเลิก",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // รหัสปฏิเสธรายการ
         }
-      }
-
-      // หากผู้ใช้กดปุ่ม "ยกเลิก"
-      // ไม่ต้องทำอะไรจะยังคงอยู่หน้าเดิม
+      });
     },
-    async concancel() {
-      // แสดง SweetAlert2 ด้วยข้อความสำเร็จ
-      const result = await Swal.fire({
-        title: "ยืนยันยกเลิกสินค้า",
-        icon: "success",
+
+    confirmpay() {
+      Swal.fire({
+        title: "ยืนยันการอนุมัติการชำระ",
+        text: "คุณต้องการอนุมัติการชำระรายการนี้หรือไม่?",
+        icon: "warning",
         showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
         confirmButtonText: "ยืนยัน",
-        cancelButtonText: "แก้ไข",
-      });
-
-      // หากผู้ใช้กดปุ่ม "ยืนยัน"
-      if (result.isConfirmed) {
-        try {
-          this.isLoading = true; // แสดง loader
-          const token = this.$cookies.get("authToken");
-          const idsend = Number(this.selectedItemId);
-
-          console.log(token);
-
-          // ส่งคำขอไปยัง API
-          const response = await this.$axios.$post(
-            "/payment/vendor/product/request/update",
-            {
-              id: idsend,
-              status: "REJECT_CONFIRM", // ตรวจสอบให้แน่ใจว่า SUCCESS ถูกกำหนดไว้ถูกต้อง
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          this.isLoading = false; // แสดง loader
-          const result = await Swal.fire({
-            title: "ยกเลิกสินค้าสำเร็จ",
-            icon: "success",
-            showCancelButton: false,
-          });
-          if (result.isConfirmed) {
-            this.showDetail = false;
-            window.location.reload();
-          }
-          // รีไดเรคไปยังหน้า ShopDetail หลังจากได้รับการตอบกลับสำเร็จ
-        } catch (error) {
-          console.error("An error occurred:", error); // แสดงข้อผิดพลาดที่เกิดขึ้น
-          // คุณสามารถแสดงข้อความแจ้งเตือนหรือดำเนินการอื่นๆ ได้ที่นี่
+        cancelButtonText: "ยกเลิก",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // รหัสอนุมัติการชำระ
         }
-      }
+      });
     },
+
+    changePage(page) {
+      this.currentPage = page;
+    },
+
+    onPageChanged(page) {
+      this.fetchdata(page);
+      this.changePage(page);
+    },
+  },
+  mounted() {
+    this.fetchdata(); // ดึงข้อมูลเมื่อคอมโพเนนต์ถูกติดตั้ง
   },
 };
 </script>
-
-
-
-
 
 <style scoped>
 .div-box {
@@ -459,13 +474,14 @@ export default {
 }
 .order-table tbody {
   background-color: #3c3b4b;
-  color: #848484;
+  color: #fff;
 }
 /* .order-table tbody tr:nth-child(even) {
   background-color: #f2f2f2;
 } */
 
 .order-table tbody td img {
+  border-radius: 5px;
   width: 48px;
   height: 48px;
 }
@@ -481,7 +497,9 @@ export default {
   border-radius: 8px;
   border: 1px solid #5c25f2;
   background: #ffeb3b;
-  width: 100%;
+  width: 70%;
+  height: 50px;
+  font-size: 16px;
 }
 .check-button:hover {
   background-color: #d7a400; /* สีเหลืองเข้มขึ้น */
