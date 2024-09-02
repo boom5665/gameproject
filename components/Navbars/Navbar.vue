@@ -15,18 +15,18 @@
       </div>
       <div>
         <div class="nav-top">
-          <Nuxt-link class="text-nav" to="/" target="_self">
+          <Nuxt-link class="text-nav" to="/" target="_self" >
             <div class="bottom-top button">หน้าแรก</div>
           </Nuxt-link>
-          <Nuxt-link class="text-nav" to="/Market" target="_self">
+          <!-- <Nuxt-link class="text-nav" to="/Market" target="_self" > -->
             <div class="bottom-top button disabled">การแข่งขันอีสปรอ์ต</div>
-          </Nuxt-link>
-          <Nuxt-link class="text-nav" to="/New" target="_self" <Nuxt-link class="text-nav" to="/" target="_self">
+          <!-- </Nuxt-link> -->
+          <!-- <Nuxt-link class="text-nav" to="/New" target="_self"> -->
             <div class="bottom-top button disabled">ข่าว</div>
-          </Nuxt-link>
-          <Nuxt-link class="text-nav" to="/" target="_self">
+          <!-- </Nuxt-link> -->
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"> -->
             <div class="bottom-top button disabled">ช่วยเหลือ</div>
-          </Nuxt-link>
+          <!-- </Nuxt-link> -->
 
           <div v-if="token" style="display: flex">
             <!-- แสดงข้อมูลหรือเมนูที่เกี่ยวข้องกับการล็อกอิน -->
@@ -82,26 +82,26 @@
     <div class="navbar">
       <div>
         <div class="nav-top">
-          <Nuxt-link class="text-nav" to="/" target="_self">
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"> -->
             <div class="bottom-top button disabled" style="10px 0px 0px 0px">
               ประเภทสินค้า
             </div>
-          </Nuxt-link>
-          <Nuxt-link class="text-nav" to="/" target="_self">
+          <!-- </Nuxt-link> -->
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"> -->
             <div class="bottom-top button disabled">เกม</div>
-          </Nuxt-link>
-          <Nuxt-link class="text-nav" to="/Shopmanage" target="_self">
+          <!-- </Nuxt-link> -->
+          <!-- <Nuxt-link class="text-nav" to="/Shopmanage" target="_self"> -->
             <div class="bottom-top button disabled">สินค้าทั้งหมด</div>
-          </Nuxt-link>
+          <!-- </Nuxt-link> -->
           <Nuxt-link class="text-nav" to="/" target="_self">
             <div class="bottom-top button">ตลาดซื้อขาย</div>
           </Nuxt-link>
-          <Nuxt-link class="text-nav" to="/" target="_self">
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"> -->
             <div class="bottom-top button disabled">ลดราคา</div>
-          </Nuxt-link>
-          <Nuxt-link class="text-nav" to="/" target="_self">
+          <!-- </Nuxt-link> -->
+          <!-- <Nuxt-link class="text-nav" to="/" target="_self"> -->
             <div class="bottom-top button disabled">บัตรของขวัญ</div>
-          </Nuxt-link>
+          <!-- </Nuxt-link> -->
         </div>
       </div>
 
