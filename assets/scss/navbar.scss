@@ -14,7 +14,7 @@
 }
 
 .navbar-main {
-  padding: 16px 40px 16px 40px;
+  padding: 40px 40px 16px 40px;
   border-radius: 0px 0px 16px 16px;
   background: linear-gradient(180deg, #130048 0%, #5823E5 100%);
   background: linear-gradient(180deg, #130048 0%, #5823E5 100%);
@@ -193,6 +193,43 @@
 }
 
 .Logo-img {
-  width: 100%;
+  width: 225px;
   height: 110px;
+  &.logo-footer {
+    width: 168.75px;
+    height: 82.5px;
+  }
+}
+
+.footer-layout { 
+  height: 200px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.lower-footer-layout {
+
+}
+.footer-menu {
+  display: block;
+  .sub-menu {
+    padding-bottom: 16px;
+    color: gray;
+  }
+  img {
+    height: 70px;
+    width: 70px;
+  }
+}
+.footer-bottom {
+  .lower-footer-layout {
+    display: flex;
+    justify-content: space-between;
+  }
+  .icon {
+    cursor: auto;
+    img {
+      filter: brightness(0.4);
+    }
+  }
 }
