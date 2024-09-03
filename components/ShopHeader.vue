@@ -129,8 +129,7 @@
             </div>
           </div>
 
-            <Loader :isLoading="isLoading" />
-
+          <Loader :isLoading="isLoading" />
         </div>
       </div>
     </div>
@@ -159,17 +158,8 @@ export default {
       productsCount: 50,
       followersCount: 1000,
       reviewsCount: 200,
-      currentView: "ShopOrder", // ค่าเริ่มต้นของ currentView
-      itemsData: [
-        {
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"),
-          subtitle: "แก้ไขข้อมูลสินค้า",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/Delete.png"),
-        },
-      ],
+      currentView: "Shopmanage", // ค่าเริ่มต้นของ currentView
+      itemsData: [],
       orderItems: [], // เริ่มต้นด้วยอาร์เรย์ว่างสำหรับ orderItems],
       purchasedItems: [],
     };

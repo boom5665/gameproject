@@ -128,7 +128,9 @@
                     src="~/assets/image/information-circle.png"
                     alt="Information Icon"
                   />
-                  <div class="tooltip-content">ราคาสินค้าหลังจากการลดราคาแล้ว</div>
+                  <div class="tooltip-content">
+                    ราคาสินค้าหลังจากการลดราคาแล้ว
+                  </div>
                 </div>
               </label>
               <input
@@ -147,7 +149,7 @@
           <div class="width-hunded" style="margin-bottom: 20px">
             <div class=" ">
               <label for="inventory">
-                สินค้าในคลัง <span id="dotstyle">*</span>
+                จำนวนสินค้าในคลัง <span id="dotstyle">*</span>
               </label>
 
               <input
@@ -187,7 +189,6 @@
             <div>
               <div class="font-form-add">
                 รูปสินค้าหลัก <span id="dotstyle">*</span>
-
               </div>
               <div
                 class="preview image-container"
@@ -198,7 +199,7 @@
                   v-show="showImage"
                   @click="removeImage('main')"
                   class="delete-button"
-                  style="position: absolute; top: -10px; right: 140px"
+                  style="    position: absolute;  top: -10px; right: -10px; "
                 >
                   &times;
                 </button>
