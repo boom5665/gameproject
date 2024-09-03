@@ -139,7 +139,7 @@ textarea {
 
 .W-default {
   width: 100%;
-  padding: 30px 150px;
+  padding: 30px 2vw;
   // max-width: 1700px;
   display: flex;
   align-items: center;
@@ -210,8 +210,7 @@ textarea {
   padding: var(--Spacing-space-0, 0px);
   flex-direction: column;
   background: var(--Color-Primary-700, $purple-color);
-  padding: 40px;
-  margin-top: 40px;
+  padding: 40px 4vw 30px 4vw;
 }
 
 
@@ -276,7 +275,7 @@ textarea {
   background: linear-gradient(0deg, rgb(4, 23, 36) 9.67%, rgba(4, 23, 36, 0) 68.19%);
   color: $Yellow-color;
   font-variant-numeric: stacked-fractions;
-  font-feature-settings: 'hlig'on, 'dlig'on;
+  font-feature-settings: 'hlig' on, 'dlig' on;
   text-shadow: 0px 0px 8px rgba(255, 235, 59, 0.50);
 }
 
@@ -306,7 +305,18 @@ textarea {
   margin: 10px;
   cursor: pointer;
   height: 310px;
-  
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+
+  &:hover {
+    background-color: #6f3aff;
+    transform: scale(1.05);
+
+    img {
+      filter: contrast(1.1) brightness(1.06);
+      ;
+    }
+  }
 }
 
 .tpn_cardimg {
@@ -343,9 +353,9 @@ textarea {
 }
 
 .font {
-  color: $gray-color;
+  color: $white-color;
   font-variant-numeric: stacked-fractions;
-  font-feature-settings: "hlig"on, "dlig"on;
+  font-feature-settings: "hlig" on, "dlig" on;
   font-family: "Pentor Corporate";
   font-size: 12px;
 }

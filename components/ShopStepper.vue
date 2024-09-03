@@ -9,10 +9,7 @@
         <div class="step-label">{{ step.label }}</div>
         <div class="step-date">{{ step.date }}</div>
         <div class="step-time">{{ step.time }}</div>
-        <div
-          v-if="index < steps.length - 1"
-          :class="['step-connector', { completed: currentStep > index }]"
-        ></div>
+        <div v-if="index < steps.length - 1" :class="['step-connector', { completed: currentStep > index }]"></div>
       </div>
     </div>
   </div>
@@ -69,8 +66,26 @@ export default {
 }
 
 .step-connector.completed {
-  background-color: #ffd700; /* Change color when step is completed */
+  background: linear-gradient(-45deg, #ffeb3b, #5823e5, #130048, #ffeb3b);
+  animation: gradient-5f9aef70 3s ease infinite;
+  background-size: 400% 400%;
+  transition-duration: 3s;
 }
+
+@keyframes gradient {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  50% {
+    background-position: 50% 0%;
+  }
+
+  100% {
+    background-position: 50% 100%;
+  }
+}
+
 
 .step-circle {
   width: 24px;
