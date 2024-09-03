@@ -18,7 +18,7 @@
               <th>ตรวจสอบรายการ</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody  v-if="filteredOrderItems !== null && filteredOrderItems.length > 0">
             <!-- Loop through filteredOrderItems for items that are not confirmed -->
             <tr v-for="item in filteredOrderItems" :key="item.id">
               <td><img :src="item.img" alt="Product Image" /></td>
@@ -41,6 +41,9 @@
               </td>
             </tr>
           </tbody>
+          <div v-else>
+            <div class="non-data">ไม่มีข้อมูล</div>
+          </div>
         </table>
       </div>
     </div>
@@ -196,7 +199,7 @@
 
 <script>
 import Swal from "sweetalert2";
-
+import debounce from "lodash/debounce";
 export default {
   data() {
     return {
@@ -207,40 +210,19 @@ export default {
       selectedItemId: null,
       items: [], // เปลี่ยนเป็นอาร์เรย์ว่าง
       currentPage: 1,
-      perPage: 5,
-      page_count: 0,
+      perPage: 10,
+      page_count: 1,
     };
+  },
+  watch: {
+    searchQuery() {
+      this.updateFilteredItems();
+    },
   },
   computed: {
     filteredOrderItems() {
-      // กรองรายการที่ไม่ยืนยัน (ใช้ searchQuery ถ้ามี)
-      let filteredItems = this.orderItems.filter(
-        (item) => item.status !== "SUCCESS"
-      );
-
-      if (this.searchQuery) {
-        const query = this.searchQuery.toLowerCase();
-        filteredItems = filteredItems.filter((item) =>
-          item.name.toLowerCase().includes(query)
-        );
-      }
-
+      let filteredItems = this.orderItems;
       return filteredItems;
-    },
-    filteredOrderItems2() {
-      // กรองรายการที่ยืนยันแล้ว
-      let confirmedItems = this.orderItems.filter(
-        (item) => item.status === "SUCCESS"
-      );
-
-      if (this.searchQuery) {
-        const query = this.searchQuery.toLowerCase();
-        confirmedItems = confirmedItems.filter((item) =>
-          item.name.toLowerCase().includes(query)
-        );
-      }
-
-      return confirmedItems;
     },
     getSelectedItem() {
       const item = this.orderItems.find(
@@ -272,22 +254,24 @@ export default {
 
       return `${hours}:${minutes} / ${day}-${month}-${year}`;
     },
-    async fetchdata(page = 1) {
+
+    async fetchOrderItems(page = 1, productName = "") {
       this.isLoading = true; // แสดง loader
-      this.orderItems = [];
+      console.log(page);
+      console.log(productName);
       try {
         const token = this.$cookies.get("authToken");
         if (!token) {
           throw new Error("Authentication token is missing");
         }
 
-        // เรียกใช้ API แรก
-        const response1 = await this.$axios.$post(
+        // เรียกใช้ API เพื่อดึงข้อมูลตามชื่อสินค้า
+        const response = await this.$axios.$post(
           "/payment/vendor/product/request/list/read",
           {
             id: 0,
             status: "",
-            product_name: "",
+            product_name: productName,
             is_sort_reserve_expire_at: true,
             start_created_at: "",
             end_created_at: "",
@@ -303,46 +287,42 @@ export default {
           }
         );
 
-        const resalldata1 = response1.data_list || [];
-        this.page_count = response1.page_count;
-        console.log("Data from first API:", resalldata1);
+        const resalldata = response.data_list || [];
+        this.page_count = response.page_count;
 
-        if (Array.isArray(resalldata1) && resalldata1.length > 0) {
-          resalldata1.forEach((item) => {
-            const product = item.product || {};
-            const customer = item.customer || {};
-            const newOrderItem = {
-              amount: item.amount || null,
-              slipimg: item.evidence_bank_from_slip_img || null,
-              payatt: item.evidence_bank_from_pay_at || null,
-              bank: item.evidence_bank_from_bank || null,
-              formname: item.evidence_bank_from_name || null,
-              money: item.evidence_bank_from_pay_money || null,
-              id: item.id || null,
-              status: this.getStatusLabel(item.status), // ใช้ฟังก์ชันเพื่อแปลสถานะ
-              price: `฿${(item.price_total || 0).toFixed(2)}`,
-              phone: customer.phone || null,
-              email: customer.email || null,
-              img: product.img || "",
-              name: product.name || "Unknown",
-              description: product.description || "Unknown",
-              date: this.formatDate(item.created_at) || "Invalid Date",
-            };
-
-            this.orderItems.push(newOrderItem);
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error.message || "Something went wrong!",
+        this.orderItems = resalldata.map((item) => {
+          const product = item.product || {};
+          const customer = item.customer || {};
+          return {
+            amount: item.amount || null,
+            slipimg: item.evidence_bank_from_slip_img || null,
+            payatt: item.evidence_bank_from_pay_at || null,
+            bank: item.evidence_bank_from_bank || null,
+            formname: item.evidence_bank_from_name || null,
+            money: item.evidence_bank_from_pay_money || null,
+            id: item.id || null,
+            status: this.getStatusLabel(item.status),
+            price: `฿${(item.price_total || 0).toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+            })}`,
+            phone: customer.phone || null,
+            email: customer.email || null,
+            img: product.img || "",
+            name: product.name || "Unknown",
+            description: product.description || "Unknown",
+            date: this.formatDate(item.created_at) || "Invalid Date",
+          };
         });
+      } catch (error) {
       } finally {
         this.isLoading = false; // ซ่อน loader
       }
     },
+    // ใช้ debounce จาก lodash เพื่อให้เข้าถึง this.searchQuery ได้ถูกต้อง
+    updateFilteredItems: debounce(function () {
+      console.log("Function debounced and executed");
+      this.fetchOrderItems(1, this.searchQuery); // ใช้ this เพื่ออ้างอิงตัวแปร searchQuery
+    }, 2000),
 
     getStatusLabel(status) {
       const statusLabels = {
@@ -400,17 +380,25 @@ export default {
     },
 
     onPageChanged(page) {
-      this.fetchdata(page);
+      this.fetchOrderItems(page);
       this.changePage(page);
     },
   },
   mounted() {
-    this.fetchdata(); // ดึงข้อมูลเมื่อคอมโพเนนต์ถูกติดตั้ง
+    this.fetchOrderItems(); // ดึงข้อมูลเมื่อคอมโพเนนต์ถูกติดตั้ง
   },
 };
 </script>
 
 <style scoped>
+.non-data {
+  font-size: 59px;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  transform: translate(0%, 400%);
+  color: white;
+}
 .div-box {
   display: flex;
   height: 40px;
@@ -460,6 +448,9 @@ export default {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  max-height: 720px;
+  height: 720px;
+  background-color: #3c3b4b;
 }
 .order-table th,
 .order-table td {

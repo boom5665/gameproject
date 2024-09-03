@@ -158,7 +158,7 @@ export default {
       productsCount: 50,
       followersCount: 1000,
       reviewsCount: 200,
-      currentView: "Shopmanage", // ค่าเริ่มต้นของ currentView
+      currentView: "ShopOrder", // ค่าเริ่มต้นของ currentView
       itemsData: [],
       orderItems: [], // เริ่มต้นด้วยอาร์เรย์ว่างสำหรับ orderItems],
       purchasedItems: [],
