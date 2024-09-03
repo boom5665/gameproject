@@ -44,7 +44,7 @@
                 }}</span>
               </div>
 
-              <div class=" disabled">
+              <div class="disabled">
                 <img
                   src="~/assets/image/Delete.png"
                   style="width: 26px; height: 26px; margin: 0px 5px"
@@ -55,6 +55,15 @@
           </div>
         </div>
       </div>
+      <div>
+        <Pagination
+          :currentPage="currentPage"
+          :totalPages="totalPages"
+          @page-changed="onPageChanged"
+        />
+      </div>
+
+      <Loader :isLoading="isLoading" />
     </div>
   </div>
 </template>
@@ -65,10 +74,30 @@ export default {
   data() {
     return {
       isLoading: false,
-      itemsData: [
-
-      ],
+      itemsData: [],
+      currentPage: 1,
+      perPage: 5,
+      page_count: 0,
     };
+  },
+  computed: {
+    getSelectedItem() {
+      const item = this.orderItems.find(
+        (item) => item.id === this.selectedItemId
+      );
+
+      console.log(item); // Use console.log(item) to see the details of the selected item
+
+      return item || {}; // Return the found item or an empty object if none is found
+    },
+    totalPages() {
+      return this.page_count;
+    },
+    paginatedItems() {
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.orderItems.slice(start, end);
+    },
   },
   mounted() {
     this.fetchdata();
@@ -96,7 +125,7 @@ export default {
       }
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
-    async fetchdata() {
+    async fetchdata(page = 1) {
       this.isLoading = true;
       this.itemsData = []; // เริ่มต้นข้อมูลเป็น array ว่าง
       try {
@@ -109,8 +138,8 @@ export default {
         const response1 = await this.$axios.$post(
           "/product/list/read",
           {
-            page: 1,
-            limit: 10,
+            page: page,
+            limit: 11,
           },
           {
             headers: {
@@ -121,7 +150,7 @@ export default {
 
         const resalldata1 = response1.data_list || [];
         this.page_count = response1.page_count;
-        console.log("Data from API:", resalldata1);
+        console.log("Data from API:", response1);
 
         if (Array.isArray(resalldata1) && resalldata1.length > 0) {
           this.itemsData = resalldata1.map((item) => {
@@ -152,6 +181,14 @@ export default {
       } finally {
         this.isLoading = false;
       }
+    },
+    changePage(page) {
+      this.currentPage = page;
+    },
+
+    onPageChanged(page) {
+      this.fetchdata(page);
+      this.changePage(page);
     },
   },
 };
