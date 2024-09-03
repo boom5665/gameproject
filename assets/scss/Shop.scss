@@ -84,6 +84,7 @@
     display: flex;
     justify-content: center;
     margin: 10px 0px;
+    cursor: pointer;
   }
 
   .bottom-y:hover {
@@ -102,6 +103,7 @@
     justify-content: center;
     margin: 10px 0px;
   }
+
 
   .img-safe {
     cursor: pointer;
@@ -533,6 +535,15 @@
     overflow: hidden;
     border-radius: 6px 6px 0px 0px;
     border: 1px solid #bababa;
+    transition: 1s;
+    &:hover {
+      filter: brightness(1.2);
+      .order-status {
+        animation: blinks;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+      }
+    }
   }
 
   .order-header {
@@ -666,4 +677,27 @@
 .SHOPright {
   padding: 0px 5px;
   transform: translate(0px, -3px);
+}
+
+@keyframes blinks {
+  0% { filter: contrast(1) }
+  50% { filter: contrast(1.2)}
+  100% { filter: contrast(1)}
+}
+
+.bottom-red {
+  width: 100%;
+  height: 40px;
+  padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
+  border-radius: var(--Border-radius-8, 8px);
+  /* border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2); */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0px;
+  background: var(--Color-Red-500, #d00);
+  cursor: pointer;
+  &:hover {
+    background-color: #bc0000;
+  }
 }

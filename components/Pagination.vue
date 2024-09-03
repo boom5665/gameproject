@@ -75,6 +75,10 @@ export default {
 }
 .pagination li {
   margin: 0 2px;
+  a:hover {
+    background-color: #4100ff;
+    color: #fff;
+  }
 }
 .pagination li a {
   text-decoration: none;

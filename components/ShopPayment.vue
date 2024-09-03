@@ -12,8 +12,8 @@
                 <img class="item-img" :src="product.imageUrl" alt="Product Image" />
               </div>
               <div>
-                <div>{{ product.description }}</div>
-                <div>{{ product.category }}</div>
+                <div v-html="product.description" ></div>
+                <div v-html="product.category"></div>
               </div>
               <div>
                 <div>X {{ product.quantity }}</div>
@@ -28,7 +28,8 @@
           <div class="box-time">
             <div>
               <div style="margin: 15px 5px; font-size: 18px">
-                โปรดชำระเงินภายใน {{ timeRemaining }}
+                โปรดชำระเงินภายใน 
+                <div v-if="formattedTime==='0'">{{ timeRemaining }}</div>
               </div>
               <div>
                 <div class="time">{{ formattedTime }}</div>
@@ -100,11 +101,20 @@ export default {
     formattedTime() {
       const minutes = Math.floor(this.timer / 60);
       const seconds = this.timer % 60;
+      const timeOutput = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+
+      // นับถอยหลังหมดเวลา เปลี่ยนหน้าไปหน้าหลัก
+      if(timeOutput==="0:00") 
+        this.$router.push('/')
       return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     },
     timeRemaining() {
       return `${Math.floor(this.timer / 60)} นาที`;
     },
+    // goToHome() {
+    //   if(formattedTime() === '0')
+    //     this.$router.push('/') // Go to Home
+    // },
   },
   mounted() {
     this.startTimer();
@@ -227,18 +237,6 @@ export default {
 
 <style scoped>
 /* เพิ่มสไตล์ตามต้องการ */
-.bottom-red {
-  width: 100%;
-  height: 40px;
-  padding: var(--Spacing-space-8, 8px) var(--Spacing-space-12, 12px);
-  border-radius: var(--Border-radius-8, 8px);
-  /* border: 1px solid var(--Color-Primary-Pueple-500, #5c25f2); */
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  margin: 10px 0px;
-  background: var(--Color-Red-500, #d00);
-}
 
 .box-time {
   margin: 10px;

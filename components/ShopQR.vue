@@ -5,18 +5,18 @@
         สั่งซื้อสินค้า &nbsp; | &nbsp;
         <span class="font-proL-top">สั่งซื้อตอนนี้</span>
       </div>
-      <div
-        class="form-create"
-        style="
+      <div class="form-create" style="
           margin-top: 20px;
           gap: var(--Spacing-space-16, 12px);
           align-items: center;
-        "
-      >
+        ">
         <div class="cob-qr">
           <div style="width: 100%; display: contents">
-            <div style="margin-right: 20px">
+            <div class="qr-container" style="margin-right: 20px">
               <img class="" :src="qrImageUrl" />
+              <div class="container-logo"><img src="~/assets/image/Logo-Gamemarket.png" alt="Search" class="Logo-img" />
+              </div>
+
             </div>
           </div>
           <div>
@@ -130,6 +130,7 @@ export default {
 .M-Create-Backgroud .form-create {
   align-items: center;
 }
+
 .cob-qr {
   display: flex;
   flex-direction: column;
@@ -140,12 +141,37 @@ export default {
   border: 2px solid #bababa;
   border: 2px solid var(--color-black-white-700, #bababa);
   padding: 10px 30px;
+
+  .qr-container {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: 4px solid #5c25f2;
+    border-radius: 6px;
+    margin-right: 20px;
+    width: 26vw;
+    margin-right: 20px;
+
+    .container-logo {
+      background: linear-gradient(0deg, rgba(4, 2, 38, 1) 0%, rgba(92, 37, 242, 1) 90%);
+      display: flex;
+      justify-content: center;
+      padding-bottom: 20px;
+      padding-top: 20px;
+
+      img {
+        width: 112.5px;
+        height: 55px;
+      }
+    }
+  }
 }
+
 .dis-flex {
   display: flex;
   margin: 10px 0px;
   width: 100%;
 }
+
 .il-qr {
   display: flex;
   width: 26px;

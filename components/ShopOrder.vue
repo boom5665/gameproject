@@ -20,7 +20,7 @@
           </thead>
           <tbody>
             <!-- Loop through filteredOrderItems for items that are not confirmed -->
-            <tr v-for="item in filteredOrderItems" :key="item.id">
+            <tr class="tr-gm" v-for="item in filteredOrderItems" :key="item.id">
               <td><img :src="item.img" alt="Product Image" /></td>
               <td>{{ item.name }}</td>
               <td>
@@ -533,5 +533,15 @@ export default {
   align-items: center;
   justify-content: center;
   font-size: 30px;
+}
+
+.tr-gm {
+  cursor: auto;
+  &:hover {
+    background-color: #401aa8;
+  }
+  &:nth-child(odd) {
+    background-color: #2f2e37;
+  }
 }
 </style>
