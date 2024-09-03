@@ -139,7 +139,7 @@ textarea {
 
 .W-default {
   width: 100%;
-  padding: 30px 150px;
+  padding: 1.5vw 2vw;
   // max-width: 1700px;
   display: flex;
   align-items: center;
@@ -211,7 +211,6 @@ textarea {
   flex-direction: column;
   background: var(--Color-Primary-700, $purple-color);
   padding: 40px;
-  margin-top: 40px;
 }
 
 
@@ -342,7 +341,7 @@ textarea {
 }
 
 .font {
-  color: $gray-color;
+  color: $white-color;
   font-variant-numeric: stacked-fractions;
   font-feature-settings: "hlig"on, "dlig"on;
   font-family: "Pentor Corporate";
