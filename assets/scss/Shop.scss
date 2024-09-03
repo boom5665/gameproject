@@ -567,11 +567,13 @@
   }
 
   /* คลาสสำหรับสถานะ "รายการมีปัญหา" */
-  .order-status.problem {
-    background-color: red;
-    /* สีแดง */
-    color: white;
-    /* สีตัวอักษร */
+  .order-status.problem,
+  .order-status.canceled {
+    background-color: red; /* สีพื้นหลัง */
+    color: white; /* สีตัวอักษร */
+    padding: 10px; /* การจัดระยะห่างภายใน */
+    border-radius: 5px; /* ขอบโค้ง */
+    font-weight: bold; /* ตัวอักษรหนา */
   }
 
   .order-status.wait {
@@ -581,7 +583,7 @@
     /* สีตัวอักษร */
   }
 
-  .order-status.RESERVE {
+  .order-status.reserve {
     background-color: #74f3ff;
     /* สีแดง */
     color: black;

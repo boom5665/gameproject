@@ -29,8 +29,8 @@
                   (ทั้งหมด {{ order.totalItems }} ชิ้น)
                 </span>
               </div>
-              <div :class="['order-status', order.statusClass]">
-                {{ order.statusText }}
+              <div :class="['order-status', getStatusClass(order.statusText)]">
+                {{ getStatusText(order.statusText) }}
               </div>
             </div>
             <div>
@@ -73,7 +73,15 @@
             </div>
           </div>
         </div>
+        <div style="width: 100%">
+          <Pagination
+            :currentPage="currentPage"
+            :totalPages="totalPages"
+            @page-changed="onPageChanged"
+          />
+        </div>
       </div>
+
       <Loader :isLoading="isLoading" />
     </div>
   </div>
@@ -85,6 +93,9 @@ export default {
     return {
       orders: [], // Data will be populated by API
       isLoading: false,
+      currentPage: 1,
+      perPage: 5,
+      page_count: 0,
     };
   },
   computed: {
@@ -95,7 +106,25 @@ export default {
         return { ...order, statusClass };
       });
     },
+    getSelectedItem() {
+      const item = this.orderItems.find(
+        (item) => item.id === this.selectedItemId
+      );
+
+      console.log(item); // Use console.log(item) to see the details of the selected item
+
+      return item || {}; // Return the found item or an empty object if none is found
+    },
+    totalPages() {
+      return this.page_count;
+    },
+    paginatedItems() {
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.orderItems.slice(start, end);
+    },
   },
+
   mounted() {
     if (process.client) {
       if (this.$route.path === "/MarketMyshop") {
@@ -107,10 +136,10 @@ export default {
         }
       }
     }
-    this.fetchData();
+    this.fetchdata();
   },
   methods: {
-    async fetchData() {
+    async fetchdata(page = 1) {
       this.isLoading = true;
       try {
         const token = this.$cookies.get("authToken");
@@ -125,7 +154,7 @@ export default {
             end_created_at: "",
             start_updated_at: "",
             end_updated_at: "",
-            page: 1,
+            page: page,
             limit: 10,
           },
           {
@@ -136,6 +165,7 @@ export default {
         );
 
         const resalldata = response.data_list;
+        this.page_count = response.page_count;
         console.log(resalldata);
 
         if (Array.isArray(resalldata) && resalldata.length > 0) {
@@ -181,10 +211,33 @@ export default {
       } else if (statusText.includes("WAIT_CONFIRM")) {
         return "waitcash";
       } else if (statusText.includes("RESERVE")) {
-        return "RESERVE";
+        return "reserve";
+      } else if (statusText.includes("CANCELED")) {
+        return "canceled";
       } else {
-        return "complete"; // Default status class
+        return "wait"; // Default status class
       }
+    },
+
+    getStatusText(statusText) {
+      const statusTexts = {
+        RESERVE: "จองสำเร็จ",
+        WAIT_CONFIRM: "ตรวจสอบการชำระ",
+        SUCCESS: "ซื้อสำเร็จ",
+        TIMEOUT: "หมดเวลาจอง",
+        REJECT_CONFIRM: "ไม่อนุมัติการแจ้งชำระ",
+        CANCELED: "ยกเลิกรายการ",
+      };
+
+      // Find the key in the statusTexts that matches statusText
+      for (const key in statusTexts) {
+        if (statusText.includes(key)) {
+          return statusTexts[key];
+        }
+      }
+
+      // Default status text
+      return "สถานะไม่ทราบ";
     },
 
     formatDate(dateString) {
@@ -197,6 +250,15 @@ export default {
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const year = date.getFullYear();
       return `${hours}:${minutes} / ${day}-${month}-${year}`;
+    },
+
+    changePage(page) {
+      this.currentPage = page;
+    },
+
+    onPageChanged(page) {
+      this.fetchdata(page);
+      this.changePage(page);
     },
   },
 };
