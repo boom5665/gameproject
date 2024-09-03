@@ -86,6 +86,7 @@ export default {
   border: 1px solid #6f3aff;
   border-radius: 3px;
   color: #333;
+  cursor: pointer;
 }
 .pagination li.active a {
   background-color: #6f3aff;

@@ -46,13 +46,18 @@
                       />
                       <div class="product-info">
                         <div class="product-name">{{ order.productName }}</div>
-                        <div class="product-tag">{{ order.productTag }}</div>
+
+                        <div
+                          class="product-tag"
+                          v-if="order.productTag"
+                          v-html="order.productTag"
+                        ></div>
                       </div>
                     </div>
                     <div class="order-summary">
-                      <div class="order-amount">
-                        ยอดสุทธิ <br />
-                        {{ order.amount }}
+                      <div class="">
+                        ราคา <br />
+                        {{ order.price }}
                       </div>
                     </div>
                   </div>
@@ -182,10 +187,22 @@ export default {
               productImage: product.img || "",
               productName: product.name || "Unknown",
               productTag: product.description || "",
-              amount: `฿${
-                item.price_total ? item.price_total.toFixed(2) : "0.00"
-              }`,
+
               date: this.formatDate(item.created_at) || "Invalid Date",
+              amount: `฿${
+                item.price_total
+                  ? item.price_total.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                    })
+                  : "0.00"
+              }`,
+              price: `฿${
+                product.price_before_discount
+                  ? product.price_before_discount.toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                    })
+                  : "0.00"
+              }`,
             };
 
             console.log("Order item:", orderItem); // Log the complete order item
