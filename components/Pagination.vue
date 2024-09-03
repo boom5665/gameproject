@@ -71,6 +71,7 @@ export default {
   margin: 0;
   display: flex;
   justify-content: flex-end;
+  margin-top: 15px;
 }
 .pagination li {
   margin: 0 2px;

@@ -432,3 +432,69 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
   filter: brightness(0.4);
   cursor: context-menu !important;
 }
+
+.dis-top-bottom {
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.font {
+  font-size: 12px;
+  margin: 0px 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 175px;
+}
+
+.m-top-f {
+  margin-top: 5px;
+}
+
+.dis-tpn {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0px 0px 5px 0px;
+}
+
+.love-box {
+  display: flex;
+  background: #31303f;
+  position: absolute;
+  transform: translate(135px, -5px);
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.fontname {
+  font-size: 14px;
+  margin: 0px 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95px;
+  color: white;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  color: #bababa;
+  font-size: 12px;
+}
+
+.font-total {
+  color: #ffeb3b;
+  font-size: 20px;
+}
+
+.img-productdis {
+  pointer-events: none;
+  /* ปิดการคลิก */
+  /* opacity: 0.5; ทำให้ภาพดูทึบ */
+  filter: grayscale(100%);
+  /* ทำให้ภาพเป็นสีขาวดำ */
+}

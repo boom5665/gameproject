@@ -10,67 +10,136 @@
           </NuxtLink>
         </div>
         <!-- ใช้ v-for กับ itemsData -->
-        <div
-          class="tpn_card"
-          v-for="(item, index) in itemsData"
-          :key="item.id || index"
-        >
-          <img :src="item.imageSrc" class="tpn_cardimg" />
-          <div class="content-under">{{ item.subtitle }}</div>
-          <div class="font">{{ item.description }}</div>
-          <div class="display">
-            <div class="price">฿ {{ item.price }}</div>
+
+        <div v-for="item in itemsData" :key="item.id" class="tpn_card">
+          <div class="dis-tpn">
             <div>
               <img
-                :src="item.cartSrc"
+                :src="item.img"
                 style="width: 26px; height: 26px; margin-right: 5px"
+                alt="Shop Logo"
               />
+            </div>
+            <div class="fontname">
+              {{ item.name }}
+            </div>
+          </div>
+          <img :src="item.imageSrc" class="tpn_cardimg" alt="Product Image" />
+          <div class="content-under">
+            ขายแล้ว {{ formatNumber(item.sold_amount) }}
+          </div>
+          <div class="dis-top-bottom">
+            <div>
+              <div
+                v-if="item.description"
+                class="font m-top-f"
+                v-html="item.description"
+              ></div>
+            </div>
+            <div class="display">
+              <div class="font-total">
+                ฿ {{ formatNumber(Number(item.price)) }}
+                <span class="strikethrough">{{
+                  formatNumber(Number(item.price_before_discount))
+                }}</span>
+              </div>
+
+              <div class="disabled">
+                <img
+                  src="~/assets/image/Delete.png"
+                  style="width: 26px; height: 26px; margin: 0px 5px"
+                  alt="Add to Cart"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div>
+        <Pagination
+          :currentPage="currentPage"
+          :totalPages="totalPages"
+          @page-changed="onPageChanged"
+        />
+      </div>
+
+      <Loader :isLoading="isLoading" />
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
   data() {
     return {
-      isLoading: false, // ตัวแปรที่ใช้แสดง loader
-      itemsData: [
-        // ชื่อที่ถูกต้องของ data property
-        {
-          loveCount: 100,
-          imageSrc: require("@/assets/image/cardgold.png"), // ใช้ require หรือ import
-          subtitle: "แก้ไขข้อมูลสินค้า",
-          description: "Package Gold Wing Rose Crown (จำกัดจำนวน 100 ชิ้น)",
-          price: "1,999",
-          cartSrc: require("@/assets/image/Delete.png"), // ใช้ require หรือ import
-        },
-      ],
+      isLoading: false,
+      itemsData: [],
+      currentPage: 1,
+      perPage: 5,
+      page_count: 0,
     };
   },
+  computed: {
+    getSelectedItem() {
+      const item = this.orderItems.find(
+        (item) => item.id === this.selectedItemId
+      );
+
+      console.log(item); // Use console.log(item) to see the details of the selected item
+
+      return item || {}; // Return the found item or an empty object if none is found
+    },
+    totalPages() {
+      return this.page_count;
+    },
+    paginatedItems() {
+      const start = (this.currentPage - 1) * this.perPage;
+      const end = start + this.perPage;
+      return this.orderItems.slice(start, end);
+    },
+  },
   mounted() {
-    this.fetchdata(); // ดึงข้อมูลเมื่อคอมโพเนนต์ถูกติดตั้ง
+    this.fetchdata();
   },
   methods: {
-    // เพิ่ม methods หรือ logic ที่ต้องการในนี้
-    async fetchdata() {
-      this.isLoading = true; // แสดง loader
-      this.orderItems = [];
+    formatNumber(value) {
+      if (typeof value !== "number") {
+        return value; // Return value as is if it's not a number
+      }
+
+      if (value >= 1000000) {
+        return (value / 1000000).toFixed(1) + "m"; // แปลงเป็น '1.0m'
+      } else if (value >= 100000) {
+        return (value / 1000).toFixed(0) + "k"; // แปลงเป็น '100k'
+      } else if (value >= 10000) {
+        return (value / 1000).toFixed(0) + "k"; // แปลงเป็น '10k'
+      } else {
+        return this.addCommas(value); // เพิ่มลูกน้ำในกรณีตัวเลขน้อยกว่า 10,000
+      }
+    },
+
+    addCommas(value) {
+      if (typeof value !== "number") {
+        return value; // Return value as is if it's not a number
+      }
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    async fetchdata(page = 1) {
+      this.isLoading = true;
+      this.itemsData = []; // เริ่มต้นข้อมูลเป็น array ว่าง
       try {
         const token = this.$cookies.get("authToken");
         if (!token) {
           throw new Error("Authentication token is missing");
         }
 
-        // เรียกใช้ API แรก
+        // เรียกใช้ API
         const response1 = await this.$axios.$post(
           "/product/list/read",
           {
-            page: 1,
-            limit: 10,
+            page: page,
+            limit: 11,
           },
           {
             headers: {
@@ -81,31 +150,25 @@ export default {
 
         const resalldata1 = response1.data_list || [];
         this.page_count = response1.page_count;
-        console.log("Data from first API:", resalldata1);
+        console.log("Data from API:", response1);
 
         if (Array.isArray(resalldata1) && resalldata1.length > 0) {
-          resalldata1.forEach((item) => {
+          this.itemsData = resalldata1.map((item) => {
             const product = item.product || {};
             const customer = item.customer || {};
-            const newOrderItem = {
+            return {
               amount: item.amount || null,
-              slipimg: item.evidence_bank_from_slip_img || null,
-              payatt: item.evidence_bank_from_pay_at || null,
-              bank: item.evidence_bank_from_bank || null,
-              formname: item.evidence_bank_from_name || null,
-              money: item.evidence_bank_from_pay_money || null,
               id: item.id || null,
-              status: this.getStatusLabel(item.status), // ใช้ฟังก์ชันเพื่อแปลสถานะ
-              price: `฿${(item.price_total || 0).toFixed(2)}`,
+              sold_amount: item.sold_amount || 0,
+              price: item.price,
+              price_before_discount: item.price_before_discount,
               phone: customer.phone || null,
               email: customer.email || null,
-              img: product.img || "",
-              name: product.name || "Unknown",
-              description: product.description || "Unknown",
-              date: this.formatDate(item.created_at) || "Invalid Date",
+              img: item.img || "",
+              imageSrc: item.img || "",
+              description: item.market_shops.description || "Unknown",
+              name: item.market_shops.name || "Unknown",
             };
-
-            this.orderItems.push(newOrderItem);
           });
         }
       } catch (error) {
@@ -116,13 +179,20 @@ export default {
           text: error.message || "Something went wrong!",
         });
       } finally {
-        this.isLoading = false; // ซ่อน loader
+        this.isLoading = false;
       }
+    },
+    changePage(page) {
+      this.currentPage = page;
+    },
+
+    onPageChanged(page) {
+      this.fetchdata(page);
+      this.changePage(page);
     },
   },
 };
 </script>
-
 
 
 <style scoped>
