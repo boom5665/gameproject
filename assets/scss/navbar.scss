@@ -195,10 +195,23 @@
 .Logo-img {
   width: 225px;
   height: 110px;
+  animation: fadeIn 5s;
+  &:hover {
+    filter: contrast(200%) brightness(120%);
+  }
   &.logo-footer {
     width: 168.75px;
     height: 82.5px;
+    animation: fadeIn 5s;
+    &:hover {
+      filter: contrast(200%) brightness(120%);
+    }
   }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .footer-layout { 

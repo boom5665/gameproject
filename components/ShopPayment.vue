@@ -5,23 +5,11 @@
         <div style="width: 60%" class="box-pay">
           <Stepper :steps="steps" :currentStep="currentStep" />
           <!-- <button @click="cancelpay">ถัดไป</button> -->
-          <div
-            v-for="(category, index) in categorizedProducts"
-            :key="index"
-            class="width-hunded"
-          >
+          <div v-for="(category, index) in categorizedProducts" :key="index" class="width-hunded">
             <div class="top-head">{{ category.name }}</div>
-            <div
-              v-for="(product, index) in category.items"
-              :key="index"
-              class="shop-item"
-            >
+            <div v-for="(product, index) in category.items" :key="index" class="shop-item">
               <div>
-                <img
-                  class="item-img"
-                  :src="product.imageUrl"
-                  alt="Product Image"
-                />
+                <img class="item-img" :src="product.imageUrl" alt="Product Image" />
               </div>
               <div>
                 <div>{{ product.description }}</div>
@@ -39,7 +27,7 @@
         <div style="width: 40%">
           <div class="box-time">
             <div>
-              <div style="margin: 15px 5px">
+              <div style="margin: 15px 5px; font-size: 18px">
                 โปรดชำระเงินภายใน {{ timeRemaining }}
               </div>
               <div>
@@ -251,6 +239,7 @@ export default {
   margin: 10px 0px;
   background: var(--Color-Red-500, #d00);
 }
+
 .box-time {
   margin: 10px;
   padding: var(--Spacing-space-16, 16px);
@@ -265,8 +254,43 @@ export default {
   background: var(--Color-Primary-Pueple-500, #5c25f2);
   width: max-content;
   display: inline;
+  padding: 8px 1.5vw;
+  animation-name: head;
+  animation-duration: 6.5s;
+  animation-iteration-count: infinite;
   color: white;
-  padding: 5px;
-  margin: 10px;
+  font-size: 6vw;
+  font-family: monospace;
+}
+
+@keyframes head {
+  0% {
+    color: #ffffff;
+  }
+
+  25% {
+    color: #ffffff4a;
+  }
+
+  50% {
+    color: #ffffff;
+  }
+
+  65% {
+    color: #ffffff4a;
+  }
+
+  80% {
+    color: #ffffff;
+   
+  }
+
+  90% {
+    color: #ffffff4a;
+  }
+
+  100% {
+    color: #ffffff;
+  }
 }
 </style>
