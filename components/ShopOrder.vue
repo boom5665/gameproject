@@ -153,8 +153,6 @@
               </div>
             </div>
           </div>
-
-          <Loader :isLoading="isLoading" />
         </div>
       </div>
       <div v-if="getSelectedItem.status === 'WAIT_CONFIRM'">
@@ -191,6 +189,8 @@
         @page-changed="onPageChanged"
       />
     </div>
+
+    <Loader :isLoading="isLoading" />
   </div>
 </template>
 
@@ -497,8 +497,8 @@ export default {
   border-radius: 8px;
   border: 1px solid #5c25f2;
   background: #ffeb3b;
-  width: 70%;
-  height: 50px;
+  width: 60%;
+  height: 40px;
   font-size: 16px;
 }
 .check-button:hover {
@@ -515,6 +515,7 @@ export default {
 }
 .margin-right {
   margin-right: 15px;
+  text-align: center;
 }
 .box-content-pay {
   border-radius: var(--Border-radius-6, 6px);

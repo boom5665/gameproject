@@ -48,7 +48,7 @@
         <!-- Footer -->
         <div class="lower-footer-layout">
           <div style="">
-            <div>© 2024 Game Market สงวนลิขสิทธิ์.</div>
+            <div>© 2024 Game Market</div>
           </div>
           <div>
             <div class="d-flex">

@@ -61,7 +61,7 @@ export default {
       if (this.items.length > 6) {
         this.autoSlideInterval = setInterval(() => {
           this.slide("right");
-        }, 5000); // การตั้งค่าเวลาอัตโนมัติ
+        }, 100000000000); // การตั้งค่าเวลาอัตโนมัติ
       }
     },
     stopAutoSlide() {
