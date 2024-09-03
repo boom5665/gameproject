@@ -380,7 +380,7 @@ export default {
     },
 
     onPageChanged(page) {
-      this.fetchOrderItems(page);
+      this.fetchOrderItems(page,this.searchQuery);
       this.changePage(page);
     },
   },
