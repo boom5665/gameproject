@@ -13,19 +13,26 @@
         <div class="cob-qr">
           <div style="width: 100%; display: contents">
             <div class="qr-container" style="margin-right: 20px">
-              <img class="" :src="qrImageUrl" />
-              <div class="container-logo"><img src="~/assets/image/Logo-Gamemarket.png" alt="Search" class="Logo-img" />
-              </div>
 
+              <div class="container-logo promptpay">
+                <img src="~/assets/image/ThaiQR.jpg" alt="Search" class="Logo-img" />
+              </div>
+              <div class="container-qr">
+                <img v-if="qrImageUrl" class="real-qr" :src="qrImageUrl" />
+                <img v-if="!qrImageUrl" src="~/assets/image/DummyQR.png" class="dummy-qr"/>
+              </div>
+              <div class="container-logo">
+                <img src="~/assets/image/Logo-Gamemarket.png" alt="Search" class="Logo-img" />
+              </div>
             </div>
           </div>
           <div>
-            <div class="dis-input">
+            <div class="dis-input price-container">
               <div>ยอดสุทธิ</div>
               <div class="font-re">{{ total_price }}</div>
             </div>
-            <div>
-              <div>ขั้นตอนการจ่ายเงินด้วย QR Code</div>
+            <div class="terms-container">
+              <div class="title">ขั้นตอนการจ่ายเงินด้วย QR Code</div>
               <div class="dis-flex">
                 <div class="il-qr">1</div>
                 <div>เปิดแอปพลิเคชันธนาคารที่คุณมี</div>
@@ -145,11 +152,29 @@ export default {
   .qr-container {
     margin-top: 40px;
     margin-bottom: 40px;
-    border: 4px solid #5c25f2;
+    border: 2.5px solid #5c25f2;
     border-radius: 6px;
-    margin-right: 20px;
-    width: 26vw;
-    margin-right: 20px;
+    min-width: 300px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    >img {
+      width: 100%;
+    }
+    .container-qr {
+      display: flex;
+      justify-content: center;
+      >img.real-qr {
+        transition: 1s;
+        animation: fadeIn 5s ease-in;
+      }
+      >img.dummy-qr {
+        filter: blur(5px);
+      }
+    }
+
 
     .container-logo {
       background: linear-gradient(0deg, rgba(4, 2, 38, 1) 0%, rgba(92, 37, 242, 1) 90%);
@@ -157,12 +182,40 @@ export default {
       justify-content: center;
       padding-bottom: 20px;
       padding-top: 20px;
+      &.promptpay {
+        background-color: #1a3761 !important;
+        background: none;
+        .Logo-img {
+          height: 80px;
+        width: 200px;
+        }
+      }
 
       img {
         width: 112.5px;
         height: 55px;
       }
     }
+  }
+}
+
+.price-container {
+  gap: 20px;
+  align-items: center;
+  font-size: 24px;
+  >.font-re {
+
+  }
+}
+
+.terms-container {
+  padding-top: 30px;
+  .title {
+    font-weight: 600;
+    font-size: 20px;
+  }
+  .dis-flex {
+    font-weight: 200;
   }
 }
 

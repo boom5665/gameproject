@@ -91,3 +91,4 @@ sw.*
 *.swp
 .vercel
 
+package-lock.json
