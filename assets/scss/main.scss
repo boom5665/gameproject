@@ -386,7 +386,7 @@ textarea {
   align-items: center;
   border-radius: var(--Border-radius-8, 8px);
   background: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
-  &.disbaled {
+  &.disabled {
     filter: brightness(1) grayscale(1);
   }
 }
