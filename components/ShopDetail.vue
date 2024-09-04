@@ -273,7 +273,12 @@ export default {
                                 }
                               )}`
                             : "",
-                        difference,
+                        difference:
+                          difference || difference === 0
+                            ? difference.toLocaleString(undefined, {
+                                minimumFractionDigits: 0,
+                              })
+                            : "",
                       };
                     })
                   : [

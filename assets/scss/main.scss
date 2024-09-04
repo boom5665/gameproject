@@ -342,6 +342,7 @@ textarea {
   border-radius: 0px 0px 8px 8px;
   background: var(--Color-Primary-Pueple-500, $Primary-Pueple-500);
   font-size: 14px;
+
   &.new-item {
     background-color: #ffeb3b;
     color: var(--Color-Primary-Pueple-500, #5c25f2);
@@ -402,7 +403,7 @@ textarea {
     top: 50%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(36%, 113%);
+    transform: translate(36%, -140%);
     width: 112.5px;
     height: 55px;
   }
@@ -425,7 +426,7 @@ textarea {
   border: 14px solid #ffeb3b;
   position: absolute;
   left: 0;
-  top: 0;
+  top: -140px;
   animation: rotation 2s ease-in-out infinite alternate;
 }
 

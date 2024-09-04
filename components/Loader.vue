@@ -4,7 +4,7 @@
     <span class="loader">
       <img src="~/assets/image/Logo-Gamemarket.png" alt="Search" class="Logo-img" />
     </span>
-  </div> 
+  </div>
 </template>
 
 <script>

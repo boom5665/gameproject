@@ -87,8 +87,7 @@
               alt="Shop Logo"
             />
           </div>
-          <div class="fontname item-name">
-            {{ item.name }}
+          <div class="fontname item-name" v-html="item.name ">
           </div>
           <!-- <div class="love-box">
           <div class="loveimg">

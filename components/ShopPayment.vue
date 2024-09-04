@@ -1,21 +1,22 @@
 <template>
   <div class="Shop width-hunded">
-    <div class="markettop-toppage">
-      <div class="dis-flex" style="align-items: flex-start">
+    <div
+      class="markettop-toppage"
+      v-for="(category, index) in categorizedProducts"
+      :key="index"
+    >
+      <div
+        class="dis-flex"
+        style="align-items: flex-start"
+        v-for="(product, index) in category.items"
+        :key="index"
+      >
         <div style="width: 60%" class="box-pay">
           <Stepper :steps="steps" :currentStep="currentStep" />
           <!-- <button @click="cancelpay">ถัดไป</button> -->
-          <div
-            v-for="(category, index) in categorizedProducts"
-            :key="index"
-            class="width-hunded"
-          >
+          <div class="width-hunded">
             <div class="top-head">{{ category.name }}</div>
-            <div
-              v-for="(product, index) in category.items"
-              :key="index"
-              class="shop-item"
-            >
+            <div class="shop-item">
               <div>
                 <img
                   class="item-img"
@@ -59,11 +60,13 @@
               <div style="padding: 20px 30px; width: 100%">
                 <div class="dis-btween">
                   <div>รวมยอดสั่งซื้อทั้งหมด</div>
-                  <div>฿{{ totalAmount.toLocaleString() }}</div>
+                  <div>฿{{ product.price.toLocaleString() }}</div>
+                  <!-- <div>฿{{ totalAmount.toLocaleString() }}</div> -->
                 </div>
                 <div class="dis-btween font-head-bottom">
                   <div>ยอดชำระเงินทั้งหมด</div>
-                  <div>฿{{ totalAmount.toLocaleString() }}</div>
+                  <div>฿{{ product.price.toLocaleString() }}</div>
+                  <!-- <div>฿{{ totalAmount.toLocaleString() }}</div> -->
                 </div>
                 <div class="bottom-y" @click="confirmpay">ชำระเงิน</div>
                 <div class="bottom-red" @click="cancelpay">ยกเลิกการจอง</div>
