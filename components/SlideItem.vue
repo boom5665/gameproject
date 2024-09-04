@@ -52,6 +52,9 @@
               <!-- </NuxtLink> -->
             </div>
           </div>
+          <div class="buy-container">
+            <div class="buy-button">ซื้อสินค้า</div>
+          </div>
         </div>
       </NuxtLink>
     </div>
