@@ -55,7 +55,7 @@
                       </div>
                     </div>
                     <div class="order-summary-two">
-                      <div class="" style="margin-bottom: 10px;">
+                      <div class="" style="margin-bottom: 10px">
                         ราคา <br />
                         {{ order.price }}
                       </div>
@@ -198,16 +198,16 @@ export default {
                   ? item.price_total.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                     })
-                  : "0.00"
+                  : ""
               }`,
               price: `฿${
                 product.price_before_discount
                   ? product.price_before_discount.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                     })
-                  : "0.00"
+                  : ""
               }`,
-              difference: `฿${(
+              difference: `฿${Math.abs(
                 item.price_total - product.price_before_discount
               ).toLocaleString(undefined, {
                 minimumFractionDigits: 2,

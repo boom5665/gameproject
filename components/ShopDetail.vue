@@ -133,7 +133,14 @@
                         <span>x{{ order.quantity }}</span>
                       </div>
                       <div>
-                        <span>฿{{ product.price }}</span>
+                        <div class="" style="margin-bottom: 10px">
+                          ราคา <br />
+                          <span>฿{{ product.price }}</span>
+                        </div>
+                        <div class="order-shop">
+                          ส่วนลด <br />
+                          <span>฿{{ product.difference }}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -241,18 +248,47 @@ export default {
               quantity: 1, // กำหนดเป็น 1 เสมอ
               product:
                 data.product.length > 0
-                  ? data.product.map((item) => ({
-                      productImage: item.img || "@/assets/image/default.png", // ใช้ภาพเริ่มต้นหากไม่มี
-                      productName: item.name || "ไม่ระบุชื่อสินค้า", // ใช้ชื่อเริ่มต้นหากไม่มี
-                      price: item.price || "ไม่ระบุชื่อสินค้า", // ใช้ชื่อเริ่มต้นหากไม่มี
-                    }))
+                  ? data.product.map((item) => {
+                      const difference = Math.abs(
+                        item.price_before_discount - item.price
+                      );
+                      const formattedDifference = difference.toLocaleString(
+                        undefined,
+                        {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2,
+                        }
+                      );
+                      console.log(difference); // พิมพ์ difference ของแต่ละสินค้า
+                      return {
+                        productImage: item.img || "@/assets/image/default.png", // ใช้ภาพเริ่มต้นหากไม่มี
+                        productName: item.name || "ไม่ระบุชื่อสินค้า", // ใช้ชื่อเริ่มต้นหากไม่มี
+                        price:
+                          item.price_before_discount ||
+                          item.price_before_discount === 0
+                            ? `${item.price_before_discount.toLocaleString(
+                                undefined,
+                                {
+                                  minimumFractionDigits: 0,
+                                }
+                              )}`
+                            : "",
+                        difference,
+                      };
+                    })
                   : [
                       {
                         productImage: "@/assets/image/default.png", // ใช้ภาพเริ่มต้นหากไม่มีข้อมูล
                         productName: "ไม่ระบุชื่อสินค้า", // ใช้ชื่อเริ่มต้นหากไม่มีข้อมูล
                       },
                     ],
-              totalPrice: data.price || 0,
+
+              totalPrice:
+                data.price || data.price === 0
+                  ? `${data.price.toLocaleString(undefined, {
+                      minimumFractionDigits: 0,
+                    })}`
+                  : "",
             },
           ];
 
@@ -304,13 +340,17 @@ export default {
 </script>
 
 <style scoped>
+.order-shop {
+  color: #bababa;
+}
+
 .product-item {
   display: flex;
   width: 100%;
 }
 .be-under {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   width: 100%;
   justify-content: space-between;
 }
@@ -408,9 +448,11 @@ export default {
 }
 
 .order-product img {
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   margin-right: 16px;
+  border-radius: 16px;
+  margin-top: 0px;
   border-radius: var(--Border-radius-16, 16px);
 }
 

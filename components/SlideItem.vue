@@ -75,6 +75,8 @@
           item.market_shops.name
         )}&img=${encodeURIComponent(item.img)}&description=${encodeURIComponent(
           item.description
+        )}&price_before_discount=${encodeURIComponent(
+          item.price_before_discount
         )}`"
       >
         <div class="dis-tpn">
@@ -168,5 +170,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

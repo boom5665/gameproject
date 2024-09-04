@@ -88,7 +88,7 @@ export default ({ app }, inject) => {
             Swal.fire({
               title: "เจ้าของร้านค้าไม่สามารถจองสินค้าของตัวเองได้",
               icon: 'error',
-              timer: 1000, // หน่วงเวลา 2 วินาที
+              timer: 3000, // หน่วงเวลา 2 วินาที
               timerProgressBar: true,
               showConfirmButton: false, // ไม่แสดงปุ่ม OK
             }).then(() => {

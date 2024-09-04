@@ -5,21 +5,38 @@
         <div style="width: 60%" class="box-pay">
           <Stepper :steps="steps" :currentStep="currentStep" />
           <!-- <button @click="cancelpay">ถัดไป</button> -->
-          <div v-for="(category, index) in categorizedProducts" :key="index" class="width-hunded">
+          <div
+            v-for="(category, index) in categorizedProducts"
+            :key="index"
+            class="width-hunded"
+          >
             <div class="top-head">{{ category.name }}</div>
-            <div v-for="(product, index) in category.items" :key="index" class="shop-item">
+            <div
+              v-for="(product, index) in category.items"
+              :key="index"
+              class="shop-item"
+            >
               <div>
-                <img class="item-img" :src="product.imageUrl" alt="Product Image" />
+                <img
+                  class="item-img"
+                  :src="product.imageUrl"
+                  alt="Product Image"
+                />
               </div>
               <div>
-                <div v-html="product.description" ></div>
+                <div v-html="product.description"></div>
                 <div v-html="product.category"></div>
               </div>
               <div>
                 <div>X {{ product.quantity }}</div>
               </div>
               <div>
-                <div>฿{{ product.price.toLocaleString() }}</div>
+                ราคา <br />
+                <div>฿{{ product.price_before.toLocaleString() }}</div>
+              </div>
+              <div>
+                ส่วนลด <br />
+                <div>฿{{ product.diffed.toLocaleString() }}</div>
               </div>
             </div>
           </div>
@@ -28,8 +45,8 @@
           <div class="box-time">
             <div>
               <div style="margin: 15px 5px; font-size: 18px">
-                โปรดชำระเงินภายใน 
-                <div v-if="formattedTime==='0'">{{ timeRemaining }}</div>
+                โปรดชำระเงินภายใน
+                <div v-if="formattedTime === '0'">{{ timeRemaining }}</div>
               </div>
               <div>
                 <div class="time">{{ formattedTime }}</div>
@@ -101,11 +118,10 @@ export default {
     formattedTime() {
       const minutes = Math.floor(this.timer / 60);
       const seconds = this.timer % 60;
-      const timeOutput = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+      const timeOutput = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 
       // นับถอยหลังหมดเวลา เปลี่ยนหน้าไปหน้าหลัก
-      if(timeOutput==="0:00") 
-        this.$router.push('/')
+      if (timeOutput === "0:00") this.$router.push("/");
       return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     },
     timeRemaining() {
@@ -124,11 +140,31 @@ export default {
     const name = this.$route.query.name;
     const description = this.$route.query.description;
     const img = this.$route.query.img;
-    console.log(query);
-    this.fetchProductData(id, amount, name, description, img);
+    const price_befored = this.$route.query.price_before_discount;
+    const price_before = (
+      parseFloat(this.$route.query.price_before_discount) || 0
+    ).toLocaleString(undefined, { minimumFractionDigits: 0 });
+    console.log(price_before);
+    this.fetchProductData(
+      id,
+      amount,
+      name,
+      description,
+      img,
+      price_before,
+      price_befored
+    );
   },
   methods: {
-    async fetchProductData(id, amount, name, description, img) {
+    async fetchProductData(
+      id,
+      amount,
+      name,
+      description,
+      img,
+      price_before,
+      price_befored
+    ) {
       this.isLoading = true; // แสดง loader
       try {
         const idNumber = Number(id);
@@ -156,7 +192,9 @@ export default {
 
         if (response.data) {
           const price = response.data.price_new_total;
+          const pricebefore = response.data.price_current_total;
           const timer = response.data.reserve_expire_at_list;
+          const diffed = price_befored - price;
           this.codeqr = response.data.id_pay_transaction_new; // เก็บ codeqr ใน data
 
           // อัพเดต categorizedProducts ตามข้อมูลที่ได้รับ
@@ -170,11 +208,31 @@ export default {
                   description: name, // เปลี่ยนเป็นคำบรรยายที่ได้รับจาก API
                   category: description, // เปลี่ยนเป็นหมวดหมู่ที่ได้รับจาก API
                   quantity: amountNumber, // ใช้ค่าที่รับมาจาก parameter
-                  price: price, // ใช้ค่าราคาใหม่ที่ได้รับจาก API
+
+                  price:
+                    price || price === 0
+                      ? `${price.toLocaleString(undefined, {
+                          minimumFractionDigits: 0,
+                        })}`
+                      : "",
+                  price_before:
+                    price_before || price_before === 0
+                      ? price_before.toLocaleString()
+                      : "",
+
+
+                   diffed:
+                    diffed || diffed === 0
+                      ? `${diffed.toLocaleString(undefined, {
+                          minimumFractionDigits: 0,
+                        })}`
+                      : "",
                 },
               ],
             },
           ];
+          console.log(diffed);
+
           this.isLoading = false; // ซ่อน loader
         }
       } catch (error) {
@@ -280,7 +338,6 @@ export default {
 
   80% {
     color: #ffffff;
-   
   }
 
   90% {

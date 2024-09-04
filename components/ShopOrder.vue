@@ -304,13 +304,10 @@ export default {
             money: item.evidence_bank_from_pay_money || null,
             id: item.id || null,
             status: this.getStatusLabel(item.status),
-            price: `฿${
-              item.price_total >= 1000
-                ? item.price_total.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                  })
-                : item.price_total.toFixed(2)
-            }`,
+            price: `฿${item.price_total.toLocaleString(undefined, {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 2,
+            })}`,
 
             phone: customer.phone || null,
             email: customer.email || null,

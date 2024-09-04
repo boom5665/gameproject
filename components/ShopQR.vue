@@ -5,24 +5,38 @@
         สั่งซื้อสินค้า &nbsp; | &nbsp;
         <span class="font-proL-top">สั่งซื้อตอนนี้</span>
       </div>
-      <div class="form-create" style="
+      <div
+        class="form-create"
+        style="
           margin-top: 20px;
           gap: var(--Spacing-space-16, 12px);
           align-items: center;
-        ">
+        "
+      >
         <div class="cob-qr">
           <div style="width: 100%; display: contents">
             <div class="qr-container" style="margin-right: 20px">
-
               <div class="container-logo promptpay">
-                <img src="~/assets/image/ThaiQR.jpg" alt="Search" class="Logo-img" />
+                <img
+                  src="~/assets/image/ThaiQR.jpg"
+                  alt="Search"
+                  class="Logo-img"
+                />
               </div>
               <div class="container-qr">
                 <img v-if="qrImageUrl" class="real-qr" :src="qrImageUrl" />
-                <img v-if="!qrImageUrl" src="~/assets/image/DummyQR.png" class="dummy-qr"/>
+                <img
+                  v-if="!qrImageUrl"
+                  src="~/assets/image/DummyQR.png"
+                  class="dummy-qr"
+                />
               </div>
               <div class="container-logo">
-                <img src="~/assets/image/Logo-Gamemarket.png" alt="Search" class="Logo-img" />
+                <img
+                  src="~/assets/image/Logo-Gamemarket.png"
+                  alt="Search"
+                  class="Logo-img"
+                />
               </div>
             </div>
           </div>
@@ -102,6 +116,13 @@ export default {
         if (response) {
           this.qrImageUrl = response.qr_code_img; // ใช้ response.data.qr_code_img ตามที่ได้รับจาก API
           this.total_price = response.total_price; // ใช้ response.data.total_price ตามที่ได้รับจาก API
+          this.total_price = `${
+            response.total_price
+              ? response.total_price.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                })
+              : ""
+          }`;
           this.isLoading = false; // ซ่อน loader
         } else {
           console.error("Unexpected response structure:", response);
@@ -160,24 +181,27 @@ export default {
     flex-direction: column;
     justify-content: space-between;
 
-    >img {
+    > img {
       width: 100%;
     }
     .container-qr {
       display: flex;
       justify-content: center;
-      >img.real-qr {
+      > img.real-qr {
         transition: 1s;
         animation: fadeIn 5s ease-in;
       }
-      >img.dummy-qr {
+      > img.dummy-qr {
         filter: blur(5px);
       }
     }
 
-
     .container-logo {
-      background: linear-gradient(0deg, rgba(4, 2, 38, 1) 0%, rgba(92, 37, 242, 1) 90%);
+      background: linear-gradient(
+        0deg,
+        rgba(4, 2, 38, 1) 0%,
+        rgba(92, 37, 242, 1) 90%
+      );
       display: flex;
       justify-content: center;
       padding-bottom: 20px;
@@ -187,7 +211,7 @@ export default {
         background: none;
         .Logo-img {
           height: 80px;
-        width: 200px;
+          width: 200px;
         }
       }
 
@@ -203,8 +227,7 @@ export default {
   gap: 20px;
   align-items: center;
   font-size: 24px;
-  >.font-re {
-
+  > .font-re {
   }
 }
 
