@@ -48,7 +48,7 @@
                         <div class="product-name">{{ order.productName }}</div>
 
                         <div
-                          class="product-tag"
+                          class="order-shop"
                           v-if="order.productTag"
                           v-html="order.productTag"
                         ></div>
@@ -68,7 +68,7 @@
                 </div>
               </div>
               <div class="order-content">
-                <div class="order-summary">
+                <div class="order-details">
                   <div class="order-date">
                     <div class="order-shop">วันที่สั่งซื้อ <br /></div>
                     {{ order.date }}
@@ -195,22 +195,30 @@ export default {
               date: this.formatDate(item.created_at) || "Invalid Date",
               amount: `฿${
                 item.price_total
-                  ? item.price_total.toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                    })
+                  ? Number(item.price_total.toFixed(2)).toLocaleString(
+                      undefined,
+                      {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      }
+                    )
                   : ""
               }`,
               price: `฿${
                 product.price_before_discount
-                  ? product.price_before_discount.toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
+                  ? Number(
+                      product.price_before_discount.toFixed(2)
+                    ).toLocaleString(undefined, {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
                     })
                   : ""
               }`,
               difference: `฿${Math.abs(
                 item.price_total - product.price_before_discount
               ).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2,
               })}`,
             };
 
