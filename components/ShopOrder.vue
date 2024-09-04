@@ -545,12 +545,12 @@ export default {
 .tr-gm {
   cursor: auto;
   &:hover {
-    background-color: #401aa8;
+    background-color: #3A179A;
   }
   &:nth-child(odd) {
     background-color: #2f2e37;
     &:hover {
-      background-color: #401aa8;
+      background-color: #3A179A;
     }
   }
 }
