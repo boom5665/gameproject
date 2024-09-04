@@ -1,20 +1,15 @@
 <template>
   <div v-if="item.amount == item.sold_amount">
     <div class="tpn_card img-productdis">
-      <NuxtLink
-        :to="`/ShopPayment/${item.id}?amount=1&name=${encodeURIComponent(
-          item.market_shops.name
-        )}&img=${encodeURIComponent(item.img)}&description=${encodeURIComponent(
-          item.description
-        )}`"
-      >
+      <NuxtLink :to="`/ShopPayment/${item.id}?amount=1&name=${encodeURIComponent(
+        item.market_shops.name
+      )}&img=${encodeURIComponent(item.img)}&description=${encodeURIComponent(
+        item.description
+      )}`">
         <div class="dis-tpn header-item-container">
           <div>
-            <img
-              :src="item.market_shops.logo_img"
-              style="width: 26px; height: 26px; margin-right: 5px; border-radius: 2px;"
-              alt="Shop Logo"
-            />
+            <img :src="item.market_shops.logo_img"
+              style="width: 26px; height: 26px; margin-right: 5px; border-radius: 2px;" alt="Shop Logo" />
           </div>
           <div class="fontname item-name">
             {{ item.market_shops.name }}
@@ -39,11 +34,7 @@
         <!-- <div class="font">(จำกัดจำนวน {{ item.amount }} ชิ้น)</div> -->
         <div class="dis-top-bottom bottom-item-container">
           <div>
-            <div
-              v-if="item.description"
-              class="font m-top-f"
-              v-html="item.description"
-            ></div>
+            <div v-if="item.description" class="font m-top-f" v-html="item.description"></div>
           </div>
           <!-- <div class="font">(จำกัดจำนวน {{ item.amount }} ชิ้น)</div> -->
           <div class="display">
@@ -51,16 +42,13 @@
               ฿ {{ item.price }}
               <span class="strikethrough">{{
                 item.price_before_discount
-              }}</span>
+                }}</span>
             </div>
 
             <div class="buttonshop">
               <!-- <NuxtLink class="text-nav" :to="`/ShopPayment/${item.id}?amount=1`"> -->
-              <img
-                src="~/assets/image/addcart.png"
-                style="width: 26px; height: 26px; margin: 0px 5px"
-                alt="Add to Cart"
-              />
+              <img src="~/assets/image/addcart.png" style="width: 26px; height: 26px; margin: 0px 5px"
+                alt="Add to Cart" />
               <!-- </NuxtLink> -->
             </div>
           </div>
@@ -70,22 +58,17 @@
   </div>
   <div v-else>
     <div class="tpn_card">
-      <NuxtLink
-        :to="`/ShopPayment/${item.id}?amount=1&name=${encodeURIComponent(
-          item.market_shops.name
-        )}&img=${encodeURIComponent(item.img)}&description=${encodeURIComponent(
-          item.description
-        )}&price_before_discount=${encodeURIComponent(
-          item.price_before_discount
-        )}`"
-      >
+      <NuxtLink :to="`/ShopPayment/${item.id}?amount=1&name=${encodeURIComponent(
+        item.market_shops.name
+      )}&img=${encodeURIComponent(item.img)}&description=${encodeURIComponent(
+        item.description
+      )}&price_before_discount=${encodeURIComponent(
+        item.price_before_discount
+      )}`">
         <div class="dis-tpn header-item-container">
           <div>
-            <img
-              :src="item.market_shops.logo_img"
-              style="width: 26px; height: 26px; margin-right: 5px; border-radius: 2px;"
-              alt="Shop Logo"
-            />
+            <img :src="item.market_shops.logo_img"
+              style="width: 26px; height: 26px; margin-right: 5px; border-radius: 2px;" alt="Shop Logo" />
           </div>
           <div class="fontname item-name">
             {{ item.name }}
@@ -106,7 +89,7 @@
         </div> -->
         </div>
         <img :src="item.img" class="tpn_cardimg" alt="Product Image" />
-        <div v-if="item.sold_amount!==0" class="content-under">
+        <div v-if="item.sold_amount !== 0" class="content-under">
           ขายแล้ว {{ formatNumber(item.sold_amount) }}
         </div>
         <div v-else class="content-under new-item">
@@ -114,11 +97,7 @@
         </div>
         <div class="dis-top-bottom bottom-item-container">
           <div>
-            <div
-              v-if="item.description"
-              class="font m-top-f"
-              v-html="item.description"
-            ></div>
+            <div v-if="item.description" class="font m-top-f" v-html="item.description"></div>
           </div>
           <!-- <div class="font">(จำกัดจำนวน {{ item.amount }} ชิ้น)</div> -->
           <div class="display">
@@ -126,18 +105,18 @@
               ฿ {{ formatNumber(item.price) }}
               <span class="strikethrough">{{
                 formatNumber(item.price_before_discount)
-              }}</span>
+                }}</span>
             </div>
 
-            <div class="buttonshop">
+            <div class="buttonshop disabled">
               <!-- <NuxtLink class="text-nav" :to="`/ShopPayment/${item.id}?amount=1`"> -->
-              <img
-                src="~/assets/image/addcart.png"
-                style="width: 26px; height: 26px; margin: 0px 5px"
-                alt="Add to Cart"
-              />
+              <img src="~/assets/image/addcart.png" style="width: 26px; height: 26px; margin: 0px 5px"
+                alt="Add to Cart" />
               <!-- </NuxtLink> -->
             </div>
+          </div>
+          <div class="buy-container">
+            <div class="buy-button">ซื้อสินค้า</div>
           </div>
         </div>
       </NuxtLink>
@@ -177,11 +156,13 @@ export default {
   align-items: center;
   margin: 0px 0px 14px 0px;
 }
+
 .fontname.item-name {
   max-width: none;
   font-size: 16px;
   letter-spacing: 0.8px;
 }
+
 .dis-top-bottom.bottom-item-container {
   margin-bottom: 14px;
 }
