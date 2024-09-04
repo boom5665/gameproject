@@ -199,7 +199,7 @@
                   v-show="showImage"
                   @click="removeImage('main')"
                   class="delete-button"
-                  style="    position: absolute;  top: -10px; right: -10px; "
+                  style="position: absolute; top: -10px; right: -10px"
                 >
                   &times;
                 </button>
@@ -273,6 +273,8 @@
                 style="display: none"
                 @change="onFileChange($event, 'gallery')"
                 accept="image/*"
+                @dragover.prevent="preventDragOver"
+                @drop.prevent="preventDrop"
               />
               <span v-if="errors.savedImageUrls" class="error-message">{{
                 errors.savedImageUrls
@@ -416,44 +418,30 @@ export default {
     onFileChange(event, type) {
       const files = event.target.files;
 
-      // ตรวจสอบว่าเลือกไฟล์และไม่ใช่โฟลเดอร์
-      if (
-        files.length &&
-        Array.from(files).every((file) => file instanceof File)
-      ) {
-        // ตรวจสอบว่าไฟล์ทั้งหมดเป็นรูปภาพและไม่เกิน 8 MB
+      if (type === "gallery") {
+        // ตรวจสอบจำนวนรูปภาพใน `gallery` โดยไม่รวมรูปหลัก
+        if (this.savedImageUrls.length + files.length > 6) {
+          this.$swal.fire({
+            title: "สามารถเพิ่มได้สูงสุด 6 รูปภาพ",
+            icon: "error",
+            showCancelButton: false,
+          });
+          return;
+        }
+
         const validFiles = Array.from(files).filter(
           (file) =>
             file.type.startsWith("image/") && file.size <= 8 * 1024 * 1024
         );
 
         if (validFiles.length === 0) {
-          this.errors.imageUrl =
-            "กรุณาเลือกไฟล์รูปภาพที่มีขนาดไม่เกิน 8 MB เท่านั้น";
           this.errors.savedImageUrls =
             "กรุณาเลือกไฟล์รูปภาพที่มีขนาดไม่เกิน 8 MB เท่านั้น";
           return;
         }
 
-        if (type === "main") {
-          const file = validFiles[0];
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            this.imageUrl = e.target.result;
-            this.showImage = true;
-          };
-          reader.readAsDataURL(file);
-        } else if (type === "gallery") {
-          validFiles.forEach((file, index) => {
-            if (this.savedImageUrls.length >= 6) {
-              this.$swal.fire({
-                title: "สามารถเพิ่มได้สูงสุด 6 รูปภาพ",
-                icon: "error",
-                showCancelButton: false,
-              });
-              return;
-            }
-
+        validFiles.forEach((file) => {
+          if (this.savedImageUrls.length < 6) {
             const reader = new FileReader();
             reader.onload = (e) => {
               this.savedImageUrls.push(e.target.result);
@@ -463,8 +451,41 @@ export default {
               });
             };
             reader.readAsDataURL(file);
-          });
+          }
+        });
+      } else if (type === "main") {
+        const file = files[0];
+        if (
+          file &&
+          file.type.startsWith("image/") &&
+          file.size <= 8 * 1024 * 1024
+        ) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.imageUrl = e.target.result;
+            this.showImage = true;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          this.errors.imageUrl =
+            "กรุณาเลือกไฟล์รูปภาพที่มีขนาดไม่เกิน 8 MB เท่านั้น";
         }
+      }
+    },
+
+    preventDragOver(event) {
+      if (this.savedImageUrls.length >= 6) {
+        event.preventDefault();
+      }
+    },
+    preventDrop(event) {
+      if (this.savedImageUrls.length >= 6) {
+        event.preventDefault();
+        this.$swal.fire({
+          title: "สามารถเพิ่มได้สูงสุด 6 รูปภาพ",
+          icon: "error",
+          showCancelButton: false,
+        });
       }
     },
     removeSavedImage(index) {

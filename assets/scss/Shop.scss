@@ -536,8 +536,10 @@
     border-radius: 6px 6px 0px 0px;
     border: 1px solid #bababa;
     transition: 1s;
+
     &:hover {
       filter: brightness(1.2);
+
       .order-status {
         animation: blinks;
         animation-duration: 2s;
@@ -580,22 +582,25 @@
   /* คลาสสำหรับสถานะ "รายการมีปัญหา" */
   .order-status.problem,
   .order-status.canceled {
-    background-color: red; /* สีพื้นหลัง */
-    color: white; /* สีตัวอักษร */
-    padding: 10px; /* การจัดระยะห่างภายใน */
-    border-radius: 5px; /* ขอบโค้ง */
-    font-weight: bold; /* ตัวอักษรหนา */
+    background-color: red;
+    /* สีพื้นหลัง */
+    color: white;
+    /* สีตัวอักษร */
+    padding: 10px;
+    /* การจัดระยะห่างภายใน */
+    border-radius: 5px;
+    /* ขอบโค้ง */
+    font-weight: bold;
+    /* ตัวอักษรหนา */
   }
 
   .order-status.wait {
-    background-color: #fac714;
-    /* สีแดง */
-    color: black;
-    /* สีตัวอักษร */
+    background-color: #e1e1e1;
+    color: #00000080;
   }
 
   .order-status.reserve {
-    background-color: #74f3ff;
+    background-color: #ffffff;
     /* สีแดง */
     color: black;
     /* สีตัวอักษร */
@@ -603,11 +608,12 @@
 
 
   .order-status.waitcash {
-    background-color: #ffffff;
+    background-color: #ffeb3b;
     /* สีแดง */
     color: black;
     /* สีตัวอักษร */
   }
+
   .order-content {
     margin: 12px;
   }
@@ -669,6 +675,12 @@
     padding: 5px 0px;
   }
 
+  .order-summary-two {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .order-amount {
     color: #ffeb3b;
   }
@@ -688,9 +700,17 @@
 }
 
 @keyframes blinks {
-  0% { filter: contrast(1) }
-  50% { filter: contrast(1.2)}
-  100% { filter: contrast(1)}
+  0% {
+    filter: contrast(1)
+  }
+
+  50% {
+    filter: contrast(1.2)
+  }
+
+  100% {
+    filter: contrast(1)
+  }
 }
 
 .bottom-red {
@@ -705,6 +725,7 @@
   margin: 10px 0px;
   background: var(--Color-Red-500, #d00);
   cursor: pointer;
+
   &:hover {
     background-color: #bc0000;
   }

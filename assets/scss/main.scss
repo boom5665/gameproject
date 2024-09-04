@@ -139,7 +139,7 @@ textarea {
 
 .W-default {
   width: 100%;
-  padding: 30px 2vw;
+  padding: 30px 5vw;
   // max-width: 1700px;
   display: flex;
   align-items: center;
@@ -275,7 +275,7 @@ textarea {
   background: linear-gradient(0deg, rgb(4, 23, 36) 9.67%, rgba(4, 23, 36, 0) 68.19%);
   color: $Yellow-color;
   font-variant-numeric: stacked-fractions;
-  font-feature-settings: 'hlig' on, 'dlig' on;
+  font-feature-settings: 'hlig'on, 'dlig'on;
   text-shadow: 0px 0px 8px rgba(255, 235, 59, 0.50);
 }
 
@@ -355,7 +355,7 @@ textarea {
 .font {
   color: $white-color;
   font-variant-numeric: stacked-fractions;
-  font-feature-settings: "hlig" on, "dlig" on;
+  font-feature-settings: "hlig"on, "dlig"on;
   font-family: "Pentor Corporate";
   font-size: 12px;
 }
@@ -392,6 +392,7 @@ textarea {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+
   img {
     position: absolute;
     top: 50%;
@@ -410,9 +411,10 @@ textarea {
   margin-right: -50%;
   transform: translate(-50%, -50%);
 }
+
 .loader::after,
 .loader::before {
-  content: '';  
+  content: '';
   box-sizing: border-box;
   width: 192px;
   height: 192px;
@@ -422,6 +424,7 @@ textarea {
   top: 0;
   animation: rotation 2s ease-in-out infinite alternate;
 }
+
 .loader::after {
   border-color: #3A179A;
   animation-direction: alternate-reverse;
@@ -431,10 +434,11 @@ textarea {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
-} 
+}
 
 .ql-toolbar.ql-snow {
   border-radius: 5px 5px 0px 0px;

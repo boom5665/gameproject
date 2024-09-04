@@ -64,7 +64,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped >
 .pagination {
   list-style-type: none;
   padding: 0;
@@ -76,7 +76,7 @@ export default {
 .pagination li {
   margin: 0 2px;
   a:hover {
-    background-color: #4100ff;
+    background-color: #6f3aff;
     color: #fff;
   }
 }

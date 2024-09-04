@@ -18,7 +18,9 @@
               <th>ตรวจสอบรายการ</th>
             </tr>
           </thead>
-          <tbody  v-if="filteredOrderItems !== null && filteredOrderItems.length > 0">
+          <tbody
+            v-if="filteredOrderItems !== null && filteredOrderItems.length > 0"
+          >
             <!-- Loop through filteredOrderItems for items that are not confirmed -->
             <tr class="tr-gm" v-for="item in filteredOrderItems" :key="item.id">
               <td><img :src="item.img" alt="Product Image" /></td>
@@ -204,7 +206,7 @@ export default {
   data() {
     return {
       orderItems: [], // เริ่มต้นด้วยอาร์เรย์ว่างสำหรับ orderItems
-      isLoading: false, // ตัวแปรที่ใช้แสดง loader
+      isLoading: true, // ตัวแปรที่ใช้แสดง loader
       searchQuery: "",
       showDetail: false,
       selectedItemId: null,
@@ -302,9 +304,14 @@ export default {
             money: item.evidence_bank_from_pay_money || null,
             id: item.id || null,
             status: this.getStatusLabel(item.status),
-            price: `฿${(item.price_total || 0).toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-            })}`,
+            price: `฿${
+              item.price_total >= 1000
+                ? item.price_total.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                  })
+                : item.price_total.toFixed(2)
+            }`,
+
             phone: customer.phone || null,
             email: customer.email || null,
             img: product.img || "",
@@ -380,7 +387,7 @@ export default {
     },
 
     onPageChanged(page) {
-      this.fetchOrderItems(page,this.searchQuery);
+      this.fetchOrderItems(page, this.searchQuery);
       this.changePage(page);
     },
   },
@@ -395,9 +402,10 @@ export default {
   font-size: 59px;
   width: 100%;
   text-align: center;
-  position: absolute;
-  transform: translate(0%, 400%);
+  position: relative;
+  transform: translate(80%, 40%);
   color: white;
+  height: 700px;
 }
 .div-box {
   display: flex;
@@ -449,7 +457,7 @@ export default {
   border-collapse: collapse;
   margin-bottom: 20px;
   max-height: 720px;
-  height: 720px;
+  /* height: 720px; */
   background-color: #3c3b4b;
 }
 .order-table th,
@@ -461,7 +469,7 @@ export default {
 .order-table thead {
   background-color: #6f3aff;
   color: white;
-  font-size: 12px;
+  font-size: 14px;
 }
 .order-table tbody {
   background-color: #3c3b4b;
@@ -526,13 +534,5 @@ export default {
   font-size: 30px;
 }
 
-.tr-gm {
-  cursor: auto;
-  &:hover {
-    background-color: #401aa8;
-  }
-  &:nth-child(odd) {
-    background-color: #2f2e37;
-  }
-}
+
 </style>

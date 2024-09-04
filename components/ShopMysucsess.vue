@@ -54,10 +54,14 @@
                         ></div>
                       </div>
                     </div>
-                    <div class="order-summary">
-                      <div class="">
+                    <div class="order-summary-two">
+                      <div class="" style="margin-bottom: 10px;">
                         ราคา <br />
                         {{ order.price }}
+                      </div>
+                      <div class="order-shop">
+                        ส่วนลด <br />
+                        {{ order.difference }}
                       </div>
                     </div>
                   </div>
@@ -203,6 +207,11 @@ export default {
                     })
                   : "0.00"
               }`,
+              difference: `฿${(
+                item.price_total - product.price_before_discount
+              ).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+              })}`,
             };
 
             console.log("Order item:", orderItem); // Log the complete order item
