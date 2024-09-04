@@ -445,6 +445,7 @@ textarea {
   left: 0;
   top: -140px;
   animation: rotation 2s ease-in-out infinite alternate;
+  border-radius: 30px;
 }
 
 .loader::after {
