@@ -320,10 +320,10 @@ export default {
         savedImageUrls: "",
       },
       isLoading: false, // ตัวแปรที่ใช้แสดง loader
-      productTypes: [{ value: "1", label: "blech" }],
-      promotionTypes: [{ value: "1", label: "ส่วนลด" }],
-      selectedProductType: "1", // ค่าเริ่มต้น
-      selectedPromotionType: "1", // ค่าเริ่มต้น
+      productTypes: [{ value: "0", label: "โปรดเลือกประเภทสินค้า" }, { value: "1", label: "PIJH Code" }, { value: "2", label: "Game Code" }, { value: "3", label: "Truemoney Code" }],
+      promotionTypes: [{ value: "0", label: "โปรดเลือกโปรโมชั่นเพื่อเข้าร่วม" }, { value: "1", label: "Flash Sale" }, { value: "34", label: "One Free One" }, { value: "35", label: "Sale 5" }],
+      selectedProductType: "0", // ค่าเริ่มต้น
+      selectedPromotionType: "0", // ค่าเริ่มต้น
       // promotionDetails: "",
       // showPromotionDetails: true,
       imageInfo: {},
