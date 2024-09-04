@@ -173,8 +173,6 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-=======
 .dis-tpn.header-item-container {
   align-items: center;
   margin: 0px 0px 14px 0px;
@@ -187,5 +185,4 @@ export default {
 .dis-top-bottom.bottom-item-container {
   margin-bottom: 14px;
 }
->>>>>>> ecf53a2c86497c715563667961d96df678b7df61
 </style>

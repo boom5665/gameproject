@@ -34,7 +34,7 @@
                 ราคา <br />
                 <div>฿{{ product.price_before.toLocaleString() }}</div>
               </div>
-              <div>
+              <div class="order-shop">
                 ส่วนลด <br />
                 <div>฿{{ product.diffed.toLocaleString() }}</div>
               </div>
@@ -220,8 +220,7 @@ export default {
                       ? price_before.toLocaleString()
                       : "",
 
-
-                   diffed:
+                  diffed:
                     diffed || diffed === 0
                       ? `${diffed.toLocaleString(undefined, {
                           minimumFractionDigits: 0,
@@ -295,7 +294,9 @@ export default {
 
 <style scoped>
 /* เพิ่มสไตล์ตามต้องการ */
-
+.order-shop {
+  color: #bababa;
+}
 .box-time {
   margin: 10px;
   padding: var(--Spacing-space-16, 16px);
