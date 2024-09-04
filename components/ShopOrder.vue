@@ -6,10 +6,10 @@
         <input v-model="searchQuery" placeholder="ค้นหาสินค้า..." />
       </div>
       <div class="order-list">
-        <div>รายการคำสั่งซื้อ</div>
+        <div class="table-title">รายการคำสั่งซื้อ</div>
         <table class="order-table">
           <thead>
-            <tr>
+            <tr class="tr-title">
               <th>ภาพสินค้า</th>
               <th>ชื่อสินค้า</th>
               <th>สถานะ</th>
@@ -397,7 +397,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .non-data {
   font-size: 59px;
   width: 100%;
@@ -481,8 +481,8 @@ export default {
 
 .order-table tbody td img {
   border-radius: 5px;
-  width: 48px;
-  height: 48px;
+  width: 80px;
+  height: 80px;
 }
 .status.pending {
   color: #f7c500; /* สีเหลือง */
@@ -534,5 +534,27 @@ export default {
   font-size: 30px;
 }
 
-
+.table-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.tr-title {
+  font-size: 16px;
+  th {
+    cursor: auto;
+    font-size: 16px;
+  }
+}
+.tr-gm {
+  cursor: auto;
+  &:hover {
+    background-color: #401aa8;
+  }
+  &:nth-child(odd) {
+    background-color: #2f2e37;
+    &:hover {
+      background-color: #401aa8;
+    }
+  }
+}
 </style>
