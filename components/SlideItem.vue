@@ -8,15 +8,15 @@
           item.description
         )}`"
       >
-        <div class="dis-tpn">
+        <div class="dis-tpn header-item-container">
           <div>
             <img
               :src="item.market_shops.logo_img"
-              style="width: 26px; height: 26px; margin-right: 5px"
+              style="width: 26px; height: 26px; margin-right: 5px; border-radius: 2px;"
               alt="Shop Logo"
             />
           </div>
-          <div class="fontname">
+          <div class="fontname item-name">
             {{ item.market_shops.name }}
           </div>
           <!-- <div class="love-box">
@@ -37,7 +37,7 @@
         <img :src="item.img" class="tpn_cardimg" alt="Product Image" />
         <div class="content-under">สินค้าหมด</div>
         <!-- <div class="font">(จำกัดจำนวน {{ item.amount }} ชิ้น)</div> -->
-        <div class="dis-top-bottom">
+        <div class="dis-top-bottom bottom-item-container">
           <div>
             <div
               v-if="item.description"
@@ -77,16 +77,16 @@
           item.description
         )}`"
       >
-        <div class="dis-tpn">
+        <div class="dis-tpn header-item-container">
           <div>
             <img
               :src="item.market_shops.logo_img"
-              style="width: 26px; height: 26px; margin-right: 5px"
+              style="width: 26px; height: 26px; margin-right: 5px; border-radius: 2px;"
               alt="Shop Logo"
             />
           </div>
-          <div class="fontname">
-            {{ item.market_shops.name }}
+          <div class="fontname item-name">
+            {{ item.name }}
           </div>
           <!-- <div class="love-box">
           <div class="loveimg">
@@ -104,10 +104,13 @@
         </div> -->
         </div>
         <img :src="item.img" class="tpn_cardimg" alt="Product Image" />
-        <div class="content-under">
+        <div v-if="item.sold_amount!==0" class="content-under">
           ขายแล้ว {{ formatNumber(item.sold_amount) }}
         </div>
-        <div class="dis-top-bottom">
+        <div v-else class="content-under new-item">
+          มาใหม่
+        </div>
+        <div class="dis-top-bottom bottom-item-container">
           <div>
             <div
               v-if="item.description"
@@ -168,5 +171,16 @@ export default {
 </script>
 
 <style scoped>
-
+.dis-tpn.header-item-container {
+  align-items: center;
+  margin: 0px 0px 14px 0px;
+}
+.fontname.item-name {
+  max-width: none;
+  font-size: 16px;
+  letter-spacing: 0.8px;
+}
+.dis-top-bottom.bottom-item-container {
+  margin-bottom: 14px;
+}
 </style>
