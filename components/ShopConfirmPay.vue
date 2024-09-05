@@ -30,62 +30,66 @@
                   <img :src="imagePreview" alt="Image Preview" />
                 </div>
                 <p style="margin-bottom: 0;">รองรับไฟล์ .jpeg และ .png ขนาดไฟล์ไม่เกิน 4 MB</p>
-                <span v-if="errors.file" class="error-message" style="margin-top: 0.2rem;display: block;margin-bottom: 1rem;">
+                <span v-if="errors.file" class="error-message"
+                  style="margin-top: 0.2rem;display: block;margin-bottom: 1rem;">
                   {{ errors.file }}
                 </span>
                 <div class="form-group" style="margin-top: 1rem;">
-                  <label for="account">โอนเงินจากบัญชี</label>
-                  <input type="text" id="account" class="form-control" v-model="account" />
-                  <span v-if="errors.account" class="error-message">
-                    {{ errors.account }}
-                  </span>
-                </div>
+                  <div class="form-group">
+                    <label for="bank">จากธนาคาร</label>
+                    <select id="bank" class="form-control" v-model="bank">
+                      <option value="กรุณาเลือกธนาคาร">กรุณาเลือกธนาคาร</option>
+                      <option value="KBANK">ธนาคารกสิกรไทย</option>
+                      <option value="BBL">ธนาคารกรุงเทพ</option>
+                      <option value="KTB">ธนาคารกรุงไทย</option>
+                      <option value="TMB">ธนาคารทหารไทย</option>
+                      <option value="SCB">ธนาคารไทยพานิชย์</option>
+                      <option value="BAY">ธนาคารกรุงศรีอยุธยา</option>
+                      <option value="KKP">ธนาคารเกียรตินาคิน</option>
+                      <option value="CIMBT">ธนาคารซีไอเอ็มบีไทย</option>
+                      <option value="TISCO">ธนาคารทิสโก้</option>
+                      <option value="TTB">ธนาคารธนชาต</option>
+                      <option value="UOBT">ธนาคารยูโอบี</option>
+                      <option value="SCBT">
+                        ธนาคารสแตนดาร์ดชาร์เตอร์ด (ไทย)
+                      </option>
+                      <option value="LHBANK">ธนาคารแลนด์ แอนด์ เฮาส์</option>
+                      <option value="ICBC">ธนาคารไอซีบีซี (ไทย)</option>
+                      <option value="BAAC">
+                        ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร
+                      </option>
+                      <option value="EXIM">
+                        ธนาคารเพื่อการส่งออกและนำเข้าแห่งประเทศไทย
+                      </option>
+                      <option value="GSB">ธนาคารออมสิน</option>
+                      <option value="GHB">ธนาคารอาคารสงเคราะห์</option>
+                      <option value="ISBT">ธนาคารอิสลามแห่งประเทศไทย</option>
+                      <option value="BOC">ธนาคารแห่งประเทศจีน</option>
+                      <option value="SMTBT">
+                        ธนาคารซูมิโตโม มิตซุย ทรัสต์ (ไทย)
+                      </option>
+                      <option value="HSBC">
+                        ธนาคารฮ่องกงและเซี้ยงไฮ้แบงกิ้งคอร์ปอเรชั่น จำกัด
+                      </option>
+                    </select>
+                    <span v-if="errors.bank" class="error-message">
+                      {{ errors.bank }}
+                    </span>
+                  </div>
 
-                <div class="form-group">
-                  <label for="bank">จากธนาคาร</label>
-                  <select id="bank" class="form-control" v-model="bank">
-                    <option value="KBANK">ธนาคารกสิกรไทย</option>
-                    <option value="BBL">ธนาคารกรุงเทพ</option>
-                    <option value="KTB">ธนาคารกรุงไทย</option>
-                    <option value="TMB">ธนาคารทหารไทย</option>
-                    <option value="SCB">ธนาคารไทยพานิชย์</option>
-                    <option value="BAY">ธนาคารกรุงศรีอยุธยา</option>
-                    <option value="KKP">ธนาคารเกียรตินาคิน</option>
-                    <option value="CIMBT">ธนาคารซีไอเอ็มบีไทย</option>
-                    <option value="TISCO">ธนาคารทิสโก้</option>
-                    <option value="TTB">ธนาคารธนชาต</option>
-                    <option value="UOBT">ธนาคารยูโอบี</option>
-                    <option value="SCBT">
-                      ธนาคารสแตนดาร์ดชาร์เตอร์ด (ไทย)
-                    </option>
-                    <option value="LHBANK">ธนาคารแลนด์ แอนด์ เฮาส์</option>
-                    <option value="ICBC">ธนาคารไอซีบีซี (ไทย)</option>
-                    <option value="BAAC">
-                      ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร
-                    </option>
-                    <option value="EXIM">
-                      ธนาคารเพื่อการส่งออกและนำเข้าแห่งประเทศไทย
-                    </option>
-                    <option value="GSB">ธนาคารออมสิน</option>
-                    <option value="GHB">ธนาคารอาคารสงเคราะห์</option>
-                    <option value="ISBT">ธนาคารอิสลามแห่งประเทศไทย</option>
-                    <option value="BOC">ธนาคารแห่งประเทศจีน</option>
-                    <option value="SMTBT">
-                      ธนาคารซูมิโตโม มิตซุย ทรัสต์ (ไทย)
-                    </option>
-                    <option value="HSBC">
-                      ธนาคารฮ่องกงและเซี้ยงไฮ้แบงกิ้งคอร์ปอเรชั่น จำกัด
-                    </option>
-                  </select>
+                  <div class="form-group">
 
-                  <span v-if="errors.bank" class="error-message">
-                    {{ errors.bank }}
-                  </span>
+                    <label for="account">ชื่อบัญชีผู้โอน</label>
+                    <input type="text" id="account" class="form-control" v-model="account" placeholder="กรุณากรอกชื่อโอน">
+                    <span v-if="errors.account" class="error-message">
+                      {{ errors.account }}
+                    </span>
+                  </div>
                 </div>
 
                 <div class="form-group">
                   <label for="amount">จำนวนเงิน</label>
-                  <input type="text" id="amount" class="form-control" v-model="amount" />
+                  <input type="text" id="amount" class="form-control" v-model="amount" placeholder="กรุณาจำนสนเงิน"/>
                   <span v-if="errors.amount" class="error-message">
                     {{ errors.amount }}
                   </span>
@@ -144,7 +148,7 @@ export default {
       imagePreview: null,
       file: null,
       account: "",
-      bank: "",
+      bank: "กรุณาเลือกธนาคาร",
       amount: "",
       datetime: this.getFormattedDateTime(), // เรียกใช้ฟังก์ชันในการกำหนดค่าเริ่มต้น
       codeqr: "",
@@ -231,7 +235,7 @@ export default {
       if (!this.account) {
         this.errors.account = "กรุณากรอกชื่อบัญชี";
       }
-      if (!this.bank) {
+      if (!this.bank || this.bank==="กรุณาเลือกธนาคาร") {
         this.errors.bank = "กรุณาเลือกธนาคาร";
       }
       if (!this.amount) {
@@ -500,9 +504,12 @@ export default {
   color: #fff;
   padding: 10px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   width: 100%;
+  &:hover {
+    background-color: #4d555b;
+  }
 }
 
 .line {
