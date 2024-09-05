@@ -88,7 +88,7 @@ export default {
         this.errors.Emailphone = "กรุณากรอกชื่อเข้าสู่ระบบ";
       }
       if (!this.Password) {
-        this.errors.Password = "กรุณากรอกรหัสผ่าน.";
+        this.errors.Password = "กรุณากรอกรหัสผ่าน";
       }
 
       return Object.keys(this.errors).length === 0;
