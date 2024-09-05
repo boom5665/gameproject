@@ -15,49 +15,27 @@
               <p>กรุณาชำระเงินภายในเวลาที่กำหนดเพื่อไม่ให้ออเดอร์ถูกยกเลิก</p>
               <div class="amount">ยอดรวม ฿{{ total }}</div>
               <div class="line">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="296"
-                  height="2"
-                  viewBox="0 0 296 2"
-                  fill="none"
-                >
-                  <path
-                    d="M1 1H295"
-                    stroke="#5C25F2"
-                    stroke-width="2"
-                    stroke-linecap="square"
-                    stroke-dasharray="5 5"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" width="296" height="2" viewBox="0 0 296 2" fill="none">
+                  <path d="M1 1H295" stroke="#5C25F2" stroke-width="2" stroke-linecap="square" stroke-dasharray="5 5" />
                 </svg>
               </div>
 
               <form @submit.prevent="confirmpay">
                 <label class="btn-upload">
                   แนบหลักฐานการโอนเงิน
-                  <input
-                    type="file"
-                    id="fileUpload"
-                    @change="handleFileUpload"
-                    accept="image/*"
-                  />
+                  <input type="file" id="fileUpload" @change="handleFileUpload" accept="image/*" />
                 </label>
 
                 <div v-if="imagePreview" class="image-preview">
                   <img :src="imagePreview" alt="Image Preview" />
                 </div>
-                <p>รองรับไฟล์ .jpeg และ .png ขนาดไฟล์ไม่เกิน 4 MB</p>
-                <span v-if="errors.file" class="error-message">
+                <p style="margin-bottom: 0;">รองรับไฟล์ .jpeg และ .png ขนาดไฟล์ไม่เกิน 4 MB</p>
+                <span v-if="errors.file" class="error-message" style="margin-top: 0.2rem;display: block;margin-bottom: 1rem;">
                   {{ errors.file }}
                 </span>
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 1rem;">
                   <label for="account">โอนเงินจากบัญชี</label>
-                  <input
-                    type="text"
-                    id="account"
-                    class="form-control"
-                    v-model="account"
-                  />
+                  <input type="text" id="account" class="form-control" v-model="account" />
                   <span v-if="errors.account" class="error-message">
                     {{ errors.account }}
                   </span>
@@ -107,12 +85,7 @@
 
                 <div class="form-group">
                   <label for="amount">จำนวนเงิน</label>
-                  <input
-                    type="text"
-                    id="amount"
-                    class="form-control"
-                    v-model="amount"
-                  />
+                  <input type="text" id="amount" class="form-control" v-model="amount" />
                   <span v-if="errors.amount" class="error-message">
                     {{ errors.amount }}
                   </span>
@@ -120,12 +93,7 @@
 
                 <div class="form-group">
                   <label for="datetime">วัน-เวลาโอน</label>
-                  <input
-                    type="datetime-local"
-                    id="datetime"
-                    class="form-control"
-                    v-model="datetime"
-                  />
+                  <input type="datetime-local" id="datetime" class="form-control" v-model="datetime" />
                   <span v-if="errors.datetime" class="error-message">
                     {{ errors.datetime }}
                   </span>
@@ -329,19 +297,18 @@ export default {
         .getDate()
         .toString()
         .padStart(2, "0")}/${(datetime.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}/${datetime.getFullYear()}-${datetime
-        .getHours()
-        .toString()
-        .padStart(2, "0")}${datetime.getMinutes().toString().padStart(2, "0")}`;
+          .toString()
+          .padStart(2, "0")}/${datetime.getFullYear()}-${datetime
+            .getHours()
+            .toString()
+            .padStart(2, "0")}${datetime.getMinutes().toString().padStart(2, "0")}`;
 
       formData.append("evidence_bank_from_pay_at", formattedDateTime);
 
       // Log formData entries
       for (const [key, value] of formData.entries()) {
         console.log(
-          `${key}: ${value} (Type: ${typeof value}, Instance: ${
-            value instanceof File ? "File" : "Other"
+          `${key}: ${value} (Type: ${typeof value}, Instance: ${value instanceof File ? "File" : "Other"
           })`
         );
       }
@@ -411,7 +378,8 @@ export default {
 .btn-upload {
   display: inline-flex;
   align-items: center;
-  background-color: #007bff; /* ปรับสีพื้นหลังตามที่ต้องการ */
+  background-color: #007bff;
+  /* ปรับสีพื้นหลังตามที่ต้องการ */
   border: none;
   border-radius: 4px;
   color: white;
@@ -434,12 +402,15 @@ export default {
 }
 
 .btn-upload svg {
-  margin-right: 8px; /* เพิ่มช่องว่างระหว่างไอคอนกับข้อความ */
+  margin-right: 8px;
+  /* เพิ่มช่องว่างระหว่างไอคอนกับข้อความ */
 }
 
 .btn-upload input[type="file"] {
-  display: none; /* ซ่อน input file */
+  display: none;
+  /* ซ่อน input file */
 }
+
 .Shop .dis-flex {
   width: 100%;
   display: flex;
@@ -454,6 +425,7 @@ export default {
   /* max-width: 800px; */
   margin: 0px 0px;
 }
+
 .container {
   background-color: white;
   border-radius: 10px;
@@ -473,12 +445,9 @@ export default {
   gap: 10px;
   align-self: stretch;
   width: 100%;
-  border-radius: var(--Border-radius-6, 6px) var(--Border-radius-6, 6px)
-    var(--Border-radius-0, 0px) var(--Border-radius-0, 0px);
-  background: var(
-    --Linear,
-    linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%)
-  );
+  border-radius: var(--Border-radius-6, 6px) var(--Border-radius-6, 6px) var(--Border-radius-0, 0px) var(--Border-radius-0, 0px);
+  background: var(--Linear,
+      linear-gradient(88deg, #6127ff 0.47%, #6f3aff 100%));
   color: white;
 }
 
