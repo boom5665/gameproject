@@ -9,7 +9,7 @@ on:
       - 'prod-*'
 
 env:
-  IMAGE_REPO: ghcr.io/boom5665/game-market-web
+  IMAGE_REPO: ghcr.io/boom5665/gameproject
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
 
       - name: Build & Push Docker image
         run: |
-          IMAGE_NAME="ghcr.io/boom5665/game-market-web"
+          IMAGE_NAME="ghcr.io/boom5665/gameproject"
           docker build -t $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }} .
           docker push $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }}
           echo "✅ Pushed: $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }}"
