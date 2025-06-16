@@ -1,0 +1,38 @@
+# .github/workflows/ci-build-and-push.yml
+name: Build & Push Docker on tag
+
+on:
+  push:
+    tags:
+      - 'poc-*'
+      - 'uat-*'
+      - 'prod-*'
+
+env:
+  IMAGE_REPO: ghcr.io/boom5665/game-market-web
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Extract tag
+        id: extract_tag
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: boom5665
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build & Push Docker image
+        run: |
+          IMAGE_NAME="ghcr.io/boom5665/game-market-web"
+          docker build -t $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }} .
+          docker push $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }}
+          echo "✅ Pushed: $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }}"
