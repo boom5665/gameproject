@@ -14,7 +14,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -22,6 +21,23 @@ jobs:
       - name: Extract tag
         id: extract_tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      # 🧠 ตั้งค่าโดเมนและ env จาก prefix ของ tag
+      - name: Set build args from tag
+        id: set_env
+        run: |
+          TAG="${{ steps.extract_tag.outputs.tag }}"
+          if [[ "$TAG" == prod-* ]]; then
+            echo "NUXT_PUBLIC_SITE_ENV=prod" >> $GITHUB_ENV
+            echo "NUXT_PUBLIC_SITE_URL=https://game-market-web.pirate168.com" >> $GITHUB_ENV
+          elif [[ "$TAG" == uat-* ]]; then
+            echo "NUXT_PUBLIC_SITE_ENV=uat" >> $GITHUB_ENV
+            echo "NUXT_PUBLIC_SITE_URL=https://game-market-web.pirate168.com" >> $GITHUB_ENV
+          else
+            echo "NUXT_PUBLIC_SITE_ENV=poc" >> $GITHUB_ENV
+            echo "NUXT_PUBLIC_SITE_URL=https://game-market-web.pirate168.com" >> $GITHUB_ENV
+          fi
+          echo "Using: $NUXT_PUBLIC_SITE_ENV $NUXT_PUBLIC_SITE_URL"
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -32,7 +48,10 @@ jobs:
 
       - name: Build & Push Docker image
         run: |
-          IMAGE_NAME="ghcr.io/boom5665/gameproject"
-          docker build -t $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }} .
+          IMAGE_NAME="${{ env.IMAGE_REPO }}"
+          docker build \
+            --build-arg NUXT_PUBLIC_SITE_URL="${NUXT_PUBLIC_SITE_URL}" \
+            --build-arg NUXT_PUBLIC_SITE_ENV="${NUXT_PUBLIC_SITE_ENV}" \
+            -t $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }} .
           docker push $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }}
           echo "✅ Pushed: $IMAGE_NAME:${{ steps.extract_tag.outputs.tag }}"
