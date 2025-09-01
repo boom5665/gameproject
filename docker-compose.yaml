@@ -1,0 +1,17 @@
+services:
+  nuxt-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NUXT_PUBLIC_SITE_URL: ${NUXT_PUBLIC_SITE_URL}
+        NUXT_PUBLIC_SITE_ENV: ${NUXT_PUBLIC_SITE_ENV}
+    container_name: nuxt-app
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    # (ถ้าอยากส่ง ENV เข้า runtime ด้วยก็ได้ — แต่ static + nginx ไม่ได้ใช้)
+    environment:
+      - NUXT_PUBLIC_SITE_URL=${NUXT_PUBLIC_SITE_URL}
+      - NUXT_PUBLIC_SITE_ENV=${NUXT_PUBLIC_SITE_ENV}
+    # จุดสำคัญ: โปรเจกต์ของคุณเป็น Static (Nginx) ค่าพวกนี้ถูกใช้ ตอน build เพื่อ generate robots.txt/sitemap.xml ฯลฯ ดังนั้น ต้องใส่ใน build.args ไม่ใช่แค่ environment เฉยๆ

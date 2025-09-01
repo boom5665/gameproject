@@ -1,30 +1,26 @@
 # ---------- Build Stage ----------
-FROM node:16-alpine AS builder
-
-# Set working directory
+FROM node:18-alpine AS builder
 WORKDIR /app
+RUN apk add --no-cache python3 make g++
 
-# Install dependencies
+# รับค่าจาก compose
+ARG NUXT_PUBLIC_SITE_URL
+ARG NUXT_PUBLIC_SITE_ENV
+ENV NUXT_PUBLIC_SITE_URL=${NUXT_PUBLIC_SITE_URL}
+ENV NUXT_PUBLIC_SITE_ENV=${NUXT_PUBLIC_SITE_ENV}
+
 COPY package*.json ./
-RUN npm install
-
-# Copy source files
+RUN npm install --no-audit --no-fund
 COPY . .
-
-# Generate static files
+ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm run generate
 
-# ---------- Production Stage ----------
+
+# ---------- Runtime Stage ----------
 FROM nginx:stable-alpine
-
-# Copy static site to nginx html folder
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Optional: Custom nginx config
+# nginx conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose port
+# สร้างไฟล์ static แล้วค่อยคัดลอกออกเสิร์ฟ
+COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx","-g","daemon off;"]
