@@ -8,6 +8,9 @@ ARG NUXT_PUBLIC_SITE_URL
 ARG NUXT_PUBLIC_SITE_ENV
 ENV NUXT_PUBLIC_SITE_URL=${NUXT_PUBLIC_SITE_URL}
 ENV NUXT_PUBLIC_SITE_ENV=${NUXT_PUBLIC_SITE_ENV}
+# กรณ ใช้ CI build static
+ENV NUXT_PUBLIC_SITE_URL=https://game-market-web.pirate168.com
+ENV NUXT_PUBLIC_SITE_ENV=prod
 
 COPY package*.json ./
 RUN npm install --no-audit --no-fund
