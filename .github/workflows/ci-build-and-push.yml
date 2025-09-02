@@ -30,7 +30,7 @@ jobs:
             echo "NUXT_PUBLIC_SITE_URL=${{ vars.NUXT_PUBLIC_SITE_URL }}" >> $GITHUB_ENV
             echo "BASE_URL=${{ vars.BASE_URL }}" >> $GITHUB_ENV
           else
-            echo "NUXT_PUBLIC_SITE_ENV=poc" >> $GITHUB_ENV
+            echo "NUXT_PUBLIC_SITE_ENV=prod" >> $GITHUB_ENV
             echo "NUXT_PUBLIC_SITE_URL=${{ vars.NUXT_PUBLIC_SITE_URL }}" >> $GITHUB_ENV
             echo "BASE_URL=${{ vars.BASE_URL }}" >> $GITHUB_ENV
           fi
